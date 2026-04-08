@@ -1,0 +1,302 @@
+@font-face {
+    font-family: 'WeddingDay';
+    src: url('font/Weddingday.ttf') format('truetype');
+}
+
+/* Custom Styles for Wedding Invitation */
+
+/* Core CSS Animations for Cover (Self-Triggered) */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeInDown {
+    animation: fadeInDown 1.5s ease-out forwards;
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 1.5s ease-out forwards;
+}
+
+/* Ensure music widget is visible on mobile after invitation opens */
+@media (max-width: 767px) {
+    #musicToggle {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+}
+
+@media (min-width: 768px) {
+    #musicToggle {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+}
+
+
+
+/* Couple Section Background (Rotated for Mobile) */
+#couple {
+    position: relative;
+    overflow: hidden;
+    background-color: #000;
+}
+
+#couple::before {
+    content: '';
+    position: absolute;
+    /* Basic cover setup */
+    background-image: url('img/bg/bg1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transition: all 0.5s ease;
+}
+
+/* Mode Mobile: Rotasi 90 Derajat dengan Skala Stall */
+@media (max-width: 767px) {
+    #couple::before {
+        transform: rotate(90deg);
+        position: absolute;
+        
+        /* Menggunakan unit layar (vmax) agar stabil & menutupi seluruh area */
+        width: 300vmax; 
+        height: 300vmax;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+        
+        /* Pusatkan gambar agar menutupi atas (Groom) sampai bawah (Bride) */
+        margin-top: -150vmax;
+        margin-left: -150vmax;
+        
+        background-size: auto; 
+        background-repeat: repeat; 
+    }
+}
+
+/* Mode Desktop: Normal Horizontal */
+@media (min-width: 768px) {
+    #couple::before {
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transform: rotate(0deg);
+        background-attachment: fixed;
+    }
+}
+
+:root {
+    --navy: #000000;
+    --gold: #737373;
+    /* Muted Gray/Silver */
+    --soft: #ffffff;
+}
+
+body {
+    scroll-behavior: smooth;
+}
+
+/* Organic Shapes for Photos (Smooth & Modern) */
+.organic-shape {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transition: border-radius 1s ease-in-out;
+}
+
+.organic-shape2 {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 70%;
+    transition: border-radius 1s ease-in-out;
+}
+
+/* Hover effect for shapes */
+.organic-shape:hover,
+.organic-shape2:hover {
+    border-radius: 50% !important;
+}
+
+/* Smoother AOS animations */
+[data-aos] {
+    transition-duration: 1200ms !important;
+}
+
+/* Section Card styling */
+.section-card {
+    border: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--soft);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 10px;
+}
+
+/* Entrance Animation for Hero */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#cover h1,
+#cover h4,
+#cover p,
+#cover button {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+#cover h4 {
+    animation-delay: 0.2s;
+}
+
+#cover h1 {
+    animation-delay: 0.4s;
+}
+
+#cover p {
+    animation-delay: 0.6s;
+}
+
+#cover button {
+    animation-delay: 0.8s;
+}
+
+/* Pulse animation for social icons */
+.fab:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+
+/* Button glow effect and smooth transitions */
+button,
+.transition-all {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#openInvitation {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    animation: pulse 2s infinite;
+}
+
+/* Slideshow Styles for Cover */
+.slide-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+#cover.cover-out {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+/* Gallery Thumbnails Styling */
+#carouselThumbnails::-webkit-scrollbar {
+    display: none;
+}
+
+#carouselThumbnails {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-top: 15px; /* Added padding to prevent active thumb from being cut off */
+    padding-bottom: 10px;
+}
+
+.thumb-item {
+    width: 60px;
+    height: 85px;
+    flex-shrink: 0;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.5;
+}
+
+.thumb-item.active {
+    opacity: 1;
+    border-color: #F5A623;
+    transform: translateY(-10px) scale(1.1);
+}
+
+.thumb-item:hover {
+    opacity: 0.8;
+}
+
+.thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (min-width: 768px) {
+    .thumb-item {
+        width: 100px;
+        height: 140px;
+        border-radius: 16px;
+    }
+}
