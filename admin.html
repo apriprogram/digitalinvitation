@@ -406,6 +406,9 @@
                     <button class="admin-nav-button group" data-section="settings">
                         <i class="fas fa-cog text-slate-400 group-hover:text-indigo-600"></i> <span class="text-[13px]">Pengaturan</span>
                     </button>
+                    <button class="admin-nav-button group" data-section="lovestory">
+                        <i class="fas fa-heart text-slate-400 group-hover:text-indigo-600"></i> <span class="text-[13px]">Kisah Cinta</span>
+                    </button>
                 </div>
 
                 <!-- Section: Guest Management -->
@@ -1485,18 +1488,18 @@
             </article>
                         
                         <!-- Wedding Event Section -->
-                        <div class="bg-white card-premium overflow-hidden  border border-slate-100 mb-5 animate-in fade-in slide-in-from-top-4 duration-1000">
+                        <div class="bg-white card-premium overflow-hidden border border-slate-100 mb-5 animate-in fade-in slide-in-from-top-4 duration-1000">
                              <div class="px-4 py-3 sm:px-5 sm:py-3.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
                                  <div>
-                                     <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">Wedding Event & RSVP</h3>
-                                     <p class="text-slate-600 text-[11px] sm:text-xs font-semibold mt-0.5">Detail Acara & Konfirmasi Kehadiran</p>
+                                     <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">Pengaturan Section Acara</h3>
+                                     <p class="text-slate-600 text-[11px] sm:text-xs font-semibold mt-0.5">Detail Header & Harapan Kehadiran</p>
                                  </div>
                                  <button onclick="saveSettings()" class="btn-premium btn-primary !h-9 !px-6">
                                      SIMPAN
                                  </button>
                              </div>
                              <div class="p-6 bg-slate-50/20">
-                                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+                                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
                                      <!-- Column 1: Text Inputs -->
                                      <div class="space-y-4">
                                          <div class="space-y-2">
@@ -1509,37 +1512,12 @@
                                          </div>
                                      </div>
 
-                                     <!-- Column 2: Text Inputs -->
+                                     <!-- Column 2: RSVP Instruction (Kept here as it is the 'front' text) -->
                                      <div class="space-y-4">
                                          <div class="space-y-2">
                                              <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Teks Instruksi Konfirmasi (RSVP)</label>
                                              <textarea id="settingRsvpCaption" class="input-premium min-h-[80px] text-sm" placeholder="Cth: Mohon konfirmasikan kehadiran Anda..."></textarea>
                                              <p class="text-[9px] text-slate-400 italic px-1 mt-1">Muncul di atas tombol konfirmasi kehadiran.</p>
-                                         </div>
-                                     </div>
-
-                                     <!-- Column 3: Background Settings -->
-                                     <div class="lg:border-l lg:border-slate-100 lg:pl-8 space-y-4">
-                                         <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Background Kehadiran (RSVP)</label>
-                                         <div class="space-y-4">
-                                             <div class="space-y-2">
-                                                 <div class="flex items-center justify-between px-1">
-                                                     <span class="text-[11px] sm:text-xs font-semibold text-slate-600">Warna / Gradient</span>
-                                                     <input type="color" id="rsvpColorPicker" oninput="window.setRsvpBgPreset(this.value)" class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
-                                                 </div>
-                                                 <input type="text" id="settingRsvpBgColor" onchange="saveSettings()" class="input-premium font-mono text-[10px]" placeholder="Warna hex atau gradient">
-                                             </div>
-                                             <div class="space-y-2">
-                                                 <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Background Gambar</label>
-                                                 <div class="relative group aspect-square w-full max-w-[150px] mx-auto rounded-2xl overflow-hidden border-2 border-dashed border-slate-200 hover:border-indigo-400 transition-all bg-slate-50 ">
-                                                     <img id="rsvpBgPreview" class="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity">
-                                                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-4 text-center">
-                                                         <i class="fas fa-image text-slate-300 text-2xl mb-1"></i>
-                                                         <span class="text-[9px] font-semibold text-slate-600 uppercase">GANTI GAMBAR</span>
-                                                     </div>
-                                                     <input type="file" onchange="uploadSettingImg(this, 'rsvp_bg_img', 'rsvpBgPreview')" class="absolute inset-0 opacity-0 cursor-pointer">
-                                                 </div>
-                                             </div>
                                          </div>
                                      </div>
                                  </div>
@@ -1550,7 +1528,78 @@
                              <!-- Event Form components will be here after JS render -->
                         </div>
 
-                        <!-- Kisah Cinta (Love Story) Section -->
+                        <!-- Kado Digital (Bank Transfer & Fisik) -->
+                        <div class="bg-white card-premium overflow-hidden border border-slate-100 mb-5 animate-in fade-in slide-in-from-top-4 duration-700">
+                             <div class="px-4 py-3 sm:px-5 sm:py-3.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
+                                 <div>
+                                     <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">Kado Digital & Amplop</h3>
+                                     <p class="text-slate-600 text-[11px] sm:text-xs font-semibold mt-0.5">Kelola Transfer & Alamat Kado Fisik</p>
+                                 </div>
+                                 <button onclick="saveSettings()" class="btn-premium btn-primary !h-9 !px-6">
+                                     SIMPAN
+                                 </button>
+                             </div>
+                             <div class="p-6 bg-slate-50/20">
+                                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+                                     <!-- Column 1: Alamat Fisik -->
+                                     <div class="space-y-4">
+                                         <div class="space-y-2">
+                                             <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Alamat Pengiriman Kado Fisik</label>
+                                             <textarea id="giftPhysicalAddress" class="input-premium min-h-[100px] text-sm" placeholder="Masukkan alamat lengkap..."></textarea>
+                                         </div>
+                                         <button onclick="window.saveGiftAddress()" class="btn-premium btn-primary w-full py-2.5 text-xs">
+                                             Simpan Alamat
+                                         </button>
+                                     </div>
+
+                                     <!-- Column 2: Info/Guide -->
+                                     <div class="space-y-4">
+                                         <div class="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100/50">
+                                             <h5 class="text-xs font-bold text-indigo-900 mb-2">Panduan Kado Digital</h5>
+                                             <ul class="text-[11px] text-indigo-700 space-y-2">
+                                                 <li class="flex gap-2"><i class="fas fa-check-circle mt-0.5 opacity-60"></i> Gunakan tombol "TAMBAH BANK" di bawah untuk menambah opsi transfer.</li>
+                                                 <li class="flex gap-2"><i class="fas fa-check-circle mt-0.5 opacity-60"></i> Sesuaikan latar belakang section kado melalui panel di samping.</li>
+                                             </ul>
+                                         </div>
+                                     </div>
+
+                                     <!-- Column 3: Background Settings -->
+                                     <div class="lg:border-l lg:border-slate-100 lg:pl-8 space-y-4">
+                                         <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Background Kado Digital</label>
+                                         <div class="space-y-4">
+                                             <div class="space-y-2">
+                                                 <div class="flex items-center justify-between px-1">
+                                                     <span class="text-[11px] sm:text-xs font-semibold text-slate-600">Warna / Gradient</span>
+                                                     <input type="color" id="giftColorPicker" oninput="window.setGiftBgPreset(this.value)" class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
+                                                 </div>
+                                                 <input type="text" id="settingGiftBgColor" onchange="saveSettings()" class="input-premium font-mono text-[10px]" placeholder="Warna hex atau gradient">
+                                             </div>
+                                             <div class="space-y-2">
+                                                 <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Background Gambar</label>
+                                                 <div class="relative group aspect-square w-full max-w-[150px] mx-auto rounded-2xl overflow-hidden border-2 border-dashed border-slate-200 hover:border-indigo-400 transition-all bg-slate-50 ">
+                                                     <img id="giftBgPreview" class="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity">
+                                                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-4 text-center">
+                                                         <i class="fas fa-image text-slate-300 text-2xl mb-1"></i>
+                                                         <span class="text-[9px] font-semibold text-slate-600 uppercase">GANTI GAMBAR</span>
+                                                     </div>
+                                                     <input type="file" onchange="uploadSettingImg(this, 'gift_bg_img', 'giftBgPreview')" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                        </div>
+
+                        <div class="flex justify-end mb-6">
+                             <button onclick="window.addGiftItem()" class="btn-premium btn-primary !h-10 !px-6 whitespace-nowrap"><i class="fas fa-plus mr-2"></i> TAMBAH BANK</button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10" id="giftsContainer">
+                             <!-- Bank items rendered by JS -->
+                        </div>
+                    </section>
+
+                    <section id="lovestory" class="admin-section hidden pt-5">
                         <div class="bg-white card-premium overflow-hidden  border border-slate-100 mb-5 animate-in fade-in slide-in-from-bottom-4 duration-1000">
                              <div class="px-4 py-3 sm:px-5 sm:py-3.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
                                  <div class="flex items-center gap-3">
@@ -1663,136 +1712,8 @@
                              </div>
                         </div>
 
-                        <!-- Kado Digital (Bank Transfer & Fisik) -->
-                        <div class="bg-white card-premium overflow-hidden  border border-slate-100 mb-5 animate-in fade-in slide-in-from-top-4 duration-700">
-                             <div class="px-4 py-3 sm:px-5 sm:py-3.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
-                                 <div>
-                                     <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">Kado Digital & Amplop</h3>
-                                     <p class="text-slate-600 text-[11px] sm:text-xs font-semibold mt-0.5">Kelola Transfer & Alamat Kado Fisik</p>
-                                 </div>
-                                 <button onclick="saveSettings()" class="btn-premium btn-primary !h-9 !px-6">
-                                     SIMPAN
-                                 </button>
-                             </div>
-                             <div class="p-6 bg-slate-50/20">
-                                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-                                     <!-- Column 1: Alamat Fisik -->
-                                     <div class="space-y-4">
-                                         <div class="space-y-2">
-                                             <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Alamat Pengiriman Kado Fisik</label>
-                                             <textarea id="giftPhysicalAddress" class="input-premium min-h-[100px] text-sm" placeholder="Masukkan alamat lengkap..."></textarea>
-                                         </div>
-                                         <button onclick="window.saveGiftAddress()" class="btn-premium btn-primary w-full py-2.5 text-xs">
-                                             Simpan Alamat
-                                         </button>
-                                     </div>
 
-                                     <!-- Column 2: Info/Guide -->
-                                     <div class="space-y-4">
-                                         <div class="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100/50">
-                                             <h5 class="text-xs font-bold text-indigo-900 mb-2">Panduan Kado Digital</h5>
-                                             <ul class="text-[11px] text-indigo-700 space-y-2">
-                                                 <li class="flex gap-2"><i class="fas fa-check-circle mt-0.5 opacity-60"></i> Gunakan tombol "TAMBAH BANK" di bawah untuk menambah opsi transfer.</li>
-                                                 <li class="flex gap-2"><i class="fas fa-check-circle mt-0.5 opacity-60"></i> Sesuaikan latar belakang section kado melalui panel di samping.</li>
-                                             </ul>
-                                         </div>
-                                     </div>
-
-                                     <!-- Column 3: Background Settings -->
-                                     <div class="lg:border-l lg:border-slate-100 lg:pl-8 space-y-4">
-                                         <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Background Kado Digital</label>
-                                         <div class="space-y-4">
-                                             <div class="space-y-2">
-                                                 <div class="flex items-center justify-between px-1">
-                                                     <span class="text-[11px] sm:text-xs font-semibold text-slate-600">Warna / Gradient</span>
-                                                     <input type="color" id="giftColorPicker" oninput="window.setGiftBgPreset(this.value)" class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
-                                                 </div>
-                                                 <input type="text" id="settingGiftBgColor" onchange="saveSettings()" class="input-premium font-mono text-[10px]" placeholder="Warna hex atau gradient">
-                                             </div>
-                                             <div class="space-y-2">
-                                                 <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Background Gambar</label>
-                                                 <div class="relative group aspect-square w-full max-w-[150px] mx-auto rounded-2xl overflow-hidden border-2 border-dashed border-slate-200 hover:border-indigo-400 transition-all bg-slate-50 ">
-                                                     <img id="giftBgPreview" class="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity">
-                                                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-4 text-center">
-                                                         <i class="fas fa-image text-slate-300 text-2xl mb-1"></i>
-                                                         <span class="text-[9px] font-semibold text-slate-600 uppercase">GANTI GAMBAR</span>
-                                                     </div>
-                                                     <input type="file" onchange="uploadSettingImg(this, 'gift_bg_img', 'giftBgPreview')" class="absolute inset-0 opacity-0 cursor-pointer">
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                        </div>
-
-                        <div class="flex justify-end mb-6">
-                             <button onclick="window.addGiftItem()" class="btn-premium btn-primary !h-10 !px-6 whitespace-nowrap"><i class="fas fa-plus mr-2"></i> TAMBAH BANK</button>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10" id="giftsContainer">
-                             <!-- Bank items rendered by JS -->
-                        </div>
-
-                        <!-- Background Section Ucapan Card -->
-                        <div class="bg-white card-premium overflow-hidden  border border-slate-100 mb-5 animate-in fade-in slide-in-from-top-4 duration-700">
-                             <div class="px-4 py-3 sm:px-5 sm:py-3.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
-                                 <div>
-                                     <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">Background Section Ucapan</h3>
-                                     <p class="text-slate-600 text-[11px] sm:text-xs font-semibold mt-0.5">Warna atau Gambar untuk Section Ucapan</p>
-                                 </div>
-                                 <button onclick="saveSettings()" class="btn-premium btn-primary !h-9 !px-6">
-                                     SIMPAN
-                                 </button>
-                             </div>
-                             <div class="p-6 bg-slate-50/20">
-                                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-                                     <!-- Column 1: Mode Tampilan -->
-                                     <div class="space-y-4">
-                                         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                                             <h5 class="text-xs font-bold text-slate-900 mb-3">Mode Tampilan Background</h5>
-                                             <div class="flex items-center gap-3">
-                                                 <label class="relative inline-flex items-center cursor-pointer">
-                                                     <input id="settingWishesBgMode" type="checkbox" onchange="toggleWishesBgMode(this.checked)" class="sr-only peer">
-                                                     <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                                                 </label>
-                                                 <span class="text-xs font-semibold text-slate-600">Aktifkan Background Gambar</span>
-                                             </div>
-                                             <p class="text-[10px] text-slate-400 mt-2 italic">Jika mati, akan menggunakan warna di samping.</p>
-                                         </div>
-                                     </div>
-
-                                     <!-- Column 2: Info -->
-                                     <div class="space-y-4">
-                                         <p class="text-[11px] text-slate-400 italic px-1">Latar belakang ini berlaku untuk area pesan, doa, dan ucapan dari tamu undangan.</p>
-                                     </div>
-
-                                     <!-- Column 3: Background Settings -->
-                                     <div class="lg:border-l lg:border-slate-100 lg:pl-8 space-y-4">
-                                         <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Latar Belakang Ucapan</label>
-                                         <div class="space-y-4">
-                                             <div class="space-y-2">
-                                                 <div class="flex items-center justify-between px-1">
-                                                     <span class="text-[11px] sm:text-xs font-semibold text-slate-600">Warna / Gradient</span>
-                                                     <input type="color" id="wishesColorPicker" oninput="window.setWishesBgPreset(this.value)" class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
-                                                 </div>
-                                                 <input type="text" id="settingWishesBgColor" onchange="saveSettings()" class="input-premium font-mono text-[10px]" placeholder="Warna hex atau gradient">
-                                             </div>
-                                             <div class="space-y-2">
-                                                 <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Background Gambar</label>
-                                                 <div class="relative group aspect-square w-full max-w-[150px] mx-auto rounded-2xl overflow-hidden border-2 border-dashed border-slate-200 hover:border-indigo-400 transition-all bg-slate-50 ">
-                                                     <img id="wishesBgPreview" class="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity">
-                                                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-4 text-center">
-                                                         <i class="fas fa-image text-slate-300 text-2xl mb-1"></i>
-                                                         <span class="text-[11px] font-semibold text-slate-600 uppercase">GANTI GAMBAR</span>
-                                                     </div>
-                                                     <input type="file" onchange="uploadSettingImg(this, 'wishes_bg_img', 'wishesBgPreview')" class="absolute inset-0 opacity-0 cursor-pointer">
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                        </div>
+                    </section>
 
                     <!-- Guests Management Section -->
                     <section id="guests" class="admin-section hidden pt-5">
@@ -1975,6 +1896,54 @@
                                  </div>
                              </div>
                         </div>
+
+                        <!-- RSVP Background Settings -->
+                        <div class="bg-white card-premium overflow-hidden border border-slate-100 mb-8 animate-in fade-in slide-in-from-top-4 duration-1000">
+                             <div class="px-4 py-3 sm:px-5 sm:py-3.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
+                                 <div>
+                                     <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">Pengaturan Background RSVP</h3>
+                                     <p class="text-slate-600 text-[11px] sm:text-xs font-semibold mt-0.5">Warna atau Gambar untuk Section Kehadiran</p>
+                                 </div>
+                                 <button onclick="saveSettings()" class="btn-premium btn-primary !h-9 !px-6">
+                                     SIMPAN
+                                 </button>
+                             </div>
+                             <div class="p-6 bg-slate-50/20">
+                                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+                                     <!-- Column 1: Info -->
+                                     <div class="space-y-4">
+                                         <div class="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100/50">
+                                             <h5 class="text-xs font-bold text-indigo-900 mb-2">Panduan Background</h5>
+                                             <p class="text-[11px] text-indigo-700">Latar belakang ini akan muncul pada section konfirmasi kehadiran di website undangan Anda.</p>
+                                         </div>
+                                     </div>
+
+                                     <!-- Column 2: Background Settings -->
+                                     <div class="lg:border-l lg:border-slate-100 lg:pl-8 space-y-4">
+                                         <div class="space-y-4">
+                                             <div class="space-y-2">
+                                                 <div class="flex items-center justify-between px-1">
+                                                     <span class="text-[11px] sm:text-xs font-semibold text-slate-600">Warna / Gradient</span>
+                                                     <input type="color" id="rsvpColorPicker" oninput="window.setRsvpBgPreset(this.value)" class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
+                                                 </div>
+                                                 <input type="text" id="settingRsvpBgColor" onchange="saveSettings()" class="input-premium font-mono text-[10px]" placeholder="Warna hex atau gradient">
+                                             </div>
+                                             <div class="space-y-2">
+                                                 <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Background Gambar</label>
+                                                 <div class="relative group aspect-square w-full max-w-[150px] mx-auto rounded-2xl overflow-hidden border-2 border-dashed border-slate-200 hover:border-indigo-400 transition-all bg-slate-50 ">
+                                                     <img id="rsvpBgPreview" class="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity">
+                                                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-4 text-center">
+                                                         <i class="fas fa-image text-slate-300 text-2xl mb-1"></i>
+                                                         <span class="text-[9px] font-semibold text-slate-600 uppercase">GANTI GAMBAR</span>
+                                                     </div>
+                                                     <input type="file" onchange="uploadSettingImg(this, 'rsvp_bg_img', 'rsvpBgPreview')" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                        </div>
                         <div class="bg-white card-premium overflow-hidden">
                             <div class="px-8 py-5 bg-slate-100 border-b border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
                                 <div class="flex items-center gap-4">
@@ -2090,6 +2059,67 @@
                                  </div>
                              </div>
                         </div>
+                        <!-- Wishes Background Settings -->
+                        <div class="bg-white card-premium overflow-hidden border border-slate-100 mb-8 animate-in fade-in slide-in-from-top-4 duration-1000">
+                             <div class="px-4 py-3 sm:px-5 sm:py-3.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
+                                 <div>
+                                     <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">Pengaturan Background Ucapan</h3>
+                                     <p class="text-slate-600 text-[11px] sm:text-xs font-semibold mt-0.5">Warna atau Gambar untuk Section Ucapan</p>
+                                 </div>
+                                 <button onclick="saveSettings()" class="btn-premium btn-primary !h-9 !px-6">
+                                     SIMPAN
+                                 </button>
+                             </div>
+                             <div class="p-6 bg-slate-50/20">
+                                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+                                     <!-- Column 1: Mode Tampilan -->
+                                     <div class="space-y-4">
+                                         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                             <h5 class="text-xs font-bold text-slate-900 mb-3">Mode Tampilan Background</h5>
+                                             <div class="flex items-center gap-3">
+                                                 <label class="relative inline-flex items-center cursor-pointer">
+                                                     <input id="settingWishesBgMode" type="checkbox" onchange="toggleWishesBgMode(this.checked)" class="sr-only peer">
+                                                     <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                                 </label>
+                                                 <span class="text-xs font-semibold text-slate-600">Aktifkan Background Gambar</span>
+                                             </div>
+                                             <p class="text-[10px] text-slate-400 mt-2 italic">Jika mati, akan menggunakan warna di samping.</p>
+                                         </div>
+                                     </div>
+
+                                     <!-- Column 2: Info -->
+                                     <div class="space-y-4">
+                                         <p class="text-[11px] text-slate-400 italic px-1">Latar belakang ini berlaku untuk area pesan, doa, dan ucapan dari tamu undangan.</p>
+                                     </div>
+
+                                     <!-- Column 3: Background Settings -->
+                                     <div class="lg:border-l lg:border-slate-100 lg:pl-8 space-y-4">
+                                         <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Latar Belakang Ucapan</label>
+                                         <div class="space-y-4">
+                                             <div class="space-y-2">
+                                                 <div class="flex items-center justify-between px-1">
+                                                     <span class="text-[11px] sm:text-xs font-semibold text-slate-600">Warna / Gradient</span>
+                                                     <input type="color" id="wishesColorPicker" oninput="window.setWishesBgPreset(this.value)" class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
+                                                 </div>
+                                                 <input type="text" id="settingWishesBgColor" onchange="saveSettings()" class="input-premium font-mono text-[10px]" placeholder="Warna hex atau gradient">
+                                             </div>
+                                             <div class="space-y-2">
+                                                 <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Background Gambar</label>
+                                                 <div class="relative group aspect-square w-full max-w-[150px] mx-auto rounded-2xl overflow-hidden border-2 border-dashed border-slate-200 hover:border-indigo-400 transition-all bg-slate-50 ">
+                                                     <img id="wishesBgPreview" class="w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity">
+                                                     <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none p-4 text-center">
+                                                         <i class="fas fa-image text-slate-300 text-2xl mb-1"></i>
+                                                         <span class="text-[11px] font-semibold text-slate-600 uppercase">GANTI GAMBAR</span>
+                                                     </div>
+                                                     <input type="file" onchange="uploadSettingImg(this, 'wishes_bg_img', 'wishesBgPreview')" class="absolute inset-0 opacity-0 cursor-pointer">
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                        </div>
+
                         <div class="bg-white card-premium overflow-hidden">
                             <div class="px-6 sm:px-8 py-3.5 bg-slate-100 border-b border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
                                 <div class="flex items-center gap-3">

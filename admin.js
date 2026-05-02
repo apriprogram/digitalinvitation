@@ -24,7 +24,7 @@ const translations = {
     "login_id": "Email",
     "login_id_ph": "Masukkan email",
     "login_key": "Password",
-    "login_key_ph": "••••••••",
+    "login_key_ph": "Sandi / Password",
     "login_btn": "Login",
     "login_hint": "Kredensial bawaan:",
     "login_forgot": "Lupa password?",
@@ -330,6 +330,7 @@ window.showToast = function(message, type = 'success') {
 }
 
 function t(key, params = {}) {
+  if (!translations[currentLang]) return key;
   let str = translations[currentLang][key] || key;
   Object.keys(params).forEach(p => {
     str = str.replace(`{${p}}`, params[p]);
