@@ -66,7 +66,7 @@
     content: '';
     position: absolute;
     /* Basic cover setup */
-    background-image: url('img/bg/bg1.png');
+    background-image: var(--couple-bg, url('img/bg/bg1.png'));
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -74,25 +74,20 @@
     transition: all 0.5s ease;
 }
 
-/* Mode Mobile: Rotasi 90 Derajat dengan Skala Stall */
+/* Mode Mobile: background responsif tanpa ukuran ekstrim */
 @media (max-width: 767px) {
     #couple::before {
-        transform: rotate(90deg);
+        transform: rotate(0deg);
         position: absolute;
-        
-        /* Menggunakan unit layar (vmax) agar stabil & menutupi seluruh area */
-        width: 300vmax; 
-        height: 300vmax;
-        top: 50%;
-        left: 50%;
-        transform-origin: center;
-        
-        /* Pusatkan gambar agar menutupi atas (Groom) sampai bawah (Bride) */
-        margin-top: -150vmax;
-        margin-left: -150vmax;
-        
-        background-size: auto; 
-        background-repeat: repeat; 
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        margin: 0;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 }
 
@@ -157,6 +152,29 @@ body {
 ::-webkit-scrollbar-thumb {
     background: var(--gold);
     border-radius: 10px;
+}
+
+/* WhatsApp Chat Dark Scrollbar */
+.styling-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.styling-scrollbar::-webkit-scrollbar-track {
+    background: #0b141a;
+}
+
+.styling-scrollbar::-webkit-scrollbar-thumb {
+    background: #374045;
+    border-radius: 10px;
+}
+
+.styling-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #54696f;
+}
+
+.styling-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #374045 #0b141a;
 }
 
 /* Entrance Animation for Hero */
@@ -261,7 +279,8 @@ button,
 #carouselThumbnails {
     -ms-overflow-style: none;
     scrollbar-width: none;
-    padding-top: 15px; /* Added padding to prevent active thumb from being cut off */
+    padding-top: 19px;
+    /* Added padding to prevent active thumb from being cut off */
     padding-bottom: 10px;
 }
 
@@ -299,4 +318,97 @@ button,
         height: 140px;
         border-radius: 16px;
     }
+}
+
+/* Refined iOS-Style Glassmorphism Modal */
+#customModal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#customModal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    background: rgba(28, 28, 30, 0.82);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+    transform: scale(1.1);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    color: white;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+#customModal.active .modal-box {
+    transform: scale(1);
+}
+
+/* For closing animation */
+#customModal:not(.active) .modal-box {
+    transform: scale(0.9);
+}
+
+.modal-icon {
+    display: none; /* iOS style normally doesn't use large icons in alerts */
+}
+
+.modal-content-wrapper {
+    padding: 24px 16px 20px;
+}
+
+.modal-title {
+    font-family: 'Inter', 'Poppins', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+}
+
+.modal-message {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
+    font-weight: 400;
+}
+
+.modal-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-top: 0.5px solid rgba(255, 255, 255, 0.15);
+    padding: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    color: #F5A623;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.modal-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-btn:active {
+    background: rgba(255, 255, 255, 0.1);
 }

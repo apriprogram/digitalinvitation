@@ -1,0 +1,38 @@
+[
+  {
+    "key": "cover_title",
+    "value": "The Wedding "
+  },
+  {
+    "key": "cover_subtitle",
+    "value": "Of"
+  },
+  {
+    "key": "hero_name",
+    "value": "Rian & Aurora"
+  },
+  {
+    "key": "guest_prefix",
+    "value": "Kepada Yth. Bapak/Ibu/Saudara/i:"
+  },
+  {
+    "key": "guest_label",
+    "value": "Nama Tamu"
+  },
+  {
+    "key": "hero_button",
+    "value": "Buka Undangan"
+  },
+  {
+    "key": "rsvp_heading",
+    "value": "Kehadiran"
+  },
+  {
+    "key": "wishes_heading",
+    "value": "Wedding Wishes"
+  },
+  {
+    "key": "notification_retention",
+    "value": "0"
+  }
+]

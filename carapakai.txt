@@ -1,0 +1,5 @@
+Cara pakai
+Jalankan npm install
+Jalankan npm run migrate
+Jalankan npm start
+Buka http://localhost:3000/admin.html
