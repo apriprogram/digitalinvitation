@@ -251,6 +251,14 @@ async function initDb() {
 
 initDb();
 
+const requireAdmin = (req, res, next) => {
+  if (req.session.adminUser) {
+    next();
+  } else {
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+};
+
 async function queryAll(sql, params = []) {
   const [rows] = await db.query(sql, params);
   return rows;
@@ -265,14 +273,6 @@ async function runSql(sql, params = []) {
   const [result] = await db.query(sql, params);
   return { lastID: result.insertId, changes: result.affectedRows };
 }
-
-const requireAdmin = (req, res, next) => {
-  if (req.session.adminUser) {
-    next();
-  } else {
-    res.status(401).json({ error: 'Unauthorized' });
-  }
-};
 
 app.post('/api/admin/login', async (req, res) => {
   const { email, password } = req.body;
@@ -890,11 +890,11 @@ app.put('/api/admin/lovestory', requireAdmin, async (req, res) => {
     await runSql('START TRANSACTION');
     
     if (title !== undefined) {
-      await runSql('INSERT INTO lovestory_settings (key, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)', ['chat_title', title]);
+      await runSql('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)', ['chat_title', title]);
     }
 
     if (req.body.lovestory_bg !== undefined) {
-      await runSql('INSERT INTO lovestory_settings (key, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)', ['lovestory_bg', req.body.lovestory_bg]);
+      await runSql('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)', ['lovestory_bg', req.body.lovestory_bg]);
     }
     
     if (Array.isArray(messages)) {
@@ -932,7 +932,7 @@ app.post('/api/admin/lovestory/avatar/:role', requireAdmin, upload.single('image
   const { role } = req.params; // 'male' or 'female'
   const src = `/uploads/${req.file.filename}`;
   try {
-    await runSql('INSERT INTO lovestory_settings (key, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)', [`${role}_avatar`, src]);
+    await runSql('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)', [`${role}_avatar`, src]);
     res.json({ success: true, src });
   } catch (error) {
     console.error(error);
@@ -965,7 +965,7 @@ app.post('/api/admin/music/upload', requireAdmin, audioUpload.single('audio'), a
     }
 
     // 3. Save new path to DB
-    await runSql('INSERT INTO settings (key, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)', ['bg_music', src]);
+    await runSql('INSERT INTO settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)', ['bg_music', src]);
     res.json({ success: true, src });
   } catch (error) {
     console.error(error);
@@ -978,11 +978,10 @@ app.post('/api/admin/lovestory/messages', requireAdmin, async (req, res) => {
   if (!Array.isArray(messages)) return res.status(400).json({ error: 'Messages array required.' });
   try {
     await runSql('DELETE FROM lovestory');
-    const stmt = db.prepare('INSERT INTO lovestory (type, sender, message, time, date_label, order_no) VALUES (?, ?, ?, ?, ?, ?)');
-    messages.forEach((m, i) => {
-      stmt.run(m.type || 'chat', m.sender || '', m.message || '', m.time || '', m.date_label || '', i);
-    });
-    stmt.finalize();
+    for (let i = 0; i < messages.length; i++) {
+      const m = messages[i];
+      await runSql('INSERT INTO lovestory (type, sender, message, time, date_label, order_no) VALUES (?, ?, ?, ?, ?, ?)', [m.type || 'chat', m.sender || '', m.message || '', m.time || '', m.date_label || '', i]);
+    }
     res.json({ success: true });
   } catch (error) {
     console.error(error);
@@ -996,7 +995,7 @@ app.post('/api/admin/settings/upload', requireAdmin, upload.single('image'), asy
   const { setting_key } = req.body;
   try {
     if (setting_key) {
-      await runSql('INSERT INTO settings (key, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)', [setting_key, src]);
+      await runSql('INSERT INTO settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = VALUES(value)', [setting_key, src]);
     }
     res.json({ success: true, src });
   } catch (error) {
