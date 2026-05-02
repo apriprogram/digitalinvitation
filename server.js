@@ -266,14 +266,13 @@ async function runSql(sql, params = []) {
   return { lastID: result.insertId, changes: result.affectedRows };
 }
 
-async function ensureColumn(table, column, definition) {
-  const [rows] = await db.query(`SHOW COLUMNS FROM ${table} LIKE ?`, [column]);
-  if (rows.length === 0) {
-    await db.query(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
-    return true;
+const requireAdmin = (req, res, next) => {
+  if (req.session.adminUser) {
+    next();
+  } else {
+    res.status(401).json({ error: 'Unauthorized' });
   }
-  return false;
-}
+};
 
 app.post('/api/admin/login', async (req, res) => {
   const { email, password } = req.body;
@@ -451,16 +450,16 @@ app.get('/api/admin/pageviews', requireAdmin, async (req, res) => {
   try {
     const total = await queryGet('SELECT COUNT(*) AS count FROM page_views');
     const today = await queryGet(
-      `SELECT COUNT(*) AS count FROM page_views WHERE date(viewed_at) = date('now', 'localtime')`
+      `SELECT COUNT(*) AS count FROM page_views WHERE DATE(viewed_at) = CURDATE()`
     );
     const week = await queryGet(
-      `SELECT COUNT(*) AS count FROM page_views WHERE viewed_at >= datetime('now', '-7 days')`
+      `SELECT COUNT(*) AS count FROM page_views WHERE viewed_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)`
     );
     const unique = await queryGet(
       `SELECT COUNT(DISTINCT COALESCE(guest_token, ip)) AS count FROM page_views`
     );
     const daily = await queryAll(
-      `SELECT date(viewed_at) AS day, COUNT(*) AS count FROM page_views GROUP BY day ORDER BY day DESC LIMIT 7`
+      `SELECT DATE(viewed_at) AS day, COUNT(*) AS count FROM page_views GROUP BY day ORDER BY day DESC LIMIT 7`
     );
     res.json({ total: total.count, today: today.count, week: week.count, unique: unique.count, daily });
   } catch (error) {
@@ -482,7 +481,7 @@ app.post('/api/wishes', async (req, res) => {
     }
 
     const limitSetting = await queryGet("SELECT value FROM settings WHERE key = 'wishes_limit'");
-    const wishesLimit = parseInt(limitSetting?.value || '0', 10);
+    const wishesLimit = parseInt((limitSetting && limitSetting.value) || '0', 10);
     
     if (wishesLimit > 0) {
       const existingWishes = await queryGet('SELECT COUNT(*) as count FROM wishes WHERE guest_id = ?', [guest.id]);
