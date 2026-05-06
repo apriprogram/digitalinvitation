@@ -207,9 +207,17 @@ async function initDb() {
       description TEXT,
       parents TEXT,
       instagram TEXT,
+      instagram_link TEXT,
       image_src TEXT,
       order_no INT DEFAULT 0
     )`);
+
+    const [coupleRows] = await db.query("SELECT COUNT(*) as count FROM couple");
+    if (coupleRows[0].count === 0) {
+      await db.query("INSERT INTO couple (id, role, name, parents, instagram) VALUES (1, 'Mempelai Pria', 'Nama Mempelai Pria', 'Nama Ayah & Ibu', '@groom')");
+      await db.query("INSERT INTO couple (id, role, name, parents, instagram) VALUES (2, 'Mempelai Wanita', 'Nama Mempelai Wanita', 'Nama Ayah & Ibu', '@bride')");
+    }
+
 
     await db.query(`CREATE TABLE IF NOT EXISTS gallery_images (
       id INT PRIMARY KEY AUTO_INCREMENT,
@@ -237,6 +245,9 @@ async function initDb() {
     await ensureColumn('admin_users', 'email', 'VARCHAR(255)');
     await ensureColumn('admin_users', 'phone', 'VARCHAR(20)');
     await ensureColumn('admin_users', 'avatar', 'TEXT');
+    await ensureColumn('couple', 'image_src', 'TEXT');
+    await ensureColumn('couple', 'instagram_link', 'TEXT');
+
 
     // Robust Settings Migration
     try {
@@ -451,8 +462,17 @@ app.get('/api/admin/dashboard', requireAdmin, async (req, res) => {
     const settingsRows = await queryAll('SELECT `key`, value FROM settings');
     const settings = {};
     settingsRows.forEach((row) => (settings[row.key] = row.value));
-    res.json({ events, couple, guests, rsvps, wishes, settings });
+    
+    const gifts = await queryAll('SELECT * FROM gifts ORDER BY order_no ASC');
+    const gallery = await queryAll('SELECT * FROM gallery_images ORDER BY order_no ASC');
+    const lovestory = await queryAll('SELECT * FROM lovestory ORDER BY order_no ASC, id ASC');
+    const lsSettingsRows = await queryAll('SELECT `key`, value FROM lovestory_settings');
+    const lovestory_settings = {};
+    lsSettingsRows.forEach(r => { lovestory_settings[r.key] = r.value; });
+
+    res.json({ events, couple, guests, rsvps, wishes, settings, gifts, gallery, lovestory, lovestory_settings });
   } catch (error) {
+    console.error('Dashboard error:', error);
     res.status(500).json({ error: 'Failed to load dashboard.' });
   }
 });
@@ -505,6 +525,343 @@ app.delete('/api/admin/guests/:id', requireAdmin, async (req, res) => {
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: 'Delete failed' });
+  }
+});
+
+// GIFTS MANAGEMENT
+app.post('/api/admin/gifts', requireAdmin, async (req, res) => {
+  try {
+    const { bank_name, account_number, account_name, logo_src } = req.body;
+    const [lastOrder] = await db.query('SELECT MAX(order_no) as max_order FROM gifts');
+    const order_no = (lastOrder[0].max_order || 0) + 1;
+    const result = await runSql('INSERT INTO gifts (bank_name, account_number, account_name, logo_src, order_no) VALUES (?, ?, ?, ?, ?)', [bank_name, account_number, account_name, logo_src, order_no]);
+    res.json({ success: true, gift: { id: result.lastID, bank_name, account_number, account_name, logo_src, order_no } });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create gift' });
+  }
+});
+
+app.put('/api/admin/gifts/:id', requireAdmin, async (req, res) => {
+  try {
+    const { bank_name, account_number, account_name, logo_src } = req.body;
+    await runSql('UPDATE gifts SET bank_name = ?, account_number = ?, account_name = ?, logo_src = ? WHERE id = ?', [bank_name, account_number, account_name, logo_src, req.params.id]);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Update failed' });
+  }
+});
+
+app.delete('/api/admin/gifts/:id', requireAdmin, async (req, res) => {
+  try {
+    await runSql('DELETE FROM gifts WHERE id = ?', [req.params.id]);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Delete failed' });
+  }
+});
+
+app.post('/api/admin/gifts/:id/logo', requireAdmin, upload.single('image'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
+  const src = `/uploads/${req.file.filename}`;
+  try {
+    await runSql('UPDATE gifts SET logo_src = ? WHERE id = ?', [src, req.params.id]);
+    res.json({ success: true, src });
+  } catch (error) {
+    res.status(500).json({ error: 'Upload failed' });
+  }
+});
+
+app.post('/api/admin/gifts/reorder', requireAdmin, async (req, res) => {
+  const { ids } = req.body;
+  const conn = await db.getConnection();
+  try {
+    await conn.beginTransaction();
+    for (let i = 0; i < ids.length; i++) {
+      await conn.query('UPDATE gifts SET order_no = ? WHERE id = ?', [i, ids[i]]);
+    }
+    await conn.commit();
+    res.json({ success: true });
+  } catch (error) {
+    await conn.rollback();
+    res.status(500).json({ error: error.message });
+  } finally {
+    conn.release();
+  }
+});
+
+// LOVESTORY MANAGEMENT
+app.get('/api/admin/lovestory', requireAdmin, async (req, res) => {
+  try {
+    const messages = await queryAll('SELECT * FROM lovestory ORDER BY order_no ASC, id ASC');
+    const settingsRows = await queryAll('SELECT `key`, value FROM lovestory_settings');
+    const settings = {};
+    settingsRows.forEach(r => { settings[r.key] = r.value; });
+    
+    const formattedSettings = {
+        title: settings.ls_title || '',
+        male_avatar: settings.ls_male_avatar || '',
+        female_avatar: settings.ls_female_avatar || '',
+        lovestory_bg: settings.lovestory_bg || '',
+        lovestory_card_bg: settings.lovestory_card_bg || ''
+    };
+
+    res.json({ messages, settings: formattedSettings });
+  } catch (error) {
+    console.error('Fetch lovestory error:', error);
+    res.status(500).json({ error: 'Failed to fetch love story' });
+  }
+});
+
+app.put('/api/admin/lovestory', requireAdmin, async (req, res) => {
+  const { title, lovestory_bg, lovestory_card_bg, messages } = req.body;
+  const conn = await db.getConnection();
+  try {
+    await conn.beginTransaction();
+    
+    // Update settings
+    await conn.query('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = ?', ['ls_title', title, title]);
+    if (lovestory_bg !== undefined) await conn.query('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = ?', ['lovestory_bg', lovestory_bg, lovestory_bg]);
+    if (lovestory_card_bg !== undefined) await conn.query('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = ?', ['lovestory_card_bg', lovestory_card_bg, lovestory_card_bg]);
+
+    // Update messages
+    if (Array.isArray(messages)) {
+      await conn.query('DELETE FROM lovestory');
+      for (let i = 0; i < messages.length; i++) {
+        const m = messages[i];
+        await conn.query('INSERT INTO lovestory (type, sender, message, time, date_label, order_no) VALUES (?, ?, ?, ?, ?, ?)', 
+          [m.type || 'chat', m.sender || '', m.message || '', m.time || '', m.date_label || '', i]);
+      }
+    }
+
+    await conn.commit();
+    res.json({ success: true });
+  } catch (error) {
+    await conn.rollback();
+    console.error('Lovestory update error:', error);
+    res.status(500).json({ error: 'Failed to update love story' });
+  } finally {
+    conn.release();
+  }
+});
+
+app.post('/api/admin/lovestory/avatar/:role', requireAdmin, upload.single('image'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
+  const src = `/uploads/${req.file.filename}`;
+  const role = req.params.role;
+  const key = role === 'male' ? 'ls_male_avatar' : 'ls_female_avatar';
+  try {
+    await runSql('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = ?', [key, src, src]);
+    res.json({ success: true, src });
+  } catch (error) {
+    res.status(500).json({ error: 'Upload failed' });
+  }
+});
+
+app.get('/api/admin/pageviews', requireAdmin, async (req, res) => {
+  try {
+    const total = await queryGet('SELECT COUNT(*) as count FROM page_views');
+    const unique = await queryGet('SELECT COUNT(DISTINCT guest_token) as count FROM page_views');
+    const today = await queryGet('SELECT COUNT(*) as count FROM page_views WHERE viewed_at LIKE ?', [new Date().toISOString().split('T')[0] + '%']);
+    res.json({ total: total.count, unique: unique.count, today: today.count });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch page views' });
+  }
+});
+
+app.get('/api/admin/pageviews', requireAdmin, async (req, res) => {
+  try {
+    const total = await queryGet('SELECT COUNT(*) as count FROM page_views');
+    const unique = await queryGet('SELECT COUNT(DISTINCT guest_token) as count FROM page_views');
+    const today = await queryGet('SELECT COUNT(*) as count FROM page_views WHERE viewed_at LIKE ?', [new Date().toISOString().split('T')[0] + '%']);
+    res.json({ total: total ? total.count : 0, unique: unique ? unique.count : 0, today: today ? today.count : 0 });
+  } catch (error) {
+    console.error('Pageviews error:', error);
+    res.status(500).json({ error: 'Failed to fetch page views' });
+  }
+});
+
+// EVENTS MANAGEMENT
+app.post('/api/admin/events', requireAdmin, async (req, res) => {
+  try {
+    const { name, heading, time, date, date_iso, location_name, address, map_src, map_link } = req.body;
+    const [lastOrder] = await db.query('SELECT MAX(order_no) as max_order FROM events');
+    const order_no = (lastOrder[0].max_order || 0) + 1;
+    const result = await runSql('INSERT INTO events (name, heading, time, date, date_iso, location_name, address, map_src, map_link, order_no) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+      [name, heading, time, date, date_iso, location_name, address, map_src, map_link, order_no]);
+    res.json({ success: true, event: { id: result.lastID, name, heading, time, date, date_iso, location_name, address, map_src, map_link, order_no } });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create event' });
+  }
+});
+
+app.put('/api/admin/events/:id', requireAdmin, async (req, res) => {
+  try {
+    const { name, heading, time, date, date_iso, location_name, address, map_src, map_link } = req.body;
+    await runSql('UPDATE events SET name = ?, heading = ?, time = ?, date = ?, date_iso = ?, location_name = ?, address = ?, map_src = ?, map_link = ? WHERE id = ?', 
+      [name, heading, time, date, date_iso, location_name, address, map_src, map_link, req.params.id]);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Update failed' });
+  }
+});
+
+app.delete('/api/admin/events/:id', requireAdmin, async (req, res) => {
+  try {
+    await runSql('DELETE FROM events WHERE id = ?', [req.params.id]);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Delete failed' });
+  }
+});
+
+app.post('/api/admin/events/:id/icon', requireAdmin, upload.single('image'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
+  const src = `/uploads/${req.file.filename}`;
+  try {
+    await runSql('UPDATE events SET icon_src = ? WHERE id = ?', [src, req.params.id]);
+    res.json({ success: true, src });
+  } catch (error) {
+    res.status(500).json({ error: 'Upload failed' });
+  }
+});
+
+// COUPLE MANAGEMENT
+app.put('/api/admin/couple/:id', requireAdmin, async (req, res) => {
+  try {
+    const { role, name, description, parents, instagram, instagram_link, image_src } = req.body;
+    const id = req.params.id;
+    
+    // Standard UPDATE since we ensured rows 1 & 2 exist in initDb
+    const sql = `UPDATE couple SET 
+      role = ?, 
+      name = ?, 
+      description = ?, 
+      parents = ?, 
+      instagram = ?, 
+      instagram_link = ?, 
+      image_src = ? 
+      WHERE id = ?`;
+    
+    const params = [
+      role || '', 
+      name || '', 
+      description || '', 
+      parents || '', 
+      instagram || '', 
+      instagram_link || '', 
+      image_src || '', 
+      id
+    ];
+    
+    await runSql(sql, params);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Update couple error:', error);
+    res.status(500).json({ 
+      error: 'Update failed', 
+      detail: error.message,
+      code: error.code
+    });
+  }
+});
+
+
+
+
+app.post('/api/admin/couple/:id/photo', requireAdmin, upload.single('image'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
+  const src = `/uploads/${req.file.filename}`;
+  try {
+    await runSql('UPDATE couple SET image_src = ? WHERE id = ?', [src, req.params.id]);
+    res.json({ success: true, src });
+  } catch (error) {
+    res.status(500).json({ error: 'Upload failed' });
+  }
+});
+
+// GALLERY MANAGEMENT
+app.post('/api/admin/gallery', requireAdmin, upload.single('image'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
+  const src = `/uploads/${req.file.filename}`;
+  const { alt } = req.body;
+  try {
+    const [lastOrder] = await db.query('SELECT MAX(order_no) as max_order FROM gallery_images');
+    const order_no = (lastOrder[0].max_order || 0) + 1;
+    const result = await runSql('INSERT INTO gallery_images (src, alt, order_no) VALUES (?, ?, ?)', [src, alt || '', order_no]);
+    res.json({ success: true, image: { id: result.lastID, src, alt, order_no } });
+  } catch (error) {
+    res.status(500).json({ error: 'Gallery upload failed' });
+  }
+});
+
+app.put('/api/admin/gallery/:id/meta', requireAdmin, upload.single('image'), async (req, res) => {
+  try {
+    const { alt } = req.body;
+    if (req.file) {
+      const src = `/uploads/${req.file.filename}`;
+      await runSql('UPDATE gallery_images SET src = ?, alt = ? WHERE id = ?', [src, alt || '', req.params.id]);
+    } else {
+      await runSql('UPDATE gallery_images SET alt = ? WHERE id = ?', [alt || '', req.params.id]);
+    }
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Update failed' });
+  }
+});
+
+app.post('/api/admin/gallery/reorder', requireAdmin, async (req, res) => {
+  const { sequence } = req.body;
+  const conn = await db.getConnection();
+  try {
+    await conn.beginTransaction();
+    for (let i = 0; i < sequence.length; i++) {
+      await conn.query('UPDATE gallery_images SET order_no = ? WHERE id = ?', [i, sequence[i]]);
+    }
+    await conn.commit();
+    res.json({ success: true });
+  } catch (error) {
+    await conn.rollback();
+    res.status(500).json({ error: error.message });
+  } finally {
+    conn.release();
+  }
+});
+
+app.delete('/api/admin/gallery/:id', requireAdmin, async (req, res) => {
+  try {
+    await runSql('DELETE FROM gallery_images WHERE id = ?', [req.params.id]);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Delete failed' });
+  }
+});
+
+// RSVPS & WISHES MANAGEMENT
+app.delete('/api/admin/rsvps/:id', requireAdmin, async (req, res) => {
+  try {
+    await runSql('DELETE FROM rsvps WHERE id = ?', [req.params.id]);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Delete failed' });
+  }
+});
+
+app.delete('/api/admin/wishes/:id', requireAdmin, async (req, res) => {
+  try {
+    await runSql('DELETE FROM wishes WHERE id = ?', [req.params.id]);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Delete failed' });
+  }
+});
+
+app.post('/api/admin/wishes/:id/reply', requireAdmin, async (req, res) => {
+  const { reply } = req.body;
+  try {
+    await runSql('UPDATE wishes SET reply = ?, replied_at = ? WHERE id = ?', [reply, new Date().toISOString(), req.params.id]);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Reply failed' });
   }
 });
 

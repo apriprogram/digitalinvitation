@@ -50,16 +50,16 @@
             
             <!-- Bagian Atas: Informasi Pernikahan (Menggunakan Animasi CSS Murni) -->
             <div class="animate-fadeInDown">
-                <h4 id="coverTitle" class="font-script text-3xl mb-2 italic">The Wedding</h4>
-                <h4 id="coverSubtitle" class="font-sans text-[15px] md:text-xs mb-2 italic text-white/70">0f</h4>
-                <h1 id="heroName" class="font-script text-6xl md:text-8xl mb-6 tracking-wide drop-shadow-2xl">Riandino & Aurora</h1>
+                <h4 id="coverTitle" class="font-script text-3xl mb-2 italic">-</h4>
+                <h4 id="coverSubtitle" class="font-sans text-[15px] md:text-xs mb-2 italic text-white/70">-</h4>
+                <h1 id="heroName" class="font-script text-6xl md:text-8xl mb-6 tracking-wide drop-shadow-2xl">-</h1>
             </div>
 
             <!-- Bagian Bawah: Nama Tamu & Tombol (Menggunakan Animasi CSS Murni) -->
             <div class="animate-fadeInUp" style="animation-delay: 0.5s;">
                 <div class="mb-10">
-                    <p id="guestPrefix" class="font-sans text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/70 mb-4">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
-                    <h2 id="guestName" class="font-script text-5xl md:text-7xl text-white drop-shadow-2xl mb-8">Nama Tamu</h2>
+                    <p id="guestPrefix" class="font-sans text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/70 mb-4">-</p>
+                    <h2 id="guestName" class="font-script text-5xl md:text-7xl text-white drop-shadow-2xl mb-8">-</h2>
                 </div>
 
                 <button id="openInvitation" class="bg-white/10 backdrop-blur-md border border-white/30 text-white font-sans uppercase tracking-[0.2em] px-6 py-2.5 md:px-10 md:py-4 rounded-full hover:bg-white hover:text-black transition-all duration-500 shadow-2xl text-[10px] md:text-sm font-bold inline-flex items-center gap-2 md:gap-3">
@@ -147,30 +147,40 @@
                 <div class="grid md:grid-cols-2 gap-20 items-start">
                     <!-- Groom -->
                     <div class="text-center md:text-right" data-aos="fade-right">
-                        <div class="organic-shape w-64 h-80 mx-auto md:mr-0 mb-10 overflow-hidden shadow-2xl transition-all duration-700">
-                            <img id="groomImage" src="img/rian.jpeg" alt="Riandino" class="w-full h-full object-cover">
+                        <div class="organic-shape w-64 h-80 mx-auto md:mr-0 mb-10 overflow-hidden shadow-2xl transition-all duration-700 bg-slate-900/50 flex items-center justify-center relative">
+                            <img id="groomImage" src="img/rian.jpeg" alt="Riandino" class="w-full h-full object-cover z-10 transition-opacity duration-500">
+                            <div id="groomPlaceholder" class="absolute inset-0 flex items-center justify-center text-white/40">
+                                <i class="fas fa-mars text-7xl"></i>
+                            </div>
+
                         </div>
+
                         <p id="groomTitle" class="font-script text-4xl text-[#F5A623] mb-3">The Groom</p>
                         <h2 id="groomName" class="font-serif text-lg md:text-2xl italic mb-1 tracking-tight whitespace-nowrap drop-shadow-md">Riandino Oginta Tarigan, A.Md.</h2>
                         <p id="groomParents" class="font-sans text-[10px] md:text-sm text-white/80 mb-4 font-medium italic  border-white/10 pt-1 inline-block md:block">Putra dari<br>Bapak Drs. Tampe Malem Tarigan & Ibu Toberina Surbakti</p>
                         <div class="flex justify-center md:justify-end">
-                            <a href="https://www.instagram.com/ryan_tarigan?igsh=aDM5ZnZqbXV5OGtm" target="_blank" class="bg-white/5 backdrop-blur-sm border border-white/20 px-6 py-2 rounded-full flex items-center gap-3 text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 group shadow-lg">
-                                <i class="fab fa-instagram text-xl text-[#F5A623] group-hover:scale-110 transition-transform"></i>
+                            <a id="groomInstagramLink" href="https://www.instagram.com/ryan_tarigan?igsh=aDM5ZnZqbXV5OGtm" target="_blank" class="bg-white/5 backdrop-blur-sm border border-white/20 px-6 py-2 rounded-full flex items-center gap-3 text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 group shadow-lg">
+                                <i class="fab fa-instagram text-xl text-[#F5A623] transition-transform"></i>
                                 <span id="groomInstagram" class="font-sans text-[11px] uppercase tracking-[0.2em] opacity-80 group-hover:opacity-100">@ryan_tarigan</span>
                             </a>
                         </div>
                     </div>
                     <!-- Bride -->
                     <div class="text-center md:text-left" data-aos="fade-left">
-                        <div class="organic-shape2 w-64 h-80 mx-auto md:ml-0 mb-10 overflow-hidden shadow-2xl transition-all duration-700">
-                            <img id="brideImage" src="img/aurora.jpeg" alt="Aurora" class="w-full h-full object-cover">
+                        <div class="organic-shape2 w-64 h-80 mx-auto md:ml-0 mb-10 overflow-hidden shadow-2xl transition-all duration-700 bg-rose-900/50 flex items-center justify-center relative">
+                            <img id="brideImage" src="img/aurora.jpeg" alt="Aurora" class="w-full h-full object-cover z-10 transition-opacity duration-500">
+                            <div id="bridePlaceholder" class="absolute inset-0 flex items-center justify-center text-white/60">
+                                <i class="fas fa-venus text-7xl"></i>
+                            </div>
+
                         </div>
+
                         <p id="brideTitle" class="font-script text-4xl text-[#F5A623] mb-3">The Bride</p>
                         <h2 id="brideName" class="font-serif text-lg md:text-2xl italic mb-1 tracking-tight whitespace-nowrap drop-shadow-md">Aurora Picessa Brahmana, A.Md.</h2>
                         <p id="brideParents" class="font-sans text-[10px] md:text-sm text-white/80 mb-4 font-medium italic border-white/10 pt-1 inline-block md:block">Putri dari<br>Bapak Ir. Marthin Luther Brahmana & Ibu Ir. Roslila Br Perangin-angin</p>
                         <div class="flex justify-center md:justify-start">
-                            <a href="https://www.instagram.com/aurorapcsa?igsh=czd6YTlhYmRkeDJ1" target="_blank" class="bg-white/5 backdrop-blur-sm border border-white/20 px-6 py-2 rounded-full flex items-center gap-3 text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 group shadow-lg">
-                                <i class="fab fa-instagram text-xl text-[#F5A623] group-hover:scale-110 transition-transform"></i>
+                            <a id="brideInstagramLink" href="https://www.instagram.com/aurorapcsa?igsh=czd6YTlhYmRkeDJ1" target="_blank" class="bg-white/5 backdrop-blur-sm border border-white/20 px-6 py-2 rounded-full flex items-center gap-3 text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 group shadow-lg">
+                                <i class="fab fa-instagram text-xl text-[#F5A623] transition-transform"></i>
                                 <span id="brideInstagram" class="font-sans text-[11px] uppercase tracking-[0.2em] opacity-80 group-hover:opacity-100">@aurorapcsa</span>
                             </a>
                         </div>
@@ -183,13 +193,11 @@
         <section class="relative h-[80vh] md:h-screen overflow-hidden" id="gallery">
             <!-- Floating Title Overlay Container -->
             <div class="absolute top-12 left-1/2 -translate-x-1/2 z-30 pointer-events-none whitespace-nowrap text-center">
-                <div class="mb-2 text-[#F5A623]/50" data-aos="fade-down" data-aos-duration="1000">
-                    <i class="fas fa-images text-2xl md:text-3xl"></i>
-                </div>
-                <h3 class="font-script text-5xl md:text-7xl text-white tracking-wide text-center" data-aos="fade-down" data-aos-duration="1500">
+                <h3 id="galleryTitle" class="font-script text-5xl md:text-7xl text-white tracking-wide text-center" data-aos="fade-down" data-aos-duration="1500">
                     Sweet Moments
                 </h3>
             </div>
+
             
             <div class="h-full w-full relative group">
                 <!-- Carousel Track -->
@@ -227,92 +235,14 @@
                 </div>
 
                 <!-- Grid Layout for Events (Using Poppins/Sans) -->
-                <div class="grid md:grid-cols-2 gap-16 md:gap-24 w-full text-center">
-                    
-                    <!-- Pemberkatan -->
-                    <div class="flex flex-col items-center group w-full" data-aos="fade-up" data-aos-delay="100">
-                        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-white/20 flex items-center justify-center mb-6 group-hover:border-white transition-colors duration-500 bg-white/5 backdrop-blur-sm">
-                            <img id="event1Icon" src="img/icon/Gereja.png" class="w-8 h-8 md:w-10 md:h-10 object-contain filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity duration-500" alt="Church Icon">
-                        </div>
-                        <h4 id="event1Heading" class="font-sans font-semibold uppercase tracking-[0.25em] text-lg md:text-xl mb-6 pb-3 border-b border-white/20 text-[#F5A623]">Pemberkatan</h4>
-                        <p id="event1Time" class="font-sans font-medium text-white/90 text-xl md:text-2xl mb-2">14.00 WIB - Selesai</p>
-                        <p id="event1Date" class="font-sans font-light text-white/60 mb-8 tracking-wider text-base md:text-lg">Jumat, 26 Juni 2026</p>
-                        <div id="event1Location" class="font-sans font-medium text-[#F5A623] uppercase tracking-[0.15em] bg-white/10 py-3 px-8 rounded-full border border-white/20 text-sm flex items-center justify-center">
-                           GBKP Rg. Km. 7 Pd. Bulan Medan
-                        </div>
-                        <p id="event1Address" class="font-sans font-light text-white/60 mt-4 tracking-wider text-xs md:text-sm">Jl. Jamin Ginting Km.7 No.47, Kwala Bekala, Kec. Medan Johor, Kota Medan, Sumatera Utara 20142</p>
-                        <div class="mt-8 w-full h-48 md:h-64 rounded-xl overflow-hidden border border-white/20">
-                            <iframe id="event1Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3982.206084629991!2d98.6537243!3d3.5398614000000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3031255611ea18e3%3A0x343e62a412350a87!2sGBKP%20Km%207%20Padang%20Bulan%20Medan!5e0!3m2!1sid!2sid!4v1775397763145!5m2!1sid!2sid" width="100%" height="100%" style="border:0; filter: invert(100%) hue-rotate(180deg) contrast(90%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                        <a id="event1Link" href="https://maps.app.goo.gl/vzLpascwksoDEuVm7?g_st=iw" target="_blank" class="mt-6 inline-flex items-center justify-center gap-3 bg-white/10 text-white border border-white/40 px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-500 uppercase tracking-widest text-xs font-sans font-semibold group">
-                            <i class="fa-solid fa-map-location-dot group-hover:scale-110 transition-transform duration-300"></i>
-                            <span>Lihat Lokasi</span>
-                        </a>
-                    </div>
-
-                    <!-- Resepsi -->
-                    <div class="flex flex-col items-center group w-full" data-aos="fade-up" data-aos-delay="300">
-                        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-white/20 flex items-center justify-center mb-6 group-hover:border-white transition-colors duration-500 bg-white/5 backdrop-blur-sm">
-                            <img id="event2Icon" src="img/icon/Traditional%20Batak%20house%20icon.png" class="w-8 h-8 md:w-10 md:h-10 object-contain filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity duration-500" alt="Church Icon">
-                        </div>
-                        <h4 id="event2Heading" class="font-sans font-semibold uppercase tracking-[0.25em] text-lg md:text-xl mb-6 pb-3 border-b border-white/20 text-[#F5A623]">Resepsi</h4>
-                        <p id="event2Time" class="font-sans font-medium text-white/90 text-xl md:text-2xl mb-2">07.00 WIB - Selesai</p>
-                        <p id="event2Date" class="font-sans font-light text-white/60 mb-8 tracking-wider text-base md:text-lg">Sabtu, 27 Juni 2026</p>
-                        <div id="event2Location" class="font-sans font-medium text-[#F5A623] uppercase tracking-[0.15em] bg-white/10 py-3 px-8 rounded-full border border-white/20 text-sm flex items-center justify-center">
-                            Jambur Namaken
-                        </div>
-                        <p id="event2Address" class="font-sans font-light text-white/60 mt-4 tracking-wider text-xs md:text-sm">JL Letjen Jamin Ginting No, Gg. Jati No.30, Beringin, Kec. Medan Selayang, Kota Medan, Sumatera Utara 20146</p>
-                        <div class="mt-8 w-full h-48 md:h-64 rounded-xl overflow-hidden border border-white/20">
-                            <iframe id="event2Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4780.704822897254!2d98.65595449999999!3d3.5430652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30312542d2aff341%3A0x3b57f9377202258c!2sJambur%20Namaken!5e0!3m2!1sid!2sid!4v1775398275336!5m2!1sid!2sid" width="100%" height="100%" style="border:0; filter: invert(100%) hue-rotate(180deg) contrast(90%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                        <a id="event2Link" href="https://maps.app.goo.gl/YHzKoe1XCCaV65mp7?g_st=iw" target="_blank" class="mt-6 inline-flex items-center justify-center gap-3 bg-white/10 text-white border border-white/40 px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-500 uppercase tracking-widest text-xs font-sans font-semibold group">
-                            <i class="fa-solid fa-map-location-dot group-hover:scale-110 transition-transform duration-300"></i>
-                            <span>Lihat Lokasi</span>
-                        </a>
-                    </div>
-
+                <div id="eventsGrid" class="grid md:grid-cols-2 gap-16 md:gap-24 w-full text-center">
+                    <!-- Events will be dynamically injected here -->
                 </div>
                 
             </div>
         </section>
         
-        <!-- Couple Section -->
-        <section id="couple" class="py-24 px-6 relative overflow-hidden" style="background: url('img/mafia10.jpeg') center/cover no-repeat fixed;">
-            <div class="absolute inset-0 bg-black/85"></div>
-            <div class="container mx-auto max-w-5xl relative z-10" data-aos="fade-up">
-                <div class="text-center mb-16">
-                    <h3 id="coupleSectionTitle" class="font-script text-6xl md:text-8xl text-[#F5A623]">Bride & Groom</h3>
-                </div>
-                <div class="grid md:grid-cols-2 gap-16 md:gap-24">
-                    <!-- Groom -->
-                    <div class="flex flex-col items-center text-center" data-aos="fade-right">
-                        <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-[#F5A623]/30 shadow-2xl mb-8">
-                            <img id="groomImage" src="img/rian.jpeg" class="w-full h-full object-cover" alt="Groom">
-                        </div>
-                        <h4 id="groomTitle" class="font-script text-3xl text-[#F5A623] mb-2">The Groom</h4>
-                        <h3 id="groomName" class="font-sans font-bold text-2xl text-white mb-4">Riandino Oginta Tarigan, A.Md.</h3>
-                        <p id="groomParents" class="font-sans text-sm text-white/60 whitespace-pre-line mb-6">Putra dari
-Bapak Drs. Tampe Malem Tarigan & Ibu Toberina Surbakti</p>
-                        <a id="groomInstagram" href="#" target="_blank" class="text-[#F5A623] hover:text-white transition-colors">
-                            <i class="fab fa-instagram mr-2"></i> @ryan_tarigan
-                        </a>
-                    </div>
-                    <!-- Bride -->
-                    <div class="flex flex-col items-center text-center" data-aos="fade-left">
-                        <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-[#F5A623]/30 shadow-2xl mb-8">
-                            <img id="brideImage" src="img/aurora.jpeg" class="w-full h-full object-cover" alt="Bride">
-                        </div>
-                        <h4 id="brideTitle" class="font-script text-3xl text-[#F5A623] mb-2">The Bride</h4>
-                        <h3 id="brideName" class="font-sans font-bold text-2xl text-white mb-4">Aurora Picessa Brahmana, A.Md.</h3>
-                        <p id="brideParents" class="font-sans text-sm text-white/60 whitespace-pre-line mb-6">Putri dari
-Bapak Ir. Marthin Luther Brahmana & Ibu Ir. Roslila Br Perangin-angin</p>
-                        <a id="brideInstagram" href="#" target="_blank" class="text-[#F5A623] hover:text-white transition-colors">
-                            <i class="fab fa-instagram mr-2"></i> @aurorapcsa
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <!-- Love Story / Kisah Pertemuan -->
         <section class="relative min-h-screen py-20 px-4 md:px-6 flex flex-col justify-center items-center overflow-hidden" id="lovestory" style="background: url('img/mafia10.jpeg') center/cover no-repeat fixed;">

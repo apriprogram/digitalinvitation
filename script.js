@@ -56,8 +56,12 @@ window.closeModal = closeModal;
 
 function safeText(id, value) {
     const el = document.getElementById(id);
-    if (el) el.innerText = value;
+    if (el) {
+        // If it's a specific field like name or parents, and it's empty, use '-'
+        el.innerText = (value && value.trim() !== '') ? value : '-';
+    }
 }
+
 
 function safeHref(id, value) {
     const el = document.getElementById(id);
@@ -85,14 +89,14 @@ async function loadPublicData() {
         const guest = data.guest || null;
 
         currentGuest = guest;
-        safeText('coverTitle', settings.cover_title || 'The Wedding');
-        safeText('coverSubtitle', settings.cover_subtitle || 'Of');
-        safeText('heroName', settings.hero_name || 'Riandino & Aurora');
-        safeText('guestPrefix', settings.guest_prefix || 'Kepada Yth. Bapak/Ibu/Saudara/i:');
+        safeText('coverTitle', settings.cover_title || '-');
+        safeText('coverSubtitle', settings.cover_subtitle || '-');
+        safeText('heroName', settings.hero_name || '-');
+        safeText('guestPrefix', settings.guest_prefix || '-');
         safeText('eventHeaderTitle', settings.event_header_title || 'Wedding Event');
         safeText('eventHeaderQuote', settings.event_header_quote || 'Kami sangat berharap kehadiran Anda dalam momen spesial kami.');
         const openButtonText = document.getElementById('openInvitationText');
-        if (openButtonText) openButtonText.innerText = settings.hero_button || 'Buka Undangan';
+        if (openButtonText) openButtonText.innerText = settings.hero_button || '-';
 
         // Apply Greeting Logo
         const logoImg = document.getElementById('greetingLogo');
@@ -173,52 +177,112 @@ async function loadPublicData() {
 
         // Couple Section Title
         const coupleSectionTitleEl = document.getElementById('coupleSectionTitle');
-        if (coupleSectionTitleEl && settings.couple_section_title && settings.couple_section_title !== 'Bride & Groom') {
-            coupleSectionTitleEl.textContent = settings.couple_section_title;
-            coupleSectionTitleEl.className = 'text-[#F5A623] text-5xl md:text-7xl leading-none tracking-normal drop-shadow-xl text-center flex items-center justify-center w-full';
+        if (coupleSectionTitleEl) {
+            const title = (settings.couple_section_title || '').trim();
+            
+            if (title === '' || title === '-') {
+                coupleSectionTitleEl.innerText = '-';
+                coupleSectionTitleEl.style.display = 'flex';
+                coupleSectionTitleEl.style.justifyContent = 'center';
+                coupleSectionTitleEl.style.width = '100%';
+                coupleSectionTitleEl.className = 'text-[#F5A623] text-5xl md:text-7xl font-script';
+            } else if (title.includes('&')) {
+                const parts = title.split('&');
+                const p1 = parts[0].trim();
+                const p2 = parts[1] ? parts[1].trim() : '';
+                
+                coupleSectionTitleEl.style.display = 'flex';
+                coupleSectionTitleEl.innerHTML = `
+                    <span class="relative text-7xl md:text-9xl z-10">
+                        ${p1}
+                        ${p2 ? `<span class="absolute top-1/2 -right-8 md:-right-14 translate-y-[-25%] text-5xl md:text-4xl italic opacity-90 z-20">&</span>` : ''}
+                    </span>
+                    ${p2 ? `<span class="text-7xl md:text-9xl ml-24 md:ml-36 -mt-6 md:-mt-10 relative z-10">${p2}</span>` : ''}
+                `;
+                coupleSectionTitleEl.className = 'text-[#F5A623] leading-none tracking-normal drop-shadow-xl relative flex flex-col items-start font-script';
+            } else {
+                coupleSectionTitleEl.innerText = title;
+                coupleSectionTitleEl.style.display = 'flex';
+                coupleSectionTitleEl.style.justifyContent = 'center';
+                coupleSectionTitleEl.className = 'text-[#F5A623] text-6xl md:text-8xl leading-none tracking-normal drop-shadow-xl text-center w-full font-script';
+            }
         }
 
         // Couple Section Background
         const coupleSection = document.getElementById('couple');
+        const coupleBefore = document.querySelector('#couple::before') || { style: {} }; // For pseudo-element we use CSS variable
+        
         if (coupleSection) {
             const coupleMode = settings.couple_bg_mode || 'color';
-            if (coupleMode === 'image' && settings.couple_bg_img) {
-                // If it's a comma-separated list, take the first one
-                const coupleImgs = settings.couple_bg_img.split(',').filter(u => u.trim() !== '');
-                if (coupleImgs.length > 0) {
-                    coupleSection.style.background = `url('${coupleImgs[0]}') center/cover no-repeat fixed`;
-                } else {
-                    coupleSection.style.background = settings.couple_bg_color || '#000000';
-                }
+            const coupleBgImg = settings.couple_bg_img || '';
+            const coupleBgColor = settings.couple_bg_color || '#000000';
+
+            if (coupleMode === 'image' && coupleBgImg) {
+                const imgUrl = coupleBgImg.split(',')[0];
+                coupleSection.style.setProperty('--couple-bg', `url('${imgUrl}')`);
+                coupleSection.classList.add('show-before'); // We'll add this class to show the pseudo-element
+                coupleSection.style.backgroundColor = 'transparent';
             } else {
-                coupleSection.style.background = settings.couple_bg_color || '#000000';
+                coupleSection.classList.remove('show-before');
+                coupleSection.style.setProperty('--couple-bg', 'none');
+                if (coupleBgColor.includes('gradient')) {
+                    coupleSection.style.background = coupleBgColor;
+                } else {
+                    coupleSection.style.background = '';
+                    coupleSection.style.backgroundColor = coupleBgColor;
+                }
             }
         }
 
-        applyBg('events', settings.event_bg, settings.event_bg_color);
+
+
+
+        // Event Section Background Mode Handling
+        const eventSection = document.getElementById('events');
+        if (eventSection) {
+            const eMode = settings.event_bg_mode || 'color';
+            if (eMode === 'image' && settings.event_bg_img) {
+                eventSection.style.background = `url('${settings.event_bg_img}') center/cover no-repeat fixed`;
+            } else {
+                const eBgColor = settings.event_bg_color || '#000000';
+                if (eBgColor.includes('gradient')) {
+                    eventSection.style.background = eBgColor;
+                } else {
+                    eventSection.style.background = '';
+                    eventSection.style.backgroundColor = eBgColor;
+                }
+            }
+        }
+        
         applyBg('gallery', settings.gallery_bg_img, settings.gallery_bg_color);
-        applyBg('lovestory', settings.lovestory_bg, settings.lovestory_bg_color);
+
+        const lsSettings = data.lovestory_settings || {};
+        applyBg('lovestory', lsSettings.lovestory_bg, lsSettings.lovestory_bg);
         
         // Love Story Chat Area (Card Background)
         const lsChatArea = document.querySelector('#lovestory .styling-scrollbar');
         if (lsChatArea) {
-            if (settings.lovestory_card_bg) {
-                lsChatArea.style.backgroundImage = `url('${settings.lovestory_card_bg}')`;
-                lsChatArea.style.backgroundSize = 'cover';
-                lsChatArea.style.backgroundPosition = 'center';
-                lsChatArea.style.backgroundBlendMode = 'multiply';
-            } else if (settings.lovestory_card_bg_color) {
-                lsChatArea.style.backgroundImage = 'none';
-                lsChatArea.style.backgroundColor = settings.lovestory_card_bg_color;
-                if (settings.lovestory_card_bg_color.includes('gradient')) {
-                    lsChatArea.style.background = settings.lovestory_card_bg_color;
+            const cardBg = lsSettings.lovestory_card_bg;
+            if (cardBg) {
+                if (cardBg.includes('gradient')) {
+                    lsChatArea.style.background = cardBg;
+                } else {
+                    lsChatArea.style.background = '';
+                    lsChatArea.style.backgroundColor = cardBg;
                 }
             }
         }
 
         applyBg('digitalEnvelope', settings.gift_bg_img, settings.gift_bg_color);
         
+        // Gallery Title Update
+        const galleryTitleEl = document.getElementById('galleryTitle');
+        if (galleryTitleEl) {
+            galleryTitleEl.innerText = settings.gallery_title || 'Sweet Moments';
+        }
+
         // Wishes (Ucapan) Mode Handling
+
         const wishesSection = document.getElementById('sectionWishes');
         if (wishesSection) {
             const mode = settings.wishes_bg_mode || 'color';
@@ -231,81 +295,67 @@ async function loadPublicData() {
 
         applyBg('sectionRsvp', settings.rsvp_bg_img, settings.rsvp_bg_color);
 
-        safeText('guestName', currentGuest?.name || 'Tamu Undangan');
+        safeText('guestName', currentGuest?.name || settings.guest_label || '-');
         updateGuestForms();
 
-        if (events[0]) {
-            if (events[0].date_iso) {
-                let timeStr = '00:00:00';
-                if (events[0].time) {
-                    const timeMatch = events[0].time.match(/(\d{1,2})[.:](\d{2})/);
-                    if (timeMatch) timeStr = `${timeMatch[1].padStart(2, '0')}:${timeMatch[2]}:00`;
-                }
-                let parsedDate = NaN;
-                if (events[0].date_iso) {
-                    const dateParts = events[0].date_iso.split('-'); // [YYYY, MM, DD]
-                    if (dateParts.length === 3) {
-                        parsedDate = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]} ${timeStr}`).getTime();
-                    }
-                }
-                
-                // Fallback smart parser for Indonesian text date if ISO fails or defaults
-                if (isNaN(parsedDate) || events[0].date_iso === '2026-06-26') {
-                    if (events[0].date) {
-                        const monthsID = {'januari':'01', 'februari':'02', 'maret':'03', 'april':'04', 'mei':'05', 'juni':'06', 'juli':'07', 'agustus':'08', 'september':'09', 'oktober':'10', 'november':'11', 'desember':'12'};
-                        const dParts = events[0].date.replace(/,/g, '').split(' ');
-                        let day = '', month = '', year = '';
-                        dParts.forEach(p => {
-                            if (!isNaN(p) && p.length <= 2) day = p.padStart(2, '0');
-                            if (!isNaN(p) && p.length === 4) year = p;
-                            if (isNaN(p) && monthsID[p.toLowerCase()]) month = monthsID[p.toLowerCase()];
-                        });
-                        if (day && month && year) {
-                            parsedDate = new Date(`${month}/${day}/${year} ${timeStr}`).getTime();
-                        }
-                    }
-                }
+        renderPublicEvents(events);
 
-                if (!isNaN(parsedDate)) {
-                    targetDate = parsedDate;
-                }
-            }
-            safeSrc('event1Icon', events[0].icon_src || 'img/icon/Gereja.png');
-            safeText('event1Heading', events[0].heading || events[0].name);
-            safeText('event1Time', events[0].time || '14.00 WIB - Selesai');
-            safeText('event1Date', events[0].date || 'Jumat, 26 Juni 2026');
-            safeText('event1Location', events[0].location_name || 'GBKP Rg. Km. 7 Pd. Bulan Medan');
-            safeText('event1Address', events[0].address || 'Jl. Jamin Ginting Km.7 No.47, Kwala Bekala, Kec. Medan Johor, Kota Medan, Sumatera Utara 20142');
-            safeSrc('event1Map', events[0].map_src);
-            safeHref('event1Link', events[0].map_link);
-        }
-
-        if (events[1]) {
-            safeSrc('event2Icon', events[1].icon_src || 'img/icon/Traditional%20Batak%20house%20icon.png');
-            safeText('event2Heading', events[1].heading || events[1].name);
-            safeText('event2Time', events[1].time || '07.00 WIB - Selesai');
-            safeText('event2Date', events[1].date || 'Sabtu, 27 Juni 2026');
-            safeText('event2Location', events[1].location_name || 'Jambur Namaken');
-            safeText('event2Address', events[1].address || 'JL Letjen Jamin Ginting No, Gg. Jati No.30, Beringin, Kec. Medan Selayang, Kota Medan, Sumatera Utara 20146');
-            safeSrc('event2Map', events[1].map_src);
-            safeHref('event2Link', events[1].map_link);
-        }
+        const isImageValid = (src) => {
+            if (!src) return false;
+            const s = src.toLowerCase();
+            if (s.includes('ui-avatars.com')) return false;
+            if (s.includes('rian.jpeg') || s.includes('aurora.jpeg')) return false; 
+            return src.trim() !== '';
+        };
 
         if (couple[0]) {
-            safeSrc('groomImage', couple[0].image_src);
+            const img = document.getElementById('groomImage');
+            const placeholder = document.getElementById('groomPlaceholder');
+            if (img && placeholder) {
+                if (isImageValid(couple[0].image_src)) {
+                    img.src = couple[0].image_src;
+                    img.style.opacity = '1';
+                    placeholder.style.display = 'none';
+                } else {
+                    img.src = ''; // Clear broken src
+                    img.style.opacity = '0';
+                    placeholder.style.display = 'flex';
+                }
+            }
             safeText('groomTitle', couple[0].description || couple[0].role);
             safeText('groomName', couple[0].name);
-            safeText('groomParents', couple[0].parents || 'Putra dari\nBapak Drs. Tampe Malem Tarigan & Ibu Toberina Surbakti');
-            safeText('groomInstagram', couple[0].instagram || '@ryan_tarigan');
+            safeText('groomParents', couple[0].parents);
+            safeText('groomInstagram', couple[0].instagram);
+            safeText('groomInstagramAlt', couple[0].instagram);
+            safeHref('groomInstagramLink', couple[0].instagram_link);
+            safeHref('groomInstagramLinkAlt', couple[0].instagram_link);
         }
 
         if (couple[1]) {
-            safeSrc('brideImage', couple[1].image_src);
+            const img = document.getElementById('brideImage');
+            const placeholder = document.getElementById('bridePlaceholder');
+            if (img && placeholder) {
+                if (isImageValid(couple[1].image_src)) {
+                    img.src = couple[1].image_src;
+                    img.style.opacity = '1';
+                    placeholder.style.display = 'none';
+                } else {
+                    img.src = ''; // Clear broken src
+                    img.style.opacity = '0';
+                    placeholder.style.display = 'flex';
+                }
+            }
             safeText('brideTitle', couple[1].description || couple[1].role);
             safeText('brideName', couple[1].name);
-            safeText('brideParents', couple[1].parents || 'Putri dari\nBapak Ir. Marthin Luther Brahmana & Ibu Ir. Roslila Br Perangin-angin');
-            safeText('brideInstagram', couple[1].instagram || '@aurorapcsa');
+            safeText('brideParents', couple[1].parents);
+            safeText('brideInstagram', couple[1].instagram);
+            safeText('brideInstagramAlt', couple[1].instagram);
+            safeHref('brideInstagramLink', couple[1].instagram_link);
+            safeHref('brideInstagramLinkAlt', couple[1].instagram_link);
         }
+
+
+
 
         // Default cover slideshow removed to prioritize Opening Page settings
         // renderCoverSlideshow(gallery.slice(0, 5));
@@ -332,6 +382,109 @@ async function loadPublicData() {
     } catch (error) {
         console.error(error);
     }
+}
+
+function renderPublicEvents(events) {
+    const grid = document.getElementById('eventsGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    // Handle targetDate for countdown (First event only)
+    if (events[0]) {
+        let timeStr = '00:00:00';
+        if (events[0].time) {
+            const timeMatch = events[0].time.match(/(\d{1,2})[.:](\d{2})/);
+            if (timeMatch) timeStr = `${timeMatch[1].padStart(2, '0')}:${timeMatch[2]}:00`;
+        }
+        let parsedDate = NaN;
+        if (events[0].date_iso) {
+            const dateParts = events[0].date_iso.split('-'); 
+            if (dateParts.length === 3) {
+                parsedDate = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]} ${timeStr}`).getTime();
+            }
+        }
+        
+        // Fallback smart parser for Indonesian text date
+        if (isNaN(parsedDate) && events[0].date) {
+            const monthsID = {'januari':'01', 'februari':'02', 'maret':'03', 'april':'04', 'mei':'05', 'juni':'06', 'juli':'07', 'agustus':'08', 'september':'09', 'oktober':'10', 'november':'11', 'desember':'12'};
+            const dParts = events[0].date.replace(/,/g, '').split(' ');
+            let day = '', month = '', year = '';
+            dParts.forEach(p => {
+                if (!isNaN(p) && p.length <= 2) day = p.padStart(2, '0');
+                if (!isNaN(p) && p.length === 4) year = p;
+                if (isNaN(p) && monthsID[p.toLowerCase()]) month = monthsID[p.toLowerCase()];
+            });
+            if (day && month && year) {
+                parsedDate = new Date(`${month}/${day}/${year} ${timeStr}`).getTime();
+            }
+        }
+
+        if (!isNaN(parsedDate)) {
+            targetDate = parsedDate;
+        }
+    }
+
+    const displayEvents = [null, null];
+    if (events[0]) displayEvents[0] = events[0];
+    if (events[1]) displayEvents[1] = events[1];
+
+    displayEvents.forEach((event, i) => {
+        let html = '';
+        if (event && (event.name || event.location_name)) {
+            // Check if it has any data worth displaying
+            const hasData = (event.name || event.location_name || event.address || event.date);
+            
+            if (hasData) {
+                html = `
+                    <div class="flex flex-col items-center group w-full" data-aos="fade-up" data-aos-delay="${i === 0 ? '100' : '300'}">
+                        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border border-white/20 flex items-center justify-center mb-6 group-hover:border-white transition-colors duration-500 bg-white/5 backdrop-blur-sm">
+                            <img src="${event.icon_src || (i === 0 ? 'img/icon/Gereja.png' : 'img/icon/Traditional%20Batak%20house%20icon.png')}" class="w-8 h-8 md:w-10 md:h-10 object-contain filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity duration-500" alt="Icon">
+                        </div>
+                        <h4 class="font-sans font-semibold uppercase tracking-[0.25em] text-lg md:text-xl mb-6 pb-3 border-b border-white/20 text-[#F5A623]">${event.heading || event.name || '-'}</h4>
+                        <p class="font-sans font-medium text-white/90 text-xl md:text-2xl mb-2">${event.time || '-'}</p>
+                        <p class="font-sans font-light text-white/60 mb-8 tracking-wider text-base md:text-lg">${event.date || '-'}</p>
+                        <div class="font-sans font-medium text-[#F5A623] uppercase tracking-[0.15em] bg-white/10 py-3 px-8 rounded-full border border-white/20 text-sm flex items-center justify-center">
+                           ${event.location_name || '-'}
+                        </div>
+                        <p class="font-sans font-light text-white/60 mt-4 tracking-wider text-xs md:text-sm">${event.address || '-'}</p>
+                        ${event.map_src ? `
+                        <div class="mt-8 w-full h-48 md:h-64 rounded-xl overflow-hidden border border-white/20">
+                            <iframe src="${event.map_src}" width="100%" height="100%" style="border:0; filter: invert(100%) hue-rotate(180deg) contrast(90%);" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                        ` : ''}
+                        ${event.map_link ? `
+                        <a href="${event.map_link}" target="_blank" class="mt-6 inline-flex items-center justify-center gap-3 bg-white/10 text-white border border-white/40 px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-500 uppercase tracking-widest text-xs font-sans font-semibold group">
+                            <i class="fa-solid fa-map-location-dot group-hover:scale-110 transition-transform duration-300"></i>
+                            <span>Lihat Lokasi</span>
+                        </a>
+                        ` : ''}
+                    </div>
+                `;
+            } else {
+                html = renderStripedPlaceholder(i);
+            }
+        } else {
+            html = renderStripedPlaceholder(i);
+        }
+        grid.insertAdjacentHTML('beforeend', html);
+    });
+
+    // Re-initialize AOS for dynamic content
+    if (window.AOS) AOS.refresh();
+}
+
+function renderStripedPlaceholder(index) {
+    return `
+        <div class="no-data-card w-full" data-aos="fade-up" data-aos-delay="${index === 0 ? '100' : '300'}">
+            <div class="striped-bg">
+                <div class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mb-6 bg-white/5 opacity-20">
+                    <i class="fas ${index === 0 ? 'fa-ring' : 'fa-utensils'} text-2xl text-white"></i>
+                </div>
+                <p class="font-sans font-bold uppercase tracking-widest text-white/30 text-sm mb-1">Acara ${index === 0 ? 'Utama' : 'Tambahan'}</p>
+                <p class="font-serif italic text-white/20 text-lg">Data belum tersedia</p>
+            </div>
+        </div>
+    `;
 }
 
 function renderWishes(wishes) {
@@ -385,17 +538,25 @@ function renderWishes(wishes) {
 }
 
 function renderLoveStory(messages, settings) {
+    const section = document.getElementById('lovestory');
     const chatTitle = document.getElementById('lsChatTitle');
     const headerAvatar = document.getElementById('lsHeaderAvatar');
     const chatContainer = document.getElementById('lovestoryChatContainer');
 
-    if (chatTitle && settings.chat_title) chatTitle.innerText = settings.chat_title;
-    if (headerAvatar && settings.female_avatar) headerAvatar.src = settings.female_avatar;
+    if (!section) return;
+
+    if (!messages || !messages.length) {
+        section.classList.add('hidden');
+        return;
+    } else {
+        section.classList.remove('hidden');
+    }
+
+    if (chatTitle && settings.ls_title) chatTitle.innerText = settings.ls_title;
+    if (headerAvatar && settings.ls_female_avatar) headerAvatar.src = settings.ls_female_avatar;
 
     if (!chatContainer) return;
     chatContainer.innerHTML = '';
-    
-    if (!messages || !messages.length) return;
 
     messages.forEach(msg => {
         if (msg.type === 'date') {
@@ -406,7 +567,7 @@ function renderLoveStory(messages, settings) {
             `);
         } else {
             const isFemale = msg.sender === 'female';
-            const avatarSrc = isFemale ? (settings.female_avatar || 'img/aurora.jpeg') : (settings.male_avatar || 'img/rian.jpeg');
+            const avatarSrc = isFemale ? (settings.ls_female_avatar || 'img/aurora.jpeg') : (settings.ls_male_avatar || 'img/rian.jpeg');
             const bgClass = isFemale ? 'bg-[#202c33]' : 'bg-[#005c4b]';
             const roundClass = isFemale ? 'rounded-bl-sm' : 'rounded-br-sm';
             const plPr = isFemale ? 'justify-start pr-12 md:pr-20' : 'justify-end pl-12 md:pl-20';

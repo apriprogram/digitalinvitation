@@ -63,7 +63,7 @@ const translations = {
     "col_guest_name": "Nama Tamu",
     "col_access_url": "URL Akses",
     "col_command": "Aksi",
-    "gal_title": "Pustaka Visual",
+    "gal_title": "Galeri Foto",
     "gal_upload_btn": "UNGGAH BARU",
     "col_asset": "Aset Endpoint",
     "col_desc": "Deskripsi Meta",
@@ -120,16 +120,19 @@ const translations = {
     "couple_btn": "Simpan",
 
     "alert_logout": "Minta otorisasi penghentian sesi saat ini?",
-    "alert_settings_sync": "Berhasil disinkronkan dengan mesin cloud.",
+    "alert_settings_sync": "Perubahan berhasil disimpan.",
     "alert_event_updated": "Acara #{id} diperbarui.",
     "alert_couple_updated": "Profil utama #{id} diperbarui.",
     "alert_guest_revoke": "Cabut akses untuk tamu ini?",
     "alert_link_copied": "URL Akses disalin ke papan klip.",
-    "alert_gallery_purge": "Hapus aset ini dari perpustakaan?"
+    "alert_gallery_purge": "Hapus aset ini dari perpustakaan?",
+    "welcome": "Selamat Datang!",
+    "data_loaded": "Data berhasil dimuat"
   }
 };
 
 let currentLang = 'id';
+let isAppLoaded = false;
 
 window.searchTable = function(inputId, tbodyId) {
     const input = document.getElementById(inputId);
@@ -205,11 +208,11 @@ window.renderPaginationControls = function(type, total, limit, currentPage) {
     const totalPages = Math.ceil(total / limit) || 1;
     
     let html = `
-        <div class="text-[10px] sm:text-xs text-slate-500 font-medium whitespace-nowrap">
+        <div class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">
             Menampilkan ${total === 0 ? 0 : (currentPage - 1) * limit + 1} - ${Math.min(total, currentPage * limit)} dari ${total} data
         </div>
         <div class="flex items-center gap-1 mt-3 sm:mt-0">
-            <button onclick="window.changePage('${type}', ${currentPage - 1})" class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-200 disabled:opacity-50 disabled:hover:bg-transparent transition-colors" ${currentPage <= 1 ? 'disabled' : ''}>
+            <button onclick="window.changePage('${type}', ${currentPage - 1})" class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 disabled:opacity-50 disabled:hover:bg-transparent transition-colors" ${currentPage <= 1 ? 'disabled' : ''}>
                 <i class="fas fa-chevron-left text-[9px] sm:text-[10px]"></i>
             </button>
     `;
@@ -218,13 +221,13 @@ window.renderPaginationControls = function(type, total, limit, currentPage) {
         if (totalPages > 5) {
             if (i !== 1 && i !== totalPages && Math.abs(i - currentPage) > 1) {
                 if (i === 2 || i === totalPages - 1) {
-                    html += `<span class="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-slate-400 text-xs">...</span>`;
+                    html += `<span class="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center text-slate-400 dark:text-slate-600 text-xs">...</span>`;
                 }
                 continue;
             }
         }
         
-        const activeClass = i === currentPage ? 'bg-indigo-600 text-white font-bold shadow-sm' : 'text-slate-600 hover:bg-slate-200';
+        const activeClass = i === currentPage ? 'bg-indigo-600 text-white font-bold shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800';
         html += `
             <button onclick="window.changePage('${type}', ${i})" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-[10px] sm:text-xs transition-colors ${activeClass}">
                 ${i}
@@ -233,7 +236,7 @@ window.renderPaginationControls = function(type, total, limit, currentPage) {
     }
     
     html += `
-            <button onclick="window.changePage('${type}', ${currentPage + 1})" class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-200 disabled:opacity-50 disabled:hover:bg-transparent transition-colors" ${currentPage >= totalPages ? 'disabled' : ''}>
+            <button onclick="window.changePage('${type}', ${currentPage + 1})" class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 disabled:opacity-50 disabled:hover:bg-transparent transition-colors" ${currentPage >= totalPages ? 'disabled' : ''}>
                 <i class="fas fa-chevron-right text-[9px] sm:text-[10px]"></i>
             </button>
         </div>
@@ -360,11 +363,26 @@ async function api(path, options = {}) {
     headers: { 'Content-Type': 'application/json' },
     ...options,
   });
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error(data.error || 'API request failed');
+  
+  const contentType = res.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+
+      const data = await res.json();
+      if (!res.ok) {
+          const err = new Error(data.error || `API Error (${res.status})`);
+          err.data = data; // Attach data for detail reporting
+          throw err;
+      }
+      return data;
+  } else {
+      const text = await res.text();
+      if (!res.ok) {
+          if (res.status === 404) throw new Error('Route tidak ditemukan. Mohon RESTART server Node.js Anda.');
+          throw new Error(`Server Error (${res.status})`);
+      }
+      return text;
   }
-  return data;
+
 }
 
 window.showSection = function(name) {
@@ -383,7 +401,7 @@ window.showSection = function(name) {
   
   // Special Section Loading
   if (name === 'profile') loadProfileData();
-  if (name === 'lovestory') loadLoveStoryAdmin();
+  if (name === 'lovestory' || name === 'events') loadLoveStoryAdmin();
   scrollTo(0,0);
 }
 
@@ -481,24 +499,24 @@ function renderRsvpItems(isMore = false) {
     
     setTimeout(() => {
         if (list.length === 0) {
-            rsvpBody.innerHTML = `<tr><td colspan="5" class="px-8 py-10 text-center text-slate-400 text-xs italic">Belum ada aktivitas konfirmasi</td></tr>`;
+            rsvpBody.innerHTML = `<tr><td colspan="5" class="px-8 py-10 text-center text-slate-400 dark:text-slate-500 text-xs italic">Belum ada aktivitas konfirmasi</td></tr>`;
         } else {
             rsvpBody.innerHTML = list.map(item => {
                 const badgeClass = (item.status || '').toLowerCase() === 'hadir' ? 'badge-paid' : 'badge-pending';
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short' }) : '-';
                 return `
-                    <tr class="group hover:bg-slate-50 transition-colors">
-                        <td class="font-bold text-slate-900 text-xs tracking-tight px-8 py-4">
+                    <tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors border-b border-slate-50 dark:border-slate-800 last:border-0">
+                        <td class="font-bold text-slate-900 dark:text-slate-100 text-xs tracking-tight px-8 py-4">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-black text-xs shrink-0">${(item.guest_name || 'A').charAt(0).toUpperCase()}</div>
+                                <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-xs shrink-0">${(item.guest_name || 'A').charAt(0).toUpperCase()}</div>
                                 ${item.guest_name || 'Tamu Anonim'}
                             </div>
                         </td>
                         <td class="px-8 py-4"><span class="badge-modern ${badgeClass} text-[9px]">${(item.status || '').toUpperCase()}</span></td>
-                        <td class="text-center font-black text-slate-900 text-xs px-8 py-4">${item.guest_count} <span class="text-[10px] font-normal text-slate-400">orang</span></td>
-                        <td class="text-right text-slate-400 text-[9px] font-bold tracking-widest px-8 py-4">${dateStr}</td>
+                        <td class="text-center font-black text-slate-900 dark:text-slate-100 text-xs px-8 py-4">${item.guest_count} <span class="text-[10px] font-normal text-slate-400 dark:text-slate-500">orang</span></td>
+                        <td class="text-right text-slate-400 dark:text-slate-500 text-[9px] font-bold tracking-widest px-8 py-4">${dateStr}</td>
                         <td class="text-right px-8 py-4">
-                            <button onclick="window.deleteRsvp('${item.id}')" class="btn-premium btn-secondary !p-0 w-8 h-8 ml-auto text-slate-400 hover:!bg-red-500 hover:!text-white hover:!border-red-500">
+                            <button onclick="window.deleteRsvp('${item.id}')" class="btn-premium btn-secondary !p-0 w-8 h-8 ml-auto text-slate-400 dark:text-slate-500 hover:!bg-red-500 hover:!text-white hover:!border-red-500">
                                 <i class="fas fa-trash-can text-xs pointer-events-none"></i>
                             </button>
                         </td>
@@ -523,7 +541,7 @@ function renderWishesItems(isMore = false) {
     
     setTimeout(() => {
         if (list.length === 0) {
-            wishesContainer.innerHTML = `<div class="p-10 text-center text-slate-400 text-xs italic">Belum ada ucapan terbaru</div>`;
+            wishesContainer.innerHTML = `<div class="p-10 text-center text-slate-400 dark:text-slate-500 text-xs italic">Belum ada ucapan terbaru</div>`;
         } else {
             wishesContainer.innerHTML = list.map(item => {
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short' }) : '-';
@@ -531,25 +549,25 @@ function renderWishesItems(isMore = false) {
                 const adminAvatar = document.getElementById('headerUserAvatar') ? document.getElementById('headerUserAvatar').src : '';
                 const adminName = (state.dashboard.settings && state.dashboard.settings.hero_name) || 'Admin';
                 const replyDisplay = item.reply ? `
-                    <div class="mt-2 ml-10 flex items-start gap-3 opacity-95 scale-[0.98] origin-top-left transition-all bg-indigo-50/50 p-2.5 rounded-xl border border-indigo-100/50">
-                        <img src="${adminAvatar}" alt="${adminName}" class="w-6 h-6 rounded-full object-cover border-2 border-white shadow-sm shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=A&background=4f46e5&color=fff&bold=true&size=56'">
+                    <div class="mt-2 ml-10 flex items-start gap-3 opacity-95 scale-[0.98] origin-top-left transition-all bg-indigo-50/50 dark:bg-indigo-500/5 p-2.5 rounded-xl border border-indigo-100/50 dark:border-indigo-500/20">
+                        <img src="${adminAvatar}" alt="${adminName}" class="w-6 h-6 rounded-full object-cover border-2 border-white dark:border-slate-900 shadow-sm shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=A&background=4f46e5&color=fff&bold=true&size=56'">
                         <div class="min-w-0">
-                            <p class="text-[9px] mb-0.5 leading-none"><span class="font-bold text-slate-900">${adminName}</span></p>
-                            <p class="text-[11px] text-slate-600 leading-snug">${item.reply}</p>
+                            <p class="text-[9px] mb-0.5 leading-none"><span class="font-bold text-slate-900 dark:text-slate-100">${adminName}</span></p>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-400 leading-snug font-medium">${item.reply}</p>
                         </div>
                     </div>
                 ` : '';
 
                 return `
-                    <div class="px-4 py-2.5 hover:bg-indigo-50/50 transition-all rounded-xl mx-1 my-0.5 hover:ring-2 hover:ring-indigo-400 group">
+                    <div class="px-4 py-2.5 hover:bg-indigo-50/50 dark:hover:bg-slate-800/50 transition-all rounded-xl mx-1 my-0.5 hover:ring-2 hover:ring-indigo-400 group">
                         <div class="flex items-start gap-3.5">
-                            <div class="w-7 h-7 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-black text-[11px] shrink-0 border border-blue-100 mt-1 shadow-sm">${initial}</div>
+                            <div class="w-7 h-7 rounded-full bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-[11px] shrink-0 border border-blue-100 dark:border-slate-700 mt-1 shadow-sm">${initial}</div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center gap-2">
-                                    <h5 class="text-[12px] font-bold text-slate-900 truncate">${item.guest_name || 'Tamu Anonim'}</h5>
-                                    <span class="text-[9px] text-slate-400 font-bold">${dateStr}</span>
+                                    <h5 class="text-[12px] font-bold text-slate-900 dark:text-slate-100 truncate">${item.guest_name || 'Tamu Anonim'}</h5>
+                                    <span class="text-[9px] text-slate-400 dark:text-slate-500 font-bold">${dateStr}</span>
                                 </div>
-                                <p class="text-[12px] text-slate-700 mt-0.5 leading-snug">${item.message}</p>
+                                <p class="text-[12px] text-slate-700 dark:text-slate-300 mt-0.5 leading-snug font-medium">${item.message}</p>
                                 <div class="flex items-center gap-2 mt-1.5">
                                     <button onclick="window.toggleReplyInput(this, '${item.id}')" class="text-blue-500 hover:text-blue-700 transition-colors p-1" title="Reply">
                                         <i class="fas ${item.reply ? 'fa-edit' : 'fa-reply'} text-[11px] pointer-events-none"></i>
@@ -601,12 +619,12 @@ async function loadPageViews() {
 
 function renderSettings() {
   const settings = state.dashboard?.settings || {};
-  if (document.getElementById('settingCoverTitle')) document.getElementById('settingCoverTitle').value = settings.cover_title || '';
-  if (document.getElementById('settingCoverSubtitle')) document.getElementById('settingCoverSubtitle').value = settings.cover_subtitle || '';
-  if (document.getElementById('settingHeroName')) document.getElementById('settingHeroName').value = settings.hero_name || '';
-  if (document.getElementById('settingGuestPrefix')) document.getElementById('settingGuestPrefix').value = settings.guest_prefix || '';
-  if (document.getElementById('settingGuestLabel')) document.getElementById('settingGuestLabel').value = settings.guest_label || '';
-  if (document.getElementById('settingHeroButton')) document.getElementById('settingHeroButton').value = settings.hero_button || '';
+  if (document.getElementById('settingCoverTitle')) document.getElementById('settingCoverTitle').value = settings.cover_title || '-';
+  if (document.getElementById('settingCoverSubtitle')) document.getElementById('settingCoverSubtitle').value = settings.cover_subtitle || '-';
+  if (document.getElementById('settingHeroName')) document.getElementById('settingHeroName').value = settings.hero_name || '-';
+  if (document.getElementById('settingGuestPrefix')) document.getElementById('settingGuestPrefix').value = settings.guest_prefix || '-';
+  if (document.getElementById('settingGuestLabel')) document.getElementById('settingGuestLabel').value = settings.guest_label || '-';
+  if (document.getElementById('settingHeroButton')) document.getElementById('settingHeroButton').value = settings.hero_button || '-';
   if (document.getElementById('settingNotificationRetention')) {
       // Setup Notification Retention Initial Value
       const val = settings.notification_retention || '30';
@@ -638,7 +656,8 @@ function renderSettings() {
   if (document.getElementById('settingGreetingLogo')) document.getElementById('settingGreetingLogo').value = settings.greeting_logo || '';
   if (document.getElementById('settingGreetingBg')) document.getElementById('settingGreetingBg').value = settings.greeting_bg || '';
   if (document.getElementById('settingGreetingInvitation')) document.getElementById('settingGreetingInvitation').value = settings.greeting_invitation || '';
-  if (document.getElementById('settingCoupleSectionTitle')) document.getElementById('settingCoupleSectionTitle').value = settings.couple_section_title || 'Bride & Groom';
+  if (document.getElementById('settingCoupleSectionTitle')) document.getElementById('settingCoupleSectionTitle').value = settings.couple_section_title !== undefined ? settings.couple_section_title : 'Bride & Groom';
+
   if (document.getElementById('settingEventHeaderQuote')) document.getElementById('settingEventHeaderQuote').value = settings.event_header_quote || 'Kami sangat berharap kehadiran Anda dalam momen spesial kami.';
   if (document.getElementById('settingEventHeaderTitle')) document.getElementById('settingEventHeaderTitle').value = settings.event_header_title || 'Wedding Event';
   if (document.getElementById('settingRsvpCaption')) document.getElementById('settingRsvpCaption').value = settings.rsvp_caption || 'Mohon konfirmasikan kehadiran Anda melalui formulir di bawah ini.';
@@ -681,7 +700,32 @@ function renderSettings() {
           document.getElementById('eventColorPicker').value = eColor;
       }
   }
+  if (document.getElementById('settingGalleryTitle')) document.getElementById('settingGalleryTitle').value = settings.gallery_title || 'Sweet Moments';
+
+  if (document.getElementById('settingEventBgMode')) {
+      const eMode = settings.event_bg_mode || 'color';
+      window.setEventBgMode(eMode, true);
+  }
+  
+  const eventImg = settings.event_bg_img || '';
+  const eventPreview = document.getElementById('eventBgPreview');
+  const eventPlaceholder = document.getElementById('eventBgPreviewPlaceholder');
+  if (eventPreview && eventPlaceholder) {
+      if (eventImg) {
+          eventPreview.src = eventImg;
+          eventPreview.classList.remove('hidden');
+          eventPlaceholder.classList.add('hidden');
+      } else {
+          eventPreview.src = '';
+          eventPreview.classList.add('hidden');
+          eventPlaceholder.classList.remove('hidden');
+      }
+  }
+
+
   if (document.getElementById('settingLovestoryBgColor')) {
+
+
       const lsColor = settings.lovestory_bg_color || '#000000';
       document.getElementById('settingLovestoryBgColor').value = lsColor;
       if (document.getElementById('lovestoryColorPicker') && lsColor.startsWith('#')) {
@@ -707,7 +751,7 @@ function renderSettings() {
   if (document.getElementById('settingOpeningBgMode')) {
       const oMode = settings.opening_bg_mode || 'color';
       document.getElementById('settingOpeningBgMode').value = oMode;
-      if (window.setOpeningBgMode) window.setOpeningBgMode(oMode);
+      if (window.setOpeningBgMode) window.setOpeningBgMode(oMode, true);
   }
 
   // Greeting (Sambutan) background settings
@@ -723,12 +767,12 @@ function renderSettings() {
   if (document.getElementById('settingGreetingBgMode')) {
       const gMode = settings.greeting_bg_mode || 'color';
       document.getElementById('settingGreetingBgMode').value = gMode;
-      if (window.setGreetingBgMode) window.setGreetingBgMode(gMode);
+      if (window.setGreetingBgMode) window.setGreetingBgMode(gMode, true);
   }
   
   if (document.getElementById('settingWishesBgMode')) {
       const mode = settings.wishes_bg_mode || 'color';
-      window.setWishesBgMode(mode);
+      window.setWishesBgMode(mode, true);
   }
   
   if (document.getElementById('settingWishesBgColor')) {
@@ -963,33 +1007,33 @@ window.renderGifts = function() {
     
     section.innerHTML = `
         ${gifts.map((gift, i) => `
-            <article data-id="${gift.id}" class="bg-white card-premium border border-slate-100 p-6 shadow-sm group relative cursor-move hover:border-indigo-200 transition-all duration-300">
-                <div class="absolute top-4 left-4 text-slate-300 group-hover:text-indigo-400 drag-handle p-2 -m-2">
+            <article data-id="${gift.id}" class="bg-white dark:bg-slate-800 card-premium border border-slate-100 dark:border-slate-700 p-6 shadow-none group relative cursor-move hover:border-indigo-200 dark:hover:border-indigo-500 transition-all duration-300">
+                <div class="absolute top-4 left-4 text-slate-300 dark:text-slate-600 group-hover:text-indigo-400 drag-handle p-2 -m-2">
                     <i class="fas fa-grip-vertical text-lg"></i>
                 </div>
-                <button onclick="window.deleteGiftItem(${gift.id})" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-red-50 text-red-500 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 hover:text-white z-10">
+                <button onclick="window.deleteGiftItem(${gift.id})" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/30 text-red-500 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 hover:text-white z-10">
                     <i class="fas fa-trash-alt text-[10px]"></i>
                 </button>
                 <div class="flex items-center gap-4 mb-4 mt-6">
-                    <div class="w-16 h-12 bg-slate-50 border border-slate-200 rounded-lg flex items-center justify-center p-2 overflow-hidden shadow-sm">
+                    <div class="w-16 h-12 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg flex items-center justify-center p-2 overflow-hidden">
                         <img id="gift${gift.id}Preview" src="${gift.logo_src || 'https://ui-avatars.com/api/?name=Bank&background=f1f5f9'}" class="w-full h-full object-contain" onerror="this.src='https://ui-avatars.com/api/?name=Bank&background=f1f5f9'">
                     </div>
-                     <label class="cursor-pointer text-[10px] font-semibold text-slate-500 hover:text-indigo-600 transition-colors">
+                     <label class="cursor-pointer text-[10px] font-semibold text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                         <i class="fas fa-upload mr-1"></i> UPLOAD LOGO
                         <input type="file" accept="image/*" class="hidden" onchange="window.uploadGiftIcon(this, ${gift.id}, 'gift${gift.id}Preview')">
                      </label>
                 </div>
                 <div class="space-y-3">
                     <div>
-                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">Nama Bank / E-Wallet</label>
+                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">Nama Bank / E-Wallet</label>
                         <input type="text" id="gift${gift.id}Bank" value="${gift.bank_name || ''}" class="input-premium h-10 w-full" placeholder="Cth: BCA">
                     </div>
                     <div>
-                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">Nomor Rekening</label>
+                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">Nomor Rekening</label>
                         <input type="text" id="gift${gift.id}Number" value="${gift.account_number || ''}" class="input-premium h-10 w-full" placeholder="Cth: 1234567890">
                     </div>
                     <div>
-                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">Atas Nama (Pemilik)</label>
+                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">Atas Nama (Pemilik)</label>
                         <input type="text" id="gift${gift.id}Name" value="${gift.account_name || ''}" class="input-premium h-10 w-full" placeholder="Cth: John Doe">
                     </div>
                     <button onclick="window.saveGiftItem(${gift.id})" class="btn-premium btn-primary w-full mt-2"><i class="fas fa-check mr-1"></i> SIMPAN</button>
@@ -1117,61 +1161,140 @@ window.uploadGiftIcon = async function(input, id, previewId) {
 function renderCouple() {
     const section = document.getElementById('coupleContainer');
     if (!section) return;
+    if (!state.dashboard.couple || state.dashboard.couple.length < 2) return;
     const [groom, bride] = state.dashboard.couple;
-    if (!groom || !bride) return;
 
     section.innerHTML = `
+        <div class="col-span-1 lg:col-span-2 flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-slate-800">Detail Pasangan</h2>
+        </div>
+
+
         ${[groom, bride].map((person, i) => `
-            <article class="bg-white card-premium overflow-hidden group">
-                <div class="${i === 0 ? 'bg-slate-900 border-slate-800' : 'bg-pink-600 border-pink-500'} p-6 sm:p-10 text-white relative border-b">
+            <article class="bg-white card-premium overflow-hidden group border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="${i === 0 ? 'bg-slate-900 border-slate-800' : 'bg-pink-600 border-pink-500'} p-6 sm:p-8 text-white relative border-b">
                     <div class="relative z-10">
-                        <h3 class="text-2xl sm:text-4xl font-medium tracking-tighter">${i === 0 ? t('couple_groom') : t('couple_bride')}</h3>
-                        <p class="text-[10px] sm:text-[11px] ${i === 0 ? 'text-slate-600' : 'text-pink-200'} font-semibold mt-1 sm:mt-2">${t('couple_profile')}</p>
+                        <h3 class="text-2xl sm:text-3xl font-bold tracking-tight">${i === 0 ? t('couple_groom') : t('couple_bride')}</h3>
+                        <p class="text-[10px] sm:text-[11px] ${i === 0 ? 'text-slate-400' : 'text-pink-100'} font-semibold mt-1 uppercase tracking-wider opacity-80">${t('couple_profile')}</p>
                     </div>
-                    <i class="fas ${i === 0 ? 'fa-mars' : 'fa-venus'} absolute top-6 sm:top-10 right-6 sm:right-10 text-5xl sm:text-8xl opacity-10 group-hover:scale-110 transition-transform"></i>
+                    <i class="fas ${i === 0 ? 'fa-mars' : 'fa-venus'} absolute top-6 sm:top-8 right-6 sm:right-8 text-5xl sm:text-6xl opacity-10 group-hover:scale-110 transition-transform"></i>
                 </div>
-                <div class="p-6 sm:p-10 space-y-6">
+                <div class="p-6 sm:p-8 space-y-6">
                     <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('couple_role')}</label>
-                        <input id="couple${i+1}Role" type="text" value="${person.role || ''}" class="input-premium">
+                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">${t('couple_role')}</label>
+                        <input id="couple${i+1}Role" type="text" value="${person.role || ''}" class="input-premium" placeholder="Cth: Mempelai Pria">
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('couple_name')}</label>
-                        <input id="couple${i+1}Name" type="text" value="${person.name || ''}" class="font-bold input-premium">
+                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">${t('couple_name')}</label>
+                        <input id="couple${i+1}Name" type="text" value="${person.name || ''}" class="font-bold input-premium" placeholder="Nama Lengkap & Gelar">
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('couple_parents')}</label>
-                        <textarea id="couple${i+1}Parents" class="input-premium min-h-[100px]">${person.parents || ''}</textarea>
+                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">${t('couple_parents')}</label>
+                        <textarea id="couple${i+1}Parents" class="input-premium min-h-[80px]" placeholder="Putra/Putri dari Bapak... & Ibu...">${person.parents || ''}</textarea>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-2">
-                            <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('couple_ig')}</label>
-                            <input id="couple${i+1}Instagram" type="text" value="${person.instagram || ''}" class="input-premium">
+                            <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">Username Instagram</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">@</span>
+                                <input id="couple${i+1}Instagram" type="text" value="${person.instagram ? person.instagram.replace(/^@/, '') : ''}" class="input-premium pl-7" placeholder="username">
+                            </div>
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('couple_img')}</label>
-                            <div class="flex items-center gap-3">
-                                <img id="couple${i+1}Preview" src="${person.image_src || 'https://ui-avatars.com/api/?name=Photo&background=f1f5f9'}" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-cover border border-slate-200 shadow-sm shrink-0">
-                                <label class="flex-1 cursor-pointer px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-500 text-[11px] sm:text-xs font-medium hover:bg-slate-100 hover:text-slate-700 hover:border-slate-300 transition-all text-center group font-sans">
-                                    <i class="fas fa-camera mr-2 opacity-60 group-hover:scale-110 transition-transform"></i> Pilih Foto
-                                    <input type="file" accept="image/*" class="hidden" onchange="uploadCoupleAvatar(this, ${i+1}, 'couple${i+1}Preview')">
-                                </label>
-                            </div>
-                            <input id="couple${i+1}Image" type="hidden" value="${person.image_src || ''}">
+                            <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">Link Instagram (URL)</label>
+                            <input id="couple${i+1}InstagramLink" type="text" value="${person.instagram_link || ''}" class="input-premium" placeholder="https://instagram.com/...">
                         </div>
                     </div>
-                    <button data-couple-id="${i+1}" class="btn-premium btn-primary w-full !h-14 ${i === 0 ? '!bg-slate-900 !shadow-slate-100' : '!bg-pink-600 !shadow-pink-100'} !text-[11px] uppercase tracking-[0.2em] save-couple">
-                        ${t('couple_btn')}
-                    </button>
+                    <div class="space-y-2">
+                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">${t('couple_img')}</label>
+                        <div class="flex items-center gap-4">
+                            <div class="relative group/img w-16 h-16 sm:w-20 sm:h-20 shrink-0">
+                                <img id="couple${i+1}Preview" src="${person.image_src || 'https://ui-avatars.com/api/?name=Photo&background=f1f5f9&color=94a3b8'}" class="w-full h-full rounded-2xl object-cover border-2 border-slate-100 shadow-sm group-hover:border-indigo-200 transition-all">
+                                ${person.image_src ? `
+                                    <button onclick="window.removeCouplePhoto(${i+1})" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover/img:opacity-100 transition-opacity hover:bg-red-600">
+                                        <i class="fas fa-times text-[10px]"></i>
+                                    </button>
+                                ` : ''}
+                            </div>
+                            <label class="flex-1 cursor-pointer px-4 py-3 rounded-2xl bg-slate-50 border-2 border-dashed border-slate-200 text-slate-500 text-[11px] font-bold hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-center group">
+                                <i class="fas fa-camera mr-2 opacity-60 group-hover:scale-110 transition-transform"></i> UPLOAD FOTO
+                                <input type="file" accept="image/*" class="hidden" onchange="uploadCoupleAvatar(this, ${i+1}, 'couple${i+1}Preview')">
+                            </label>
+                        </div>
+                        <input id="couple${i+1}Image" type="hidden" value="${person.image_src || ''}">
+                    </div>
                 </div>
             </article>
         `).join('')}
     `;
-
-    section.querySelectorAll('.save-couple').forEach(btn => {
-        btn.addEventListener('click', () => saveCouple(btn.dataset.coupleId));
-    });
 }
+
+
+
+window.removeCouplePhoto = function(id) {
+    const hiddenInput = document.getElementById(`couple${id}Image`);
+    const preview = document.getElementById(`couple${id}Preview`);
+    if (hiddenInput) hiddenInput.value = '';
+    if (preview) preview.src = 'https://ui-avatars.com/api/?name=Photo&background=f1f5f9&color=94a3b8';
+    
+    // Immediate update in state to reflect in UI (show/hide delete button)
+    const person = state.dashboard.couple[id-1];
+    if (person) person.image_src = '';
+    
+    // Re-render to update the delete button visibility
+    renderCouple();
+    showToast('Foto ditandai untuk dihapus. Klik simpan untuk menerapkan.', 'info');
+};
+
+window.saveAllCoupleData = async function(btn) {
+    try {
+        const originalHTML = btn ? btn.innerHTML : '';
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> MENYIMPAN...';
+        }
+
+        // Save section title and background settings first
+        await saveSettings(true);
+
+        const promises = [1, 2].map(id => {
+
+            const prefix = `couple${id}`;
+            let instagram = document.getElementById(`${prefix}Instagram`).value.trim();
+            if (instagram && !instagram.startsWith('@')) instagram = '@' + instagram;
+            
+            const payload = {
+                role: document.getElementById(`${prefix}Role`).value,
+                name: document.getElementById(`${prefix}Name`).value,
+                parents: document.getElementById(`${prefix}Parents`).value,
+                instagram: instagram,
+                instagram_link: document.getElementById(`${prefix}InstagramLink`).value,
+                image_src: document.getElementById(`${prefix}Image`).value,
+            };
+            return api(`/api/admin/couple/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
+        });
+
+        await Promise.all(promises);
+        showToast('Semua data pasangan berhasil diperbarui!', 'success');
+        await loadDashboard();
+    } catch (err) {
+        const msg = err.data?.detail || err.message;
+        showToast('Gagal menyimpan data: ' + msg, 'error');
+    } finally {
+
+
+        const btns = document.querySelectorAll('button[onclick="window.saveAllCoupleData(this)"]');
+        btns.forEach(b => {
+            if (b) {
+                b.disabled = false;
+                b.innerHTML = 'Simpan';
+
+            }
+        });
+    }
+}
+
+
 
 function renderGuests() {
   const body = document.getElementById('guestsTableBody');
@@ -1223,8 +1346,8 @@ function renderGuests() {
       </td>
       <td class="px-3 sm:px-6">
          <div class="flex items-center gap-2 sm:gap-3">
-              <div class="bg-indigo-50 text-indigo-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border border-indigo-100 font-mono text-[10px] sm:text-xs font-semibold overflow-hidden truncate max-w-[150px] sm:max-w-[400px] cursor-pointer hover:bg-indigo-100 hover:border-indigo-300 transition-all group/link" onclick="window.copyGuestLink('${link}')" title="Click to Copy Link">
-                 <i class="fas fa-link mr-2 text-indigo-400 group-hover/link:text-indigo-600 transition-colors"></i>${link}
+              <div class="bg-indigo-50 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border border-indigo-100 dark:border-slate-700 font-mono text-[10px] sm:text-xs font-semibold overflow-hidden truncate max-w-[150px] sm:max-w-[400px] cursor-pointer hover:bg-indigo-100 dark:hover:bg-slate-700 hover:border-indigo-300 dark:hover:border-slate-600 transition-all group/link" onclick="window.copyGuestLink('${link}')" title="Click to Copy Link">
+                 <i class="fas fa-link mr-2 text-indigo-400 dark:text-indigo-500 group-hover/link:text-indigo-600 dark:group-hover/link:text-indigo-300 transition-colors"></i>${link}
               </div>
          </div>
       </td>
@@ -1276,6 +1399,10 @@ window.editGuest = function(id, name) {
 function renderGallery() {
   const body = document.getElementById('galleryTableBody');
   if (!body) return;
+  if (!state.dashboard.gallery) {
+      body.innerHTML = '<tr><td colspan="3" class="p-8 text-center text-slate-400">Belum ada foto galeri</td></tr>';
+      return;
+  }
   body.innerHTML = '';
 
   let dragSrcEl = null;
@@ -1351,13 +1478,14 @@ function renderGallery() {
       <td class="font-black text-slate-200 text-[9px] sm:text-[10px] px-3 sm:px-6 align-middle pointer-events-none">${index + 1}</td>
       <td class="px-3 sm:px-6 py-2 sm:py-3">
         <div class="flex items-center gap-3 sm:gap-4">
-             <div class="w-16 h-16 sm:w-24 sm:h-24 shrink-0 rounded-lg sm:rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-300 overflow-hidden shadow-sm group cursor-pointer" onclick="openImagePreview('${item.src}')">
+             <div class="w-16 h-16 sm:w-24 sm:h-24 shrink-0 rounded-lg sm:rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-300 overflow-hidden shadow-sm group cursor-pointer" onclick="openImagePreview('${item.src}')">
                 <img src="${item.src}" alt="${item.alt}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 pointer-events-none" onerror="this.src='https://ui-avatars.com/api/?name=${index+1}&background=f1f5f9&color=94a3b8'">
              </div>
-             <span class="max-w-[100px] sm:max-w-[200px] truncate text-[9px] sm:text-[11px] font-mono text-slate-400 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-100 pointer-events-none">${item.src}</span>
+             <span class="max-w-[100px] sm:max-w-[200px] truncate text-[9px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 pointer-events-none">${item.src}</span>
         </div>
       </td>
-      <td class="font-bold text-slate-700 text-xs sm:text-base tracking-tight px-3 sm:px-6 align-middle pointer-events-none">${item.alt}</td>
+      <td class="font-bold text-slate-700 dark:text-slate-200 text-xs sm:text-base tracking-tight px-3 sm:px-6 align-middle pointer-events-none">${item.alt}</td>
+
       <td class="text-right px-3 sm:px-6 align-middle">
         <div class="flex items-center justify-end gap-2">
             <button class="btn-premium btn-secondary !p-0 w-8 h-8 sm:w-10 sm:h-10 shrink-0 text-amber-500 hover:!bg-amber-500 hover:!text-white hover:!border-amber-500" onclick="window.editGalleryImage('${item.id}', \`${item.alt.replace(/`/g, '\\`').replace(/"/g, '&quot;')}\`, '${item.src}')">
@@ -1414,15 +1542,15 @@ function renderDataLists() {
       const tr = document.createElement('tr');
       tr.className = 'group';
       tr.innerHTML = `
-        <td class="font-bold text-slate-900 text-xs sm:text-sm tracking-tight px-4 sm:px-6 py-4">
+        <td class="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm tracking-tight px-4 sm:px-6 py-4">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-black text-xs shrink-0">${(item.guest_name || 'A').charAt(0).toUpperCase()}</div>
+            <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-xs shrink-0">${(item.guest_name || 'A').charAt(0).toUpperCase()}</div>
             ${item.guest_name || 'Tamu Anonim'}
           </div>
         </td>
         <td class="px-4 sm:px-6"><span class="badge-modern ${badgeClass} text-[9px] sm:text-[11px]">${item.status.toUpperCase()}</span></td>
-        <td class="text-center font-black text-slate-900 text-xs sm:text-base px-4 sm:px-6">${item.guest_count} <span class="text-[10px] font-normal text-slate-400">orang</span></td>
-        <td class="text-right text-slate-400 text-[9px] sm:text-[11px] font-semibold px-4 sm:px-6">${dateStr}</td>
+        <td class="text-center font-black text-slate-900 dark:text-slate-100 text-xs sm:text-base px-4 sm:px-6">${item.guest_count} <span class="text-[10px] font-normal text-slate-400 dark:text-slate-500">orang</span></td>
+        <td class="text-right text-slate-400 dark:text-slate-500 text-[9px] sm:text-[11px] font-semibold px-4 sm:px-6">${dateStr}</td>
         <td class="text-right px-4 sm:px-6 py-3">
           <button onclick="window.deleteRsvp('${item.id}')" class="btn-premium btn-secondary !p-0 w-8 h-8 sm:w-9 sm:h-9 ml-auto text-slate-400 hover:!bg-red-500 hover:!text-white hover:!border-red-500">
             <i class="fas fa-trash-can text-xs pointer-events-none"></i>
@@ -1464,29 +1592,29 @@ function renderDataLists() {
         const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' }) : '-';
         const initial = (item.guest_name && item.guest_name.length > 0 ? item.guest_name.charAt(0) : 'A').toUpperCase();
         const card = document.createElement('div');
-        card.className = 'px-4 py-2.5 hover:bg-blue-50/50 transition-all rounded-xl mx-1 my-0.5 hover:ring-2 hover:ring-blue-400 group';
+        card.className = 'px-4 py-2.5 hover:bg-blue-50/50 dark:hover:bg-slate-800/50 transition-all rounded-xl mx-1 my-0.5 hover:ring-2 hover:ring-blue-400 dark:hover:ring-blue-500 group';
 
         const adminAvatar = document.getElementById('headerUserAvatar') ? document.getElementById('headerUserAvatar').src : '';
         const adminName = (state.dashboard.settings && state.dashboard.settings.hero_name) || 'Admin';
         const replyDisplay = item.reply ? `
-          <div class="mt-2 ml-10 flex items-start gap-4 opacity-95 scale-[0.98] origin-top-left transition-all bg-indigo-50/50 p-2.5 rounded-xl border border-indigo-100/50">
-              <img src="${adminAvatar}" alt="${adminName}" class="w-6 h-6 rounded-full object-cover border-2 border-white shadow-sm shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=A&background=4f46e5&color=fff&bold=true&size=56'">
+          <div class="mt-2 ml-10 flex items-start gap-4 opacity-95 scale-[0.98] origin-top-left transition-all bg-indigo-50/50 dark:bg-indigo-500/5 p-2.5 rounded-xl border border-indigo-100/50 dark:border-indigo-500/20">
+              <img src="${adminAvatar}" alt="${adminName}" class="w-6 h-6 rounded-full object-cover border-2 border-white dark:border-slate-900 shadow-sm shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=A&background=4f46e5&color=fff&bold=true&size=56'">
               <div class="min-w-0">
-                  <p class="text-[9px] mb-0.5 leading-none"><span class="font-bold text-slate-900">${adminName}</span> <span class="text-slate-400 font-normal ml-1">${item.replied_at ? new Date(item.replied_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short' }) : ''}</span></p>
-                  <p class="text-[11px] text-slate-600 mt-0.5 leading-snug">${item.reply}</p>
+                  <p class="text-[9px] mb-0.5 leading-none"><span class="font-bold text-slate-900 dark:text-slate-100">${adminName}</span> <span class="text-slate-400 dark:text-slate-500 font-normal ml-1">${item.replied_at ? new Date(item.replied_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short' }) : ''}</span></p>
+                  <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5 leading-snug">${item.reply}</p>
               </div>
           </div>
         ` : '';
 
         card.innerHTML = `
           <div class="flex items-start gap-3.5">
-              <div class="w-7 h-7 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-black text-[11px] shrink-0 border border-blue-100 mt-1 shadow-sm">${initial}</div>
+              <div class="w-7 h-7 rounded-full bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-[11px] shrink-0 border border-blue-100 dark:border-slate-700 mt-1 shadow-sm">${initial}</div>
               <div class="flex-1 min-w-0">
                   <div class="flex items-center gap-2">
-                      <span class="font-bold text-slate-900 text-[12px]">${item.guest_name || 'Tamu Anonim'}</span>
-                      <span class="text-[9px] text-slate-400 font-bold">${dateStr}</span>
+                      <span class="font-bold text-slate-900 dark:text-slate-100 text-[12px]">${item.guest_name || 'Tamu Anonim'}</span>
+                      <span class="text-[9px] text-slate-400 dark:text-slate-500 font-bold">${dateStr}</span>
                   </div>
-                  <p class="text-[12px] text-slate-700 mt-0.5 leading-snug">${item.message}</p>
+                  <p class="text-[12px] text-slate-700 dark:text-slate-300 mt-0.5 leading-snug font-medium">${item.message}</p>
                   
                   <div class="flex items-center gap-2 mt-1.5">
                       <button title="${item.reply ? 'Edit balasan' : 'Balas ucapan'}" onclick="window.toggleReplyInput(this, '${item.id}')" class="text-blue-500 hover:text-blue-700 transition-colors p-1">
@@ -1499,7 +1627,7 @@ function renderDataLists() {
                   </div>
 
                   <div id="replyBox_${item.id}" class="hidden mt-2 flex items-center gap-2">
-                      <input type="text" id="replyInput_${item.id}" value="${(item.reply || '').replace(/"/g, '&quot;')}" placeholder="Tulis balasan..." class="flex-1 h-8 bg-white border border-slate-200 rounded-full px-3 text-[10px] focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all">
+                      <input type="text" id="replyInput_${item.id}" value="${(item.reply || '').replace(/"/g, '&quot;')}" placeholder="Tulis balasan..." class="flex-1 h-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full px-3 text-[10px] text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all">
                       <button onclick="window.submitReply(this, '${item.id}')" class="btn-premium btn-primary !h-8 !px-4 !rounded-full !text-[10px] shrink-0 font-bold">
                           Kirim
                       </button>
@@ -1585,6 +1713,12 @@ async function checkLogin() {
     try {
       await loadDashboard();
       showSection('overview');
+      if (!isAppLoaded) {
+          if (!window.isManualLogin) {
+              showToast(t('data_loaded'), 'success');
+          }
+          isAppLoaded = true;
+      }
     } catch (err) {
       console.error('Dashboard data failed to load:', err);
       showToast('Gagal memuat data dashboard. Silakan refresh.', 'error');
@@ -1660,8 +1794,10 @@ async function login() {
   if (!email || !password) return;
   try {
     await api('/api/admin/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+    window.isManualLogin = true;
     await checkLogin();
-    showToast(currentLang === 'id' ? 'Berhasil Masuk!' : 'Logged in successfully!', 'success');
+    showToast(t('welcome'), 'success');
+    window.isManualLogin = false; // Reset after use
   } catch (error) {
     showToast(error.message, 'error');
   }
@@ -1754,6 +1890,19 @@ document.addEventListener('DOMContentLoaded', () => {
     el.setAttribute('placeholder', t(key));
   });
   checkLogin();
+
+  // Initialize Theme Icon
+  const darkModeIcon = document.getElementById('darkModeIcon');
+  if (darkModeIcon) {
+    const isDark = document.documentElement.classList.contains('dark');
+    if (isDark) {
+      darkModeIcon.classList.remove('fa-sun');
+      darkModeIcon.classList.add('fa-moon');
+    } else {
+      darkModeIcon.classList.remove('fa-moon');
+      darkModeIcon.classList.add('fa-sun');
+    }
+  }
   
   const passwordInput = document.getElementById('loginPassword');
   const usernameInput = document.getElementById('loginUsername');
@@ -1778,7 +1927,7 @@ async function logout() {
   });
 }
 
-async function saveSettings(quiet = false) {
+async function saveSettings(quiet = false, customMsg = null) {
   // Helper to safely get value or default
   const val = (id, def = '') => document.getElementById(id)?.value || def;
   const checked = (id) => document.getElementById(id)?.checked ? 'true' : 'false';
@@ -1812,7 +1961,9 @@ async function saveSettings(quiet = false) {
     wishes_bg_img: val('settingWishesBgImg'),
     wishes_bg_color: val('settingWishesBgColor'),
     wishes_bg_mode: checked('settingWishesBgMode') === 'true' ? 'image' : 'color',
+    gallery_title: val('settingGalleryTitle'),
     rsvp_bg_img: val('settingRsvpBgImg'),
+
     rsvp_bg_color: val('settingRsvpBgColor'),
     opening_bg_color: val('settingOpeningBgColor'),
     couple_bg_color: val('settingCoupleBgColor', '#000000'),
@@ -1821,6 +1972,8 @@ async function saveSettings(quiet = false) {
     gallery_bg_color: val('settingGalleryBgColor', '#000000'),
     couple_bg_mode: val('settingCoupleBgMode', 'color'),
     event_bg_color: val('settingEventBgColor'),
+    event_bg_mode: document.getElementById('settingEventBgMode')?.checked ? 'image' : 'color',
+
     lovestory_bg_color: val('settingLovestoryBgColor'),
     lovestory_card_bg_color: val('settingLovestoryCardBgColor'),
     wa_template: val('waTemplateInput'),
@@ -1853,10 +2006,11 @@ async function saveSettings(quiet = false) {
   if (!state.dashboard.settings) state.dashboard.settings = {};
   Object.assign(state.dashboard.settings, payload);
   
-  if (!quiet) {
-    showToast(t('alert_settings_sync'), 'success');
+  if (!quiet && isAppLoaded) {
+    window.showToast(customMsg || t('alert_settings_sync'), 'success');
   }
 }
+
 
 window.uploadSettingImg = async function(input, key, previewId) {
     if (!input.files || !input.files[0]) return;
@@ -1871,9 +2025,19 @@ window.uploadSettingImg = async function(input, key, previewId) {
         });
         const result = await response.json();
         if (result.success) {
-            if (document.getElementById(previewId)) document.getElementById(previewId).src = result.src;
+            const preview = document.getElementById(previewId);
+            if (preview) {
+                preview.src = result.src;
+                preview.classList.remove('hidden');
+                // Handle placeholder for event background
+                if (previewId === 'eventBgPreview') {
+                    const placeholder = document.getElementById('eventBgPreviewPlaceholder');
+                    if (placeholder) placeholder.classList.add('hidden');
+                }
+            }
             
             // Show delete button if it exists (specifically for Wishes)
+
             if (key === 'wishes_bg_img' && document.getElementById('btnDeleteWishesBg')) {
                 document.getElementById('btnDeleteWishesBg').classList.remove('hidden');
             }
@@ -1969,6 +2133,37 @@ window.updateMapPreview = function(eventId, value) {
     }
 };
 
+
+window.setEventBgMode = function(mode) {
+    const isImage = mode === 'image';
+    const slider = document.getElementById('eventBgModeSlider');
+    const colorBtn = document.getElementById('eventModeColorBtn');
+    const imageBtn = document.getElementById('eventModeImageBtn');
+    const checkbox = document.getElementById('settingEventBgMode');
+
+    if (checkbox) checkbox.checked = isImage;
+
+    if (slider) {
+        slider.style.left = isImage ? 'calc(50% - 1px)' : '4px';
+        slider.style.width = 'calc(50% - 3px)';
+    }
+
+    if (colorBtn && imageBtn) {
+        if (isImage) {
+            colorBtn.classList.add('text-slate-400');
+            colorBtn.classList.remove('text-white');
+            imageBtn.classList.remove('text-slate-400');
+            imageBtn.classList.add('text-white');
+        } else {
+            imageBtn.classList.add('text-slate-400');
+            imageBtn.classList.remove('text-white');
+            colorBtn.classList.remove('text-slate-400');
+            colorBtn.classList.add('text-white');
+        }
+    }
+}
+
+
 async function saveEvent(id) {
   const prefix = `event${id}`;
   const dateIso = document.getElementById(`${prefix}DateIso`)?.value || document.getElementById(`${prefix}DatePicker`)?.value || '';
@@ -1988,18 +2183,11 @@ async function saveEvent(id) {
   showToast(t('alert_event_updated', {id}), 'success');
 }
 
+// saveCouple function is now replaced by saveAllCoupleData.
 async function saveCouple(id) {
-  const prefix = `couple${id}`;
-  const payload = {
-    role: document.getElementById(`${prefix}Role`).value,
-    name: document.getElementById(`${prefix}Name`).value,
-    parents: document.getElementById(`${prefix}Parents`).value,
-    instagram: document.getElementById(`${prefix}Instagram`).value,
-    image_src: document.getElementById(`${prefix}Image`).value,
-  };
-  await api(`/api/admin/couple/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
-  showToast(t('alert_couple_updated', {id}), 'success');
+    await window.saveAllCoupleData();
 }
+
 
 async function addGuest() {
   const name = document.getElementById('guestNameInput').value.trim();
@@ -2225,10 +2413,16 @@ window.deleteWithConfirm = function(onConfirm, options = {}) {
 }
 
 function openGalleryModal() {
+  document.getElementById('galleryUploadForm').reset();
   document.getElementById('galleryEditId').value = '';
   document.getElementById('galleryFileAlt').value = '';
   document.getElementById('galleryFile').required = true;
-  document.title = currentLang === 'id' ? 'Tambah Asset' : 'Add Asset';
+  
+  const preview = document.getElementById('galleryUploadPreview');
+  const placeholder = document.getElementById('galleryUploadPlaceholder');
+  if (preview) preview.classList.add('hidden');
+  if (placeholder) placeholder.classList.remove('hidden');
+
   showModal('galleryUploadModal');
 }
 
@@ -2246,7 +2440,10 @@ async function submitGalleryUpload(event) {
       showToast('Please select a file', 'error');
       return;
   }
-  if (!alt) return;
+  if (!alt) {
+      showToast('Harap isi deskripsi/alt text', 'error');
+      return;
+  }
 
   const formData = new FormData();
   if (fileInput.files.length) formData.append('image', fileInput.files[0]);
@@ -2257,7 +2454,7 @@ async function submitGalleryUpload(event) {
     let method = 'POST';
     
     if (id) {
-        url = `/api/admin/gallery/${id}/meta`; // I'll add this endpoint or just use standard update
+        url = `/api/admin/gallery/${id}/meta`;
         method = 'PUT';
     }
 
@@ -2266,7 +2463,10 @@ async function submitGalleryUpload(event) {
       body: formData,
       credentials: 'include'
     });
-    if (!response.ok) throw new Error('Upload failed');
+    
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Upload failed');
+    
     await loadDashboard();
     closeGalleryModal();
     showToast(currentLang === 'id' ? 'Aset galeri berhasil diperbarui!' : 'Gallery asset updated!', 'success');
@@ -2435,18 +2635,20 @@ function renderLoveStoryChat() {
             const isFemale = msg.sender === 'female';
             const roleName = isFemale ? 'Perempuan' : 'Laki-laki';
             const roleColor = isFemale ? 'pink' : 'blue';
-            const roleIcon = isFemale ? 'fa-venus' : 'fa-mars';
             
+            const settings = state.dashboard?.settings || {};
+            const avatarUrl = isFemale ? (settings.female_avatar || 'https://ui-avatars.com/api/?name=Bride&background=ec4899&color=fff') : (settings.male_avatar || 'https://ui-avatars.com/api/?name=Groom&background=3b82f6&color=fff');
+
             cardClass = isFemale ? 'bg-pink-50/50 border-pink-200/50 dark:bg-pink-950/20 dark:border-pink-900/30' : 'bg-blue-50/50 border-blue-200/50 dark:bg-blue-950/20 dark:border-blue-900/30';
             
             contentHTML = `
                 <div class="flex flex-col gap-2 w-full">
                     <div class="flex justify-between items-center bg-white/50 dark:bg-slate-800/50 px-3 py-2 rounded-xl border border-white/80 dark:border-slate-700/50 shadow-sm">
                         <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded-md bg-${roleColor}-500 text-white flex items-center justify-center shadow-sm">
-                                <i class="fas ${roleIcon} text-[10px]"></i>
+                            <div class="w-7 h-7 rounded-full bg-${roleColor}-500 overflow-hidden shadow-sm border border-white">
+                                <img src="${avatarUrl}" class="w-full h-full object-cover">
                             </div>
-                            <span class="text-[10px] font-semibold text-${roleColor}-700 dark:text-${roleColor}-400">${roleName}</span>
+                            <span class="text-[10px] font-bold text-${roleColor}-700 dark:text-${roleColor}-400 tracking-tight">${roleName}</span>
                         </div>
                         <div class="flex items-center gap-1.5">
                             <i class="far fa-clock text-${roleColor}-300 dark:text-${roleColor}-600 text-[10px]"></i>
@@ -2768,21 +2970,16 @@ async function loadLoveStoryAdmin() {
         const settings = response.settings || {};
         
         const titleEl = document.getElementById('ls_title');
-        const mAvatar = document.getElementById('ls_male_preview');
-        const fAvatar = document.getElementById('ls_female_preview');
-        const bgPreview = document.getElementById('lovestoryBgPreview');
+        const mAvatar = document.getElementById('lsGroomAvatar');
+        const fAvatar = document.getElementById('lsBrideAvatar');
         const bgInput = document.getElementById('settingLovestoryBg');
-        const cardBgPreview = document.getElementById('lovestoryCardBgPreview');
         const cardBgInput = document.getElementById('settingLovestoryCardBg');
         
         if (titleEl) titleEl.value = settings.title || settings.chat_title || '';
-        if (mAvatar) mAvatar.src = settings.male_avatar || 'img/rian.jpeg';
-        if (fAvatar) fAvatar.src = settings.female_avatar || 'img/aurora.jpeg';
+        if (mAvatar) mAvatar.src = settings.male_avatar || 'https://ui-avatars.com/api/?name=Groom&background=3b82f6&color=fff';
+        if (fAvatar) fAvatar.src = settings.female_avatar || 'https://ui-avatars.com/api/?name=Bride&background=ec4899&color=fff';
         
-        if (bgPreview && settings.lovestory_bg) bgPreview.src = settings.lovestory_bg;
         if (bgInput) bgInput.value = settings.lovestory_bg || '';
-        
-        if (cardBgPreview && settings.lovestory_card_bg) cardBgPreview.src = settings.lovestory_card_bg;
         if (cardBgInput) cardBgInput.value = settings.lovestory_card_bg || '';
         
         renderLoveStoryChat();
@@ -2957,7 +3154,7 @@ function handleGlobalSearch(query) {
 
     if (matches.length === 0) {
         list.innerHTML = `
-            <div class="p-8 text-center text-slate-400 flex flex-col items-center">
+            <div class="p-8 text-center text-slate-400 dark:text-slate-500 flex flex-col items-center">
                 <i class="fas fa-search-minus text-3xl mb-3 opacity-20"></i>
                 <p class="text-xs font-bold">Tidak ada hasil pencarian</p>
                 <p class="text-[10px] mt-1">Coba kata kunci lain atau periksa nama tamu.</p>
@@ -2968,25 +3165,25 @@ function handleGlobalSearch(query) {
             const guestKey = guestName.toLowerCase();
             const rsvp = (state.dashboard.rsvps || []).find(r => (r.guest_name || '').trim().toLowerCase() === guestKey);
 
-            let rsvpHtml = `<span class="text-slate-400 italic font-medium"><i class="fas fa-clock mr-1 opacity-50"></i>Belum konfirmasi kehadiran</span>`;
+            let rsvpHtml = `<span class="text-slate-400 dark:text-slate-500 italic font-medium"><i class="fas fa-clock mr-1 opacity-50"></i>Belum konfirmasi kehadiran</span>`;
             if (rsvp && rsvp.status) {
                 if (rsvp.status.toLowerCase() === 'hadir') {
-                    rsvpHtml = `<span class="text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100"><i class="fas fa-check mr-1 text-[10px]"></i>Hadir (${rsvp.guest_count || 0} pax)</span>`;
+                    rsvpHtml = `<span class="text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-100 dark:border-emerald-500/20"><i class="fas fa-check mr-1 text-[10px]"></i>Hadir (${rsvp.guest_count || 0} orang)</span>`;
                 } else {
-                    rsvpHtml = `<span class="text-red-500 font-bold bg-red-50 px-2 py-0.5 rounded-md border border-red-100"><i class="fas fa-times mr-1 text-[10px]"></i>Tidak Hadir</span>`;
+                    rsvpHtml = `<span class="text-red-500 dark:text-red-400 font-bold bg-red-50 dark:bg-red-500/10 px-2 py-0.5 rounded-md border border-red-100 dark:border-red-500/20"><i class="fas fa-times mr-1 text-[10px]"></i>Tidak Hadir</span>`;
                 }
             }
 
             const wishList = (state.dashboard.wishes || []).filter(w => (w.guest_name || '').trim().toLowerCase() === guestKey);
-            let wishHtml = `<div class="mt-2 text-slate-400 text-[10px] italic bg-slate-50 border border-slate-100 p-2 rounded-lg flex items-center gap-2"><i class="fas fa-comment-slash opacity-50"></i>Tidak ada pesan / ucapan</div>`;
+            let wishHtml = `<div class="mt-2 text-slate-400 dark:text-slate-500 text-[10px] italic bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 p-2 rounded-lg flex items-center gap-2"><i class="fas fa-comment-slash opacity-50"></i>Tidak ada pesan / ucapan</div>`;
             if (wishList && wishList.length > 0) {
-                wishHtml = wishList.map(w => `<div class="mt-2 bg-indigo-50 border border-indigo-100 p-2 rounded-lg"><div class="text-indigo-700 text-[11px] leading-tight"><i class="fas fa-quote-left mr-1 opacity-50 text-[8px]"></i> ${w.message}</div>${w.reply ? `<div class="mt-1.5 pl-2 border-l-2 border-indigo-200 text-indigo-600/80 text-[10px]"><i class="fas fa-reply mr-1 opacity-50 text-[8px]"></i>${w.reply}</div>` : ''}</div>`).join('');
+                wishHtml = wishList.map(w => `<div class="mt-2 bg-indigo-50 dark:bg-indigo-500/5 border border-indigo-100 dark:border-indigo-500/20 p-2 rounded-lg"><div class="text-indigo-700 dark:text-indigo-300 text-[11px] leading-tight font-medium"><i class="fas fa-quote-left mr-1 opacity-50 text-[8px]"></i> ${w.message}</div>${w.reply ? `<div class="mt-1.5 pl-2 border-l-2 border-indigo-200 dark:border-indigo-400/40 text-indigo-600/80 dark:text-indigo-400/90 text-[10px]"><i class="fas fa-reply mr-1 opacity-50 text-[8px]"></i>${w.reply}</div>` : ''}</div>`).join('');
             }
 
             return `
-                <div class="mb-3 border border-slate-100 rounded-xl hover:border-slate-300 transition-colors bg-white overflow-hidden shadow-sm group">
-                    <div class="px-4 py-2 border-b border-slate-50 flex justify-between items-center bg-slate-50/50 group-hover:bg-slate-50 transition-colors">
-                        <span class="font-bold text-slate-800 text-sm flex items-center gap-2"><i class="fas fa-user-circle text-slate-300"></i> ${guestName}</span>
+                <div class="mb-3 border border-slate-100 dark:border-slate-800 rounded-xl hover:border-slate-300 dark:hover:border-slate-700 transition-colors bg-white dark:bg-slate-900 overflow-hidden shadow-sm group">
+                    <div class="px-4 py-2 border-b border-slate-50 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/40 group-hover:bg-slate-50 dark:group-hover:bg-slate-800/60 transition-colors">
+                        <span class="font-bold text-slate-800 dark:text-slate-100 text-sm flex items-center gap-2"><i class="fas fa-user-circle text-slate-300 dark:text-slate-600"></i> ${guestName}</span>
                         <div class="text-[10px]">
                             ${rsvpHtml}
                         </div>
@@ -3539,6 +3736,10 @@ document.addEventListener('click', (e) => {
 window.showWaTemplateModal = function() {
     const template = state.dashboard.settings?.wa_template || '';
     document.getElementById('waTemplateInput').value = template;
+    const editor = document.getElementById('waTemplateEditor');
+    if (editor) {
+        editor.innerHTML = window.convertWaMarkdownToHtml(template);
+    }
     showModal('waTemplateModal');
 };
 
@@ -3572,48 +3773,139 @@ window.copyGuestMessage = function(name, link) {
     });
 };
 
-window.formatWaText = function(char) {
-    const textarea = document.getElementById('waTemplateInput');
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const text = textarea.value;
-    const selectedText = text.substring(start, end);
-    const len = char.length;
-    
-    if (start === end) {
-        // Just insert pair if nothing selected
-        const newText = text.substring(0, start) + char + char + text.substring(end);
-        textarea.value = newText;
-        textarea.setSelectionRange(start + len, start + len);
-    } else {
-        const newText = text.substring(0, start) + char + selectedText + char + text.substring(end);
-        textarea.value = newText;
-        textarea.setSelectionRange(start, end + (len * 2));
-    }
-    textarea.focus();
+window.syncEditorToHidden = function() {
+    const editor = document.getElementById('waTemplateEditor');
+    const hidden = document.getElementById('waTemplateInput');
+    if (!editor || !hidden) return;
+    hidden.value = window.convertHtmlToWaMarkdown(editor.innerHTML);
 };
 
-window.insertWaTag = function(tag) {
-    const textarea = document.getElementById('waTemplateInput');
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const text = textarea.value;
+window.convertHtmlToWaMarkdown = function(html) {
+    let text = html;
+    // Standardize newlines from divs/ps
+    text = text.replace(/<div[^>]*>(.*?)<\/div>/gi, '\n$1');
+    text = text.replace(/<p[^>]*>(.*?)<\/p>/gi, '\n$1');
+    text = text.replace(/<br\s*\/?>/gi, '\n');
     
-    const newText = text.substring(0, start) + tag + text.substring(end);
-    textarea.value = newText;
-    textarea.focus();
-    textarea.setSelectionRange(start + tag.length, start + tag.length);
+    // Convert style tags to WA Markdown
+    text = text.replace(/<(b|strong)[^>]*>(.*?)<\/(b|strong)>/gi, '*$2*');
+    text = text.replace(/<(i|em)[^>]*>(.*?)<\/(i|em)>/gi, '_$2_');
+    text = text.replace(/<(s|strike|del)[^>]*>(.*?)<\/(s|strike|del)>/gi, '~$2~');
+    
+    // Strip remaining tags
+    const temp = document.createElement('div');
+    temp.innerHTML = text;
+    return (temp.textContent || temp.innerText || "").trim();
+};
+
+window.convertWaMarkdownToHtml = function(markdown) {
+    if (!markdown) return '';
+    let html = markdown;
+    html = html.replace(/\*(.*?)\*/g, '<b>$1</b>');
+    html = html.replace(/_(.*?)_/g, '<i>$1</i>');
+    html = html.replace(/~(.*?)~/g, '<s>$1</s>');
+    html = html.replace(/\n/g, '<br>');
+    return html;
+};
+
+window.execWaCommand = function(cmd, val = null) {
+    document.execCommand(cmd, false, val);
+    window.syncEditorToHidden();
+    window.updateWaEditorStates();
+    document.getElementById('waTemplateEditor').focus();
+};
+
+window.handleFontSize = function(size) {
+    const sel = window.getSelection();
+    if (!sel.rangeCount) return;
+    const range = sel.getRangeAt(0);
+    const span = document.createElement('span');
+    span.style.fontSize = size;
+    span.appendChild(range.extractContents());
+    range.insertNode(span);
+    window.syncEditorToHidden();
+};
+
+window.updateWaEditorStates = function() {
+    const commands = {
+        'bold': 'btnWaBold',
+        'italic': 'btnWaItalic',
+        'underline': 'btnWaUnderline',
+        'justifyLeft': 'btnWaJustifyLeft',
+        'justifyCenter': 'btnWaJustifyCenter',
+        'justifyRight': 'btnWaJustifyRight'
+    };
+
+    for (const [cmd, id] of Object.entries(commands)) {
+        const btn = document.getElementById(id);
+        if (btn) {
+            if (document.queryCommandState(cmd)) {
+                btn.classList.add('wa-btn-active');
+            } else {
+                btn.classList.remove('wa-btn-active');
+            }
+        }
+    }
+};
+
+// Listen for selection changes to update toolbar state
+document.addEventListener('selectionchange', () => {
+    if (document.activeElement && document.activeElement.id === 'waTemplateEditor') {
+        window.updateWaEditorStates();
+    }
+});
+
+window.insertWaTagAtCursor = function(tag) {
+    const editor = document.getElementById('waTemplateEditor');
+    editor.focus();
+    
+    let content = tag;
+    if (tag.startsWith('@')) {
+        content = `<span class="text-white bg-indigo-600 px-2 py-0.5 rounded-lg font-bold text-[11px]" contenteditable="false">${tag}</span>&nbsp;`;
+    }
+
+    if (window.getSelection) {
+        const sel = window.getSelection();
+        if (sel.getRangeAt && sel.rangeCount) {
+            const range = sel.getRangeAt(0);
+            range.deleteContents();
+            const el = document.createElement("div");
+            el.innerHTML = content;
+            const frag = document.createDocumentFragment();
+            let node, lastNode;
+            while ((node = el.firstChild)) {
+                lastNode = frag.appendChild(node);
+            }
+            range.insertNode(frag);
+            if (lastNode) {
+                range.setStartAfter(lastNode);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }
+        }
+    }
+    window.syncEditorToHidden();
 };
 
 // Dark Mode Feature
 window.toggleDarkMode = function() {
     const isDark = document.documentElement.classList.contains('dark');
+    const icon = document.getElementById('darkModeIcon');
     if (isDark) {
         document.documentElement.classList.remove('dark');
         localStorage.setItem('admin-theme', 'light');
+        if (icon) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
     } else {
         document.documentElement.classList.add('dark');
         localStorage.setItem('admin-theme', 'dark');
+        if (icon) {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
     }
 };
 
@@ -3657,7 +3949,7 @@ window.setGiftBgPreset = function(value) {
     }
 };
 
-window.setWishesBgMode = function(mode) {
+window.setWishesBgMode = function(mode, skipSave = false) {
     const modeInput = document.getElementById('settingWishesBgMode');
     if (modeInput) modeInput.value = mode;
     
@@ -3683,7 +3975,7 @@ window.setWishesBgMode = function(mode) {
             btnColor.classList.add('text-slate-400', 'dark:text-slate-500');
         }
     }
-    saveSettings(); // Persist mode change
+    if (!skipSave) saveSettings(); 
 };
 
 window.setOpeningBgPreset = function(value) {
@@ -3735,7 +4027,7 @@ window.setLovestoryCardBgPreset = function(value) {
 };
 
 // --- Opening Page Logic ---
-window.setOpeningBgMode = function(mode) {
+window.setOpeningBgMode = function(mode, skipSave = false) {
     const modeInput = document.getElementById('settingOpeningBgMode');
     const indicator = document.getElementById('openingModeIndicator');
     const textWarna = document.querySelector('#btnModeColor .mode-text');
@@ -3754,7 +4046,7 @@ window.setOpeningBgMode = function(mode) {
         textWarna.className = 'mode-text transition-colors duration-300 text-white';
         textGambar.className = 'mode-text transition-colors duration-300 text-slate-400 dark:text-slate-100';
     }
-    saveSettings();
+    if (!skipSave) saveSettings();
 };
 
 window.syncOpeningColor = function(val, target) {
@@ -3900,7 +4192,7 @@ window.removeOpeningSliderImg = function(index) {
 // Section Sambutan Background Management
 // =============================================
 
-window.setGreetingBgMode = function(mode) {
+window.setGreetingBgMode = function(mode, skipSave = false) {
     const indicator = document.getElementById('greetingModeIndicator');
     const modeInput = document.getElementById('settingGreetingBgMode');
     const textWarna = document.querySelector('#btnGreetingModeColor .greeting-mode-text');
@@ -3916,7 +4208,7 @@ window.setGreetingBgMode = function(mode) {
         if (textWarna) textWarna.className = 'greeting-mode-text transition-colors duration-300 text-white';
         if (textGambar) textGambar.className = 'greeting-mode-text transition-colors duration-300 text-slate-400 dark:text-slate-100';
     }
-    saveSettings();
+    if (!skipSave) saveSettings();
 };
 
 window.syncGreetingColor = function(val, target) {
@@ -3931,7 +4223,7 @@ window.syncGreetingColor = function(val, target) {
     if (box) box.style.backgroundColor = val;
 };
 
-window.setCoupleBgMode = function(mode) {
+window.setCoupleBgMode = function(mode, skipSave = false) {
     const indicator = document.getElementById('coupleModeIndicator');
     const modeInput = document.getElementById('settingCoupleBgMode');
     const textWarna = document.querySelector('#btnCoupleModeColor .couple-mode-text');
@@ -3947,7 +4239,7 @@ window.setCoupleBgMode = function(mode) {
         if (textWarna) textWarna.className = 'couple-mode-text transition-colors duration-300 text-white';
         if (textGambar) textGambar.className = 'couple-mode-text transition-colors duration-300 text-slate-400 dark:text-slate-100';
     }
-    saveSettings();
+    if (!skipSave) saveSettings();
 };
 
 window.syncCoupleColor = function(val, target) {
@@ -3983,52 +4275,16 @@ window.removeCoupleBgImg = function() {
 };
 
 window.renderGreetingSlider = function() {
-    const listContainer = document.getElementById('greetingBgList');
+    const previewImg = document.getElementById('greetingBgPreview');
     const hiddenInput = document.getElementById('settingGreetingBgImg');
-    if (!listContainer || !hiddenInput) return;
+    if (!previewImg || !hiddenInput) return;
 
-    const urls = hiddenInput.value ? hiddenInput.value.split(',').filter(u => u.trim() !== '') : [];
-    listContainer.innerHTML = '';
-
-    if (urls.length === 0) {
-        listContainer.innerHTML = `
-            <div class="flex flex-col items-center justify-center w-full py-8 text-slate-300 border-2 border-dashed border-slate-100 rounded-2xl bg-slate-50/50">
-                <i class="fas fa-images text-3xl mb-2"></i>
-                <span class="text-[10px] font-semibold uppercase tracking-wider">Belum ada foto background</span>
-            </div>
-        `;
-        return;
-    }
-
-    urls.forEach((url, index) => {
-        const item = document.createElement('div');
-        item.className = 'relative shrink-0 w-32 sm:w-40 aspect-[4/5] rounded-2xl overflow-hidden border border-slate-200 group/item snap-start hover:shadow-md transition-all cursor-grab active:cursor-grabbing';
-        item.setAttribute('data-url', url);
-        item.innerHTML = `
-            <img src="${url}" class="w-full h-full object-cover" onclick="window.previewGreetingImg('${url}')">
-            <div class="absolute inset-0 bg-black/10 opacity-0 group-hover/item:opacity-100 transition-opacity pointer-events-none"></div>
-            <div class="absolute top-2 left-2 w-7 h-7 bg-white/90 backdrop-blur-sm text-slate-400 rounded-full flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-all shadow-md z-10">
-                <i class="fas fa-grip-vertical text-[10px]"></i>
-            </div>
-            <button onclick="window.removeGreetingBgImg(${index})" class="absolute top-2 right-2 w-8 h-8 bg-white/90 backdrop-blur-sm text-rose-500 rounded-full flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-all shadow-lg hover:bg-rose-500 hover:text-white z-10">
-                <i class="fas fa-trash-alt text-xs"></i>
-            </button>
-        `;
-        listContainer.appendChild(item);
-    });
-
-    if (urls.length > 1 && typeof Sortable !== 'undefined') {
-        if (listContainer._sortable) listContainer._sortable.destroy();
-        listContainer._sortable = Sortable.create(listContainer, {
-            animation: 250,
-            ghostClass: 'opacity-20',
-            onEnd: function() {
-                const items = listContainer.querySelectorAll('[data-url]');
-                const newUrls = Array.from(items).map(el => el.getAttribute('data-url'));
-                hiddenInput.value = newUrls.join(',');
-                window.renderGreetingSlider();
-            }
-        });
+    const url = hiddenInput.value;
+    if (url) {
+        previewImg.src = url;
+        previewImg.style.opacity = '1';
+    } else {
+        previewImg.style.opacity = '0';
     }
 };
 
@@ -4042,17 +4298,15 @@ window.uploadGreetingBgImg = async function(input) {
     if (!input.files || !input.files[0]) return;
     const formData = new FormData();
     formData.append('image', input.files[0]);
-    formData.append('setting_key', 'greeting_slider');
+    formData.append('setting_key', 'greeting_bg_img');
     try {
         const response = await fetch('/api/admin/settings/upload', { method: 'POST', body: formData });
         const result = await response.json();
         if (result.success) {
             const hiddenInput = document.getElementById('settingGreetingBgImg');
-            let currentUrls = hiddenInput.value ? hiddenInput.value.split(',').filter(u => u.trim() !== '') : [];
-            currentUrls.push(result.src);
-            hiddenInput.value = currentUrls.join(',');
+            hiddenInput.value = result.src;
             window.renderGreetingSlider();
-            showToast('Gambar background ditambahkan', 'success');
+            showToast('Gambar background diperbarui', 'success');
             saveSettings();
         } else {
             showToast(result.error || 'Gagal mengunggah gambar', 'error');
@@ -4063,13 +4317,14 @@ window.uploadGreetingBgImg = async function(input) {
     input.value = '';
 };
 
-window.removeGreetingBgImg = function(index) {
+window.removeGreetingBgImg = function() {
     const hiddenInput = document.getElementById('settingGreetingBgImg');
-    let currentUrls = hiddenInput.value ? hiddenInput.value.split(',').filter(u => u.trim() !== '') : [];
-    currentUrls.splice(index, 1);
-    hiddenInput.value = currentUrls.join(',');
-    window.renderGreetingSlider();
-    showToast('Gambar background dihapus', 'info');
+    if (hiddenInput) {
+        hiddenInput.value = '';
+        window.renderGreetingSlider();
+        showToast('Gambar background dihapus', 'info');
+        saveSettings();
+    }
 };
 
 // Initialize Greeting Section UI on load

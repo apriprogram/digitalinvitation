@@ -65,14 +65,19 @@
 #couple::before {
     content: '';
     position: absolute;
-    /* Basic cover setup */
-    background-image: var(--couple-bg, url('img/bg/bg1.png'));
+    background-image: var(--couple-bg, none);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     z-index: 0;
     transition: all 0.5s ease;
+    display: none; /* Hidden by default */
 }
+
+#couple.show-before::before {
+    display: block; /* Shown only when 'show-before' class is present */
+}
+
 
 /* Mode Mobile: background responsif tanpa ukuran ekstrim */
 @media (max-width: 767px) {
@@ -215,9 +220,9 @@ body {
 
 /* Pulse animation for social icons */
 .fab:hover {
-    transform: scale(1.2);
     transition: transform 0.3s ease;
 }
+
 
 /* Button glow effect and smooth transitions */
 button,
@@ -411,4 +416,34 @@ button,
 
 .modal-btn:active {
     background: rgba(255, 255, 255, 0.1);
+}
+
+/* Dynamic Events & Striped Placeholders */
+.striped-bg {
+    background: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.03),
+        rgba(255, 255, 255, 0.03) 15px,
+        transparent 15px,
+        transparent 30px
+    );
+    border: 1px dashed rgba(245, 166, 35, 0.2);
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24px;
+    backdrop-filter: blur(4px);
+}
+
+.no-data-card {
+    opacity: 0.5;
+    filter: grayscale(0.5);
+    transition: all 0.5s ease;
+}
+
+.no-data-card:hover {
+    opacity: 0.8;
+    filter: grayscale(0.2);
 }
