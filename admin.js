@@ -505,7 +505,7 @@ function renderRsvpItems(isMore = false) {
                 const badgeClass = (item.status || '').toLowerCase() === 'hadir' ? 'badge-paid' : 'badge-pending';
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short' }) : '-';
                 return `
-                    <tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors border-b border-slate-50 dark:border-slate-800 last:border-0">
+                    <tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors border-b border-slate-100 dark:border-slate-800/50 last:border-0">
                         <td class="font-bold text-slate-900 dark:text-slate-100 text-xs tracking-tight px-8 py-4">
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-xs shrink-0">${(item.guest_name || 'A').charAt(0).toUpperCase()}</div>
@@ -559,7 +559,7 @@ function renderWishesItems(isMore = false) {
                 ` : '';
 
                 return `
-                    <div class="px-4 py-2.5 hover:bg-indigo-50/50 dark:hover:bg-slate-800/50 transition-all rounded-xl mx-1 my-0.5 hover:ring-2 hover:ring-indigo-400 group">
+                    <div class="px-4 py-2.5 hover:bg-indigo-50/50 dark:hover:bg-slate-800/50 transition-all rounded-xl mx-1 my-0.5 hover:ring-2 hover:ring-indigo-400 dark:hover:ring-indigo-500/30 group">
                         <div class="flex items-start gap-3.5">
                             <div class="w-7 h-7 rounded-full bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-[11px] shrink-0 border border-blue-100 dark:border-slate-700 mt-1 shadow-sm">${initial}</div>
                             <div class="flex-1 min-w-0">
@@ -657,10 +657,13 @@ function renderSettings() {
   if (document.getElementById('settingGreetingBg')) document.getElementById('settingGreetingBg').value = settings.greeting_bg || '';
   if (document.getElementById('settingGreetingInvitation')) document.getElementById('settingGreetingInvitation').value = settings.greeting_invitation || '';
   if (document.getElementById('settingCoupleSectionTitle')) document.getElementById('settingCoupleSectionTitle').value = settings.couple_section_title !== undefined ? settings.couple_section_title : 'Bride & Groom';
-
-  if (document.getElementById('settingEventHeaderQuote')) document.getElementById('settingEventHeaderQuote').value = settings.event_header_quote || 'Kami sangat berharap kehadiran Anda dalam momen spesial kami.';
-  if (document.getElementById('settingEventHeaderTitle')) document.getElementById('settingEventHeaderTitle').value = settings.event_header_title || 'Wedding Event';
-  if (document.getElementById('settingRsvpCaption')) document.getElementById('settingRsvpCaption').value = settings.rsvp_caption || 'Mohon konfirmasikan kehadiran Anda melalui formulir di bawah ini.';
+  if (document.getElementById('settingEventHeaderTitle')) document.getElementById('settingEventHeaderTitle').value = settings.event_header_title || '';
+  if (document.getElementById('settingEventHeaderQuote')) document.getElementById('settingEventHeaderQuote').value = settings.event_header_quote || '';
+  if (document.getElementById('settingWishesTitle')) document.getElementById('settingWishesTitle').value = settings.wishes_title || '';
+  if (document.getElementById('settingWishesQuote')) document.getElementById('settingWishesQuote').value = settings.wishes_quote || '';
+  if (document.getElementById('settingRsvpHeaderTitle')) document.getElementById('settingRsvpHeaderTitle').value = settings.rsvp_header_title || '';
+  if (document.getElementById('settingRsvpHeaderQuote')) document.getElementById('settingRsvpHeaderQuote').value = settings.rsvp_header_quote || '';
+  if (document.getElementById('settingRsvpCaption')) document.getElementById('settingRsvpCaption').value = settings.rsvp_caption || '';
   if (document.getElementById('settingEventBg')) document.getElementById('settingEventBg').value = settings.event_bg || '';
   if (document.getElementById('settingLovestoryBg')) document.getElementById('settingLovestoryBg').value = settings.lovestory_bg || '';
   if (document.getElementById('settingLovestoryCardBg')) document.getElementById('settingLovestoryCardBg').value = settings.lovestory_card_bg || '';
@@ -702,25 +705,85 @@ function renderSettings() {
   }
   if (document.getElementById('settingGalleryTitle')) document.getElementById('settingGalleryTitle').value = settings.gallery_title || 'Sweet Moments';
 
-  if (document.getElementById('settingEventBgMode')) {
-      const eMode = settings.event_bg_mode || 'color';
-      window.setEventBgMode(eMode, true);
-  }
-  
-  const eventImg = settings.event_bg_img || '';
-  const eventPreview = document.getElementById('eventBgPreview');
-  const eventPlaceholder = document.getElementById('eventBgPreviewPlaceholder');
-  if (eventPreview && eventPlaceholder) {
-      if (eventImg) {
-          eventPreview.src = eventImg;
-          eventPreview.classList.remove('hidden');
-          eventPlaceholder.classList.add('hidden');
-      } else {
-          eventPreview.src = '';
-          eventPreview.classList.add('hidden');
-          eventPlaceholder.classList.remove('hidden');
-      }
-  }
+   if (document.getElementById('settingEventBgMode')) {
+       const eMode = settings.event_bg_mode || 'color';
+       window.setEventBgMode(eMode, true);
+   }
+   
+   const eventImg = settings.event_bg_img || '';
+   const eventPreview = document.getElementById('eventBgPreview');
+   const eventPlaceholder = document.getElementById('eventBgPreviewPlaceholder');
+   if (eventPreview && eventPlaceholder) {
+       if (eventImg) {
+           eventPreview.src = eventImg;
+           eventPreview.classList.remove('hidden');
+           eventPlaceholder.classList.add('hidden');
+       } else {
+           eventPreview.src = '';
+           eventPreview.classList.add('hidden');
+           eventPlaceholder.classList.remove('hidden');
+       }
+   }
+
+   // Wishes background logic
+   if (document.getElementById('settingWishesBgMode')) {
+       const wMode = settings.wishes_bg_mode || 'color';
+       window.setWishesBgMode(wMode, true);
+   }
+   const wishesImg = settings.wishes_bg_img || '';
+   const wishesPreview = document.getElementById('wishesBgPreview');
+   const wishesPlaceholder = document.getElementById('wishesBgPreviewPlaceholder');
+   if (wishesPreview && wishesPlaceholder) {
+       if (wishesImg) {
+           wishesPreview.src = wishesImg;
+           wishesPreview.classList.remove('hidden');
+           wishesPlaceholder.classList.add('hidden');
+       } else {
+           wishesPreview.src = '';
+           wishesPreview.classList.add('hidden');
+           wishesPlaceholder.classList.remove('hidden');
+       }
+   }
+   
+   // RSVP background logic
+   if (document.getElementById('settingRsvpBgMode')) {
+       const rMode = settings.rsvp_bg_mode || 'color';
+       window.setRsvpBgMode(rMode, true);
+   }
+   const rsvpImg = settings.rsvp_bg_img || '';
+   const rsvpPreview = document.getElementById('rsvpBgPreview');
+   const rsvpPlaceholder = document.getElementById('rsvpBgPreviewPlaceholder');
+   if (rsvpPreview && rsvpPlaceholder) {
+       if (rsvpImg) {
+           rsvpPreview.src = rsvpImg;
+           rsvpPreview.classList.remove('hidden');
+           rsvpPlaceholder.classList.add('hidden');
+       } else {
+           rsvpPreview.src = '';
+           rsvpPreview.classList.add('hidden');
+           rsvpPlaceholder.classList.remove('hidden');
+       }
+   }
+
+   // Gift background logic
+   if (document.getElementById('settingGiftBgMode')) {
+       const gMode = settings.gift_bg_mode || 'color';
+       window.setGiftBgMode(gMode, true);
+   }
+   const giftImg = settings.gift_bg_img || '';
+   const giftPreview = document.getElementById('giftBgPreview');
+   const giftPlaceholder = document.getElementById('giftBgPreviewPlaceholder');
+   if (giftPreview && giftPlaceholder) {
+       if (giftImg) {
+           giftPreview.src = giftImg;
+           giftPreview.classList.remove('hidden');
+           giftPlaceholder.classList.add('hidden');
+       } else {
+           giftPreview.src = '';
+           giftPreview.classList.add('hidden');
+           giftPlaceholder.classList.remove('hidden');
+       }
+   }
 
 
   if (document.getElementById('settingLovestoryBgColor')) {
@@ -770,33 +833,22 @@ function renderSettings() {
       if (window.setGreetingBgMode) window.setGreetingBgMode(gMode, true);
   }
   
-  if (document.getElementById('settingWishesBgMode')) {
-      const mode = settings.wishes_bg_mode || 'color';
-      window.setWishesBgMode(mode, true);
-  }
-  
   if (document.getElementById('settingWishesBgColor')) {
       const wColor = settings.wishes_bg_color || '#000000';
       document.getElementById('settingWishesBgColor').value = wColor;
-      if (document.getElementById('wishesColorPicker') && wColor.startsWith('#')) {
-          document.getElementById('wishesColorPicker').value = wColor;
-      }
+      if (window.syncWishesColor) window.syncWishesColor(wColor, 'picker');
   }
 
-  if (document.getElementById('settingRsvpBgColor')) {
-      const rColor = settings.rsvp_bg_color || '#000000';
-      document.getElementById('settingRsvpBgColor').value = rColor;
-      if (document.getElementById('rsvpColorPicker') && rColor.startsWith('#')) {
-          document.getElementById('rsvpColorPicker').value = rColor;
-      }
-  }
+   if (document.getElementById('settingRsvpBgColor')) {
+       const rColor = settings.rsvp_bg_color || '#000000';
+       document.getElementById('settingRsvpBgColor').value = rColor;
+       if (window.syncRsvpColor) window.syncRsvpColor(rColor, 'picker');
+   }
 
   if (document.getElementById('settingGiftBgColor')) {
-      const gColor = settings.gift_bg_color || '#000000';
-      document.getElementById('settingGiftBgColor').value = gColor;
-      if (document.getElementById('giftColorPicker') && gColor.startsWith('#')) {
-          document.getElementById('giftColorPicker').value = gColor;
-      }
+      const giColor = settings.gift_bg_color || '#000000';
+      document.getElementById('settingGiftBgColor').value = giColor;
+      if (window.syncGiftColor) window.syncGiftColor(giColor, 'picker');
   }
   
   if (document.getElementById('settingGalleryBgColor')) {
@@ -872,6 +924,10 @@ function renderSettings() {
       document.getElementById('settingBgMusic').value = settings.bg_music || '';
   }
 
+  if (document.getElementById('waTemplateInput')) {
+      document.getElementById('waTemplateInput').innerHTML = settings.wa_template || '';
+  }
+
   // Music Settings
   const musicDisplay = document.getElementById('music_name_display');
   const previewContainer = document.getElementById('music_preview_container');
@@ -907,82 +963,85 @@ function renderEvents() {
     const section = document.getElementById('eventsContainer');
     if (!section || !state.dashboard?.events) return;
     const events = state.dashboard.events || [];
-    if (events.length < 2) return;
-    const [e1, e2] = events;
 
     section.innerHTML = `
-        ${[e1, e2].map((event, i) => `
-            <article class="bg-white card-premium px-6 py-5 sm:px-8 sm:py-6">
-                <div class="flex items-center justify-between mb-4 sm:mb-5 border-b border-slate-50 pb-3 sm:pb-3.5">
+        ${events.map((event, i) => `
+            <article class="bg-white dark:bg-slate-800 card-premium px-6 py-5 sm:px-8 sm:py-6 group relative">
+                <div class="flex items-center justify-between mb-4 sm:mb-5 border-b border-slate-50 dark:border-slate-700 pb-3 sm:pb-3.5">
                     <div class="flex items-center gap-3 sm:gap-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl ${i === 0 ? 'bg-indigo-50 text-indigo-600 border-indigo-100' : 'bg-emerald-50 text-emerald-600 border-emerald-100'} border flex items-center justify-center text-lg sm:text-xl">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl ${i % 2 === 0 ? 'bg-indigo-50 text-indigo-600 border-indigo-100' : 'bg-emerald-50 text-emerald-600 border-emerald-100'} border flex items-center justify-center text-lg sm:text-xl">
                             <i class="fas ${i === 0 ? 'fa-ring' : 'fa-utensils'}"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight">${event.name || `${t('event_prefix')}${i+1}`}</h3>
-                            <p class="text-[11px] sm:text-xs text-slate-600 font-semibold mt-1">${t('event_op_details')}</p>
+                            <h3 class="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight">${event.name || `${t('event_prefix')}${i+1}`}</h3>
+                            <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 font-semibold mt-1">${t('event_op_details')}</p>
                         </div>
                     </div>
-                    <button data-event-id="${i+1}" class="btn-premium btn-primary !h-9 sm:!h-10 !px-4 sm:!px-5 !text-[9px] sm:!text-[10px] uppercase tracking-widest save-event">
-                        ${t('event_btn_update')}
-                    </button>
+                    <div class="flex items-center gap-2">
+                        <button onclick="window.deleteEvent(${event.id})" class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/30 text-red-500 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 hover:text-white">
+                            <i class="fas fa-trash-alt text-[10px]"></i>
+                        </button>
+                        <button data-event-id="${event.id}" class="btn-premium btn-primary !h-9 sm:!h-10 !px-4 sm:!px-5 !text-[9px] sm:!text-[10px] uppercase tracking-widest save-event">
+                            ${t('event_btn_update')}
+                        </button>
+                    </div>
                 </div>
                 <div class="grid gap-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-2">
-                            <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('event_display_name')}</label>
-                            <input id="event${i+1}Name" type="text" value="${event.name || ''}" class="input-premium">
+                            <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">${t('event_display_name')}</label>
+                            <input id="event${event.id}Name" type="text" value="${event.name || ''}" class="input-premium">
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('event_header_heading')}</label>
-                            <input id="event${i+1}Heading" type="text" value="${event.heading || ''}" class="input-premium">
+                            <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">${t('event_header_heading')}</label>
+                            <input id="event${event.id}Heading" type="text" value="${event.heading || ''}" class="input-premium">
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-2">
-                            <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('event_timeline')}</label>
-                            <input id="event${i+1}Time" type="text" value="${event.time || ''}" class="input-premium">
+                            <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">${t('event_timeline')}</label>
+                            <input id="event${event.id}Time" type="text" value="${event.time || ''}" class="input-premium">
                         </div>
-                    <div class="space-y-2">
-                            <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('event_cal_date')}</label>
-                            <input id="event${i+1}DatePicker" type="date" value="${event.date_iso || ''}" class="input-premium cursor-pointer" 
-                                onchange="updateEventDateDisplay(${i+1}, this.value)">
-                            <input id="event${i+1}Date" type="hidden" value="${event.date || ''}">
-                            <input id="event${i+1}DateIso" type="hidden" value="${event.date_iso || ''}">
-                            <p id="event${i+1}DateLabel" class="text-xs text-indigo-600 font-semibold px-1 mt-1">${event.date || '(Pilih tanggal di atas)'}</p>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('event_venue_id')}</label>
-                        <input id="event${i+1}Location" type="text" value="${event.location_name || ''}" class="input-premium">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('event_phys_addr')}</label>
-                        <textarea id="event${i+1}Address" class="input-premium min-h-[100px]">${event.address || ''}</textarea>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('event_map_src')}</label>
-                        <textarea id="event${i+1}MapSrc" class="input-premium min-h-[80px] break-all" oninput="window.updateMapPreview(${i+1}, this.value)" placeholder="Tempel URL atau tag <iframe> Google Maps di sini">${event.map_src || ''}</textarea>
-                        <div id="event${i+1}MapContainer" class="mt-3 overflow-hidden rounded-xl border border-slate-200 bg-slate-50 transition-all ${event.map_src ? 'block' : 'hidden'}">
-                            <iframe id="event${i+1}MapIframe" src="${event.map_src || ''}" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" class="w-full"></iframe>
+                        <div class="space-y-2">
+                            <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">${t('event_cal_date')}</label>
+                            <input id="event${event.id}DatePicker" type="date" value="${event.date_iso || ''}" class="input-premium cursor-pointer" 
+                                onchange="updateEventDateDisplay(${event.id}, this.value)">
+                            <input id="event${event.id}Date" type="hidden" value="${event.date || ''}">
+                            <input id="event${event.id}DateIso" type="hidden" value="${event.date_iso || ''}">
+                            <p id="event${event.id}DateLabel" class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold px-1 mt-1">${event.date || '(Pilih tanggal di atas)'}</p>
                         </div>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('event_dir_link')}</label>
-                        <textarea id="event${i+1}MapLink" class="input-premium min-h-[60px] break-all">${event.map_link || ''}</textarea>
+                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">${t('event_venue_id')}</label>
+                        <input id="event${event.id}Location" type="text" value="${event.location_name || ''}" class="input-premium">
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 px-1">${t('event_icon_key')}</label>
+                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">${t('event_phys_addr')}</label>
+                        <textarea id="event${event.id}Address" class="input-premium min-h-[100px]">${event.address || ''}</textarea>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">${t('event_map_src')}</label>
+                        <textarea id="event${event.id}MapSrc" class="input-premium min-h-[80px] break-all" oninput="window.updateMapPreview(${event.id}, this.value)" placeholder="Tempel URL atau tag <iframe> Google Maps di sini">${event.map_src || ''}</textarea>
+                        <div id="event${event.id}MapContainer" class="mt-3 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 transition-all ${event.map_src ? 'block' : 'hidden'}">
+                            <iframe id="event${event.id}MapIframe" src="${event.map_src || ''}" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" class="w-full"></iframe>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">${t('event_dir_link')}</label>
+                        <textarea id="event${event.id}MapLink" class="input-premium min-h-[60px] break-all">${event.map_link || ''}</textarea>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] sm:text-[11px] font-semibold text-slate-600 dark:text-slate-400 px-1">${t('event_icon_key')}</label>
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
-                                <img id="event${i+1}IconPreview" src="${event.icon_src || 'img/icon/Ring.png'}" class="w-6 h-6 sm:w-8 sm:h-8 object-contain" onerror="this.src='https://ui-avatars.com/api/?name=Icon&background=f1f5f9'">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
+                                <img id="event${event.id}IconPreview" src="${event.icon_src || 'img/icon/Ring.png'}" class="w-6 h-6 sm:w-8 sm:h-8 object-contain" onerror="this.src='https://ui-avatars.com/api/?name=Icon&background=f1f5f9'">
                             </div>
-                            <label class="flex-1 cursor-pointer px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-500 text-[11px] font-semibold hover:bg-slate-100 hover:text-slate-700 hover:border-slate-300 transition-all text-center group font-sans">
+                            <label class="flex-1 cursor-pointer px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-[11px] font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-700 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600 transition-all text-center group font-sans">
                                 <i class="fas fa-upload mr-2 opacity-60 group-hover:scale-110 transition-transform"></i> UPLOAD ICON
-                                <input type="file" accept="image/*" class="hidden" onchange="uploadEventIcon(this, ${i+1}, 'event${i+1}IconPreview')">
+                                <input type="file" accept="image/*" class="hidden" onchange="uploadEventIcon(this, ${event.id}, 'event${event.id}IconPreview')">
                             </label>
                         </div>
-                        <input id="event${i+1}Icon" type="hidden" value="${event.icon_src || ''}">
+                        <input id="event${event.id}Icon" type="hidden" value="${event.icon_src || ''}">
                     </div>
                 </div>
             </article>
@@ -1166,13 +1225,12 @@ function renderCouple() {
 
     section.innerHTML = `
         <div class="col-span-1 lg:col-span-2 flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold text-slate-800">Detail Pasangan</h2>
+            <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100">Detail Pasangan</h2>
         </div>
 
-
         ${[groom, bride].map((person, i) => `
-            <article class="bg-white card-premium overflow-hidden group border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                <div class="${i === 0 ? 'bg-slate-900 border-slate-800' : 'bg-pink-600 border-pink-500'} p-6 sm:p-8 text-white relative border-b">
+            <article class="bg-white dark:bg-slate-800 card-premium overflow-hidden group border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+                <div class="${i === 0 ? 'bg-slate-900 dark:bg-slate-900 border-slate-800' : 'bg-pink-600 dark:bg-pink-900 border-pink-500'} p-6 sm:p-8 text-white relative border-b dark:border-slate-700">
                     <div class="relative z-10">
                         <h3 class="text-2xl sm:text-3xl font-bold tracking-tight">${i === 0 ? t('couple_groom') : t('couple_bride')}</h3>
                         <p class="text-[10px] sm:text-[11px] ${i === 0 ? 'text-slate-400' : 'text-pink-100'} font-semibold mt-1 uppercase tracking-wider opacity-80">${t('couple_profile')}</p>
@@ -1181,42 +1239,42 @@ function renderCouple() {
                 </div>
                 <div class="p-6 sm:p-8 space-y-6">
                     <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">${t('couple_role')}</label>
+                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">${t('couple_role')}</label>
                         <input id="couple${i+1}Role" type="text" value="${person.role || ''}" class="input-premium" placeholder="Cth: Mempelai Pria">
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">${t('couple_name')}</label>
+                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">${t('couple_name')}</label>
                         <input id="couple${i+1}Name" type="text" value="${person.name || ''}" class="font-bold input-premium" placeholder="Nama Lengkap & Gelar">
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">${t('couple_parents')}</label>
+                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">${t('couple_parents')}</label>
                         <textarea id="couple${i+1}Parents" class="input-premium min-h-[80px]" placeholder="Putra/Putri dari Bapak... & Ibu...">${person.parents || ''}</textarea>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-2">
-                            <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">Username Instagram</label>
+                            <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">Username Instagram</label>
                             <div class="relative">
                                 <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">@</span>
                                 <input id="couple${i+1}Instagram" type="text" value="${person.instagram ? person.instagram.replace(/^@/, '') : ''}" class="input-premium pl-7" placeholder="username">
                             </div>
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">Link Instagram (URL)</label>
+                            <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">Link Instagram (URL)</label>
                             <input id="couple${i+1}InstagramLink" type="text" value="${person.instagram_link || ''}" class="input-premium" placeholder="https://instagram.com/...">
                         </div>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">${t('couple_img')}</label>
+                        <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">${t('couple_img')}</label>
                         <div class="flex items-center gap-4">
                             <div class="relative group/img w-16 h-16 sm:w-20 sm:h-20 shrink-0">
-                                <img id="couple${i+1}Preview" src="${person.image_src || 'https://ui-avatars.com/api/?name=Photo&background=f1f5f9&color=94a3b8'}" class="w-full h-full rounded-2xl object-cover border-2 border-slate-100 shadow-sm group-hover:border-indigo-200 transition-all">
+                                <img id="couple${i+1}Preview" src="${person.image_src || 'https://ui-avatars.com/api/?name=Photo&background=f1f5f9&color=94a3b8'}" class="w-full h-full rounded-2xl object-cover border-2 border-slate-100 dark:border-slate-700 shadow-sm group-hover:border-indigo-200 transition-all">
                                 ${person.image_src ? `
                                     <button onclick="window.removeCouplePhoto(${i+1})" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover/img:opacity-100 transition-opacity hover:bg-red-600">
                                         <i class="fas fa-times text-[10px]"></i>
                                     </button>
                                 ` : ''}
                             </div>
-                            <label class="flex-1 cursor-pointer px-4 py-3 rounded-2xl bg-slate-50 border-2 border-dashed border-slate-200 text-slate-500 text-[11px] font-bold hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all text-center group">
+                            <label class="flex-1 cursor-pointer px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-[11px] font-bold hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-200 dark:hover:border-indigo-500/50 transition-all text-center group">
                                 <i class="fas fa-camera mr-2 opacity-60 group-hover:scale-110 transition-transform"></i> UPLOAD FOTO
                                 <input type="file" accept="image/*" class="hidden" onchange="uploadCoupleAvatar(this, ${i+1}, 'couple${i+1}Preview')">
                             </label>
@@ -1928,61 +1986,89 @@ async function logout() {
 }
 
 async function saveSettings(quiet = false, customMsg = null) {
-  // Helper to safely get value or default
-  const val = (id, def = '') => document.getElementById(id)?.value || def;
-  const checked = (id) => document.getElementById(id)?.checked ? 'true' : 'false';
-
-  const payload = {
-    cover_title: val('settingCoverTitle'),
-    cover_subtitle: val('settingCoverSubtitle'),
-    hero_name: val('settingHeroName'),
-    guest_prefix: val('settingGuestPrefix'),
-    guest_label: val('settingGuestLabel'),
-    hero_button: val('settingHeroButton'),
-    notification_retention: val('settingNotificationRetention'),
-    wishes_limit: val('settingWishesLimit', '0'),
-    notifications_enabled: checked('settingEnableNotifications'),
-    music_autoplay: checked('settingAutoPlay'),
-    music_start_time: val('settingMusicStart', '0'),
-    bg_music: val('settingBgMusic'),
-    greeting_heading: val('settingGreetingHeading'),
-    greeting_quote: val('settingGreetingQuote'),
-    greeting_logo: val('settingGreetingLogo'),
-    greeting_invitation: val('settingGreetingInvitation'),
-    couple_section_title: val('settingCoupleSectionTitle'),
-    event_header_quote: val('settingEventHeaderQuote'),
-    event_header_title: val('settingEventHeaderTitle'),
-    rsvp_caption: val('settingRsvpCaption'),
-    event_bg: val('settingEventBg'),
-    lovestory_bg: val('settingLovestoryBg'),
-    lovestory_card_bg: val('settingLovestoryCardBg'),
-    gift_bg_img: val('settingGiftBgImg'),
-    gift_bg_color: val('settingGiftBgColor'),
-    wishes_bg_img: val('settingWishesBgImg'),
-    wishes_bg_color: val('settingWishesBgColor'),
-    wishes_bg_mode: checked('settingWishesBgMode') === 'true' ? 'image' : 'color',
-    gallery_title: val('settingGalleryTitle'),
-    rsvp_bg_img: val('settingRsvpBgImg'),
-
-    rsvp_bg_color: val('settingRsvpBgColor'),
-    opening_bg_color: val('settingOpeningBgColor'),
-    couple_bg_color: val('settingCoupleBgColor', '#000000'),
-    couple_bg_img: val('settingCoupleBgImg'),
-    gallery_bg_img: val('settingGalleryBgImg'),
-    gallery_bg_color: val('settingGalleryBgColor', '#000000'),
-    couple_bg_mode: val('settingCoupleBgMode', 'color'),
-    event_bg_color: val('settingEventBgColor'),
-    event_bg_mode: document.getElementById('settingEventBgMode')?.checked ? 'image' : 'color',
-
-    lovestory_bg_color: val('settingLovestoryBgColor'),
-    lovestory_card_bg_color: val('settingLovestoryCardBgColor'),
-    wa_template: val('waTemplateInput'),
-    opening_bg_img: val('settingOpeningBgImg'),
-    opening_bg_mode: val('settingOpeningBgMode', 'color'),
-    greeting_bg_img: val('settingGreetingBgImg'),
-    greeting_bg_color: val('settingGreetingBgColor', '#000000'),
-    greeting_bg_mode: val('settingGreetingBgMode', 'color')
+  const payload = {};
+  const fields = {
+    cover_title: 'settingCoverTitle',
+    cover_subtitle: 'settingCoverSubtitle',
+    hero_name: 'settingHeroName',
+    guest_prefix: 'settingGuestPrefix',
+    guest_label: 'settingGuestLabel',
+    hero_button: 'settingHeroButton',
+    notification_retention: 'settingNotificationRetention',
+    wishes_limit: 'settingWishesLimit',
+    greeting_heading: 'settingGreetingHeading',
+    greeting_quote: 'settingGreetingQuote',
+    greeting_logo: 'settingGreetingLogo',
+    greeting_invitation: 'settingGreetingInvitation',
+    wishes_title: 'settingWishesTitle',
+    wishes_quote: 'settingWishesQuote',
+    couple_section_title: 'settingCoupleSectionTitle',
+    event_header_quote: 'settingEventHeaderQuote',
+    event_header_title: 'settingEventHeaderTitle',
+    rsvp_header_quote: 'settingRsvpHeaderQuote',
+    rsvp_header_title: 'settingRsvpHeaderTitle',
+    rsvp_caption: 'settingRsvpCaption',
+    event_bg: 'settingEventBg',
+    lovestory_bg: 'settingLovestoryBg',
+    lovestory_card_bg: 'settingLovestoryCardBg',
+    gift_bg_img: 'settingGiftBgImg',
+    gift_bg_color: 'settingGiftBgColor',
+    wishes_bg_img: 'settingWishesBgImg',
+    wishes_bg_color: 'settingWishesBgColor',
+    gallery_title: 'settingGalleryTitle',
+    rsvp_bg_img: 'settingRsvpBgImg',
+    rsvp_bg_color: 'settingRsvpBgColor',
+    opening_bg_color: 'settingOpeningBgColor',
+    couple_bg_color: 'settingCoupleBgColor',
+    couple_bg_img: 'settingCoupleBgImg',
+    gallery_bg_img: 'settingGalleryBgImg',
+    gallery_bg_color: 'settingGalleryBgColor',
+    couple_bg_mode: 'settingCoupleBgMode',
+    event_bg_color: 'settingEventBgColor',
+    lovestory_bg_color: 'settingLovestoryBgColor',
+    lovestory_card_bg_color: 'settingLovestoryCardBgColor',
+    wa_template: 'waTemplateInput',
+    opening_bg_img: 'settingOpeningBgImg',
+    opening_bg_mode: 'settingOpeningBgMode',
+    greeting_bg_img: 'settingGreetingBgImg',
+    greeting_bg_color: 'settingGreetingBgColor',
+    greeting_bg_mode: 'settingGreetingBgMode',
+    bg_music: 'settingBgMusic',
+    music_start_time: 'settingMusicStart'
   };
+
+  for (const [key, id] of Object.entries(fields)) {
+    const el = document.getElementById(id);
+    if (el) payload[key] = el.value;
+  }
+
+  // Handle checkboxes
+  const checks = {
+    notifications_enabled: 'settingEnableNotifications',
+    music_autoplay: 'settingAutoPlay'
+  };
+  for (const [key, id] of Object.entries(checks)) {
+    const el = document.getElementById(id);
+    if (el) payload[key] = el.checked ? 'true' : 'false';
+  }
+  
+  if (document.getElementById('settingWishesBgMode')) {
+    payload.wishes_bg_mode = document.getElementById('settingWishesBgMode').checked ? 'image' : 'color';
+  }
+  if (document.getElementById('settingRsvpBgMode')) {
+    payload.rsvp_bg_mode = document.getElementById('settingRsvpBgMode').checked ? 'image' : 'color';
+  }
+  if (document.getElementById('settingGiftBgMode')) {
+    payload.gift_bg_mode = document.getElementById('settingGiftBgMode').checked ? 'image' : 'color';
+  }
+  if (document.getElementById('waTemplateInput')) {
+    payload.wa_template = document.getElementById('waTemplateInput').innerHTML;
+  }
+  if (document.getElementById('settingEventBgMode')) {
+    payload.event_bg_mode = document.getElementById('settingEventBgMode').checked ? 'image' : 'color';
+  }
+
+  if (Object.keys(payload).length === 0) return;
   
   const response = await fetch('/api/admin/settings', {
     method: 'PUT',
@@ -2183,6 +2269,15 @@ async function saveEvent(id) {
   showToast(t('alert_event_updated', {id}), 'success');
 }
 
+window.deleteEvent = function(id) {
+    if(!confirm('Anda yakin ingin menghapus acara ini?')) return;
+    window.deleteWithConfirm(async () => {
+        await api(`/api/admin/events/${id}`, { method: 'DELETE' });
+        await loadDashboard();
+        showToast('Acara berhasil dihapus.', 'delete');
+    });
+}
+
 // saveCouple function is now replaced by saveAllCoupleData.
 async function saveCouple(id) {
     await window.saveAllCoupleData();
@@ -2201,6 +2296,44 @@ async function addGuest() {
   } catch (error) {
     showToast(error.message, 'error');
   }
+}
+
+window.addEvent = async function() {
+    try {
+        const payload = {
+            name: 'Acara Baru',
+            heading: 'Wedding Event',
+            time: '08:00 - Selesai',
+            date: 'Senin, 01 Januari 2025',
+            date_iso: '2025-01-01',
+            location_name: 'Nama Lokasi',
+            address: 'Alamat lengkap lokasi acara',
+            map_src: '',
+            map_link: '',
+            icon_src: 'img/icon/Ring.png'
+        };
+        await api('/api/admin/events', { method: 'POST', body: JSON.stringify(payload) });
+        await loadDashboard();
+        showToast('Acara baru ditambahkan!', 'success');
+    } catch (err) {
+        showToast('Gagal menambah acara', 'error');
+    }
+}
+
+window.addGift = async function() {
+    try {
+        const payload = {
+            bank_name: 'BCA',
+            account_number: '1234567890',
+            account_name: 'Nama Pemilik',
+            logo_src: 'img/icon/Bank.png'
+        };
+        await api('/api/admin/gifts', { method: 'POST', body: JSON.stringify(payload) });
+        await loadDashboard();
+        showToast('Metode kado baru ditambahkan!', 'success');
+    } catch (err) {
+        showToast('Gagal menambah kado', 'error');
+    }
 }
 
 window.deleteGuest = function(id) {
@@ -3925,10 +4058,20 @@ window.togglePasswordVisibility = function(inputId, iconId) {
     }
 };
 
+window.setGiftBgPreset = function(value) {
+    const input = document.getElementById('settingGiftBgColor');
+    if (input) {
+        input.value = value;
+        if (window.syncGiftColor) window.syncGiftColor(value, 'picker');
+        saveSettings();
+    }
+};
+
 window.setWishesBgPreset = function(value) {
     const input = document.getElementById('settingWishesBgColor');
     if (input) {
         input.value = value;
+        if (window.syncWishesColor) window.syncWishesColor(value, 'picker');
         saveSettings();
     }
 };
@@ -3941,41 +4084,100 @@ window.setRsvpBgPreset = function(value) {
     }
 };
 
-window.setGiftBgPreset = function(value) {
-    const input = document.getElementById('settingGiftBgColor');
-    if (input) {
-        input.value = value;
-        saveSettings();
-    }
-};
-
 window.setWishesBgMode = function(mode, skipSave = false) {
-    const modeInput = document.getElementById('settingWishesBgMode');
-    if (modeInput) modeInput.value = mode;
-    
-    const btnColor = document.getElementById('btnWishesModeColor');
-    const btnImage = document.getElementById('btnWishesModeImage');
-    
-    if (mode === 'color') {
-        if (btnColor) {
-            btnColor.classList.add('bg-white', 'dark:bg-indigo-600', 'text-indigo-600', 'dark:text-white', 'shadow-sm');
-            btnColor.classList.remove('text-slate-400', 'dark:text-slate-500');
-        }
-        if (btnImage) {
-            btnImage.classList.remove('bg-white', 'dark:bg-indigo-600', 'text-indigo-600', 'dark:text-white', 'shadow-sm');
-            btnImage.classList.add('text-slate-400', 'dark:text-slate-500');
-        }
-    } else {
-        if (btnImage) {
-            btnImage.classList.add('bg-white', 'dark:bg-indigo-600', 'text-indigo-600', 'dark:text-white', 'shadow-sm');
-            btnImage.classList.remove('text-slate-400', 'dark:text-slate-500');
-        }
-        if (btnColor) {
-            btnColor.classList.remove('bg-white', 'dark:bg-indigo-600', 'text-indigo-600', 'dark:text-white', 'shadow-sm');
-            btnColor.classList.add('text-slate-400', 'dark:text-slate-500');
+    const isImage = mode === 'image';
+    const slider = document.getElementById('wishesBgModeSlider');
+    const colorBtn = document.getElementById('wishesModeColorBtn');
+    const imageBtn = document.getElementById('wishesModeImageBtn');
+    const checkbox = document.getElementById('settingWishesBgMode');
+
+    if (checkbox) checkbox.checked = isImage;
+
+    if (slider) {
+        slider.style.left = isImage ? 'calc(50% - 1px)' : '4px';
+        slider.style.width = 'calc(50% - 3px)';
+    }
+
+    if (colorBtn && imageBtn) {
+        if (isImage) {
+            colorBtn.classList.add('text-slate-400');
+            colorBtn.classList.remove('text-white');
+            imageBtn.classList.remove('text-slate-400');
+            imageBtn.classList.add('text-white');
+        } else {
+            imageBtn.classList.add('text-slate-400');
+            imageBtn.classList.remove('text-white');
+            colorBtn.classList.remove('text-slate-400');
+            colorBtn.classList.add('text-white');
         }
     }
     if (!skipSave) saveSettings(); 
+};
+
+window.setGiftBgMode = function(mode, skipSave = false) {
+    const isImage = mode === 'image';
+    const slider = document.getElementById('giftBgModeSlider');
+    const colorBtn = document.getElementById('giftModeColorBtn');
+    const imageBtn = document.getElementById('giftModeImageBtn');
+    const checkbox = document.getElementById('settingGiftBgMode');
+
+    if (checkbox) checkbox.checked = isImage;
+
+    if (slider) {
+        slider.style.left = isImage ? 'calc(50% - 1px)' : '4px';
+        slider.style.width = 'calc(50% - 3px)';
+    }
+
+    if (colorBtn && imageBtn) {
+        if (isImage) {
+            colorBtn.classList.add('text-slate-400');
+            colorBtn.classList.remove('text-white');
+            imageBtn.classList.remove('text-slate-400');
+            imageBtn.classList.add('text-white');
+        } else {
+            imageBtn.classList.add('text-slate-400');
+            imageBtn.classList.remove('text-white');
+            colorBtn.classList.remove('text-slate-400');
+            colorBtn.classList.add('text-white');
+        }
+    }
+    if (!skipSave) saveSettings(); 
+};
+
+window.syncWishesColor = function(val, target) {
+    const input = document.getElementById('settingWishesBgColor');
+    const picker = document.getElementById('wishesColorPicker');
+    const previewContainer = document.getElementById('wishesBgPreviewContainer');
+    if (target === 'input') {
+        if (input) input.value = val.toUpperCase();
+    } else {
+        if (picker) picker.value = val;
+    }
+    if (previewContainer) {
+        if (val.includes('gradient')) previewContainer.style.background = val;
+        else {
+            previewContainer.style.background = '';
+            previewContainer.style.backgroundColor = val;
+        }
+    }
+};
+
+window.syncGiftColor = function(val, target) {
+    const input = document.getElementById('settingGiftBgColor');
+    const picker = document.getElementById('giftColorPicker');
+    const previewContainer = document.getElementById('giftBgPreviewContainer');
+    if (target === 'input') {
+        if (input) input.value = val.toUpperCase();
+    } else {
+        if (picker) picker.value = val;
+    }
+    if (previewContainer) {
+        if (val.includes('gradient')) previewContainer.style.background = val;
+        else {
+            previewContainer.style.background = '';
+            previewContainer.style.backgroundColor = val;
+        }
+    }
 };
 
 window.setOpeningBgPreset = function(value) {
@@ -4325,6 +4527,97 @@ window.removeGreetingBgImg = function() {
         showToast('Gambar background dihapus', 'info');
         saveSettings();
     }
+};
+
+window.setRsvpBgMode = function(mode, skipSave = false) {
+    const isImage = mode === 'image';
+    const slider = document.getElementById('rsvpBgModeSlider');
+    const colorBtn = document.getElementById('rsvpModeColorBtn');
+    const imageBtn = document.getElementById('rsvpModeImageBtn');
+    const checkbox = document.getElementById('settingRsvpBgMode');
+
+    if (checkbox) checkbox.checked = isImage;
+
+    if (slider) {
+        slider.style.left = isImage ? 'calc(50% - 1px)' : '4px';
+        slider.style.width = 'calc(50% - 3px)';
+    }
+
+    if (colorBtn && imageBtn) {
+        if (isImage) {
+            colorBtn.classList.add('text-slate-400');
+            colorBtn.classList.remove('text-white');
+            imageBtn.classList.remove('text-slate-400');
+            imageBtn.classList.add('text-white');
+        } else {
+            imageBtn.classList.add('text-slate-400');
+            imageBtn.classList.remove('text-white');
+            colorBtn.classList.remove('text-slate-400');
+            colorBtn.classList.add('text-white');
+        }
+    }
+    if (!skipSave) saveSettings(); 
+};
+
+window.syncRsvpColor = function(val, target) {
+    const input = document.getElementById('settingRsvpBgColor');
+    const picker = document.getElementById('rsvpColorPicker');
+    const previewContainer = document.getElementById('rsvpBgPreviewContainer');
+    if (target === 'input') {
+        if (input) input.value = val.toUpperCase();
+    } else {
+        if (picker) picker.value = val;
+    }
+    if (previewContainer) {
+        if (val.includes('gradient')) previewContainer.style.background = val;
+        else {
+            previewContainer.style.background = '';
+            previewContainer.style.backgroundColor = val;
+        }
+    }
+};
+
+window.setRsvpBgPreset = function(value) {
+    const input = document.getElementById('settingRsvpBgColor');
+    if (input) {
+        input.value = value;
+        if (window.syncRsvpColor) window.syncRsvpColor(value, 'picker');
+        saveSettings();
+    }
+};
+
+// WA Template formatting functions
+window.formatRichText = function(command, value = null) {
+    document.execCommand(command, false, value);
+    const editor = document.getElementById('waTemplateInput');
+    if (editor) editor.focus();
+};
+
+window.insertWaTag = function(tag) {
+    const editor = document.getElementById('waTemplateInput');
+    if (!editor) return;
+    
+    editor.focus();
+    const sel = window.getSelection();
+    if (sel.getRangeAt && sel.rangeCount) {
+        const range = sel.getRangeAt(0);
+        range.deleteContents();
+        const textNode = document.createTextNode(tag);
+        range.insertNode(textNode);
+        
+        // Move cursor after the inserted tag
+        range.setStartAfter(textNode);
+        range.setEndAfter(textNode);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    } else {
+        editor.innerHTML += tag;
+    }
+};
+
+window.saveWaTemplate = function() {
+    saveSettings(false, 'Template WA berhasil disimpan');
+    hideModal('waTemplateModal');
 };
 
 // Initialize Greeting Section UI on load

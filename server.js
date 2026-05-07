@@ -72,8 +72,8 @@ const audioUpload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
   res.setHeader('Pragma', 'no-cache');
@@ -152,6 +152,10 @@ async function initDb() {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`);
 
     await db.query("INSERT IGNORE INTO settings (`key`, value) VALUES (?, ?)", ['wa_template', 'Halo @nama,\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara kami melalui link undangan digital berikut:\n\n@link\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir. Terima kasih.']);
+    await db.query("INSERT IGNORE INTO settings (`key`, value) VALUES (?, ?)", ['rsvp_header_title', 'Kehadiran Tamu']);
+    await db.query("INSERT IGNORE INTO settings (`key`, value) VALUES (?, ?)", ['rsvp_header_quote', 'Kami sangat berharap kehadiran Anda dalam momen spesial kami.']);
+    await db.query("INSERT IGNORE INTO settings (`key`, value) VALUES (?, ?)", ['wishes_title', 'Ucapan & Doa Restu']);
+    await db.query("INSERT IGNORE INTO settings (`key`, value) VALUES (?, ?)", ['wishes_quote', 'Doa restu Anda merupakan karunia yang sangat berarti bagi kami.']);
 
     await db.query(`CREATE TABLE IF NOT EXISTS rsvps (
       id INT PRIMARY KEY AUTO_INCREMENT,

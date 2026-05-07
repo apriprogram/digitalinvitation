@@ -95,6 +95,8 @@ async function loadPublicData() {
         safeText('guestPrefix', settings.guest_prefix || '-');
         safeText('eventHeaderTitle', settings.event_header_title || 'Wedding Event');
         safeText('eventHeaderQuote', settings.event_header_quote || 'Kami sangat berharap kehadiran Anda dalam momen spesial kami.');
+        safeText('wishesTitle', settings.wishes_title || 'Wedding Wishes');
+        safeText('wishesQuote', settings.wishes_quote || '');
         const openButtonText = document.getElementById('openInvitationText');
         if (openButtonText) openButtonText.innerText = settings.hero_button || '-';
 
@@ -293,7 +295,21 @@ async function loadPublicData() {
             }
         }
 
-        applyBg('sectionRsvp', settings.rsvp_bg_img, settings.rsvp_bg_color);
+        const rsvpSection = document.getElementById('sectionRsvp');
+        if (rsvpSection) {
+            const rMode = settings.rsvp_bg_mode || 'color';
+            if (rMode === 'image' && settings.rsvp_bg_img) {
+                rsvpSection.style.background = `url('${settings.rsvp_bg_img}') center/cover no-repeat fixed`;
+            } else {
+                const rBgColor = settings.rsvp_bg_color || '#000000';
+                if (rBgColor.includes('gradient')) {
+                    rsvpSection.style.background = rBgColor;
+                } else {
+                    rsvpSection.style.background = '';
+                    rsvpSection.style.backgroundColor = rBgColor;
+                }
+            }
+        }
 
         safeText('guestName', currentGuest?.name || settings.guest_label || '-');
         updateGuestForms();
