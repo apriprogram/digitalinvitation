@@ -1,151 +1,151 @@
 const translations = {
-  id: {
-    // HTML Translations
-    "brand_title": "Undangan Digital",
-    "brand_subtitle": "Panel Admin",
-    "menu_main_invitation": "Atur Undangan",
-    "menu_main_guest": "Manajemen Tamu",
-    "menu_dashboard": "Dasbor",
-    "menu_settings": "Pengaturan",
-    "menu_events": "Acara",
-    "menu_couple": "Pasangan",
-    "menu_guests": "Buat Undangan Tamu",
-    "menu_gallery": "Galeri",
-    "menu_lovestory": "Kisah Cinta",
-    "menu_rsvp": "Kehadiran",
-    "menu_wishes": "Ucapan",
-    "page_title_rsvp": "Manajemen Kehadiran",
-    "page_title_wishes": "Daftar Ucapan",
-    "page_title_guests": "Undangan Tamu",
-    "profile_role": "Admin Utama",
-    "status_active": "Aktif",
-    "login_title": "Area Terlindungi",
-    "login_subtitle": "Masuk untuk mengelola portal masa pernikahan Anda",
-    "login_id": "Email",
-    "login_id_ph": "Masukkan email",
-    "login_key": "Password",
-    "login_key_ph": "Sandi / Password",
-    "login_btn": "Login",
-    "login_hint": "Kredensial bawaan:",
-    "login_forgot": "Lupa password?",
-    "stat_badge_1": "Waktu Nyata",
-    "stat_badge_2": "Interaksi",
-    "stat_badge_3": "Aset",
-    "stat_badge_4": "Buku Tamu",
-    "stat_title_1": "Total Kehadiran",
-    "stat_title_2": "Ucapan Pernikahan",
-    "stat_title_3": "Gambar Galeri",
-    "stat_title_4": "Undangan Tamu",
-    "guide_title": "Panduan",
-    "guide_desc": "Semua fitur terhubung langsung ke situs web utama. Perubahan akan langsung terlihat oleh tamu undangan.",
-    "guide_warn": "PENTING: Selalu periksa kembali data lokasi dan sematan peta untuk memastikan tamu tidak tersesat!",
-    "workflow_title": "Alur Kerja Cepat",
-    "wf_1_a": "Pilih Bagian:",
-    "wf_1_b": "Pilih topik dari bilah sisi.",
-    "wf_2_a": "Ubah Data:",
-    "wf_2_b": "Isi formulir nilai.",
-    "wf_3_a": "Sinkronisasi:",
-    "wf_3_b": "Klik simpan untuk memperbarui portal.",
-    "set_title": "Pengaturan Umum",
-    "set_subtitle": "Identitas website & teks",
-    "set_sync_btn": "Sinkronkan",
-    "set_label_1": "Branding Sampul",
-    "set_label_2": "Tampilan Mempelai",
-    "set_label_3": "Nama Panggilan Hero",
-    "set_label_4": "Awalan Sapaan Tamu",
-    "set_label_5": "Label Teks Undangan",
-    "set_label_6": "Label Tombol Utama",
-    "gst_title": "Link Undangan Tamu",
-    "gst_subtitle": "Pusat token akses tamu",
-    "gst_ph": "Nama tamu...",
-    "gst_add_btn": "TAMBAH",
-    "col_id": "ID",
-    "col_guest_name": "Nama Tamu",
-    "col_access_url": "URL Akses",
-    "col_command": "Aksi",
-    "gal_title": "Galeri Foto",
-    "gal_upload_btn": "UNGGAH BARU",
-    "col_asset": "Aset Endpoint",
-    "col_desc": "Deskripsi Meta",
-    "col_manage": "Kelola",
-    "data_total_rsvp": "Total Kehadiran",
-    "data_confirmed": "Tamu Terkonfirmasi",
-    "data_wishes": "Ucapan",
-    "data_replies": "Balasan",
-    "tbl_track_title": "Pelacak Konfirmasi",
-    "col_name": "Nama",
-    "col_decision": "Keputusan",
-    "col_pax": "Jumlah Tamu",
-    "col_time": "Waktu",
-    "tbl_msg_title": "Papan Pesan",
-    "col_from": "Dari",
-    "col_message": "Pesan",
-    "col_sent": "Terkirim",
-    "footer_brand": "Panel Admin Undangan Digital",
-    "mod_title": "Tambah Aset Visual",
-    "mod_upload": "Unggah Media",
-    "mod_new_asset": "Aset Baru",
-    "mod_drag": "Tarik & Lepaskan Bukti",
-    "mod_alt": "Deskripsi (Alt)",
-    "mod_alt_ph": "Cth: Cincin kawin",
-    "mod_cancel": "Batal",
-    "mod_submit": "Simpan",
-    "search_placeholder": "Pencarian cepat...",
-    "menu_profile": "Profil",
-    "menu_help": "Bantuan",
-    "menu_logout": "Keluar",
-    
-    // JS Dynamic Translations
-    "event_prefix": "Acara #",
-    "event_op_details": "Detail operasional",
-    "event_btn_update": "Simpan",
-    "event_display_name": "Nama Tampilan",
-    "event_header_heading": "Judul Header",
-    "event_timeline": "Jadwal",
-    "event_cal_date": "Tanggal Kalender",
-    "event_venue_id": "Identitas Tempat",
-    "event_phys_addr": "Alamat Fisik",
-    "event_map_src": "Sumber Google Maps",
-    "event_dir_link": "Tautan Arah",
-    "event_icon_key": "Kunci Ikon Visual",
+    id: {
+        // HTML Translations
+        "brand_title": "Undangan Digital",
+        "brand_subtitle": "Panel Admin",
+        "menu_main_invitation": "Atur Undangan",
+        "menu_main_guest": "Manajemen Tamu",
+        "menu_dashboard": "Dasbor",
+        "menu_settings": "Pengaturan",
+        "menu_events": "Acara",
+        "menu_couple": "Pasangan",
+        "menu_guests": "Buat Undangan Tamu",
+        "menu_gallery": "Galeri",
+        "menu_lovestory": "Kisah Cinta",
+        "menu_rsvp": "Kehadiran",
+        "menu_wishes": "Ucapan",
+        "page_title_rsvp": "Manajemen Kehadiran",
+        "page_title_wishes": "Daftar Ucapan",
+        "page_title_guests": "Undangan Tamu",
+        "profile_role": "Admin Utama",
+        "status_active": "Aktif",
+        "login_title": "Area Terlindungi",
+        "login_subtitle": "Masuk untuk mengelola portal masa pernikahan Anda",
+        "login_id": "Email",
+        "login_id_ph": "Masukkan email",
+        "login_key": "Password",
+        "login_key_ph": "Sandi / Password",
+        "login_btn": "Login",
+        "login_hint": "Kredensial bawaan:",
+        "login_forgot": "Lupa password?",
+        "stat_badge_1": "Waktu Nyata",
+        "stat_badge_2": "Interaksi",
+        "stat_badge_3": "Aset",
+        "stat_badge_4": "Buku Tamu",
+        "stat_title_1": "Total Kehadiran",
+        "stat_title_2": "Ucapan Pernikahan",
+        "stat_title_3": "Gambar Galeri",
+        "stat_title_4": "Undangan Tamu",
+        "guide_title": "Panduan",
+        "guide_desc": "Semua fitur terhubung langsung ke situs web utama. Perubahan akan langsung terlihat oleh tamu undangan.",
+        "guide_warn": "PENTING: Selalu periksa kembali data lokasi dan sematan peta untuk memastikan tamu tidak tersesat!",
+        "workflow_title": "Alur Kerja Cepat",
+        "wf_1_a": "Pilih Bagian:",
+        "wf_1_b": "Pilih topik dari bilah sisi.",
+        "wf_2_a": "Ubah Data:",
+        "wf_2_b": "Isi formulir nilai.",
+        "wf_3_a": "Sinkronisasi:",
+        "wf_3_b": "Klik simpan untuk memperbarui portal.",
+        "set_title": "Pengaturan Umum",
+        "set_subtitle": "Identitas website & teks",
+        "set_sync_btn": "Sinkronkan",
+        "set_label_1": "Branding Sampul",
+        "set_label_2": "Tampilan Mempelai",
+        "set_label_3": "Nama Panggilan Hero",
+        "set_label_4": "Awalan Sapaan Tamu",
+        "set_label_5": "Label Teks Undangan",
+        "set_label_6": "Label Tombol Utama",
+        "gst_title": "Link Undangan Tamu",
+        "gst_subtitle": "Pusat token akses tamu",
+        "gst_ph": "Nama tamu...",
+        "gst_add_btn": "TAMBAH",
+        "col_id": "ID",
+        "col_guest_name": "Nama Tamu",
+        "col_access_url": "URL Akses",
+        "col_command": "Aksi",
+        "gal_title": "Galeri Foto",
+        "gal_upload_btn": "UNGGAH BARU",
+        "col_asset": "Aset Endpoint",
+        "col_desc": "Deskripsi Meta",
+        "col_manage": "Kelola",
+        "data_total_rsvp": "Total Kehadiran",
+        "data_confirmed": "Tamu Terkonfirmasi",
+        "data_wishes": "Ucapan",
+        "data_replies": "Balasan",
+        "tbl_track_title": "Pelacak Konfirmasi",
+        "col_name": "Nama",
+        "col_decision": "Keputusan",
+        "col_pax": "Jumlah Tamu",
+        "col_time": "Waktu",
+        "tbl_msg_title": "Papan Pesan",
+        "col_from": "Dari",
+        "col_message": "Pesan",
+        "col_sent": "Terkirim",
+        "footer_brand": "Panel Admin Undangan Digital",
+        "mod_title": "Tambah Aset Visual",
+        "mod_upload": "Unggah Media",
+        "mod_new_asset": "Aset Baru",
+        "mod_drag": "Tarik & Lepaskan Bukti",
+        "mod_alt": "Deskripsi (Alt)",
+        "mod_alt_ph": "Cth: Cincin kawin",
+        "mod_cancel": "Batal",
+        "mod_submit": "Simpan",
+        "search_placeholder": "Pencarian cepat...",
+        "menu_profile": "Profil",
+        "menu_help": "Bantuan",
+        "menu_logout": "Keluar",
 
-    "couple_groom": "Mempelai Pria",
-    "couple_bride": "Mempelai Wanita",
-    "couple_profile": "Profil Utama",
-    "couple_role": "Peran Inti",
-    "couple_name": "Nama Lengkap",
-    "couple_parents": "Garis Keluarga (Orang Tua)",
-    "couple_ig": "Identitas Instagram",
-    "couple_img": "Tautan Gambar",
-    "couple_btn": "Simpan",
+        // JS Dynamic Translations
+        "event_prefix": "Acara #",
+        "event_op_details": "Detail operasional",
+        "event_btn_update": "Simpan",
+        "event_display_name": "Nama Tampilan",
+        "event_header_heading": "Judul Header",
+        "event_timeline": "Jadwal",
+        "event_cal_date": "Tanggal Kalender",
+        "event_venue_id": "Identitas Tempat",
+        "event_phys_addr": "Alamat Fisik",
+        "event_map_src": "Sumber Google Maps",
+        "event_dir_link": "Tautan Arah",
+        "event_icon_key": "Kunci Ikon Visual",
 
-    "alert_logout": "Minta otorisasi penghentian sesi saat ini?",
-    "alert_settings_sync": "Perubahan berhasil disimpan.",
-    "alert_event_updated": "Acara #{id} diperbarui.",
-    "alert_couple_updated": "Profil utama #{id} diperbarui.",
-    "alert_guest_revoke": "Cabut akses untuk tamu ini?",
-    "alert_link_copied": "URL Akses disalin ke papan klip.",
-    "alert_gallery_purge": "Hapus aset ini dari perpustakaan?",
-    "welcome": "Selamat Datang!",
-    "data_loaded": "Data berhasil dimuat"
-  }
+        "couple_groom": "Mempelai Pria",
+        "couple_bride": "Mempelai Wanita",
+        "couple_profile": "Profil Utama",
+        "couple_role": "Peran Inti",
+        "couple_name": "Nama Lengkap",
+        "couple_parents": "Garis Keluarga (Orang Tua)",
+        "couple_ig": "Identitas Instagram",
+        "couple_img": "Tautan Gambar",
+        "couple_btn": "Simpan",
+
+        "alert_logout": "Minta otorisasi penghentian sesi saat ini?",
+        "alert_settings_sync": "Perubahan berhasil disimpan.",
+        "alert_event_updated": "Acara #{id} diperbarui.",
+        "alert_couple_updated": "Profil utama #{id} diperbarui.",
+        "alert_guest_revoke": "Cabut akses untuk tamu ini?",
+        "alert_link_copied": "URL Akses disalin ke papan klip.",
+        "alert_gallery_purge": "Hapus aset ini dari perpustakaan?",
+        "welcome": "Selamat Datang!",
+        "data_loaded": "Data berhasil dimuat"
+    }
 };
 
 let currentLang = 'id';
 let isAppLoaded = false;
 
-window.searchTable = function(inputId, tbodyId) {
+window.searchTable = function (inputId, tbodyId) {
     const input = document.getElementById(inputId);
     const filter = input.value.toLowerCase();
     const tbody = document.getElementById(tbodyId);
     if (!tbody || !input) return;
-    
+
     const trs = tbody.getElementsByTagName('tr');
-    
+
     for (let i = 0; i < trs.length; i++) {
         const tr = trs[i];
         let textFound = false;
-        
+
         const tds = tr.getElementsByTagName('td');
         for (let j = 0; j < tds.length; j++) {
             if (tds[j].innerText.toLowerCase().indexOf(filter) > -1) {
@@ -153,7 +153,7 @@ window.searchTable = function(inputId, tbodyId) {
                 break;
             }
         }
-        
+
         if (textFound) {
             tr.style.display = "";
         } else {
@@ -170,20 +170,20 @@ window.tablePagination = {
 
 window.guestSort = { column: 'created_at', order: 'desc' };
 
-window.sortGuests = function(column) {
+window.sortGuests = function (column) {
     if (window.guestSort.column === column) {
         window.guestSort.order = window.guestSort.order === 'asc' ? 'desc' : 'asc';
     } else {
         window.guestSort.column = column;
         window.guestSort.order = 'asc';
     }
-    
+
     // Update Icons
     const allUp = document.querySelectorAll('[id$="_up"]');
     const allDown = document.querySelectorAll('[id$="_down"]');
     allUp.forEach(i => i.style.opacity = '0.2');
     allDown.forEach(i => i.style.opacity = '0.2');
-    
+
     if (window.guestSort.order === 'asc') {
         const up = document.getElementById(`sortIcon_${column}_up`);
         if (up) {
@@ -201,12 +201,12 @@ window.sortGuests = function(column) {
     renderGuests();
 };
 
-window.renderPaginationControls = function(type, total, limit, currentPage) {
+window.renderPaginationControls = function (type, total, limit, currentPage) {
     const container = document.getElementById(`${type}Pagination`);
     if (!container) return;
-    
+
     const totalPages = Math.ceil(total / limit) || 1;
-    
+
     let html = `
         <div class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap">
             Menampilkan ${total === 0 ? 0 : (currentPage - 1) * limit + 1} - ${Math.min(total, currentPage * limit)} dari ${total} data
@@ -216,8 +216,8 @@ window.renderPaginationControls = function(type, total, limit, currentPage) {
                 <i class="fas fa-chevron-left text-[9px] sm:text-[10px]"></i>
             </button>
     `;
-    
-    for(let i=1; i<=totalPages; i++) {
+
+    for (let i = 1; i <= totalPages; i++) {
         if (totalPages > 5) {
             if (i !== 1 && i !== totalPages && Math.abs(i - currentPage) > 1) {
                 if (i === 2 || i === totalPages - 1) {
@@ -226,7 +226,7 @@ window.renderPaginationControls = function(type, total, limit, currentPage) {
                 continue;
             }
         }
-        
+
         const activeClass = i === currentPage ? 'bg-indigo-600 text-white font-bold shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800';
         html += `
             <button onclick="window.changePage('${type}', ${i})" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-[10px] sm:text-xs transition-colors ${activeClass}">
@@ -234,7 +234,7 @@ window.renderPaginationControls = function(type, total, limit, currentPage) {
             </button>
         `;
     }
-    
+
     html += `
             <button onclick="window.changePage('${type}', ${currentPage + 1})" class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 disabled:opacity-50 disabled:hover:bg-transparent transition-colors" ${currentPage >= totalPages ? 'disabled' : ''}>
                 <i class="fas fa-chevron-right text-[9px] sm:text-[10px]"></i>
@@ -244,21 +244,21 @@ window.renderPaginationControls = function(type, total, limit, currentPage) {
     container.innerHTML = html;
 };
 
-window.changePage = function(type, newPage) {
+window.changePage = function (type, newPage) {
     if (newPage < 1) newPage = 1;
     tablePagination[type].page = newPage;
     if (type === 'guests') renderGuests();
     if (type === 'rsvp') renderDataLists();
 };
 
-window.changePageLimit = function(type, element) {
+window.changePageLimit = function (type, element) {
     tablePagination[type].limit = parseInt(element.value);
     tablePagination[type].page = 1;
     if (type === 'guests') renderGuests();
     if (type === 'rsvp') renderDataLists();
 };
 
-window.handleLiveSearch = function(type, element) {
+window.handleLiveSearch = function (type, element) {
     if (type === 'wishes') {
         tablePagination[type].search = element.value;
         renderDataLists();
@@ -270,37 +270,37 @@ window.handleLiveSearch = function(type, element) {
     if (type === 'rsvp') renderDataLists();
 };
 
-window.showToast = function(message, type = 'success') {
-  const container = document.getElementById('toastContainer');
-  if (!container) return;
+window.showToast = function (message, type = 'success') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
 
-  const toast = document.createElement('div');
-  toast.className = 'relative overflow-hidden flex items-center gap-3 px-5 py-4 rounded-2xl shadow-xl transform transition-all duration-500 ease-out opacity-0 -translate-y-8 pointer-events-auto border border-slate-100/50 dark:border-slate-800/50 backdrop-blur-sm dark:backdrop-blur-md z-[100] min-w-[300px] max-w-sm';
-  
-  let icon = 'fa-check-circle';
-  let colorClass = 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400';
-  let shadowClass = 'shadow-emerald-500/20';
-  let progressColor = 'bg-emerald-500';
-  
-  if (type === 'error') {
-    icon = 'fa-exclamation-circle';
-    colorClass = 'bg-rose-50 text-rose-600 dark:bg-rose-500/10 dark:text-rose-400';
-    shadowClass = 'shadow-rose-500/20';
-    progressColor = 'bg-rose-500';
-  } else if (type === 'info') {
-    icon = 'fa-info-circle';
-    colorClass = 'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400';
-    shadowClass = 'shadow-blue-500/20';
-    progressColor = 'bg-blue-500';
-  } else if (type === 'delete') {
-    icon = 'fa-trash-alt';
-    colorClass = 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400';
-    shadowClass = 'shadow-amber-500/20';
-    progressColor = 'bg-amber-500';
-  }
+    const toast = document.createElement('div');
+    toast.className = 'relative overflow-hidden flex items-center gap-3 px-5 py-4 rounded-2xl shadow-xl transform transition-all duration-500 ease-out opacity-0 -translate-y-8 pointer-events-auto border border-slate-100/50 dark:border-slate-800/50 backdrop-blur-sm dark:backdrop-blur-md z-[100] min-w-[300px] max-w-sm';
 
-  toast.classList.add(...colorClass.split(' '), shadowClass);
-  toast.innerHTML = `
+    let icon = 'fa-check-circle';
+    let colorClass = 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400';
+    let shadowClass = 'shadow-emerald-500/20';
+    let progressColor = 'bg-emerald-500';
+
+    if (type === 'error') {
+        icon = 'fa-exclamation-circle';
+        colorClass = 'bg-rose-50 text-rose-600 dark:bg-rose-500/10 dark:text-rose-400';
+        shadowClass = 'shadow-rose-500/20';
+        progressColor = 'bg-rose-500';
+    } else if (type === 'info') {
+        icon = 'fa-info-circle';
+        colorClass = 'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400';
+        shadowClass = 'shadow-blue-500/20';
+        progressColor = 'bg-blue-500';
+    } else if (type === 'delete') {
+        icon = 'fa-trash-alt';
+        colorClass = 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400';
+        shadowClass = 'shadow-amber-500/20';
+        progressColor = 'bg-amber-500';
+    }
+
+    toast.classList.add(...colorClass.split(' '), shadowClass);
+    toast.innerHTML = `
     <i class="fas ${icon} text-lg"></i>
     <div class="flex-1">
       <p class="font-sans font-semibold text-[13px] text-slate-800 dark:text-slate-100 leading-tight">${message}</p>
@@ -310,41 +310,41 @@ window.showToast = function(message, type = 'success') {
     </div>
   `;
 
-  container.appendChild(toast);
-  const progressBar = toast.querySelector('.toast-progress');
+    container.appendChild(toast);
+    const progressBar = toast.querySelector('.toast-progress');
 
-  // Trigger animation enter in next frame
-  requestAnimationFrame(() => {
-    toast.classList.remove('opacity-0', '-translate-y-8');
-    toast.classList.add('opacity-100', 'translate-y-0');
-    
-    // Start progress bar automatically depleting
+    // Trigger animation enter in next frame
     requestAnimationFrame(() => {
-        if (progressBar) progressBar.style.width = '0%';
-    });
-  });
+        toast.classList.remove('opacity-0', '-translate-y-8');
+        toast.classList.add('opacity-100', 'translate-y-0');
 
-  // Remove toast after 3 seconds
-  setTimeout(() => {
-    toast.classList.remove('opacity-100', 'translate-y-0', 'ease-out');
-    toast.classList.add('opacity-0', '-translate-y-8', 'ease-in');
-    setTimeout(() => toast.remove(), 500);
-  }, 3000);
+        // Start progress bar automatically depleting
+        requestAnimationFrame(() => {
+            if (progressBar) progressBar.style.width = '0%';
+        });
+    });
+
+    // Remove toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0', 'ease-out');
+        toast.classList.add('opacity-0', '-translate-y-8', 'ease-in');
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
 }
 
 function t(key, params = {}) {
-  if (!translations[currentLang]) return key;
-  let str = translations[currentLang][key] || key;
-  Object.keys(params).forEach(p => {
-    str = str.replace(`{${p}}`, params[p]);
-  });
-  return str;
+    if (!translations[currentLang]) return key;
+    let str = translations[currentLang][key] || key;
+    Object.keys(params).forEach(p => {
+        str = str.replace(`{${p}}`, params[p]);
+    });
+    return str;
 }
 
 
 
 const state = {
-  dashboard: null,
+    dashboard: null,
 };
 
 const sections = ['overview', 'settings', 'events', 'guests', 'lovestory', 'rsvp_data', 'wishes_data', 'profile', 'help'];
@@ -358,84 +358,84 @@ const pageTitle = document.getElementById('pageTitle');
 const mobileSidebarToggle = document.getElementById('mobileSidebarToggle');
 
 async function api(path, options = {}) {
-  const res = await fetch(path, {
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
-    ...options,
-  });
-  
-  const contentType = res.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
+    const res = await fetch(path, {
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        ...options,
+    });
 
-      const data = await res.json();
-      if (!res.ok) {
-          const err = new Error(data.error || `API Error (${res.status})`);
-          err.data = data; // Attach data for detail reporting
-          throw err;
-      }
-      return data;
-  } else {
-      const text = await res.text();
-      if (!res.ok) {
-          if (res.status === 404) throw new Error('Route tidak ditemukan. Mohon RESTART server Node.js Anda.');
-          throw new Error(`Server Error (${res.status})`);
-      }
-      return text;
-  }
+    const contentType = res.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+
+        const data = await res.json();
+        if (!res.ok) {
+            const err = new Error(data.error || `API Error (${res.status})`);
+            err.data = data; // Attach data for detail reporting
+            throw err;
+        }
+        return data;
+    } else {
+        const text = await res.text();
+        if (!res.ok) {
+            if (res.status === 404) throw new Error('Route tidak ditemukan. Mohon RESTART server Node.js Anda.');
+            throw new Error(`Server Error (${res.status})`);
+        }
+        return text;
+    }
 
 }
 
-window.showSection = function(name) {
-  sections.forEach((section) => {
-    const panel = document.getElementById(section);
-    if (panel) panel.classList.toggle('hidden', section !== name);
-  });
-  navButtons.forEach((button) => button.classList.toggle('active', button.dataset.section === name));
-  
-  // Close sidebar on mobile after click
-  if (window.innerWidth < 1024) sidebar.classList.add('-translate-x-full');
-  
-  // Update header title
-  const activeBtn = navButtons.find(b => b.dataset.section === name);
-  if (activeBtn && pageTitle) pageTitle.innerText = activeBtn.innerText.trim();
-  
-  // Special Section Loading
-  if (name === 'profile') loadProfileData();
-  if (name === 'lovestory' || name === 'events') loadLoveStoryAdmin();
-  scrollTo(0,0);
+window.showSection = function (name) {
+    sections.forEach((section) => {
+        const panel = document.getElementById(section);
+        if (panel) panel.classList.toggle('hidden', section !== name);
+    });
+    navButtons.forEach((button) => button.classList.toggle('active', button.dataset.section === name));
+
+    // Close sidebar on mobile after click
+    if (window.innerWidth < 1024) sidebar.classList.add('-translate-x-full');
+
+    // Update header title
+    const activeBtn = navButtons.find(b => b.dataset.section === name);
+    if (activeBtn && pageTitle) pageTitle.innerText = activeBtn.innerText.trim();
+
+    // Special Section Loading
+    if (name === 'profile') loadProfileData();
+    if (name === 'lovestory' || name === 'events') loadLoveStoryAdmin();
+    scrollTo(0, 0);
 }
 
 
 function renderDashboardCounts() {
-  if (!state.dashboard) return;
-  const rsvps = state.dashboard.rsvps || [];
-  const guests = state.dashboard.guests || [];
-  
-  // Update big numbers
-  document.getElementById('totalRsvp').innerText = rsvps.length;
-  document.getElementById('totalWishes').innerText = (state.dashboard.wishes || []).length;
+    if (!state.dashboard) return;
+    const rsvps = state.dashboard.rsvps || [];
+    const guests = state.dashboard.guests || [];
 
-  const totalGuestsOverview = document.getElementById('totalGuestsOverview');
-  if (totalGuestsOverview) totalGuestsOverview.innerText = guests.length;
-  
-  // RSVP Progress Bar logic
-  const confirmedCount = rsvps.length;
-  const totalGuests = guests.length;
-  const pendingCount = Math.max(0, totalGuests - confirmedCount);
-  
-  const confirmedEl = document.getElementById('rsvpConfirmedCount');
-  const pendingEl = document.getElementById('rsvpPendingCount');
-  const barEl = document.getElementById('rsvpProgressBar');
-  
-  if (confirmedEl) confirmedEl.innerText = confirmedCount;
-  if (pendingEl) pendingEl.innerText = pendingCount;
-  if (barEl) {
-    const pct = totalGuests > 0 ? Math.min(100, Math.round((confirmedCount / totalGuests) * 100)) : 0;
-    barEl.style.width = pct + '%';
-  }
+    // Update big numbers
+    document.getElementById('totalRsvp').innerText = rsvps.length;
+    document.getElementById('totalWishes').innerText = (state.dashboard.wishes || []).length;
 
-  // Update the Real-time previews too
-  renderDashboardPreviews();
+    const totalGuestsOverview = document.getElementById('totalGuestsOverview');
+    if (totalGuestsOverview) totalGuestsOverview.innerText = guests.length;
+
+    // RSVP Progress Bar logic
+    const confirmedCount = rsvps.length;
+    const totalGuests = guests.length;
+    const pendingCount = Math.max(0, totalGuests - confirmedCount);
+
+    const confirmedEl = document.getElementById('rsvpConfirmedCount');
+    const pendingEl = document.getElementById('rsvpPendingCount');
+    const barEl = document.getElementById('rsvpProgressBar');
+
+    if (confirmedEl) confirmedEl.innerText = confirmedCount;
+    if (pendingEl) pendingEl.innerText = pendingCount;
+    if (barEl) {
+        const pct = totalGuests > 0 ? Math.min(100, Math.round((confirmedCount / totalGuests) * 100)) : 0;
+        barEl.style.width = pct + '%';
+    }
+
+    // Update the Real-time previews too
+    renderDashboardPreviews();
 }
 
 let dashboardRsvpVisibleCount = 20;
@@ -445,11 +445,11 @@ let isWishesRendering = false;
 
 function renderDashboardPreviews() {
     if (!state.dashboard) return;
-    
+
     // Initial Render
     renderRsvpItems();
     renderWishesItems();
-    
+
     // Attach Scroll Listeners (Only once)
     setupDashboardLazyLoad();
 }
@@ -457,7 +457,7 @@ function renderDashboardPreviews() {
 function setupDashboardLazyLoad() {
     const rsvpContainer = document.querySelector('#dashboardRsvpPreview')?.parentElement;
     const wishesContainer = document.querySelector('#dashboardWishesPreview');
-    
+
     if (rsvpContainer && !rsvpContainer.dataset.lazyLoaded) {
         rsvpContainer.dataset.lazyLoaded = 'true';
         rsvpContainer.addEventListener('scroll', () => {
@@ -471,7 +471,7 @@ function setupDashboardLazyLoad() {
             }
         });
     }
-    
+
     if (wishesContainer && !wishesContainer.dataset.lazyLoaded) {
         wishesContainer.dataset.lazyLoaded = 'true';
         wishesContainer.addEventListener('scroll', () => {
@@ -491,29 +491,31 @@ function renderRsvpItems(isMore = false) {
     const rsvpBody = document.getElementById('dashboardRsvpPreview');
     const loading = document.getElementById('rsvpLoading');
     if (!rsvpBody || !state.dashboard) return;
-    
+
     isRsvpRendering = true;
     if (loading) loading.classList.remove('hidden');
 
     const list = (state.dashboard.rsvps || []).slice(0, dashboardRsvpVisibleCount);
-    
+
     setTimeout(() => {
         if (list.length === 0) {
-            rsvpBody.innerHTML = `<tr><td colspan="5" class="px-8 py-10 text-center text-slate-400 dark:text-slate-500 text-xs italic">Belum ada aktivitas konfirmasi</td></tr>`;
+            rsvpBody.innerHTML = `<tr><td colspan="5" class="px-8 py-16 text-center text-slate-400 dark:text-slate-500"><div class="text-4xl font-black opacity-10 mb-2">-</div><p class="text-[10px] font-bold uppercase tracking-widest opacity-30">Belum ada data</p></td></tr>`;
         } else {
             rsvpBody.innerHTML = list.map(item => {
-                const badgeClass = (item.status || '').toLowerCase() === 'hadir' ? 'badge-paid' : 'badge-pending';
-                const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short' }) : '-';
+                const guestName = item.guest_name || '-';
+                const status = item.status || '-';
+                const badgeClass = status.toLowerCase() === 'hadir' ? 'badge-paid' : (status === '-' ? 'bg-slate-100 text-slate-400' : 'badge-pending');
+                const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) : '-';
                 return `
                     <tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors border-b border-slate-100 dark:border-slate-800/50 last:border-0">
                         <td class="font-bold text-slate-900 dark:text-slate-100 text-xs tracking-tight px-8 py-4">
                             <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-xs shrink-0">${(item.guest_name || 'A').charAt(0).toUpperCase()}</div>
-                                ${item.guest_name || 'Tamu Anonim'}
+                                <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-xs shrink-0">${(guestName === '-' ? '?' : guestName.charAt(0)).toUpperCase()}</div>
+                                ${guestName}
                             </div>
                         </td>
-                        <td class="px-8 py-4"><span class="badge-modern ${badgeClass} text-[9px]">${(item.status || '').toUpperCase()}</span></td>
-                        <td class="text-center font-black text-slate-900 dark:text-slate-100 text-xs px-8 py-4">${item.guest_count} <span class="text-[10px] font-normal text-slate-400 dark:text-slate-500">orang</span></td>
+                        <td class="px-8 py-4"><span class="badge-modern ${badgeClass} text-[9px]">${status.toUpperCase()}</span></td>
+                        <td class="text-center font-black text-slate-900 dark:text-slate-100 text-xs px-8 py-4">${item.guest_count || '-'} <span class="text-[10px] font-normal text-slate-400 dark:text-slate-500">${item.guest_count ? 'orang' : ''}</span></td>
                         <td class="text-right text-slate-400 dark:text-slate-500 text-[9px] font-bold tracking-widest px-8 py-4">${dateStr}</td>
                         <td class="text-right px-8 py-4">
                             <button onclick="window.deleteRsvp('${item.id}')" class="btn-premium btn-secondary !p-0 w-8 h-8 ml-auto text-slate-400 dark:text-slate-500 hover:!bg-red-500 hover:!text-white hover:!border-red-500">
@@ -533,19 +535,21 @@ function renderWishesItems(isMore = false) {
     const wishesContainer = document.getElementById('dashboardWishesPreview');
     const loading = document.getElementById('wishesLoading');
     if (!wishesContainer || !state.dashboard) return;
-    
+
     isWishesRendering = true;
     if (loading) loading.classList.remove('hidden');
 
     const list = (state.dashboard.wishes || []).slice(0, dashboardWishesVisibleCount);
-    
+
     setTimeout(() => {
         if (list.length === 0) {
-            wishesContainer.innerHTML = `<div class="p-10 text-center text-slate-400 dark:text-slate-500 text-xs italic">Belum ada ucapan terbaru</div>`;
+            wishesContainer.innerHTML = `<div class="py-16 text-center text-slate-400 dark:text-slate-500"><div class="text-4xl font-black opacity-10 mb-2">-</div><p class="text-[10px] font-bold uppercase tracking-widest opacity-30">Belum ada ucapan</p></div>`;
         } else {
             wishesContainer.innerHTML = list.map(item => {
-                const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short' }) : '-';
-                const initial = (item.guest_name && item.guest_name.length > 0 ? item.guest_name.charAt(0) : 'A').toUpperCase();
+                const guestName = item.guest_name || '-';
+                const message = item.message || '-';
+                const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) : '-';
+                const initial = (guestName !== '-' ? guestName.charAt(0) : '?').toUpperCase();
                 const adminAvatar = document.getElementById('headerUserAvatar') ? document.getElementById('headerUserAvatar').src : '';
                 const adminName = (state.dashboard.settings && state.dashboard.settings.hero_name) || 'Admin';
                 const replyDisplay = item.reply ? `
@@ -564,10 +568,10 @@ function renderWishesItems(isMore = false) {
                             <div class="w-7 h-7 rounded-full bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-[11px] shrink-0 border border-blue-100 dark:border-slate-700 mt-1 shadow-sm">${initial}</div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center gap-2">
-                                    <h5 class="text-[12px] font-bold text-slate-900 dark:text-slate-100 truncate">${item.guest_name || 'Tamu Anonim'}</h5>
+                                    <h5 class="text-[12px] font-bold text-slate-900 dark:text-slate-100 truncate">${guestName}</h5>
                                     <span class="text-[9px] text-slate-400 dark:text-slate-500 font-bold">${dateStr}</span>
                                 </div>
-                                <p class="text-[12px] text-slate-700 dark:text-slate-300 mt-0.5 leading-snug font-medium">${item.message}</p>
+                                <p class="text-[12px] text-slate-700 dark:text-slate-300 mt-0.5 leading-snug font-medium">${message}</p>
                                 <div class="flex items-center gap-2 mt-1.5">
                                     <button onclick="window.toggleReplyInput(this, '${item.id}')" class="text-blue-500 hover:text-blue-700 transition-colors p-1" title="Reply">
                                         <i class="fas ${item.reply ? 'fa-edit' : 'fa-reply'} text-[11px] pointer-events-none"></i>
@@ -596,367 +600,396 @@ function renderWishesItems(isMore = false) {
 }
 
 async function loadPageViews() {
-  try {
-    const data = await api('/api/admin/pageviews');
-    const totalEl = document.getElementById('totalPageViews');
-    const todayEl = document.getElementById('pageViewsTodayBadge');
-    const uniqueEl = document.getElementById('uniquePageViews');
-    const barEl = document.getElementById('pageViewsBar');
+    try {
+        const data = await api('/api/admin/pageviews');
+        const totalEl = document.getElementById('totalPageViews');
+        const todayEl = document.getElementById('pageViewsTodayBadge');
+        const uniqueEl = document.getElementById('uniquePageViews');
+        const barEl = document.getElementById('pageViewsBar');
 
-    if (totalEl) totalEl.innerText = data.total || 0;
-    if (todayEl) todayEl.innerText = `+${data.today || 0} hari ini`;
-    if (uniqueEl) uniqueEl.innerText = data.unique || 0;
-    if (barEl) {
-      // Bar represents % of total that came this week vs total
-      const pct = data.total > 0 ? Math.min(100, Math.round((data.week / data.total) * 100)) : 0;
-      barEl.style.width = pct + '%';
+        if (totalEl) totalEl.innerText = data.total || 0;
+        if (todayEl) todayEl.innerText = `+${data.today || 0} hari ini`;
+        if (uniqueEl) uniqueEl.innerText = data.unique || 0;
+        if (barEl) {
+            // Bar represents % of total that came this week vs total
+            const pct = data.total > 0 ? Math.min(100, Math.round((data.week / data.total) * 100)) : 0;
+            barEl.style.width = pct + '%';
+        }
+    } catch (e) {
+        // Silently fail if pageviews table doesn't exist yet
+        console.warn('Page views not loaded:', e.message);
     }
-  } catch (e) {
-    // Silently fail if pageviews table doesn't exist yet
-    console.warn('Page views not loaded:', e.message);
-  }
 }
 
+window.resetPageViews = function () {
+    const confirmModal = document.getElementById('adminConfirmModal');
+    const confirmMsg = document.getElementById('confirmModalMessage');
+    const confirmBtn = document.getElementById('confirmModalSubmit');
+
+    if (!confirmModal || !confirmMsg || !confirmBtn) return;
+
+    confirmMsg.innerText = "Seluruh data statistik kunjungan (Page Views) akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.";
+    confirmBtn.innerText = "Hapus Data";
+    confirmBtn.className = "btn-premium btn-danger !h-14";
+
+    confirmBtn.onclick = async () => {
+        try {
+            confirmBtn.disabled = true;
+            confirmBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Menghapus...';
+
+            await api('/api/admin/pageviews', { method: 'DELETE' });
+
+            showToast('Statistik views berhasil direset ke 0');
+            hideModal('adminConfirmModal');
+            loadPageViews();
+        } catch (error) {
+            showToast(error.message, 'error');
+        } finally {
+            confirmBtn.disabled = false;
+            confirmBtn.innerText = "Hapus Data";
+        }
+    };
+
+    showModal('adminConfirmModal');
+};
+
 function renderSettings() {
-  const settings = state.dashboard?.settings || {};
-  if (document.getElementById('settingCoverTitle')) document.getElementById('settingCoverTitle').value = settings.cover_title || '-';
-  if (document.getElementById('settingCoverSubtitle')) document.getElementById('settingCoverSubtitle').value = settings.cover_subtitle || '-';
-  if (document.getElementById('settingHeroName')) document.getElementById('settingHeroName').value = settings.hero_name || '-';
-  if (document.getElementById('settingGuestPrefix')) document.getElementById('settingGuestPrefix').value = settings.guest_prefix || '-';
-  if (document.getElementById('settingGuestLabel')) document.getElementById('settingGuestLabel').value = settings.guest_label || '-';
-  if (document.getElementById('settingHeroButton')) document.getElementById('settingHeroButton').value = settings.hero_button || '-';
-  if (document.getElementById('settingNotificationRetention')) {
-      // Setup Notification Retention Initial Value
-      const val = settings.notification_retention || '30';
-      document.getElementById('settingNotificationRetention').value = val;
-      
-      const activeOpt = document.querySelector(`.retention-option[data-value="${val}"]`);
-      if (activeOpt && document.getElementById('retentionSelectedLabel')) {
-          document.getElementById('retentionSelectedLabel').innerText = activeOpt.querySelector('span').innerText;
-          document.querySelectorAll('.retention-option').forEach(el => el.classList.remove('active'));
-          activeOpt.classList.add('active');
-      }
+    const settings = state.dashboard?.settings || {};
+    if (document.getElementById('settingCoverTitle')) document.getElementById('settingCoverTitle').value = settings.cover_title || '-';
+    if (document.getElementById('settingCoverSubtitle')) document.getElementById('settingCoverSubtitle').value = settings.cover_subtitle || '-';
+    if (document.getElementById('settingHeroName')) document.getElementById('settingHeroName').value = settings.hero_name || '-';
+    if (document.getElementById('settingGuestPrefix')) document.getElementById('settingGuestPrefix').value = settings.guest_prefix || '-';
+    if (document.getElementById('settingGuestLabel')) document.getElementById('settingGuestLabel').value = settings.guest_label || '-';
+    if (document.getElementById('settingHeroButton')) document.getElementById('settingHeroButton').value = settings.hero_button || '-';
+    if (document.getElementById('settingNotificationRetention')) {
+        // Setup Notification Retention Initial Value
+        const val = settings.notification_retention || '30';
+        document.getElementById('settingNotificationRetention').value = val;
 
-      // Setup Wishes Limit Initial Value
-      const wishesVal = settings.wishes_limit || '0';
-      const wishesSelect = document.getElementById('settingWishesLimit');
-      if (wishesSelect) wishesSelect.value = wishesVal;
-      
-      const activeWishesOpt = document.querySelector(`.wisheslimit-option[data-value="${wishesVal}"]`);
-      if (activeWishesOpt && document.getElementById('wishesLimitSelectedLabel')) {
-          document.getElementById('wishesLimitSelectedLabel').innerText = activeWishesOpt.querySelector('span').innerText;
-          document.querySelectorAll('.wisheslimit-option').forEach(el => el.classList.remove('active'));
-          activeWishesOpt.classList.add('active');
-      }
-  }
-  
-  // Greeting Settings
-  if (document.getElementById('settingGreetingHeading')) document.getElementById('settingGreetingHeading').value = settings.greeting_heading || '';
-  if (document.getElementById('settingGreetingQuote')) document.getElementById('settingGreetingQuote').value = settings.greeting_quote || '';
-  if (document.getElementById('settingGreetingLogo')) document.getElementById('settingGreetingLogo').value = settings.greeting_logo || '';
-  if (document.getElementById('settingGreetingBg')) document.getElementById('settingGreetingBg').value = settings.greeting_bg || '';
-  if (document.getElementById('settingGreetingInvitation')) document.getElementById('settingGreetingInvitation').value = settings.greeting_invitation || '';
-  if (document.getElementById('settingCoupleSectionTitle')) document.getElementById('settingCoupleSectionTitle').value = settings.couple_section_title !== undefined ? settings.couple_section_title : 'Bride & Groom';
-  if (document.getElementById('settingEventHeaderTitle')) document.getElementById('settingEventHeaderTitle').value = settings.event_header_title || '';
-  if (document.getElementById('settingEventHeaderQuote')) document.getElementById('settingEventHeaderQuote').value = settings.event_header_quote || '';
-  if (document.getElementById('settingWishesTitle')) document.getElementById('settingWishesTitle').value = settings.wishes_title || '';
-  if (document.getElementById('settingWishesQuote')) document.getElementById('settingWishesQuote').value = settings.wishes_quote || '';
-  if (document.getElementById('settingRsvpHeaderTitle')) document.getElementById('settingRsvpHeaderTitle').value = settings.rsvp_header_title || '';
-  if (document.getElementById('settingRsvpHeaderQuote')) document.getElementById('settingRsvpHeaderQuote').value = settings.rsvp_header_quote || '';
-  if (document.getElementById('settingRsvpCaption')) document.getElementById('settingRsvpCaption').value = settings.rsvp_caption || '';
-  if (document.getElementById('settingEventBg')) document.getElementById('settingEventBg').value = settings.event_bg || '';
-  if (document.getElementById('settingLovestoryBg')) document.getElementById('settingLovestoryBg').value = settings.lovestory_bg || '';
-  if (document.getElementById('settingLovestoryCardBg')) document.getElementById('settingLovestoryCardBg').value = settings.lovestory_card_bg || '';
-  if (document.getElementById('settingGiftBgImg')) document.getElementById('settingGiftBgImg').value = settings.gift_bg_img || '';
-  if (document.getElementById('settingOpeningBgColor')) {
-      const oColor = settings.opening_bg_color || '#000000';
-      document.getElementById('settingOpeningBgColor').value = oColor;
-      if (document.getElementById('openingColorPicker')) {
-          document.getElementById('openingColorPicker').value = oColor.startsWith('#') ? oColor : '#000000';
-      }
-      window.syncOpeningColor(oColor, 'picker');
-  }
-  if (document.getElementById('settingGreetingBgColor')) {
-      const grColor = settings.greeting_bg_color || '#000000';
-      document.getElementById('settingGreetingBgColor').value = grColor;
-      if (document.getElementById('greetingColorPicker') && grColor.startsWith('#')) {
-          document.getElementById('greetingColorPicker').value = grColor;
-      }
-  }
-  if (document.getElementById('settingCoupleBgColor')) {
-      const cColor = settings.couple_bg_color || '#000000';
-      document.getElementById('settingCoupleBgColor').value = cColor;
-      if (window.syncCoupleColor) window.syncCoupleColor(cColor, 'picker');
-  }
-  if (document.getElementById('settingCoupleBgImg')) {
-      document.getElementById('settingCoupleBgImg').value = settings.couple_bg_img || '';
-  }
-  if (document.getElementById('settingCoupleBgMode')) {
-      const cMode = settings.couple_bg_mode || 'color';
-      document.getElementById('settingCoupleBgMode').value = cMode;
-      if (window.setCoupleBgMode) window.setCoupleBgMode(cMode);
-  }
-  if (document.getElementById('settingEventBgColor')) {
-      const eColor = settings.event_bg_color || '#000000';
-      document.getElementById('settingEventBgColor').value = eColor;
-      if (document.getElementById('eventColorPicker') && eColor.startsWith('#')) {
-          document.getElementById('eventColorPicker').value = eColor;
-      }
-  }
-  if (document.getElementById('settingGalleryTitle')) document.getElementById('settingGalleryTitle').value = settings.gallery_title || 'Sweet Moments';
+        const activeOpt = document.querySelector(`.retention-option[data-value="${val}"]`);
+        if (activeOpt && document.getElementById('retentionSelectedLabel')) {
+            document.getElementById('retentionSelectedLabel').innerText = activeOpt.querySelector('span').innerText;
+            document.querySelectorAll('.retention-option').forEach(el => el.classList.remove('active'));
+            activeOpt.classList.add('active');
+        }
 
-   if (document.getElementById('settingEventBgMode')) {
-       const eMode = settings.event_bg_mode || 'color';
-       window.setEventBgMode(eMode, true);
-   }
-   
-   const eventImg = settings.event_bg_img || '';
-   const eventPreview = document.getElementById('eventBgPreview');
-   const eventPlaceholder = document.getElementById('eventBgPreviewPlaceholder');
-   if (eventPreview && eventPlaceholder) {
-       if (eventImg) {
-           eventPreview.src = eventImg;
-           eventPreview.classList.remove('hidden');
-           eventPlaceholder.classList.add('hidden');
-       } else {
-           eventPreview.src = '';
-           eventPreview.classList.add('hidden');
-           eventPlaceholder.classList.remove('hidden');
-       }
-   }
+        // Setup Wishes Limit Initial Value
+        const wishesVal = settings.wishes_limit || '0';
+        const wishesSelect = document.getElementById('settingWishesLimit');
+        if (wishesSelect) wishesSelect.value = wishesVal;
 
-   // Wishes background logic
-   if (document.getElementById('settingWishesBgMode')) {
-       const wMode = settings.wishes_bg_mode || 'color';
-       window.setWishesBgMode(wMode, true);
-   }
-   const wishesImg = settings.wishes_bg_img || '';
-   const wishesPreview = document.getElementById('wishesBgPreview');
-   const wishesPlaceholder = document.getElementById('wishesBgPreviewPlaceholder');
-   if (wishesPreview && wishesPlaceholder) {
-       if (wishesImg) {
-           wishesPreview.src = wishesImg;
-           wishesPreview.classList.remove('hidden');
-           wishesPlaceholder.classList.add('hidden');
-       } else {
-           wishesPreview.src = '';
-           wishesPreview.classList.add('hidden');
-           wishesPlaceholder.classList.remove('hidden');
-       }
-   }
-   
-   // RSVP background logic
-   if (document.getElementById('settingRsvpBgMode')) {
-       const rMode = settings.rsvp_bg_mode || 'color';
-       window.setRsvpBgMode(rMode, true);
-   }
-   const rsvpImg = settings.rsvp_bg_img || '';
-   const rsvpPreview = document.getElementById('rsvpBgPreview');
-   const rsvpPlaceholder = document.getElementById('rsvpBgPreviewPlaceholder');
-   if (rsvpPreview && rsvpPlaceholder) {
-       if (rsvpImg) {
-           rsvpPreview.src = rsvpImg;
-           rsvpPreview.classList.remove('hidden');
-           rsvpPlaceholder.classList.add('hidden');
-       } else {
-           rsvpPreview.src = '';
-           rsvpPreview.classList.add('hidden');
-           rsvpPlaceholder.classList.remove('hidden');
-       }
-   }
-
-   // Gift background logic
-   if (document.getElementById('settingGiftBgMode')) {
-       const gMode = settings.gift_bg_mode || 'color';
-       window.setGiftBgMode(gMode, true);
-   }
-   const giftImg = settings.gift_bg_img || '';
-   const giftPreview = document.getElementById('giftBgPreview');
-   const giftPlaceholder = document.getElementById('giftBgPreviewPlaceholder');
-   if (giftPreview && giftPlaceholder) {
-       if (giftImg) {
-           giftPreview.src = giftImg;
-           giftPreview.classList.remove('hidden');
-           giftPlaceholder.classList.add('hidden');
-       } else {
-           giftPreview.src = '';
-           giftPreview.classList.add('hidden');
-           giftPlaceholder.classList.remove('hidden');
-       }
-   }
-
-
-  if (document.getElementById('settingLovestoryBgColor')) {
-
-
-      const lsColor = settings.lovestory_bg_color || '#000000';
-      document.getElementById('settingLovestoryBgColor').value = lsColor;
-      if (document.getElementById('lovestoryColorPicker') && lsColor.startsWith('#')) {
-          document.getElementById('lovestoryColorPicker').value = lsColor;
-      }
-  }
-  if (document.getElementById('settingLovestoryCardBgColor')) {
-      const lscColor = settings.lovestory_card_bg_color || '#000000';
-      document.getElementById('settingLovestoryCardBgColor').value = lscColor;
-      if (document.getElementById('lovestoryCardColorPicker') && lscColor.startsWith('#')) {
-          document.getElementById('lovestoryCardColorPicker').value = lscColor;
-      }
-  }
-  
-  if (document.getElementById('settingWishesBgImg')) document.getElementById('settingWishesBgImg').value = settings.wishes_bg_img || '';
-  if (document.getElementById('settingRsvpBgImg')) document.getElementById('settingRsvpBgImg').value = settings.rsvp_bg_img || '';
-  
-  if (document.getElementById('settingOpeningBgImg')) {
-      document.getElementById('settingOpeningBgImg').value = settings.opening_bg_img || '';
-      if (window.renderOpeningSlider) window.renderOpeningSlider();
-  }
-  
-  if (document.getElementById('settingOpeningBgMode')) {
-      const oMode = settings.opening_bg_mode || 'color';
-      document.getElementById('settingOpeningBgMode').value = oMode;
-      if (window.setOpeningBgMode) window.setOpeningBgMode(oMode, true);
-  }
-
-  // Greeting (Sambutan) background settings
-  if (document.getElementById('settingGreetingBgImg')) {
-      document.getElementById('settingGreetingBgImg').value = settings.greeting_bg_img || '';
-      if (window.renderGreetingSlider) window.renderGreetingSlider();
-  }
-  if (document.getElementById('settingGreetingBgColor')) {
-      const gColor = settings.greeting_bg_color || '#000000';
-      document.getElementById('settingGreetingBgColor').value = gColor;
-      if (window.syncGreetingColor) window.syncGreetingColor(gColor, 'picker');
-  }
-  if (document.getElementById('settingGreetingBgMode')) {
-      const gMode = settings.greeting_bg_mode || 'color';
-      document.getElementById('settingGreetingBgMode').value = gMode;
-      if (window.setGreetingBgMode) window.setGreetingBgMode(gMode, true);
-  }
-  
-  if (document.getElementById('settingWishesBgColor')) {
-      const wColor = settings.wishes_bg_color || '#000000';
-      document.getElementById('settingWishesBgColor').value = wColor;
-      if (window.syncWishesColor) window.syncWishesColor(wColor, 'picker');
-  }
-
-   if (document.getElementById('settingRsvpBgColor')) {
-       const rColor = settings.rsvp_bg_color || '#000000';
-       document.getElementById('settingRsvpBgColor').value = rColor;
-       if (window.syncRsvpColor) window.syncRsvpColor(rColor, 'picker');
-   }
-
-  if (document.getElementById('settingGiftBgColor')) {
-      const giColor = settings.gift_bg_color || '#000000';
-      document.getElementById('settingGiftBgColor').value = giColor;
-      if (window.syncGiftColor) window.syncGiftColor(giColor, 'picker');
-  }
-  
-  if (document.getElementById('settingGalleryBgColor')) {
-      const galColor = settings.gallery_bg_color || '#000000';
-      document.getElementById('settingGalleryBgColor').value = galColor;
-      if (document.getElementById('galleryColorPicker') && galColor.startsWith('#')) {
-          document.getElementById('galleryColorPicker').value = galColor;
-      }
-  }
-  if (document.getElementById('settingGalleryBgImg')) {
-      document.getElementById('settingGalleryBgImg').value = settings.gallery_bg_img || '';
-  }
-  
-  // Show/Hide delete buttons based on image existence
-  const deleteBtnMap = {
-      'wishes_bg_img': 'btnDeleteWishesBg',
-      'opening_bg_img': 'btnDeleteOpeningBg',
-      'greeting_bg_img': 'btnDeleteGreetingBg',
-      'couple_bg_img': 'btnDeleteCoupleBg',
-      'event_bg': 'btnDeleteEventBg',
-      'lovestory_bg': 'btnDeleteLovestoryBg',
-      'lovestory_card_bg': 'btnDeleteLovestoryCardBg',
-      'gift_bg_img': 'btnDeleteGiftBg',
-      'rsvp_bg_img': 'btnDeleteRsvpBg'
-  };
-
-  Object.entries(deleteBtnMap).forEach(([key, btnId]) => {
-      const btn = document.getElementById(btnId);
-      if (btn) {
-          if (settings[key]) btn.classList.remove('hidden');
-          else btn.classList.add('hidden');
-      }
-  });
-  
-  if (document.getElementById('settingEnableNotifications')) {
-      document.getElementById('settingEnableNotifications').checked = settings.notifications_enabled !== 'false';
-  }
-  
-
-
-  if (settings.greeting_logo && document.getElementById('greetingLogoPreview')) {
-      document.getElementById('greetingLogoPreview').src = settings.greeting_logo;
-  }
-  if (settings.greeting_bg && document.getElementById('greetingBgPreview')) {
-      document.getElementById('greetingBgPreview').src = settings.greeting_bg;
-  }
-  if (settings.couple_bg_img && document.getElementById('coupleBgPreview')) {
-      document.getElementById('coupleBgPreview').src = settings.couple_bg_img;
-  }
-  if (settings.event_bg && document.getElementById('eventBgPreview')) {
-      document.getElementById('eventBgPreview').src = settings.event_bg;
-  }
-  if (settings.lovestory_bg && document.getElementById('lovestoryBgPreview')) {
-      document.getElementById('lovestoryBgPreview').src = settings.lovestory_bg;
-  }
-  if (settings.lovestory_card_bg && document.getElementById('lovestoryCardBgPreview')) {
-      document.getElementById('lovestoryCardBgPreview').src = settings.lovestory_card_bg;
-  }
-  if (settings.gift_bg_img && document.getElementById('giftBgPreview')) {
-      document.getElementById('giftBgPreview').src = settings.gift_bg_img;
-  }
-  if (settings.gallery_bg_img && document.getElementById('galleryBgPreview')) {
-      document.getElementById('galleryBgPreview').src = settings.gallery_bg_img;
-  }
-  if (settings.wishes_bg_img && document.getElementById('wishesBgPreview')) {
-      document.getElementById('wishesBgPreview').src = settings.wishes_bg_img;
-  }
-  if (settings.rsvp_bg_img && document.getElementById('rsvpBgPreview')) {
-      document.getElementById('rsvpBgPreview').src = settings.rsvp_bg_img;
-  }
-
-  if (document.getElementById('settingBgMusic')) {
-      document.getElementById('settingBgMusic').value = settings.bg_music || '';
-  }
-
-  if (document.getElementById('waTemplateInput')) {
-      document.getElementById('waTemplateInput').innerHTML = settings.wa_template || '';
-  }
-
-  // Music Settings
-  const musicDisplay = document.getElementById('music_name_display');
-  const previewContainer = document.getElementById('music_preview_container');
-  const previewEl = document.getElementById('music_preview');
-  const autoPlayEl = document.getElementById('settingAutoPlay');
-
-  if (settings.bg_music) {
-    const fileName = settings.bg_music.split('/').pop();
-    if (musicDisplay) musicDisplay.innerText = fileName;
-    if (previewContainer) previewContainer.classList.remove('hidden');
-    if (previewEl) {
-        // Add cache buster and load
-        previewEl.src = settings.bg_music + '?t=' + Date.now();
-        previewEl.load();
+        const activeWishesOpt = document.querySelector(`.wisheslimit-option[data-value="${wishesVal}"]`);
+        if (activeWishesOpt && document.getElementById('wishesLimitSelectedLabel')) {
+            document.getElementById('wishesLimitSelectedLabel').innerText = activeWishesOpt.querySelector('span').innerText;
+            document.querySelectorAll('.wisheslimit-option').forEach(el => el.classList.remove('active'));
+            activeWishesOpt.classList.add('active');
+        }
     }
-  } else {
-    if (musicDisplay) musicDisplay.innerText = 'Belum ada musik yang diunggah';
-    if (previewContainer) previewContainer.classList.add('hidden');
-    if (previewEl) {
-        previewEl.src = '';
-        previewEl.load();
-    }
-  }
 
-  if (autoPlayEl) autoPlayEl.checked = settings.music_autoplay === 'true';
-  
-  if (document.getElementById('settingMusicStart')) {
-      document.getElementById('settingMusicStart').value = settings.music_start_time || 0;
-  }
+    // Greeting Settings
+    if (document.getElementById('settingGreetingHeading')) document.getElementById('settingGreetingHeading').value = settings.greeting_heading || '';
+    if (document.getElementById('settingGreetingQuote')) document.getElementById('settingGreetingQuote').value = settings.greeting_quote || '';
+    if (document.getElementById('settingGreetingLogo')) document.getElementById('settingGreetingLogo').value = settings.greeting_logo || '';
+    if (document.getElementById('settingGreetingInvitation')) document.getElementById('settingGreetingInvitation').value = settings.greeting_invitation || '';
+    if (document.getElementById('settingCoupleSectionTitle')) document.getElementById('settingCoupleSectionTitle').value = settings.couple_section_title !== undefined ? settings.couple_section_title : 'Bride & Groom';
+    if (document.getElementById('settingEventHeaderTitle')) document.getElementById('settingEventHeaderTitle').value = settings.event_header_title || '';
+    if (document.getElementById('settingEventHeaderQuote')) document.getElementById('settingEventHeaderQuote').value = settings.event_header_quote || '';
+    if (document.getElementById('settingWishesTitle')) document.getElementById('settingWishesTitle').value = settings.wishes_title || '';
+    if (document.getElementById('settingWishesQuote')) document.getElementById('settingWishesQuote').value = settings.wishes_quote || '';
+    if (document.getElementById('settingRsvpHeaderTitle')) document.getElementById('settingRsvpHeaderTitle').value = settings.rsvp_header_title || '';
+    if (document.getElementById('settingRsvpHeaderQuote')) document.getElementById('settingRsvpHeaderQuote').value = settings.rsvp_header_quote || '';
+    if (document.getElementById('settingRsvpCaption')) document.getElementById('settingRsvpCaption').value = settings.rsvp_caption || '';
+    if (document.getElementById('settingEventBg')) document.getElementById('settingEventBg').value = settings.event_bg || '';
+    if (document.getElementById('settingLovestoryBg')) document.getElementById('settingLovestoryBg').value = settings.lovestory_bg || '';
+    if (document.getElementById('settingLovestoryCardBg')) document.getElementById('settingLovestoryCardBg').value = settings.lovestory_card_bg || '';
+    if (document.getElementById('settingGiftBgImg')) document.getElementById('settingGiftBgImg').value = settings.gift_bg_img || '';
+    if (document.getElementById('settingOpeningBgColor')) {
+        const oColor = settings.opening_bg_color || '#000000';
+        document.getElementById('settingOpeningBgColor').value = oColor;
+        if (document.getElementById('openingColorPicker')) {
+            document.getElementById('openingColorPicker').value = oColor.startsWith('#') ? oColor : '#000000';
+        }
+        window.syncOpeningColor(oColor, 'picker');
+    }
+    if (document.getElementById('settingGreetingBgColor')) {
+        const grColor = settings.greeting_bg_color || '#000000';
+        document.getElementById('settingGreetingBgColor').value = grColor;
+        if (document.getElementById('greetingColorPicker') && grColor.startsWith('#')) {
+            document.getElementById('greetingColorPicker').value = grColor;
+        }
+    }
+    if (document.getElementById('settingCoupleBgColor')) {
+        const cColor = settings.couple_bg_color || '#000000';
+        document.getElementById('settingCoupleBgColor').value = cColor;
+        if (window.syncCoupleColor) window.syncCoupleColor(cColor, 'picker');
+    }
+    if (document.getElementById('settingCoupleBgImg')) {
+        document.getElementById('settingCoupleBgImg').value = settings.couple_bg_img || '';
+    }
+    if (document.getElementById('settingCoupleBgMode')) {
+        const cMode = settings.couple_bg_mode || 'color';
+        document.getElementById('settingCoupleBgMode').value = cMode;
+        if (window.setCoupleBgMode) window.setCoupleBgMode(cMode, true);
+    }
+    if (document.getElementById('settingEventBgColor')) {
+        const eColor = settings.event_bg_color || '#000000';
+        document.getElementById('settingEventBgColor').value = eColor;
+        if (document.getElementById('eventColorPicker') && eColor.startsWith('#')) {
+            document.getElementById('eventColorPicker').value = eColor;
+        }
+    }
+    if (document.getElementById('settingGalleryTitle')) document.getElementById('settingGalleryTitle').value = settings.gallery_title || 'Sweet Moments';
+
+    if (document.getElementById('settingEventBgMode')) {
+        const eMode = settings.event_bg_mode || 'color';
+        window.setEventBgMode(eMode, true);
+    }
+
+    const eventImg = settings.event_bg || '';
+    const eventPreview = document.getElementById('eventBgPreview');
+    const eventPlaceholder = document.getElementById('eventBgPreviewPlaceholder');
+    if (eventPreview && eventPlaceholder) {
+        if (eventImg) {
+            eventPreview.src = eventImg;
+            eventPreview.classList.remove('hidden');
+            eventPlaceholder.classList.add('hidden');
+        } else {
+            eventPreview.src = '';
+            eventPreview.classList.add('hidden');
+            eventPlaceholder.classList.remove('hidden');
+        }
+    }
+
+    // Wishes background logic
+    if (document.getElementById('settingWishesBgMode')) {
+        const wMode = settings.wishes_bg_mode || 'color';
+        window.setWishesBgMode(wMode, true);
+    }
+    const wishesImg = settings.wishes_bg_img || '';
+    const wishesPreview = document.getElementById('wishesBgPreview');
+    const wishesPlaceholder = document.getElementById('wishesBgPreviewPlaceholder');
+    if (wishesPreview && wishesPlaceholder) {
+        if (wishesImg) {
+            wishesPreview.src = wishesImg;
+            wishesPreview.classList.remove('hidden');
+            wishesPlaceholder.classList.add('hidden');
+        } else {
+            wishesPreview.src = '';
+            wishesPreview.classList.add('hidden');
+            wishesPlaceholder.classList.remove('hidden');
+        }
+    }
+
+    // RSVP background logic
+    if (document.getElementById('settingRsvpBgMode')) {
+        const rMode = settings.rsvp_bg_mode || 'color';
+        window.setRsvpBgMode(rMode, true);
+    }
+    const rsvpImg = settings.rsvp_bg_img || '';
+    const rsvpPreview = document.getElementById('rsvpBgPreview');
+    const rsvpPlaceholder = document.getElementById('rsvpBgPreviewPlaceholder');
+    if (rsvpPreview && rsvpPlaceholder) {
+        if (rsvpImg) {
+            rsvpPreview.src = rsvpImg;
+            rsvpPreview.classList.remove('hidden');
+            rsvpPlaceholder.classList.add('hidden');
+        } else {
+            rsvpPreview.src = '';
+            rsvpPreview.classList.add('hidden');
+            rsvpPlaceholder.classList.remove('hidden');
+        }
+    }
+
+    // Gift background logic
+    if (document.getElementById('settingGiftBgMode')) {
+        const gMode = settings.gift_bg_mode || 'color';
+        window.setGiftBgMode(gMode, true);
+    }
+    const giftImg = settings.gift_bg_img || '';
+    const giftPreview = document.getElementById('giftBgPreview');
+    const giftPlaceholder = document.getElementById('giftBgPreviewPlaceholder');
+    if (giftPreview && giftPlaceholder) {
+        if (giftImg) {
+            giftPreview.src = giftImg;
+            giftPreview.classList.remove('hidden');
+            giftPlaceholder.classList.add('hidden');
+        } else {
+            giftPreview.src = '';
+            giftPreview.classList.add('hidden');
+            giftPlaceholder.classList.remove('hidden');
+        }
+    }
+
+
+    if (document.getElementById('settingLovestoryBgColor')) {
+
+
+        const lsColor = settings.lovestory_bg_color || '#000000';
+        document.getElementById('settingLovestoryBgColor').value = lsColor;
+        if (document.getElementById('lovestoryColorPicker') && lsColor.startsWith('#')) {
+            document.getElementById('lovestoryColorPicker').value = lsColor;
+        }
+    }
+    if (document.getElementById('settingLovestoryCardBgColor')) {
+        const lscColor = settings.lovestory_card_bg_color || '#000000';
+        document.getElementById('settingLovestoryCardBgColor').value = lscColor;
+        if (document.getElementById('lovestoryCardColorPicker') && lscColor.startsWith('#')) {
+            document.getElementById('lovestoryCardColorPicker').value = lscColor;
+        }
+    }
+
+    if (document.getElementById('settingWishesBgImg')) document.getElementById('settingWishesBgImg').value = settings.wishes_bg_img || '';
+    if (document.getElementById('settingRsvpBgImg')) document.getElementById('settingRsvpBgImg').value = settings.rsvp_bg_img || '';
+
+    if (document.getElementById('settingOpeningBgImg')) {
+        document.getElementById('settingOpeningBgImg').value = settings.opening_bg_img || '';
+        if (window.renderOpeningSlider) window.renderOpeningSlider();
+    }
+
+    if (document.getElementById('settingOpeningBgMode')) {
+        const oMode = settings.opening_bg_mode || 'color';
+        document.getElementById('settingOpeningBgMode').value = oMode;
+        if (window.setOpeningBgMode) window.setOpeningBgMode(oMode, true);
+    }
+
+    // Greeting (Sambutan) background settings
+    if (document.getElementById('settingGreetingBgImg')) {
+        document.getElementById('settingGreetingBgImg').value = settings.greeting_bg_img || '';
+        if (window.renderGreetingSlider) window.renderGreetingSlider();
+    }
+    if (document.getElementById('settingGreetingBgColor')) {
+        const gColor = settings.greeting_bg_color || '#000000';
+        document.getElementById('settingGreetingBgColor').value = gColor;
+        if (window.syncGreetingColor) window.syncGreetingColor(gColor, 'picker');
+    }
+    if (document.getElementById('settingGreetingBgMode')) {
+        const gMode = settings.greeting_bg_mode || 'color';
+        document.getElementById('settingGreetingBgMode').value = gMode;
+        if (window.setGreetingBgMode) window.setGreetingBgMode(gMode, true);
+    }
+
+    if (document.getElementById('settingWishesBgColor')) {
+        const wColor = settings.wishes_bg_color || '#000000';
+        document.getElementById('settingWishesBgColor').value = wColor;
+        if (window.syncWishesColor) window.syncWishesColor(wColor, 'picker');
+    }
+
+    if (document.getElementById('settingRsvpBgColor')) {
+        const rColor = settings.rsvp_bg_color || '#000000';
+        document.getElementById('settingRsvpBgColor').value = rColor;
+        if (window.syncRsvpColor) window.syncRsvpColor(rColor, 'picker');
+    }
+
+    if (document.getElementById('settingGiftBgColor')) {
+        const giColor = settings.gift_bg_color || '#000000';
+        document.getElementById('settingGiftBgColor').value = giColor;
+        if (window.syncGiftColor) window.syncGiftColor(giColor, 'picker');
+    }
+
+    if (document.getElementById('settingGalleryBgColor')) {
+        const galColor = settings.gallery_bg_color || '#000000';
+        document.getElementById('settingGalleryBgColor').value = galColor;
+        if (document.getElementById('galleryColorPicker') && galColor.startsWith('#')) {
+            document.getElementById('galleryColorPicker').value = galColor;
+        }
+    }
+    if (document.getElementById('settingGalleryBgImg')) {
+        document.getElementById('settingGalleryBgImg').value = settings.gallery_bg_img || '';
+    }
+
+    // Show/Hide delete buttons based on image existence
+    const deleteBtnMap = {
+        'wishes_bg_img': 'btnDeleteWishesBg',
+        'opening_bg_img': 'btnDeleteOpeningBg',
+        'greeting_bg_img': 'btnDeleteGreetingBg',
+        'couple_bg_img': 'btnDeleteCoupleBg',
+        'event_bg': 'btnDeleteEventBg',
+        'lovestory_bg': 'btnDeleteLovestoryBg',
+        'lovestory_card_bg': 'btnDeleteLovestoryCardBg',
+        'gift_bg_img': 'btnDeleteGiftBg',
+        'rsvp_bg_img': 'btnDeleteRsvpBg'
+    };
+
+    Object.entries(deleteBtnMap).forEach(([key, btnId]) => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+            if (settings[key]) btn.classList.remove('hidden');
+            else btn.classList.add('hidden');
+        }
+    });
+
+    if (document.getElementById('settingEnableNotifications')) {
+        document.getElementById('settingEnableNotifications').checked = settings.notifications_enabled !== 'false';
+    }
+
+
+
+    if (settings.greeting_logo && document.getElementById('greetingLogoPreview')) {
+        document.getElementById('greetingLogoPreview').src = settings.greeting_logo;
+    }
+
+    if (settings.couple_bg_img && document.getElementById('coupleBgPreview')) {
+        document.getElementById('coupleBgPreview').src = settings.couple_bg_img;
+    }
+    if (settings.event_bg && document.getElementById('eventBgPreview')) {
+        document.getElementById('eventBgPreview').src = settings.event_bg;
+    }
+    if (settings.lovestory_bg && document.getElementById('lovestoryBgPreview')) {
+        document.getElementById('lovestoryBgPreview').src = settings.lovestory_bg;
+    }
+    if (settings.lovestory_card_bg && document.getElementById('lovestoryCardBgPreview')) {
+        document.getElementById('lovestoryCardBgPreview').src = settings.lovestory_card_bg;
+    }
+    if (settings.gift_bg_img && document.getElementById('giftBgPreview')) {
+        document.getElementById('giftBgPreview').src = settings.gift_bg_img;
+    }
+    if (settings.gallery_bg_img && document.getElementById('galleryBgPreview')) {
+        document.getElementById('galleryBgPreview').src = settings.gallery_bg_img;
+    }
+    if (settings.wishes_bg_img && document.getElementById('wishesBgPreview')) {
+        document.getElementById('wishesBgPreview').src = settings.wishes_bg_img;
+    }
+    if (settings.rsvp_bg_img && document.getElementById('rsvpBgPreview')) {
+        document.getElementById('rsvpBgPreview').src = settings.rsvp_bg_img;
+    }
+
+    if (document.getElementById('settingBgMusic')) {
+        document.getElementById('settingBgMusic').value = settings.bg_music || '';
+    }
+
+    if (document.getElementById('waTemplateInput')) {
+        document.getElementById('waTemplateInput').innerHTML = settings.wa_template || '';
+    }
+
+    // Music Settings
+    const musicDisplay = document.getElementById('music_name_display');
+    const previewContainer = document.getElementById('music_preview_container');
+    const previewEl = document.getElementById('music_preview');
+    const autoPlayEl = document.getElementById('settingAutoPlay');
+
+    if (settings.bg_music) {
+        const fileName = settings.bg_music.split('/').pop();
+        if (musicDisplay) musicDisplay.innerText = fileName;
+        if (previewContainer) previewContainer.classList.remove('hidden');
+        if (previewEl) {
+            // Add cache buster and load
+            previewEl.src = settings.bg_music + '?t=' + Date.now();
+            previewEl.load();
+        }
+    } else {
+        if (musicDisplay) musicDisplay.innerText = 'Belum ada musik yang diunggah';
+        if (previewContainer) previewContainer.classList.add('hidden');
+        if (previewEl) {
+            previewEl.src = '';
+            previewEl.load();
+        }
+    }
+
+    if (autoPlayEl) autoPlayEl.checked = settings.music_autoplay === 'true';
+
+    if (document.getElementById('settingMusicStart')) {
+        document.getElementById('settingMusicStart').value = settings.music_start_time || 0;
+    }
 }
 
 function renderEvents() {
@@ -973,7 +1006,7 @@ function renderEvents() {
                             <i class="fas ${i === 0 ? 'fa-ring' : 'fa-utensils'}"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight">${event.name || `${t('event_prefix')}${i+1}`}</h3>
+                            <h3 class="text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight">${event.name || `${t('event_prefix')}${i + 1}`}</h3>
                             <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 font-semibold mt-1">${t('event_op_details')}</p>
                         </div>
                     </div>
@@ -1053,17 +1086,17 @@ function renderEvents() {
     });
 }
 
-window.renderGifts = function() {
+window.renderGifts = function () {
     const section = document.getElementById('giftsContainer');
     if (!section) return;
-    
+
     const addrElem = document.getElementById('giftPhysicalAddress');
     if (addrElem && state.dashboard.settings) {
         addrElem.value = state.dashboard.settings.gift_physical_address || '';
     }
 
     const gifts = state.dashboard.gifts || [];
-    
+
     section.innerHTML = `
         ${gifts.map((gift, i) => `
             <article data-id="${gift.id}" class="bg-white dark:bg-slate-800 card-premium border border-slate-100 dark:border-slate-700 p-6 shadow-none group relative cursor-move hover:border-indigo-200 dark:hover:border-indigo-500 transition-all duration-300">
@@ -1110,17 +1143,17 @@ window.renderGifts = function() {
             ghostClass: 'sortable-ghost',
             chosenClass: 'sortable-chosen',
             dragClass: 'sortable-drag',
-            forceFallback: true, 
+            forceFallback: true,
             fallbackOnBody: true,
             swapThreshold: 0.65,
-            onEnd: async function() {
+            onEnd: async function () {
                 const ids = Array.from(section.querySelectorAll('article')).map(el => parseInt(el.dataset.id));
                 const newGifts = ids.map(id => state.dashboard.gifts.find(g => g.id === id));
                 state.dashboard.gifts = newGifts;
-                
+
                 try {
                     await api('/api/admin/gifts/reorder', { method: 'POST', body: JSON.stringify({ ids }) });
-                } catch(err) {
+                } catch (err) {
                     window.showToast('Gagal menyimpan urutan', 'error');
                 }
             }
@@ -1130,50 +1163,50 @@ window.renderGifts = function() {
 
 // Removed native drag functions in favor of SortableJS
 
-window.saveGiftAddress = async function() {
+window.saveGiftAddress = async function () {
     const address = document.getElementById('giftPhysicalAddress').value;
     try {
         await api('/api/admin/settings', { method: 'PUT', body: JSON.stringify({ gift_physical_address: address }) });
         window.showToast('Alamat fisik berhasil disimpan', 'success');
-        if(!state.dashboard.settings) state.dashboard.settings = {};
+        if (!state.dashboard.settings) state.dashboard.settings = {};
         state.dashboard.settings.gift_physical_address = address;
-    } catch(err) {
+    } catch (err) {
         window.showToast('Gagal menyimpan alamat', 'error');
     }
 };
 
-window.addGiftItem = async function() {
+window.addGiftItem = async function () {
     try {
         const response = await api('/api/admin/gifts', { method: 'POST', body: JSON.stringify({ bank_name: '', account_number: '', account_name: '', logo_src: '' }) });
-        if(!state.dashboard.gifts) state.dashboard.gifts = [];
+        if (!state.dashboard.gifts) state.dashboard.gifts = [];
         state.dashboard.gifts.push(response.gift);
         window.renderGifts();
         window.showToast('Bank baru berhasil ditambahkan', 'success');
-    } catch(err) {
+    } catch (err) {
         window.showToast('Gagal menambah bank', 'error');
     }
 };
 
-window.saveGiftItem = async function(id) {
+window.saveGiftItem = async function (id) {
     const bank_name = document.getElementById(`gift${id}Bank`).value;
     const account_number = document.getElementById(`gift${id}Number`).value;
     const account_name = document.getElementById(`gift${id}Name`).value;
     const logo_src = document.getElementById(`gift${id}Logo`).value;
-    
+
     try {
         await api(`/api/admin/gifts/${id}`, { method: 'PUT', body: JSON.stringify({ bank_name, account_number, account_name, logo_src }) });
         window.showToast('Data bank berhasil disimpan', 'success');
         const giftIdx = state.dashboard.gifts.findIndex(g => g.id === id);
-        if(giftIdx !== -1) {
-            state.dashboard.gifts[giftIdx] = {...state.dashboard.gifts[giftIdx], bank_name, account_number, account_name, logo_src};
+        if (giftIdx !== -1) {
+            state.dashboard.gifts[giftIdx] = { ...state.dashboard.gifts[giftIdx], bank_name, account_number, account_name, logo_src };
         }
     } catch (err) {
         window.showToast('Gagal menyimpan bank', 'error');
     }
 }
 
-window.deleteGiftItem = async function(id) {
-    if(!confirm('Anda yakin ingin menghapus bank / dompet digital ini?')) return;
+window.deleteGiftItem = async function (id) {
+    if (!confirm('Anda yakin ingin menghapus bank / dompet digital ini?')) return;
     try {
         await api(`/api/admin/gifts/${id}`, { method: 'DELETE' });
         window.showToast('Berhasil dihapus', 'success');
@@ -1184,7 +1217,7 @@ window.deleteGiftItem = async function(id) {
     }
 };
 
-window.uploadGiftIcon = async function(input, id, previewId) {
+window.uploadGiftIcon = async function (input, id, previewId) {
     if (!input.files || !input.files[0]) return;
     const file = input.files[0];
     const formData = new FormData();
@@ -1193,7 +1226,7 @@ window.uploadGiftIcon = async function(input, id, previewId) {
     const btn = input.parentElement;
     const initHTML = btn.innerHTML;
     btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Mengunggah...`;
-    
+
     try {
         const res = await fetch(`/api/admin/gifts/${id}/logo`, {
             method: 'POST',
@@ -1205,10 +1238,10 @@ window.uploadGiftIcon = async function(input, id, previewId) {
         if (preview) preview.src = data.src;
         document.getElementById(`gift${id}Logo`).value = data.src;
         window.showToast('Logo bank berhasil diunggah', 'success');
-        
+
         const giftIdx = state.dashboard.gifts.findIndex(g => g.id === id);
-        if(giftIdx !== -1) state.dashboard.gifts[giftIdx].logo_src = data.src;
-        
+        if (giftIdx !== -1) state.dashboard.gifts[giftIdx].logo_src = data.src;
+
     } catch (error) {
         window.showToast('Gagal mengunggah gambar', 'error');
         console.error(error);
@@ -1240,46 +1273,46 @@ function renderCouple() {
                 <div class="p-6 sm:p-8 space-y-6">
                     <div class="space-y-2">
                         <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">${t('couple_role')}</label>
-                        <input id="couple${i+1}Role" type="text" value="${person.role || ''}" class="input-premium" placeholder="Cth: Mempelai Pria">
+                        <input id="couple${i + 1}Role" type="text" value="${person.role || ''}" class="input-premium" placeholder="Cth: Mempelai Pria">
                     </div>
                     <div class="space-y-2">
                         <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">${t('couple_name')}</label>
-                        <input id="couple${i+1}Name" type="text" value="${person.name || ''}" class="font-bold input-premium" placeholder="Nama Lengkap & Gelar">
+                        <input id="couple${i + 1}Name" type="text" value="${person.name || ''}" class="font-bold input-premium" placeholder="Nama Lengkap & Gelar">
                     </div>
                     <div class="space-y-2">
                         <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">${t('couple_parents')}</label>
-                        <textarea id="couple${i+1}Parents" class="input-premium min-h-[80px]" placeholder="Putra/Putri dari Bapak... & Ibu...">${person.parents || ''}</textarea>
+                        <textarea id="couple${i + 1}Parents" class="input-premium min-h-[80px]" placeholder="Putra/Putri dari Bapak... & Ibu...">${person.parents || ''}</textarea>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-2">
                             <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">Username Instagram</label>
                             <div class="relative">
                                 <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold text-xs">@</span>
-                                <input id="couple${i+1}Instagram" type="text" value="${person.instagram ? person.instagram.replace(/^@/, '') : ''}" class="input-premium pl-7" placeholder="username">
+                                <input id="couple${i + 1}Instagram" type="text" value="${person.instagram ? person.instagram.replace(/^@/, '') : ''}" class="input-premium pl-7" placeholder="username">
                             </div>
                         </div>
                         <div class="space-y-2">
                             <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">Link Instagram (URL)</label>
-                            <input id="couple${i+1}InstagramLink" type="text" value="${person.instagram_link || ''}" class="input-premium" placeholder="https://instagram.com/...">
+                            <input id="couple${i + 1}InstagramLink" type="text" value="${person.instagram_link || ''}" class="input-premium" placeholder="https://instagram.com/...">
                         </div>
                     </div>
                     <div class="space-y-2">
                         <label class="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider px-1">${t('couple_img')}</label>
                         <div class="flex items-center gap-4">
                             <div class="relative group/img w-16 h-16 sm:w-20 sm:h-20 shrink-0">
-                                <img id="couple${i+1}Preview" src="${person.image_src || 'https://ui-avatars.com/api/?name=Photo&background=f1f5f9&color=94a3b8'}" class="w-full h-full rounded-2xl object-cover border-2 border-slate-100 dark:border-slate-700 shadow-sm group-hover:border-indigo-200 transition-all">
+                                <img id="couple${i + 1}Preview" src="${person.image_src || 'https://ui-avatars.com/api/?name=Photo&background=f1f5f9&color=94a3b8'}" class="w-full h-full rounded-2xl object-cover border-2 border-slate-100 dark:border-slate-700 shadow-sm group-hover:border-indigo-200 transition-all">
                                 ${person.image_src ? `
-                                    <button onclick="window.removeCouplePhoto(${i+1})" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover/img:opacity-100 transition-opacity hover:bg-red-600">
+                                    <button onclick="window.removeCouplePhoto(${i + 1})" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover/img:opacity-100 transition-opacity hover:bg-red-600">
                                         <i class="fas fa-times text-[10px]"></i>
                                     </button>
                                 ` : ''}
                             </div>
                             <label class="flex-1 cursor-pointer px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900 border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-[11px] font-bold hover:bg-indigo-50 dark:hover:bg-indigo-900/50 hover:text-indigo-600 dark:hover:text-indigo-400 hover:border-indigo-200 dark:hover:border-indigo-500/50 transition-all text-center group">
                                 <i class="fas fa-camera mr-2 opacity-60 group-hover:scale-110 transition-transform"></i> UPLOAD FOTO
-                                <input type="file" accept="image/*" class="hidden" onchange="uploadCoupleAvatar(this, ${i+1}, 'couple${i+1}Preview')">
+                                <input type="file" accept="image/*" class="hidden" onchange="uploadCoupleAvatar(this, ${i + 1}, 'couple${i + 1}Preview')">
                             </label>
                         </div>
-                        <input id="couple${i+1}Image" type="hidden" value="${person.image_src || ''}">
+                        <input id="couple${i + 1}Image" type="hidden" value="${person.image_src || ''}">
                     </div>
                 </div>
             </article>
@@ -1289,22 +1322,22 @@ function renderCouple() {
 
 
 
-window.removeCouplePhoto = function(id) {
+window.removeCouplePhoto = function (id) {
     const hiddenInput = document.getElementById(`couple${id}Image`);
     const preview = document.getElementById(`couple${id}Preview`);
     if (hiddenInput) hiddenInput.value = '';
     if (preview) preview.src = 'https://ui-avatars.com/api/?name=Photo&background=f1f5f9&color=94a3b8';
-    
+
     // Immediate update in state to reflect in UI (show/hide delete button)
-    const person = state.dashboard.couple[id-1];
+    const person = state.dashboard.couple[id - 1];
     if (person) person.image_src = '';
-    
+
     // Re-render to update the delete button visibility
     renderCouple();
     showToast('Foto ditandai untuk dihapus. Klik simpan untuk menerapkan.', 'info');
 };
 
-window.saveAllCoupleData = async function(btn) {
+window.saveAllCoupleData = async function (btn) {
     try {
         const originalHTML = btn ? btn.innerHTML : '';
         if (btn) {
@@ -1320,7 +1353,7 @@ window.saveAllCoupleData = async function(btn) {
             const prefix = `couple${id}`;
             let instagram = document.getElementById(`${prefix}Instagram`).value.trim();
             if (instagram && !instagram.startsWith('@')) instagram = '@' + instagram;
-            
+
             const payload = {
                 role: document.getElementById(`${prefix}Role`).value,
                 name: document.getElementById(`${prefix}Name`).value,
@@ -1355,52 +1388,54 @@ window.saveAllCoupleData = async function(btn) {
 
 
 function renderGuests() {
-  const body = document.getElementById('guestsTableBody');
-  if (!body) return;
-  body.innerHTML = '';
-  
-  let guestList = state.dashboard.guests || [];
-  
-  // Filtering
-  const query = window.tablePagination.guests.search.toLowerCase();
-  if (query) {
-      guestList = guestList.filter(g => g.name.toLowerCase().includes(query) || (g.token && g.token.toLowerCase().includes(query)));
-  }
+    const body = document.getElementById('guestsTableBody');
+    if (!body) return;
+    body.innerHTML = '';
 
-  // Sorting
-  const sortCol = window.guestSort.column;
-  const sortOrd = window.guestSort.order;
-  guestList.sort((a, b) => {
-      let valA = a[sortCol] || '';
-      let valB = b[sortCol] || '';
-      if (typeof valA === 'string') {
-          valA = valA.toLowerCase();
-          valB = valB.toLowerCase();
-      }
-      if (valA < valB) return sortOrd === 'asc' ? -1 : 1;
-      if (valA > valB) return sortOrd === 'asc' ? 1 : -1;
-      return 0;
-  });
+    let guestList = state.dashboard.guests || [];
 
-  const indicator = document.getElementById('totalGuestsIndicator');
-  if (indicator) indicator.innerText = guestList.length;
+    // Filtering
+    const query = window.tablePagination.guests.search.toLowerCase();
+    if (query) {
+        guestList = guestList.filter(g => g.name.toLowerCase().includes(query) || (g.token && g.token.toLowerCase().includes(query)));
+    }
 
-  // Pagination
-  const { page, limit } = window.tablePagination.guests;
-  const totalPages = Math.ceil(guestList.length / limit) || 1;
-  if (window.tablePagination.guests.page > totalPages) window.tablePagination.guests.page = totalPages;
-  const startIndex = (window.tablePagination.guests.page - 1) * limit;
-  const pagedList = guestList.slice(startIndex, startIndex + limit);
+    // Sorting
+    const sortCol = window.guestSort.column;
+    const sortOrd = window.guestSort.order;
+    guestList.sort((a, b) => {
+        let valA = a[sortCol] || '';
+        let valB = b[sortCol] || '';
+        if (typeof valA === 'string') {
+            valA = valA.toLowerCase();
+            valB = valB.toLowerCase();
+        }
+        if (valA < valB) return sortOrd === 'asc' ? -1 : 1;
+        if (valA > valB) return sortOrd === 'asc' ? 1 : -1;
+        return 0;
+    });
 
-  pagedList.forEach((guest, index) => {
-    const absoluteIndex = startIndex + index + 1;
-    const link = `${window.location.origin}/?guest=${guest.token}`;
-    const tr = document.createElement('tr');
-    tr.className = "";
-    tr.innerHTML = `
+
+
+    const indicator = document.getElementById('totalGuestsIndicator');
+    if (indicator) indicator.innerText = guestList.length;
+
+    // Pagination
+    const { page, limit } = window.tablePagination.guests;
+    const totalPages = Math.ceil(guestList.length / limit) || 1;
+    if (window.tablePagination.guests.page > totalPages) window.tablePagination.guests.page = totalPages;
+    const startIndex = (window.tablePagination.guests.page - 1) * limit;
+    const pagedList = guestList.slice(startIndex, startIndex + limit);
+
+    pagedList.forEach((guest, index) => {
+        const absoluteIndex = startIndex + index + 1;
+        const link = `${window.location.origin}/?guest=${guest.token}`;
+        const tr = document.createElement('tr');
+        tr.className = "";
+        tr.innerHTML = `
       <td class="font-black text-slate-300 text-[10px] px-3 sm:px-6">${String(absoluteIndex).padStart(2, '0')}</td>
       <td class="px-3 sm:px-6">
-         <span class="font-bold text-slate-900 text-xs sm:text-sm tracking-tight">${guest.name}</span>
+         <span class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm tracking-tight">${guest.name}</span>
       </td>
       <td class="px-3 sm:px-6">
          <div class="flex items-center gap-2 sm:gap-3">
@@ -1426,13 +1461,13 @@ function renderGuests() {
         </div>
       </td>
     `;
-    body.appendChild(tr);
-  });
-  
-  window.renderPaginationControls('guests', guestList.length, limit, window.tablePagination.guests.page);
+        body.appendChild(tr);
+    });
+
+    window.renderPaginationControls('guests', guestList.length, limit, window.tablePagination.guests.page);
 }
 
-window.editGuest = function(id, name) {
+window.editGuest = function (id, name) {
     showActionModal({
         title: currentLang === 'id' ? 'Ubah Nama Tamu' : 'Edit Guest Name',
         icon: 'fa-user-edit',
@@ -1455,81 +1490,81 @@ window.editGuest = function(id, name) {
 
 
 function renderGallery() {
-  const body = document.getElementById('galleryTableBody');
-  if (!body) return;
-  if (!state.dashboard.gallery) {
-      body.innerHTML = '<tr><td colspan="3" class="p-8 text-center text-slate-400">Belum ada foto galeri</td></tr>';
-      return;
-  }
-  body.innerHTML = '';
-
-  let dragSrcEl = null;
-
-  async function handleDrop(e) {
-    if (e.stopPropagation) e.stopPropagation();
-    this.classList.remove('bg-indigo-50/50', 'border-indigo-200', 'shadow-inner');
-
-    if (dragSrcEl !== this) {
-      const siblings = [...body.children];
-      const draggedIndex = siblings.indexOf(dragSrcEl);
-      const droppedIndex = siblings.indexOf(this);
-
-      if (draggedIndex < droppedIndex) {
-          this.parentNode.insertBefore(dragSrcEl, this.nextSibling);
-      } else {
-          this.parentNode.insertBefore(dragSrcEl, this);
-      }
-      
-      dragSrcEl.style.opacity = '1';
-
-      // Update backend using the new sequence
-      const newSequence = [...body.children].map(tr => tr.dataset.id);
-      try {
-          const response = await api('/api/admin/gallery/reorder', {
-              method: 'PUT',
-              body: JSON.stringify({ sequence: newSequence })
-          });
-          showToast(currentLang === 'id' ? 'Urutan galeri berhasil disimpan!' : 'Gallery order saved!', 'success');
-          await loadDashboard(); // refresh to correct the index numbers
-      } catch (err) {
-          showToast(err.message, 'error');
-      }
+    const body = document.getElementById('galleryTableBody');
+    if (!body) return;
+    if (!state.dashboard.gallery) {
+        body.innerHTML = '<tr><td colspan="3" class="p-8 text-center text-slate-400">Belum ada foto galeri</td></tr>';
+        return;
     }
-    return false;
-  }
+    body.innerHTML = '';
 
-  state.dashboard.gallery.forEach((item, index) => {
-    const tr = document.createElement('tr');
-    tr.dataset.id = item.id;
-    tr.draggable = true;
-    tr.className = "cursor-move transition-colors duration-200 hover:bg-slate-50/50";
-    
-    tr.addEventListener('dragstart', function(e) {
-        this.style.opacity = '0.4';
-        dragSrcEl = this;
-        e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('text/html', this.innerHTML);
-    });
-    tr.addEventListener('dragenter', function(e) {
-        this.classList.add('bg-indigo-50/50', 'border-indigo-200', 'shadow-inner');
-    });
-    tr.addEventListener('dragover', function(e) {
-        if (e.preventDefault) e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
-        return false;
-    });
-    tr.addEventListener('dragleave', function(e) {
+    let dragSrcEl = null;
+
+    async function handleDrop(e) {
+        if (e.stopPropagation) e.stopPropagation();
         this.classList.remove('bg-indigo-50/50', 'border-indigo-200', 'shadow-inner');
-    });
-    tr.addEventListener('drop', handleDrop);
-    tr.addEventListener('dragend', function(e) {
-        this.style.opacity = '1';
-        [...body.children].forEach(row => {
-            row.classList.remove('bg-indigo-50/50', 'border-indigo-200', 'shadow-inner');
-        });
-    });
 
-    tr.innerHTML = `
+        if (dragSrcEl !== this) {
+            const siblings = [...body.children];
+            const draggedIndex = siblings.indexOf(dragSrcEl);
+            const droppedIndex = siblings.indexOf(this);
+
+            if (draggedIndex < droppedIndex) {
+                this.parentNode.insertBefore(dragSrcEl, this.nextSibling);
+            } else {
+                this.parentNode.insertBefore(dragSrcEl, this);
+            }
+
+            dragSrcEl.style.opacity = '1';
+
+            // Update backend using the new sequence
+            const newSequence = [...body.children].map(tr => tr.dataset.id);
+            try {
+                const response = await api('/api/admin/gallery/reorder', {
+                    method: 'PUT',
+                    body: JSON.stringify({ sequence: newSequence })
+                });
+                showToast(currentLang === 'id' ? 'Urutan galeri berhasil disimpan!' : 'Gallery order saved!', 'success');
+                await loadDashboard(); // refresh to correct the index numbers
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+        return false;
+    }
+
+    state.dashboard.gallery.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.dataset.id = item.id;
+        tr.draggable = true;
+        tr.className = "cursor-move transition-colors duration-200 hover:bg-slate-50/50";
+
+        tr.addEventListener('dragstart', function (e) {
+            this.style.opacity = '0.4';
+            dragSrcEl = this;
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        });
+        tr.addEventListener('dragenter', function (e) {
+            this.classList.add('bg-indigo-50/50', 'border-indigo-200', 'shadow-inner');
+        });
+        tr.addEventListener('dragover', function (e) {
+            if (e.preventDefault) e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        });
+        tr.addEventListener('dragleave', function (e) {
+            this.classList.remove('bg-indigo-50/50', 'border-indigo-200', 'shadow-inner');
+        });
+        tr.addEventListener('drop', handleDrop);
+        tr.addEventListener('dragend', function (e) {
+            this.style.opacity = '1';
+            [...body.children].forEach(row => {
+                row.classList.remove('bg-indigo-50/50', 'border-indigo-200', 'shadow-inner');
+            });
+        });
+
+        tr.innerHTML = `
       <td class="text-center px-3 sm:px-4 align-middle text-slate-300">
         <i class="fas fa-grip-vertical text-xs sm:text-base"></i>
       </td>
@@ -1537,7 +1572,7 @@ function renderGallery() {
       <td class="px-3 sm:px-6 py-2 sm:py-3">
         <div class="flex items-center gap-3 sm:gap-4">
              <div class="w-16 h-16 sm:w-24 sm:h-24 shrink-0 rounded-lg sm:rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-300 overflow-hidden shadow-sm group cursor-pointer" onclick="openImagePreview('${item.src}')">
-                <img src="${item.src}" alt="${item.alt}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 pointer-events-none" onerror="this.src='https://ui-avatars.com/api/?name=${index+1}&background=f1f5f9&color=94a3b8'">
+                <img src="${item.src}" alt="${item.alt}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 pointer-events-none" onerror="this.src='https://ui-avatars.com/api/?name=${index + 1}&background=f1f5f9&color=94a3b8'">
              </div>
              <span class="max-w-[100px] sm:max-w-[200px] truncate text-[9px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 pointer-events-none">${item.src}</span>
         </div>
@@ -1555,59 +1590,61 @@ function renderGallery() {
         </div>
       </td>
     `;
-    body.appendChild(tr);
-  });
+        body.appendChild(tr);
+    });
 }
 
 function renderDataLists() {
-  const rsvpBody = document.getElementById('rsvpTableBody');
-  if (!rsvpBody) return;
+    const rsvpBody = document.getElementById('rsvpTableBody');
+    if (!rsvpBody) return;
 
-  rsvpBody.innerHTML = '';
+    rsvpBody.innerHTML = '';
 
-  let totalGuests = 0;
-  
-  let rsvpList = state.dashboard.rsvps || [];
-  
-  // Filtering
-  const query = window.tablePagination.rsvp.search.toLowerCase();
-  if (query) {
-      rsvpList = rsvpList.filter(g => (g.guest_name && g.guest_name.toLowerCase().includes(query)) || (g.status && g.status.toLowerCase().includes(query)));
-  }
+    let totalGuests = 0;
 
-  // Calculate total confirmed pax across ALL rsvps (unfiltered) or just the entire list.
-  (state.dashboard.rsvps || []).forEach(item => {
-      totalGuests += parseInt(item.guest_count, 10) || 0;
-  });
+    let rsvpList = state.dashboard.rsvps || [];
 
-  if (rsvpList.length === 0) {
-    if (state.dashboard.rsvps.length === 0) {
-        rsvpBody.innerHTML = `<tr><td colspan="5" class="text-center py-16 text-slate-300"><i class="fas fa-inbox text-3xl mb-3 block opacity-30"></i><p class="text-xs font-semibold">Belum ada data kehadiran</p></td></tr>`;
-    } else {
-        rsvpBody.innerHTML = `<tr><td colspan="5" class="text-center py-10 text-slate-400 font-medium">Pencarian tidak ditemukan</td></tr>`;
+    // Filtering
+    const query = window.tablePagination.rsvp.search.toLowerCase();
+    if (query) {
+        rsvpList = rsvpList.filter(g => (g.guest_name && g.guest_name.toLowerCase().includes(query)) || (g.status && g.status.toLowerCase().includes(query)));
     }
-  } else {
-    // Pagination
-    const { page, limit } = window.tablePagination.rsvp;
-    const totalPages = Math.ceil(rsvpList.length / limit) || 1;
-    if (window.tablePagination.rsvp.page > totalPages) window.tablePagination.rsvp.page = totalPages;
-    const startIndex = (window.tablePagination.rsvp.page - 1) * limit;
-    const pagedList = rsvpList.slice(startIndex, startIndex + limit);
 
-    pagedList.forEach((item) => {
-      const badgeClass = item.status.toLowerCase() === 'hadir' ? 'badge-paid' : 'badge-pending';
-      const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' }) : '-';
-      const tr = document.createElement('tr');
-      tr.className = 'group';
-      tr.innerHTML = `
+    // Calculate total confirmed pax across ALL rsvps (unfiltered) or just the entire list.
+    (state.dashboard.rsvps || []).forEach(item => {
+        totalGuests += parseInt(item.guest_count, 10) || 0;
+    });
+
+    if (rsvpList.length === 0) {
+        if (state.dashboard.rsvps.length === 0) {
+            rsvpBody.innerHTML = `<tr><td colspan="5" class="text-center py-24 text-slate-400"><div class="text-6xl font-black opacity-10 mb-4">-</div><p class="text-sm font-bold uppercase tracking-widest opacity-30">Belum ada data kehadiran</p></td></tr>`;
+        } else {
+            rsvpBody.innerHTML = `<tr><td colspan="5" class="text-center py-10 text-slate-400 font-medium">Pencarian tidak ditemukan</td></tr>`;
+        }
+    } else {
+        // Pagination
+        const { page, limit } = window.tablePagination.rsvp;
+        const totalPages = Math.ceil(rsvpList.length / limit) || 1;
+        if (window.tablePagination.rsvp.page > totalPages) window.tablePagination.rsvp.page = totalPages;
+        const startIndex = (window.tablePagination.rsvp.page - 1) * limit;
+        const pagedList = rsvpList.slice(startIndex, startIndex + limit);
+
+        pagedList.forEach((item) => {
+            const guestName = item.guest_name;
+            const status = item.status;
+            const badgeClass = status.toLowerCase() === 'hadir' ? 'badge-paid' : 'badge-pending';
+            const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) : '';
+            const tr = document.createElement('tr');
+            tr.className = 'group';
+            tr.innerHTML = `
         <td class="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm tracking-tight px-4 sm:px-6 py-4">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-xs shrink-0">${(item.guest_name || 'A').charAt(0).toUpperCase()}</div>
-            ${item.guest_name || 'Tamu Anonim'}
+            <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-xs shrink-0">${(guestName ? guestName.charAt(0) : '?').toUpperCase()}</div>
+            ${guestName}
           </div>
         </td>
-        <td class="px-4 sm:px-6"><span class="badge-modern ${badgeClass} text-[9px] sm:text-[11px]">${item.status.toUpperCase()}</span></td>
-        <td class="text-center font-black text-slate-900 dark:text-slate-100 text-xs sm:text-base px-4 sm:px-6">${item.guest_count} <span class="text-[10px] font-normal text-slate-400 dark:text-slate-500">orang</span></td>
+        <td class="px-4 sm:px-6"><span class="badge-modern ${badgeClass} text-[9px] sm:text-[11px]">${status.toUpperCase()}</span></td>
+        <td class="text-center font-black text-slate-900 dark:text-slate-100 text-xs sm:text-base px-4 sm:px-6">${item.guest_count} <span class="text-[10px] font-normal text-slate-400 dark:text-slate-500">${item.guest_count ? 'orang' : ''}</span></td>
         <td class="text-right text-slate-400 dark:text-slate-500 text-[9px] sm:text-[11px] font-semibold px-4 sm:px-6">${dateStr}</td>
         <td class="text-right px-4 sm:px-6 py-3">
           <button onclick="window.deleteRsvp('${item.id}')" class="btn-premium btn-secondary !p-0 w-8 h-8 sm:w-9 sm:h-9 ml-auto text-slate-400 hover:!bg-red-500 hover:!text-white hover:!border-red-500">
@@ -1615,64 +1652,66 @@ function renderDataLists() {
           </button>
         </td>
       `;
-      rsvpBody.appendChild(tr);
-    });
-  }
-
-  window.renderPaginationControls('rsvp', rsvpList.length, window.tablePagination.rsvp.limit, window.tablePagination.rsvp.page);
-
-  // Wishes - Instagram-style cards
-  const wishContainer = document.getElementById('wishesCardContainer');
-  if (wishContainer) {
-    const wishes = state.dashboard?.wishes || [];
-    let wishesList = [...wishes];
-    const wishQuery = (window.tablePagination.wishes.search || '').toLowerCase();
-    
-    if (wishQuery) {
-        wishesList = wishesList.filter(item => {
-            const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' }) : '-';
-            return (item.guest_name && item.guest_name.toLowerCase().includes(wishQuery)) ||
-                   (item.message && item.message.toLowerCase().includes(wishQuery)) ||
-                   (dateStr.toLowerCase().includes(wishQuery));
+            rsvpBody.appendChild(tr);
         });
     }
 
-    wishContainer.innerHTML = '';
+    window.renderPaginationControls('rsvp', rsvpList.length, window.tablePagination.rsvp.limit, window.tablePagination.rsvp.page);
 
-    if (wishesList.length === 0) {
-      if (wishes.length === 0) {
-          wishContainer.innerHTML = `<div class="flex flex-col items-center justify-center py-16 text-slate-300"><i class="fas fa-comment-slash text-3xl mb-3 opacity-30"></i><p class="text-xs font-semibold">Belum ada ucapan</p></div>`;
-      } else {
-          wishContainer.innerHTML = `<div class="flex flex-col items-center justify-center py-10 text-slate-400 font-medium italic"><p>Pencarian tidak ditemukan</p></div>`;
-      }
-    } else {
-      wishesList.forEach((item) => {
-        const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short', year:'numeric' }) : '-';
-        const initial = (item.guest_name && item.guest_name.length > 0 ? item.guest_name.charAt(0) : 'A').toUpperCase();
-        const card = document.createElement('div');
-        card.className = 'px-4 py-2.5 hover:bg-blue-50/50 dark:hover:bg-slate-800/50 transition-all rounded-xl mx-1 my-0.5 hover:ring-2 hover:ring-blue-400 dark:hover:ring-blue-500 group';
+    // Wishes - Instagram-style cards
+    const wishContainer = document.getElementById('wishesCardContainer');
+    if (wishContainer) {
+        const wishes = state.dashboard?.wishes || [];
+        let wishesList = [...wishes];
+        const wishQuery = (window.tablePagination.wishes.search || '').toLowerCase();
 
-        const adminAvatar = document.getElementById('headerUserAvatar') ? document.getElementById('headerUserAvatar').src : '';
-        const adminName = (state.dashboard.settings && state.dashboard.settings.hero_name) || 'Admin';
-        const replyDisplay = item.reply ? `
+        if (wishQuery) {
+            wishesList = wishesList.filter(item => {
+                const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) : '-';
+                return (item.guest_name && item.guest_name.toLowerCase().includes(wishQuery)) ||
+                    (item.message && item.message.toLowerCase().includes(wishQuery)) ||
+                    (dateStr.toLowerCase().includes(wishQuery));
+            });
+        }
+
+        wishContainer.innerHTML = '';
+
+        if (wishesList.length === 0) {
+            if (wishes.length === 0) {
+                wishContainer.innerHTML = `<div class="flex flex-col items-center justify-center py-24 text-slate-400"><div class="text-6xl font-black opacity-10 mb-4">-</div><p class="text-sm font-bold uppercase tracking-widest opacity-30">Belum ada ucapan</p></div>`;
+            } else {
+                wishContainer.innerHTML = `<div class="flex flex-col items-center justify-center py-10 text-slate-400 font-medium italic"><p>Pencarian tidak ditemukan</p></div>`;
+            }
+        } else {
+            wishesList.forEach((item) => {
+                const guestName = item.guest_name;
+                const message = item.message;
+                const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) : '';
+                const initial = (guestName ? guestName.charAt(0) : '?').toUpperCase();
+                const card = document.createElement('div');
+                card.className = 'px-4 py-2.5 hover:bg-blue-50/50 dark:hover:bg-slate-800/50 transition-all rounded-xl mx-1 my-0.5 hover:ring-2 hover:ring-blue-400 dark:hover:ring-blue-500 group';
+
+                const adminAvatar = document.getElementById('headerUserAvatar') ? document.getElementById('headerUserAvatar').src : '';
+                const adminName = (state.dashboard.settings && state.dashboard.settings.hero_name) || 'Admin';
+                const replyDisplay = item.reply ? `
           <div class="mt-2 ml-10 flex items-start gap-4 opacity-95 scale-[0.98] origin-top-left transition-all bg-indigo-50/50 dark:bg-indigo-500/5 p-2.5 rounded-xl border border-indigo-100/50 dark:border-indigo-500/20">
               <img src="${adminAvatar}" alt="${adminName}" class="w-6 h-6 rounded-full object-cover border-2 border-white dark:border-slate-900 shadow-sm shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=A&background=4f46e5&color=fff&bold=true&size=56'">
               <div class="min-w-0">
-                  <p class="text-[9px] mb-0.5 leading-none"><span class="font-bold text-slate-900 dark:text-slate-100">${adminName}</span> <span class="text-slate-400 dark:text-slate-500 font-normal ml-1">${item.replied_at ? new Date(item.replied_at).toLocaleDateString('id-ID', { day:'2-digit', month:'short' }) : ''}</span></p>
+                  <p class="text-[9px] mb-0.5 leading-none"><span class="font-bold text-slate-900 dark:text-slate-100">${adminName}</span> <span class="text-slate-400 dark:text-slate-500 font-normal ml-1">${item.replied_at ? new Date(item.replied_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) : ''}</span></p>
                   <p class="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5 leading-snug">${item.reply}</p>
               </div>
           </div>
         ` : '';
 
-        card.innerHTML = `
+                card.innerHTML = `
           <div class="flex items-start gap-3.5">
               <div class="w-7 h-7 rounded-full bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-[11px] shrink-0 border border-blue-100 dark:border-slate-700 mt-1 shadow-sm">${initial}</div>
               <div class="flex-1 min-w-0">
                   <div class="flex items-center gap-2">
-                      <span class="font-bold text-slate-900 dark:text-slate-100 text-[12px]">${item.guest_name || 'Tamu Anonim'}</span>
+                      <span class="font-bold text-slate-900 dark:text-slate-100 text-[12px]">${guestName}</span>
                       <span class="text-[9px] text-slate-400 dark:text-slate-500 font-bold">${dateStr}</span>
                   </div>
-                  <p class="text-[12px] text-slate-700 dark:text-slate-300 mt-0.5 leading-snug font-medium">${item.message}</p>
+                  <p class="text-[12px] text-slate-700 dark:text-slate-300 mt-0.5 leading-snug font-medium">${message}</p>
                   
                   <div class="flex items-center gap-2 mt-1.5">
                       <button title="${item.reply ? 'Edit balasan' : 'Balas ucapan'}" onclick="window.toggleReplyInput(this, '${item.id}')" class="text-blue-500 hover:text-blue-700 transition-colors p-1">
@@ -1694,171 +1733,171 @@ function renderDataLists() {
           </div>
           ${replyDisplay}
         `;
-        wishContainer.appendChild(card);
-      });
+                wishContainer.appendChild(card);
+            });
+        }
     }
-  }
 
-  if (document.getElementById('totalGuestsOverview')) document.getElementById('totalGuestsOverview').innerText = totalGuests;
-  if (document.getElementById('totalWishes')) document.getElementById('totalWishes').innerText = (state.dashboard.wishes || []).length;
-  if (document.getElementById('totalWishesCount')) document.getElementById('totalWishesCount').innerText = (state.dashboard.wishes || []).length;
-  if (document.getElementById('totalRsvp')) document.getElementById('totalRsvp').innerText = (state.dashboard.rsvps || []).length;
-  if (document.getElementById('totalRsvpCount')) document.getElementById('totalRsvpCount').innerText = (state.dashboard.rsvps || []).length;
-  if (document.getElementById('totalGuests')) document.getElementById('totalGuests').innerText = totalGuests;
-  if (document.getElementById('totalGuestsIndicator')) document.getElementById('totalGuestsIndicator').innerText = totalGuests;
-  
-  // Count replies
-  const totalReplies = (state.dashboard.wishes || []).filter(w => w.reply && w.reply.trim().length > 0).length;
-  if (document.getElementById('totalRepliesCount')) document.getElementById('totalRepliesCount').innerText = totalReplies;
+    if (document.getElementById('totalGuestsOverview')) document.getElementById('totalGuestsOverview').innerText = totalGuests;
+    if (document.getElementById('totalWishes')) document.getElementById('totalWishes').innerText = (state.dashboard.wishes || []).length;
+    if (document.getElementById('totalWishesCount')) document.getElementById('totalWishesCount').innerText = (state.dashboard.wishes || []).length;
+    if (document.getElementById('totalRsvp')) document.getElementById('totalRsvp').innerText = (state.dashboard.rsvps || []).length;
+    if (document.getElementById('totalRsvpCount')) document.getElementById('totalRsvpCount').innerText = (state.dashboard.rsvps || []).length;
+    if (document.getElementById('totalGuests')) document.getElementById('totalGuests').innerText = totalGuests;
+    if (document.getElementById('totalGuestsIndicator')) document.getElementById('totalGuestsIndicator').innerText = totalGuests;
+
+    // Count replies
+    const totalReplies = (state.dashboard.wishes || []).filter(w => w.reply && w.reply.trim().length > 0).length;
+    if (document.getElementById('totalRepliesCount')) document.getElementById('totalRepliesCount').innerText = totalReplies;
 }
 
 async function loadPageViews() {
-  try {
-    const data = await api('/api/admin/pageviews');
-    if (document.getElementById('totalPageViews')) document.getElementById('totalPageViews').innerText = data.total;
-    if (document.getElementById('pageViewsTodayBadge')) document.getElementById('pageViewsTodayBadge').innerText = `+${data.today} hari ini`;
-    if (document.getElementById('uniquePageViews')) document.getElementById('uniquePageViews').innerText = `${data.unique} Pengunjung Unik`;
-    
-    // Update simple growth indicators if elements exist
-    if (document.getElementById('pageViewsBar')) {
-        const growth = data.total > 0 ? Math.round((data.today / data.total) * 100) : 0;
-        document.getElementById('pageViewsBar').style.width = `${Math.min(growth + 10, 100)}%`;
+    try {
+        const data = await api('/api/admin/pageviews');
+        if (document.getElementById('totalPageViews')) document.getElementById('totalPageViews').innerText = data.total;
+        if (document.getElementById('pageViewsTodayBadge')) document.getElementById('pageViewsTodayBadge').innerText = `+${data.today} hari ini`;
+        if (document.getElementById('uniquePageViews')) document.getElementById('uniquePageViews').innerText = `${data.unique} Pengunjung Unik`;
+
+        // Update simple growth indicators if elements exist
+        if (document.getElementById('pageViewsBar')) {
+            const growth = data.total > 0 ? Math.round((data.today / data.total) * 100) : 0;
+            document.getElementById('pageViewsBar').style.width = `${Math.min(growth + 10, 100)}%`;
+        }
+    } catch (e) {
+        console.error('Error loading page views:', e);
     }
-  } catch (e) {
-    console.error('Error loading page views:', e);
-  }
 }
 
 async function loadDashboard() {
-  try {
-    const data = await api('/api/admin/dashboard');
-    state.dashboard = data;
-    
-    // Group sub-calls in try-catch to ensure one failure doesn't block others
-    try { renderDashboardCounts(); } catch (e) { console.error('Dashboard counts error:', e); }
-    try { renderSettings(); } catch (e) { console.error('Settings error:', e); }
-    
-    // setLanguage call removed
-    
-    try { renderDataLists(); } catch (e) { console.error('Data lists error:', e); }
-    try { renderEvents(); } catch (e) { console.error('Events error:', e); }
-    try { window.renderGifts(); } catch (e) { console.error('Gifts error:', e); }
-    try { renderCouple(); } catch (e) { console.error('Couple error:', e); }
-    try { renderGuests(); } catch (e) { console.error('Guests error:', e); }
-    try { renderGallery(); } catch (e) { console.error('Gallery error:', e); }
-    try { await loadLoveStoryAdmin(); } catch (e) { console.error('Love story error:', e); }
-    try { populateNotifications(); } catch (e) { console.error('Notifications error:', e); }
-    try { await loadPageViews(); } catch (e) { console.error('Page views error:', e); }
-  } catch (err) {
-    throw err; // Re-throw main dashboard API error to be caught by checkLogin
-  }
+    try {
+        const data = await api('/api/admin/dashboard');
+        state.dashboard = data;
+
+        // Group sub-calls in try-catch to ensure one failure doesn't block others
+        try { renderDashboardCounts(); } catch (e) { console.error('Dashboard counts error:', e); }
+        try { renderSettings(); } catch (e) { console.error('Settings error:', e); }
+
+        // setLanguage call removed
+
+        try { renderDataLists(); } catch (e) { console.error('Data lists error:', e); }
+        try { renderEvents(); } catch (e) { console.error('Events error:', e); }
+        try { window.renderGifts(); } catch (e) { console.error('Gifts error:', e); }
+        try { renderCouple(); } catch (e) { console.error('Couple error:', e); }
+        try { renderGuests(); } catch (e) { console.error('Guests error:', e); }
+        try { renderGallery(); } catch (e) { console.error('Gallery error:', e); }
+        try { await loadLoveStoryAdmin(); } catch (e) { console.error('Love story error:', e); }
+        try { populateNotifications(); } catch (e) { console.error('Notifications error:', e); }
+        try { await loadPageViews(); } catch (e) { console.error('Page views error:', e); }
+    } catch (err) {
+        throw err; // Re-throw main dashboard API error to be caught by checkLogin
+    }
 }
 
 async function checkLogin() {
 
-  let status;
-  
-  try {
-    status = await api('/api/admin/status');
-  } catch (err) {
-    console.error('Authentication status check failed:', err);
-    showLoginUI();
-    return;
-  }
+    let status;
 
-  if (status.authenticated) {
-    showDashboardUI(status.user);
     try {
-      await loadDashboard();
-      showSection('overview');
-      if (!isAppLoaded) {
-          if (!window.isManualLogin) {
-              showToast(t('data_loaded'), 'success');
-          }
-          isAppLoaded = true;
-      }
+        status = await api('/api/admin/status');
     } catch (err) {
-      console.error('Dashboard data failed to load:', err);
-      showToast('Gagal memuat data dashboard. Silakan refresh.', 'error');
+        console.error('Authentication status check failed:', err);
+        showLoginUI();
+        return;
     }
-  } else {
-    showLoginUI();
-  }
+
+    if (status.authenticated) {
+        showDashboardUI(status.user);
+        try {
+            await loadDashboard();
+            showSection('overview');
+            if (!isAppLoaded) {
+                if (!window.isManualLogin) {
+                    showToast(t('data_loaded'), 'success');
+                }
+                isAppLoaded = true;
+            }
+        } catch (err) {
+            console.error('Dashboard data failed to load:', err);
+            showToast('Gagal memuat data dashboard. Silakan refresh.', 'error');
+        }
+    } else {
+        showLoginUI();
+    }
 }
 
 function showDashboardUI(user) {
-  if (loginPanel) loginPanel.classList.add('hidden');
-  if (dashboardPanel) dashboardPanel.classList.remove('hidden');
-  if (profileDropdownContainer) profileDropdownContainer.classList.remove('hidden');
-  
-  if (document.getElementById('headerUserName')) document.getElementById('headerUserName').innerText = user.full_name || user.email || 'Administrator';
-  if (document.getElementById('dropdownUserName')) document.getElementById('dropdownUserName').innerText = user.full_name || user.email || 'Administrator';
-  if (document.getElementById('dropdownUserEmail')) document.getElementById('dropdownUserEmail').innerText = user.email || '';
-  
-  // Show header elements (Visibility managed by Tailwind)
-  const toShow = ['notificationsContainer', 'desktopSearchContainer', 'mobileSearchToggle'];
-  toShow.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.classList.remove('hidden');
-  });
+    if (loginPanel) loginPanel.classList.add('hidden');
+    if (dashboardPanel) dashboardPanel.classList.remove('hidden');
+    if (profileDropdownContainer) profileDropdownContainer.classList.remove('hidden');
 
-  const avatarSrc = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.full_name || user.email || 'Admin')}&background=4f46e5&color=fff&bold=true`;
-  if (document.getElementById('headerUserAvatar')) document.getElementById('headerUserAvatar').src = avatarSrc;
-  if (document.getElementById('dropdownUserAvatar')) document.getElementById('dropdownUserAvatar').src = avatarSrc;
+    if (document.getElementById('headerUserName')) document.getElementById('headerUserName').innerText = user.full_name || user.email || 'Administrator';
+    if (document.getElementById('dropdownUserName')) document.getElementById('dropdownUserName').innerText = user.full_name || user.email || 'Administrator';
+    if (document.getElementById('dropdownUserEmail')) document.getElementById('dropdownUserEmail').innerText = user.email || '';
+
+    // Show header elements (Visibility managed by Tailwind)
+    const toShow = ['notificationsContainer', 'desktopSearchContainer', 'mobileSearchToggle'];
+    toShow.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('hidden');
+    });
+
+    const avatarSrc = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.full_name || user.email || 'Admin')}&background=4f46e5&color=fff&bold=true`;
+    if (document.getElementById('headerUserAvatar')) document.getElementById('headerUserAvatar').src = avatarSrc;
+    if (document.getElementById('dropdownUserAvatar')) document.getElementById('dropdownUserAvatar').src = avatarSrc;
 }
 
 function showLoginUI() {
-  if (loginPanel) loginPanel.classList.remove('hidden');
-  if (dashboardPanel) dashboardPanel.classList.add('hidden');
-  if (profileDropdownContainer) profileDropdownContainer.classList.add('hidden');
-  
-  // Hide all header interactivity (Visibility managed by Tailwind/CSS)
-  const toHide = [
-    'notificationsContainer', 
-    'desktopSearchContainer', 
-    'mobileSearchToggle', 
-    'mobileSearchPanel', 
-    'globalSearchResults',
-    'languageToggleBtn'
-  ];
-  toHide.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-        el.classList.add('hidden');
-        el.style.display = ''; // Clear overrides
-    }
-  });
+    if (loginPanel) loginPanel.classList.remove('hidden');
+    if (dashboardPanel) dashboardPanel.classList.add('hidden');
+    if (profileDropdownContainer) profileDropdownContainer.classList.add('hidden');
+
+    // Hide all header interactivity (Visibility managed by Tailwind/CSS)
+    const toHide = [
+        'notificationsContainer',
+        'desktopSearchContainer',
+        'mobileSearchToggle',
+        'mobileSearchPanel',
+        'globalSearchResults',
+        'languageToggleBtn'
+    ];
+    toHide.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.classList.add('hidden');
+            el.style.display = ''; // Clear overrides
+        }
+    });
 }
 
-window.togglePasswordVisibility = function(inputId, iconId) {
-  const input = document.getElementById(inputId);
-  const icon = document.getElementById(iconId);
-  if (!input || !icon) return;
+window.togglePasswordVisibility = function (inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (!input || !icon) return;
 
-  if (input.type === 'password') {
-    input.type = 'text';
-    icon.classList.remove('fa-eye');
-    icon.classList.add('fa-eye-slash');
-  } else {
-    input.type = 'password';
-    icon.classList.remove('fa-eye-slash');
-    icon.classList.add('fa-eye');
-  }
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
 }
 
 async function login() {
-  const email = document.getElementById('loginUsername').value.trim();
-  const password = document.getElementById('loginPassword').value.trim();
-  if (!email || !password) return;
-  try {
-    await api('/api/admin/login', { method: 'POST', body: JSON.stringify({ email, password }) });
-    window.isManualLogin = true;
-    await checkLogin();
-    showToast(t('welcome'), 'success');
-    window.isManualLogin = false; // Reset after use
-  } catch (error) {
-    showToast(error.message, 'error');
-  }
+    const email = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+    if (!email || !password) return;
+    try {
+        await api('/api/admin/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+        window.isManualLogin = true;
+        await checkLogin();
+        showToast(t('welcome'), 'success');
+        window.isManualLogin = false; // Reset after use
+    } catch (error) {
+        showToast(error.message, 'error');
+    }
 }
 
 // Enter key to login
@@ -1866,7 +1905,7 @@ async function startMusicAnalysis() {
     const musicPath = document.getElementById('settingBgMusic')?.value;
     const btn = document.getElementById('btnAnalyzeRef');
     const input = document.getElementById('settingMusicStart');
-    
+
     if (!musicPath) {
         showToast('Pilih musik terlebih dahulu', 'error');
         return;
@@ -1879,10 +1918,10 @@ async function startMusicAnalysis() {
 
         const response = await fetch(musicPath);
         const arrayBuffer = await response.arrayBuffer();
-        
+
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-        
+
         const rawData = audioBuffer.getChannelData(0); // Ambil channel kiri
         const sampleRate = audioBuffer.sampleRate;
         const chunkSize = sampleRate; // 1 detik per chunk
@@ -1919,9 +1958,9 @@ async function startMusicAnalysis() {
         // Set ke input dengan sedikit offset agar tidak terlalu mendadak (misal di awal puncak energi)
         input.value = refStartSecond.toFixed(1);
         saveSettings();
-        
+
         showToast(`Ref terdeteksi pada detik ${refStartSecond}!`, 'success');
-        
+
         // Preview langsung
         const preview = document.getElementById('music_preview');
         if (preview) {
@@ -1939,166 +1978,167 @@ async function startMusicAnalysis() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    el.innerText = t(key);
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    el.setAttribute('placeholder', t(key));
-  });
-  checkLogin();
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.innerText = t(key);
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        el.setAttribute('placeholder', t(key));
+    });
+    checkLogin();
 
-  // Initialize Theme Icon
-  const darkModeIcon = document.getElementById('darkModeIcon');
-  if (darkModeIcon) {
-    const isDark = document.documentElement.classList.contains('dark');
-    if (isDark) {
-      darkModeIcon.classList.remove('fa-sun');
-      darkModeIcon.classList.add('fa-moon');
-    } else {
-      darkModeIcon.classList.remove('fa-moon');
-      darkModeIcon.classList.add('fa-sun');
+    // Initialize Theme Icon
+    const darkModeIcon = document.getElementById('darkModeIcon');
+    if (darkModeIcon) {
+        const isDark = document.documentElement.classList.contains('dark');
+        if (isDark) {
+            darkModeIcon.classList.remove('fa-sun');
+            darkModeIcon.classList.add('fa-moon');
+        } else {
+            darkModeIcon.classList.remove('fa-moon');
+            darkModeIcon.classList.add('fa-sun');
+        }
     }
-  }
-  
-  const passwordInput = document.getElementById('loginPassword');
-  const usernameInput = document.getElementById('loginUsername');
-  if (passwordInput) {
-    passwordInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') login();
-    });
-  }
-  if (usernameInput) {
-    usernameInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') login();
-    });
-  }
+
+    const passwordInput = document.getElementById('loginPassword');
+    const usernameInput = document.getElementById('loginUsername');
+    if (passwordInput) {
+        passwordInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') login();
+        });
+    }
+    if (usernameInput) {
+        usernameInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') login();
+        });
+    }
 });
 
 async function logout() {
-  window.deleteWithConfirm(async () => {
-      await api('/api/admin/logout', { method: 'POST' });
-      await checkLogin();
-  }, {
-      message: t('alert_logout')
-  });
+    window.deleteWithConfirm(async () => {
+        await api('/api/admin/logout', { method: 'POST' });
+        await checkLogin();
+    }, {
+        message: t('alert_logout')
+    });
 }
 
 async function saveSettings(quiet = false, customMsg = null) {
-  const payload = {};
-  const fields = {
-    cover_title: 'settingCoverTitle',
-    cover_subtitle: 'settingCoverSubtitle',
-    hero_name: 'settingHeroName',
-    guest_prefix: 'settingGuestPrefix',
-    guest_label: 'settingGuestLabel',
-    hero_button: 'settingHeroButton',
-    notification_retention: 'settingNotificationRetention',
-    wishes_limit: 'settingWishesLimit',
-    greeting_heading: 'settingGreetingHeading',
-    greeting_quote: 'settingGreetingQuote',
-    greeting_logo: 'settingGreetingLogo',
-    greeting_invitation: 'settingGreetingInvitation',
-    wishes_title: 'settingWishesTitle',
-    wishes_quote: 'settingWishesQuote',
-    couple_section_title: 'settingCoupleSectionTitle',
-    event_header_quote: 'settingEventHeaderQuote',
-    event_header_title: 'settingEventHeaderTitle',
-    rsvp_header_quote: 'settingRsvpHeaderQuote',
-    rsvp_header_title: 'settingRsvpHeaderTitle',
-    rsvp_caption: 'settingRsvpCaption',
-    event_bg: 'settingEventBg',
-    lovestory_bg: 'settingLovestoryBg',
-    lovestory_card_bg: 'settingLovestoryCardBg',
-    gift_bg_img: 'settingGiftBgImg',
-    gift_bg_color: 'settingGiftBgColor',
-    wishes_bg_img: 'settingWishesBgImg',
-    wishes_bg_color: 'settingWishesBgColor',
-    gallery_title: 'settingGalleryTitle',
-    rsvp_bg_img: 'settingRsvpBgImg',
-    rsvp_bg_color: 'settingRsvpBgColor',
-    opening_bg_color: 'settingOpeningBgColor',
-    couple_bg_color: 'settingCoupleBgColor',
-    couple_bg_img: 'settingCoupleBgImg',
-    gallery_bg_img: 'settingGalleryBgImg',
-    gallery_bg_color: 'settingGalleryBgColor',
-    couple_bg_mode: 'settingCoupleBgMode',
-    event_bg_color: 'settingEventBgColor',
-    lovestory_bg_color: 'settingLovestoryBgColor',
-    lovestory_card_bg_color: 'settingLovestoryCardBgColor',
-    wa_template: 'waTemplateInput',
-    opening_bg_img: 'settingOpeningBgImg',
-    opening_bg_mode: 'settingOpeningBgMode',
-    greeting_bg_img: 'settingGreetingBgImg',
-    greeting_bg_color: 'settingGreetingBgColor',
-    greeting_bg_mode: 'settingGreetingBgMode',
-    bg_music: 'settingBgMusic',
-    music_start_time: 'settingMusicStart'
-  };
+    if (!isAppLoaded) return; // Prevent saving before data is loaded from DB
+    const payload = {};
+    const fields = {
+        cover_title: 'settingCoverTitle',
+        cover_subtitle: 'settingCoverSubtitle',
+        hero_name: 'settingHeroName',
+        guest_prefix: 'settingGuestPrefix',
+        guest_label: 'settingGuestLabel',
+        hero_button: 'settingHeroButton',
+        notification_retention: 'settingNotificationRetention',
+        wishes_limit: 'settingWishesLimit',
+        greeting_heading: 'settingGreetingHeading',
+        greeting_quote: 'settingGreetingQuote',
+        greeting_logo: 'settingGreetingLogo',
+        greeting_invitation: 'settingGreetingInvitation',
+        wishes_title: 'settingWishesTitle',
+        wishes_quote: 'settingWishesQuote',
+        couple_section_title: 'settingCoupleSectionTitle',
+        event_header_quote: 'settingEventHeaderQuote',
+        event_header_title: 'settingEventHeaderTitle',
+        rsvp_header_quote: 'settingRsvpHeaderQuote',
+        rsvp_header_title: 'settingRsvpHeaderTitle',
+        rsvp_caption: 'settingRsvpCaption',
+        event_bg: 'settingEventBg',
+        lovestory_bg: 'settingLovestoryBg',
+        lovestory_card_bg: 'settingLovestoryCardBg',
+        gift_bg_img: 'settingGiftBgImg',
+        gift_bg_color: 'settingGiftBgColor',
+        wishes_bg_img: 'settingWishesBgImg',
+        wishes_bg_color: 'settingWishesBgColor',
+        gallery_title: 'settingGalleryTitle',
+        rsvp_bg_img: 'settingRsvpBgImg',
+        rsvp_bg_color: 'settingRsvpBgColor',
+        opening_bg_color: 'settingOpeningBgColor',
+        couple_bg_color: 'settingCoupleBgColor',
+        couple_bg_img: 'settingCoupleBgImg',
+        gallery_bg_img: 'settingGalleryBgImg',
+        gallery_bg_color: 'settingGalleryBgColor',
+        couple_bg_mode: 'settingCoupleBgMode',
+        event_bg_color: 'settingEventBgColor',
+        lovestory_bg_color: 'settingLovestoryBgColor',
+        lovestory_card_bg_color: 'settingLovestoryCardBgColor',
+        wa_template: 'waTemplateInput',
+        opening_bg_img: 'settingOpeningBgImg',
+        opening_bg_mode: 'settingOpeningBgMode',
+        greeting_bg_img: 'settingGreetingBgImg',
+        greeting_bg_color: 'settingGreetingBgColor',
+        greeting_bg_mode: 'settingGreetingBgMode',
+        bg_music: 'settingBgMusic',
+        music_start_time: 'settingMusicStart'
+    };
 
-  for (const [key, id] of Object.entries(fields)) {
-    const el = document.getElementById(id);
-    if (el) payload[key] = el.value;
-  }
+    for (const [key, id] of Object.entries(fields)) {
+        const el = document.getElementById(id);
+        if (el) payload[key] = el.value;
+    }
 
-  // Handle checkboxes
-  const checks = {
-    notifications_enabled: 'settingEnableNotifications',
-    music_autoplay: 'settingAutoPlay'
-  };
-  for (const [key, id] of Object.entries(checks)) {
-    const el = document.getElementById(id);
-    if (el) payload[key] = el.checked ? 'true' : 'false';
-  }
-  
-  if (document.getElementById('settingWishesBgMode')) {
-    payload.wishes_bg_mode = document.getElementById('settingWishesBgMode').checked ? 'image' : 'color';
-  }
-  if (document.getElementById('settingRsvpBgMode')) {
-    payload.rsvp_bg_mode = document.getElementById('settingRsvpBgMode').checked ? 'image' : 'color';
-  }
-  if (document.getElementById('settingGiftBgMode')) {
-    payload.gift_bg_mode = document.getElementById('settingGiftBgMode').checked ? 'image' : 'color';
-  }
-  if (document.getElementById('waTemplateInput')) {
-    payload.wa_template = document.getElementById('waTemplateInput').innerHTML;
-  }
-  if (document.getElementById('settingEventBgMode')) {
-    payload.event_bg_mode = document.getElementById('settingEventBgMode').checked ? 'image' : 'color';
-  }
+    // Handle checkboxes
+    const checks = {
+        notifications_enabled: 'settingEnableNotifications',
+        music_autoplay: 'settingAutoPlay'
+    };
+    for (const [key, id] of Object.entries(checks)) {
+        const el = document.getElementById(id);
+        if (el) payload[key] = el.checked ? 'true' : 'false';
+    }
 
-  if (Object.keys(payload).length === 0) return;
-  
-  const response = await fetch('/api/admin/settings', {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  });
+    if (document.getElementById('settingWishesBgMode')) {
+        payload.wishes_bg_mode = document.getElementById('settingWishesBgMode').checked ? 'image' : 'color';
+    }
+    if (document.getElementById('settingRsvpBgMode')) {
+        payload.rsvp_bg_mode = document.getElementById('settingRsvpBgMode').checked ? 'image' : 'color';
+    }
+    if (document.getElementById('settingGiftBgMode')) {
+        payload.gift_bg_mode = document.getElementById('settingGiftBgMode').checked ? 'image' : 'color';
+    }
+    if (document.getElementById('waTemplateInput')) {
+        payload.wa_template = document.getElementById('waTemplateInput').innerHTML;
+    }
+    if (document.getElementById('settingEventBgMode')) {
+        payload.event_bg_mode = document.getElementById('settingEventBgMode').checked ? 'image' : 'color';
+    }
 
-  const text = await response.text();
-  let result;
-  try {
-    result = JSON.parse(text);
-  } catch (e) {
-    throw new Error('Respon server tidak valid (bukan JSON).');
-  }
+    if (Object.keys(payload).length === 0) return;
 
-  if (!response.ok || !result.success) {
-    throw new Error(result.error || 'Gagal menyimpan pengaturan.');
-  }
+    const response = await fetch('/api/admin/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    });
 
-  // Update local state immediately
-  if (!state.dashboard.settings) state.dashboard.settings = {};
-  Object.assign(state.dashboard.settings, payload);
-  
-  if (!quiet && isAppLoaded) {
-    window.showToast(customMsg || t('alert_settings_sync'), 'success');
-  }
+    const text = await response.text();
+    let result;
+    try {
+        result = JSON.parse(text);
+    } catch (e) {
+        throw new Error('Respon server tidak valid (bukan JSON).');
+    }
+
+    if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Gagal menyimpan pengaturan.');
+    }
+
+    // Update local state immediately
+    if (!state.dashboard.settings) state.dashboard.settings = {};
+    Object.assign(state.dashboard.settings, payload);
+
+    if (!quiet && isAppLoaded) {
+        window.showToast(customMsg || t('alert_settings_sync'), 'success');
+    }
 }
 
 
-window.uploadSettingImg = async function(input, key, previewId) {
+window.uploadSettingImg = async function (input, key, previewId) {
     if (!input.files || !input.files[0]) return;
     const formData = new FormData();
     formData.append('image', input.files[0]);
@@ -2121,13 +2161,13 @@ window.uploadSettingImg = async function(input, key, previewId) {
                     if (placeholder) placeholder.classList.add('hidden');
                 }
             }
-            
+
             // Show delete button if it exists (specifically for Wishes)
 
             if (key === 'wishes_bg_img' && document.getElementById('btnDeleteWishesBg')) {
                 document.getElementById('btnDeleteWishesBg').classList.remove('hidden');
             }
-            
+
             // Map key like 'greeting_logo' to ID like 'settingGreetingLogo'
             const camelKey = key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('');
             const hiddenInput = document.getElementById('setting' + camelKey);
@@ -2137,6 +2177,7 @@ window.uploadSettingImg = async function(input, key, previewId) {
             // Update local state
             state.dashboard.settings[key] = result.src;
             showToast('Gambar berhasil diunggah', 'success');
+            saveSettings(true); // Persist all settings to DB
         } else {
             showToast(result.error || 'Gagal mengunggah gambar', 'error');
         }
@@ -2146,55 +2187,55 @@ window.uploadSettingImg = async function(input, key, previewId) {
     }
 }
 
-window.deleteSettingImg = function(key, previewId) {
+window.deleteSettingImg = function (key, previewId) {
     if (!confirm('Hapus gambar ini?')) return;
     const preview = document.getElementById(previewId);
     const camelKey = key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('');
     const hiddenInput = document.getElementById('setting' + camelKey);
-    
+
     if (preview) preview.src = '';
     if (hiddenInput) hiddenInput.value = '';
-    
+
     // Specifically for wishes, hide the delete button if any
     if (key === 'wishes_bg_img' && document.getElementById('btnDeleteWishesBg')) {
         document.getElementById('btnDeleteWishesBg').classList.add('hidden');
     }
-    
+
     // Update local state
     if (state.dashboard && state.dashboard.settings) {
         state.dashboard.settings[key] = '';
     }
-    
+
     saveSettings();
     showToast('Gambar berhasil dihapus', 'success');
 }
 function updateEventDateDisplay(eventId, dateIsoString) {
     if (!dateIsoString) return;
-    
+
     // ... [existing array logic] ...
     const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
     const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    
+
     const dateObj = new Date(dateIsoString);
     if (isNaN(dateObj)) return;
-    
+
     const dayName = days[dateObj.getDay()];
     const dateNum = dateObj.getDate();
     const monthName = months[dateObj.getMonth()];
     const year = dateObj.getFullYear();
-    
+
     const formattedDate = `${dayName}, ${dateNum} ${monthName} ${year}`;
-    
+
     const hiddenDateInput = document.getElementById(`event${eventId}Date`);
     const dateLabel = document.getElementById(`event${eventId}DateLabel`);
     const dateIsoInput = document.getElementById(`event${eventId}DateIso`);
-    
+
     if (hiddenDateInput) hiddenDateInput.value = formattedDate;
     if (dateLabel) dateLabel.innerText = formattedDate;
     if (dateIsoInput) dateIsoInput.value = dateIsoString;
 }
 
-window.updateMapPreview = function(eventId, value) {
+window.updateMapPreview = function (eventId, value) {
     let src = value;
     if (value && value.includes('<iframe')) {
         const match = value.match(/src=["']([^"']+)["']/);
@@ -2203,7 +2244,7 @@ window.updateMapPreview = function(eventId, value) {
             document.getElementById(`event${eventId}MapSrc`).value = src;
         }
     }
-    
+
     const iframe = document.getElementById(`event${eventId}MapIframe`);
     const container = document.getElementById(`event${eventId}MapContainer`);
     if (iframe && container) {
@@ -2220,7 +2261,7 @@ window.updateMapPreview = function(eventId, value) {
 };
 
 
-window.setEventBgMode = function(mode) {
+window.setEventBgMode = function (mode, skipSave = false) {
     const isImage = mode === 'image';
     const slider = document.getElementById('eventBgModeSlider');
     const colorBtn = document.getElementById('eventModeColorBtn');
@@ -2251,26 +2292,26 @@ window.setEventBgMode = function(mode) {
 
 
 async function saveEvent(id) {
-  const prefix = `event${id}`;
-  const dateIso = document.getElementById(`${prefix}DateIso`)?.value || document.getElementById(`${prefix}DatePicker`)?.value || '';
-  const payload = {
-    name: document.getElementById(`${prefix}Name`).value,
-    heading: document.getElementById(`${prefix}Heading`).value,
-    time: document.getElementById(`${prefix}Time`).value,
-    date: document.getElementById(`${prefix}Date`).value,
-    date_iso: dateIso,
-    location_name: document.getElementById(`${prefix}Location`).value,
-    address: document.getElementById(`${prefix}Address`).value,
-    map_src: document.getElementById(`${prefix}MapSrc`).value,
-    map_link: document.getElementById(`${prefix}MapLink`).value,
-    icon_src: document.getElementById(`${prefix}Icon`).value,
-  };
-  await api(`/api/admin/events/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
-  showToast(t('alert_event_updated', {id}), 'success');
+    const prefix = `event${id}`;
+    const dateIso = document.getElementById(`${prefix}DateIso`)?.value || document.getElementById(`${prefix}DatePicker`)?.value || '';
+    const payload = {
+        name: document.getElementById(`${prefix}Name`).value,
+        heading: document.getElementById(`${prefix}Heading`).value,
+        time: document.getElementById(`${prefix}Time`).value,
+        date: document.getElementById(`${prefix}Date`).value,
+        date_iso: dateIso,
+        location_name: document.getElementById(`${prefix}Location`).value,
+        address: document.getElementById(`${prefix}Address`).value,
+        map_src: document.getElementById(`${prefix}MapSrc`).value,
+        map_link: document.getElementById(`${prefix}MapLink`).value,
+        icon_src: document.getElementById(`${prefix}Icon`).value,
+    };
+    await api(`/api/admin/events/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
+    showToast(t('alert_event_updated', { id }), 'success');
 }
 
-window.deleteEvent = function(id) {
-    if(!confirm('Anda yakin ingin menghapus acara ini?')) return;
+window.deleteEvent = function (id) {
+    if (!confirm('Anda yakin ingin menghapus acara ini?')) return;
     window.deleteWithConfirm(async () => {
         await api(`/api/admin/events/${id}`, { method: 'DELETE' });
         await loadDashboard();
@@ -2285,20 +2326,20 @@ async function saveCouple(id) {
 
 
 async function addGuest() {
-  const name = document.getElementById('guestNameInput').value.trim();
-  if (!name) return;
+    const name = document.getElementById('guestNameInput').value.trim();
+    if (!name) return;
 
-  try {
-    await api('/api/admin/guests', { method: 'POST', body: JSON.stringify({ name }) });
-    document.getElementById('guestNameInput').value = '';
-    await loadDashboard();
-    showToast(currentLang === 'id' ? 'Tamu berhasil ditambahkan!' : 'Guest added successfully!', 'success');
-  } catch (error) {
-    showToast(error.message, 'error');
-  }
+    try {
+        await api('/api/admin/guests', { method: 'POST', body: JSON.stringify({ name }) });
+        document.getElementById('guestNameInput').value = '';
+        await loadDashboard();
+        showToast(currentLang === 'id' ? 'Tamu berhasil ditambahkan!' : 'Guest added successfully!', 'success');
+    } catch (error) {
+        showToast(error.message, 'error');
+    }
 }
 
-window.addEvent = async function() {
+window.addEvent = async function () {
     try {
         const payload = {
             name: 'Acara Baru',
@@ -2320,7 +2361,7 @@ window.addEvent = async function() {
     }
 }
 
-window.addGift = async function() {
+window.addGift = async function () {
     try {
         const payload = {
             bank_name: 'BCA',
@@ -2336,7 +2377,7 @@ window.addGift = async function() {
     }
 }
 
-window.deleteGuest = function(id) {
+window.deleteGuest = function (id) {
     window.deleteWithConfirm(async () => {
         await api(`/api/admin/guests/${id}`, { method: 'DELETE' });
         await loadDashboard();
@@ -2346,15 +2387,15 @@ window.deleteGuest = function(id) {
     });
 }
 
-window.toggleReplyInput = function(btn, id) {
+window.toggleReplyInput = function (btn, id) {
     const parent = btn.closest('.flex-1');
     const box = parent.querySelector(`[id^="replyBox_"]`);
     if (!box) return;
-    
+
     const isHidden = box.classList.contains('hidden');
     // Close other reply boxes globally to keep it clean
     document.querySelectorAll('[id^="replyBox_"]').forEach(el => el.classList.add('hidden'));
-    
+
     if (isHidden) {
         box.classList.remove('hidden');
         const input = box.querySelector('input');
@@ -2362,7 +2403,7 @@ window.toggleReplyInput = function(btn, id) {
     }
 }
 
-window.submitReply = async function(btn, id) {
+window.submitReply = async function (btn, id) {
     const parent = btn.closest('.flex-1');
     const input = parent.querySelector('input');
     if (!input) return;
@@ -2371,7 +2412,7 @@ window.submitReply = async function(btn, id) {
         showToast('Balasan tidak boleh kosong', 'error');
         return;
     }
-    
+
     btn.disabled = true;
     const originalText = btn.innerHTML;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
@@ -2391,7 +2432,7 @@ window.submitReply = async function(btn, id) {
     }
 }
 
-window.deleteReply = async function(id) {
+window.deleteReply = async function (id) {
     window.deleteWithConfirm(async () => {
         await api(`/api/admin/wishes/${id}/reply`, {
             method: 'POST',
@@ -2404,7 +2445,7 @@ window.deleteReply = async function(id) {
     });
 }
 
-window.deleteWish = function(id) {
+window.deleteWish = function (id) {
     window.deleteWithConfirm(async () => {
         await api(`/api/admin/wishes/${id}`, { method: 'DELETE' });
         await loadDashboard();
@@ -2414,7 +2455,7 @@ window.deleteWish = function(id) {
     });
 }
 
-window.deleteRsvp = function(id) {
+window.deleteRsvp = function (id) {
     window.deleteWithConfirm(async () => {
         await api(`/api/admin/rsvps/${id}`, { method: 'DELETE' });
         await loadDashboard();
@@ -2425,85 +2466,85 @@ window.deleteRsvp = function(id) {
 }
 
 
-window.copyGuestLink = function(link) {
-  navigator.clipboard.writeText(link).then(() => {
-    showToast(t('alert_link_copied'), 'info');
-  });
+window.copyGuestLink = function (link) {
+    navigator.clipboard.writeText(link).then(() => {
+        showToast(t('alert_link_copied'), 'info');
+    });
 }
 
-window.showModal = function(id) {
-  const modal = document.getElementById(id);
-  if (!modal) return;
-  const backdrop = modal.querySelector('.modal-premium-backdrop');
-  const content = modal.querySelector('.modal-premium-content');
-  
-  modal.classList.remove('hidden');
-  modal.classList.add('flex');
-  
-  setTimeout(() => {
+window.showModal = function (id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    const backdrop = modal.querySelector('.modal-premium-backdrop');
+    const content = modal.querySelector('.modal-premium-content');
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    setTimeout(() => {
+        if (backdrop) {
+            backdrop.classList.remove('opacity-0');
+            backdrop.classList.add('opacity-100');
+        }
+        if (content) {
+            content.classList.remove('opacity-0', 'scale-90');
+            content.classList.add('opacity-100', 'scale-100');
+        }
+    }, 10);
+}
+
+window.hideModal = function (id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    const backdrop = modal.querySelector('.modal-premium-backdrop');
+    const content = modal.querySelector('.modal-premium-content');
+
     if (backdrop) {
-        backdrop.classList.remove('opacity-0');
-        backdrop.classList.add('opacity-100');
+        backdrop.classList.remove('opacity-100');
+        backdrop.classList.add('opacity-0');
     }
     if (content) {
-        content.classList.remove('opacity-0', 'scale-90');
-        content.classList.add('opacity-100', 'scale-100');
+        content.classList.remove('opacity-100', 'scale-100');
+        content.classList.add('opacity-0', 'scale-90');
     }
-  }, 10);
+
+    setTimeout(() => {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+        // Common resets
+        const form = modal.querySelector('form');
+        if (form) form.reset();
+        const preview = modal.querySelector('#galleryUploadPreview');
+        if (preview) preview.classList.add('hidden');
+        const placeholder = modal.querySelector('#galleryUploadPlaceholder');
+        if (placeholder) placeholder.classList.remove('hidden');
+    }, 300);
 }
 
-window.hideModal = function(id) {
-  const modal = document.getElementById(id);
-  if (!modal) return;
-  const backdrop = modal.querySelector('.modal-premium-backdrop');
-  const content = modal.querySelector('.modal-premium-content');
-  
-  if (backdrop) {
-      backdrop.classList.remove('opacity-100');
-      backdrop.classList.add('opacity-0');
-  }
-  if (content) {
-      content.classList.remove('opacity-100', 'scale-100');
-      content.classList.add('opacity-0', 'scale-90');
-  }
-  
-  setTimeout(() => {
-    modal.classList.remove('flex');
-    modal.classList.add('hidden');
-    // Common resets
-    const form = modal.querySelector('form');
-    if (form) form.reset();
-    const preview = modal.querySelector('#galleryUploadPreview');
-    if (preview) preview.classList.add('hidden');
-    const placeholder = modal.querySelector('#galleryUploadPlaceholder');
-    if (placeholder) placeholder.classList.remove('hidden');
-  }, 300);
-}
-
-window.showActionModal = function(options) {
+window.showActionModal = function (options) {
     const modal = document.getElementById('adminActionModal');
     const title = document.getElementById('actionModalTitle');
     const iconContainer = document.getElementById('actionModalIcon');
     const fieldsContainer = document.getElementById('actionModalFields');
     const submitBtn = document.getElementById('actionModalSubmit');
-    
+
     title.innerText = options.title || 'Action';
     iconContainer.className = `accent-square ${options.color || 'bg-indigo-600'}`;
     iconContainer.innerHTML = `<i class="fas ${options.icon || 'fa-edit'}"></i>`;
-    
+
     fieldsContainer.innerHTML = (options.fields || []).map(f => `
         <div class="space-y-2">
             <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">${f.label}</label>
             <div class="relative">
                 <i class="fas ${f.icon || 'fa-tag'} absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"></i>
-                ${f.type === 'textarea' ? 
-                    `<textarea id="${f.id}" class="input-premium pl-11 min-h-[100px]">${f.value || ''}</textarea>` :
-                    `<input id="${f.id}" type="${f.type || 'text'}" value="${f.value || ''}" class="input-premium pl-11">`
-                }
+                ${f.type === 'textarea' ?
+            `<textarea id="${f.id}" class="input-premium pl-11 min-h-[100px]">${f.value || ''}</textarea>` :
+            `<input id="${f.id}" type="${f.type || 'text'}" value="${f.value || ''}" class="input-premium pl-11">`
+        }
             </div>
         </div>
     `).join('');
-    
+
     submitBtn.onclick = async () => {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
@@ -2517,17 +2558,17 @@ window.showActionModal = function(options) {
             submitBtn.innerHTML = `<span>${currentLang === 'id' ? 'Simpan' : 'Save Changes'}</span> <i class="fas fa-check text-[10px] opacity-50 ml-2"></i>`;
         }
     };
-    
+
     showModal('adminActionModal');
 }
 
-window.deleteWithConfirm = function(onConfirm, options = {}) {
+window.deleteWithConfirm = function (onConfirm, options = {}) {
     const modal = document.getElementById('adminConfirmModal');
     const msg = document.getElementById('confirmModalMessage');
     const submitBtn = document.getElementById('confirmModalSubmit');
-    
+
     if (options.message) msg.innerText = options.message;
-    
+
     submitBtn.onclick = async () => {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
@@ -2541,91 +2582,91 @@ window.deleteWithConfirm = function(onConfirm, options = {}) {
             submitBtn.innerHTML = `Confirm Delete <i class="fas fa-chevron-right text-[10px] opacity-40 ml-2"></i>`;
         }
     };
-    
+
     showModal('adminConfirmModal');
 }
 
 function openGalleryModal() {
-  document.getElementById('galleryUploadForm').reset();
-  document.getElementById('galleryEditId').value = '';
-  document.getElementById('galleryFileAlt').value = '';
-  document.getElementById('galleryFile').required = true;
-  
-  const preview = document.getElementById('galleryUploadPreview');
-  const placeholder = document.getElementById('galleryUploadPlaceholder');
-  if (preview) preview.classList.add('hidden');
-  if (placeholder) placeholder.classList.remove('hidden');
+    document.getElementById('galleryUploadForm').reset();
+    document.getElementById('galleryEditId').value = '';
+    document.getElementById('galleryFileAlt').value = '';
+    document.getElementById('galleryFile').required = true;
 
-  showModal('galleryUploadModal');
+    const preview = document.getElementById('galleryUploadPreview');
+    const placeholder = document.getElementById('galleryUploadPlaceholder');
+    if (preview) preview.classList.add('hidden');
+    if (placeholder) placeholder.classList.remove('hidden');
+
+    showModal('galleryUploadModal');
 }
 
 function closeGalleryModal() {
-  hideModal('galleryUploadModal');
+    hideModal('galleryUploadModal');
 }
 
 async function submitGalleryUpload(event) {
-  event.preventDefault();
-  const id = document.getElementById('galleryEditId').value;
-  const fileInput = document.getElementById('galleryFile');
-  const alt = document.getElementById('galleryFileAlt').value.trim();
-  
-  if (!id && !fileInput.files.length) {
-      showToast('Please select a file', 'error');
-      return;
-  }
-  if (!alt) {
-      showToast('Harap isi deskripsi/alt text', 'error');
-      return;
-  }
+    event.preventDefault();
+    const id = document.getElementById('galleryEditId').value;
+    const fileInput = document.getElementById('galleryFile');
+    const alt = document.getElementById('galleryFileAlt').value.trim();
 
-  const formData = new FormData();
-  if (fileInput.files.length) formData.append('image', fileInput.files[0]);
-  formData.append('alt', alt);
-
-  try {
-    let url = '/api/admin/gallery';
-    let method = 'POST';
-    
-    if (id) {
-        url = `/api/admin/gallery/${id}/meta`;
-        method = 'PUT';
+    if (!id && !fileInput.files.length) {
+        showToast('Please select a file', 'error');
+        return;
+    }
+    if (!alt) {
+        showToast('Harap isi deskripsi/alt text', 'error');
+        return;
     }
 
-    const response = await fetch(url, {
-      method: method,
-      body: formData,
-      credentials: 'include'
-    });
-    
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Upload failed');
-    
-    await loadDashboard();
-    closeGalleryModal();
-    showToast(currentLang === 'id' ? 'Aset galeri berhasil diperbarui!' : 'Gallery asset updated!', 'success');
-  } catch (error) {
-    showToast(error.message, 'error');
-  }
+    const formData = new FormData();
+    if (fileInput.files.length) formData.append('image', fileInput.files[0]);
+    formData.append('alt', alt);
+
+    try {
+        let url = '/api/admin/gallery';
+        let method = 'POST';
+
+        if (id) {
+            url = `/api/admin/gallery/${id}/meta`;
+            method = 'PUT';
+        }
+
+        const response = await fetch(url, {
+            method: method,
+            body: formData,
+            credentials: 'include'
+        });
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Upload failed');
+
+        await loadDashboard();
+        closeGalleryModal();
+        showToast(currentLang === 'id' ? 'Aset galeri berhasil diperbarui!' : 'Gallery asset updated!', 'success');
+    } catch (error) {
+        showToast(error.message, 'error');
+    }
 }
 
-window.editGalleryImage = function(id, alt, src) {
+window.editGalleryImage = function (id, alt, src) {
     const modal = document.getElementById('galleryUploadModal');
     document.getElementById('galleryEditId').value = id;
     document.getElementById('galleryFileAlt').value = alt;
     document.getElementById('galleryFile').required = false;
-    
+
     const preview = document.getElementById('galleryUploadPreview');
     const placeholder = document.getElementById('galleryUploadPlaceholder');
     const img = document.getElementById('galleryPreviewImg');
-    
+
     img.src = src;
     placeholder.classList.add('hidden');
     preview.classList.remove('hidden');
-    
+
     showModal('galleryUploadModal');
 }
 
-window.deleteGalleryImage = function(id) {
+window.deleteGalleryImage = function (id) {
     window.deleteWithConfirm(async () => {
         await api(`/api/admin/gallery/${id}`, { method: 'DELETE' });
         await loadDashboard();
@@ -2642,11 +2683,11 @@ if (document.getElementById('saveSettingsButton')) document.getElementById('save
 
 const galleryFileInput = document.getElementById('galleryFile');
 if (galleryFileInput) {
-    galleryFileInput.addEventListener('change', function(e) {
+    galleryFileInput.addEventListener('change', function (e) {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(event) {
+            reader.onload = function (event) {
                 const preview = document.getElementById('galleryUploadPreview');
                 const placeholder = document.getElementById('galleryUploadPlaceholder');
                 const img = document.getElementById('galleryPreviewImg');
@@ -2666,14 +2707,14 @@ function closeAllHeaderMenus() {
     // 1. Close Profile Menu
     const profileMenu = document.getElementById('profileDropdownMenu');
     if (profileMenu) profileMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-    
+
     // 2. Close Notification Menu
     const notificationsMenu = document.getElementById('notificationsMenu');
     if (notificationsMenu) {
         notificationsMenu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
         notificationsMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
     }
-    
+
     // 3. Close Mobile Search Panel
     const mobileSearchPanel = document.getElementById('mobileSearchPanel');
     if (mobileSearchPanel && !mobileSearchPanel.classList.contains('hidden')) {
@@ -2681,7 +2722,7 @@ function closeAllHeaderMenus() {
         mobileSearchPanel.classList.add('opacity-0', '-translate-y-4');
         setTimeout(() => mobileSearchPanel.classList.add('hidden'), 300);
     }
-    
+
     // 4. Close Global Search Results
     const globalSearchResults = document.getElementById('globalSearchResults');
     if (globalSearchResults) globalSearchResults.classList.add('hidden');
@@ -2691,23 +2732,23 @@ function closeAllHeaderMenus() {
 const profileBtn = document.getElementById('profileDropdownBtn');
 const profileMenu = document.getElementById('profileDropdownMenu');
 if (profileBtn && profileMenu) {
-  profileBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isCurrentlyHidden = profileMenu.classList.contains('opacity-0');
-    
-    if (isCurrentlyHidden) {
-      closeAllHeaderMenus(); // Close others before opening this one
-      profileMenu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
-    } else {
-      profileMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-    }
-  });
+    profileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isCurrentlyHidden = profileMenu.classList.contains('opacity-0');
 
-  document.addEventListener('click', (e) => {
-    if (profileMenu && !profileMenu.contains(e.target)) {
-      profileMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
-    }
-  });
+        if (isCurrentlyHidden) {
+            closeAllHeaderMenus(); // Close others before opening this one
+            profileMenu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+        } else {
+            profileMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (profileMenu && !profileMenu.contains(e.target)) {
+            profileMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+        }
+    });
 }
 if (document.getElementById('addGuestButton')) document.getElementById('addGuestButton').addEventListener('click', addGuest);
 if (document.getElementById('openGalleryUpload')) document.getElementById('openGalleryUpload').addEventListener('click', openGalleryModal);
@@ -2716,15 +2757,15 @@ if (document.getElementById('cancelGalleryUpload')) document.getElementById('can
 if (document.getElementById('galleryUploadForm')) document.getElementById('galleryUploadForm').addEventListener('submit', submitGalleryUpload);
 
 document.addEventListener('click', (e) => {
-  const navBtn = e.target.closest('.admin-nav-button');
-  
-  if (navBtn) showSection(navBtn.dataset.section);
-  
-  if (e.target.closest('#mobileSidebarToggle')) {
-     sidebar.classList.toggle('-translate-x-full');
-  } else if (!e.target.closest('#sidebar') && window.innerWidth < 1024) {
-     sidebar.classList.add('-translate-x-full');
-  }
+    const navBtn = e.target.closest('.admin-nav-button');
+
+    if (navBtn) showSection(navBtn.dataset.section);
+
+    if (e.target.closest('#mobileSidebarToggle')) {
+        sidebar.classList.toggle('-translate-x-full');
+    } else if (!e.target.closest('#sidebar') && window.innerWidth < 1024) {
+        sidebar.classList.add('-translate-x-full');
+    }
 });
 
 let lsMessages = [];
@@ -2735,7 +2776,7 @@ function renderLoveStoryChat() {
 
     const countEl = document.getElementById('ls_count');
     if (countEl) countEl.innerText = `(${lsMessages.length})`;
-    
+
     // Handle placeholder
     const placeholder = document.getElementById('chatPlaceholder');
     if (placeholder) {
@@ -2746,11 +2787,11 @@ function renderLoveStoryChat() {
     // If clearing, we should append items after the placeholder if it exists
     const existingItems = chatList.querySelectorAll('.chat-item-node');
     existingItems.forEach(el => el.remove());
-    
+
     lsMessages.forEach((msg, idx) => {
         let contentHTML = '';
         let cardClass = '';
-        
+
         if (msg.type === 'date') {
             cardClass = 'bg-slate-50 border-slate-200';
             contentHTML = `
@@ -2768,12 +2809,12 @@ function renderLoveStoryChat() {
             const isFemale = msg.sender === 'female';
             const roleName = isFemale ? 'Perempuan' : 'Laki-laki';
             const roleColor = isFemale ? 'pink' : 'blue';
-            
+
             const settings = state.dashboard?.settings || {};
             const avatarUrl = isFemale ? (settings.female_avatar || 'https://ui-avatars.com/api/?name=Bride&background=ec4899&color=fff') : (settings.male_avatar || 'https://ui-avatars.com/api/?name=Groom&background=3b82f6&color=fff');
 
             cardClass = isFemale ? 'bg-pink-50/50 border-pink-200/50 dark:bg-pink-950/20 dark:border-pink-900/30' : 'bg-blue-50/50 border-blue-200/50 dark:bg-blue-950/20 dark:border-blue-900/30';
-            
+
             contentHTML = `
                 <div class="flex flex-col gap-2 w-full">
                     <div class="flex justify-between items-center bg-white/50 dark:bg-slate-800/50 px-3 py-2 rounded-xl border border-white/80 dark:border-slate-700/50 shadow-sm">
@@ -2797,7 +2838,7 @@ function renderLoveStoryChat() {
                 </div>
             `;
         }
-    
+
         const li = document.createElement('div');
         li.className = `${cardClass} border rounded-[16px] p-2.5 flex gap-2 mt-2 relative group transition-all duration-300 hover:shadow-md chat-item-node`;
         li.innerHTML = `
@@ -2812,7 +2853,7 @@ function renderLoveStoryChat() {
     });
 }
 
-window.addLsMessage = function(type) {
+window.addLsMessage = function (type) {
     if (type === 'date') {
         lsMessages.push({ type: 'date', date_label: '' });
     } else {
@@ -2821,16 +2862,16 @@ window.addLsMessage = function(type) {
     renderLoveStoryChat();
 }
 
-window.removeLsMessage = function(idx) {
+window.removeLsMessage = function (idx) {
     lsMessages.splice(idx, 1);
     renderLoveStoryChat();
 }
 
-window.uploadCoupleAvatar = async function(input, coupleId, previewId) {
+window.uploadCoupleAvatar = async function (input, coupleId, previewId) {
     if (!input.files.length) return;
     const formData = new FormData();
     formData.append('image', input.files[0]);
-    
+
     try {
         const res = await fetch(`/api/admin/couple/${coupleId}/photo`, {
             method: 'POST',
@@ -2839,7 +2880,7 @@ window.uploadCoupleAvatar = async function(input, coupleId, previewId) {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Upload failed');
-        
+
         document.getElementById(previewId).src = data.src;
         document.getElementById(`couple${coupleId}Image`).value = data.src;
         showToast(currentLang === 'id' ? 'Foto profil berhasil diunggah!' : 'Profile photo uploaded successfully!', 'success');
@@ -2849,14 +2890,14 @@ window.uploadCoupleAvatar = async function(input, coupleId, previewId) {
     }
 }
 
-window.openImagePreview = function(src) {
-  const modal = document.createElement('div');
-  modal.className = 'fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/90 opacity-0 transition-opacity duration-300';
-  modal.onclick = (e) => {
-    if (e.target === modal) closeImagePreview(modal);
-  };
+window.openImagePreview = function (src) {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/90 opacity-0 transition-opacity duration-300';
+    modal.onclick = (e) => {
+        if (e.target === modal) closeImagePreview(modal);
+    };
 
-  modal.innerHTML = `
+    modal.innerHTML = `
     <div class="relative max-w-5xl max-h-[90vh] p-2 scale-95 transition-transform duration-300" id="previewImageWrapper">
       <button onclick="closeImagePreview(this.closest('.fixed'))" class="absolute -top-4 -right-4 w-10 h-10 bg-white rounded-full text-slate-900 shadow-2xl hover:bg-slate-100 hover:scale-110 transition-all font-bold z-10 flex items-center justify-center">
         <i class="fas fa-times"></i>
@@ -2865,31 +2906,31 @@ window.openImagePreview = function(src) {
     </div>
   `;
 
-  document.body.appendChild(modal);
-  
-  requestAnimationFrame(() => {
-    modal.classList.remove('opacity-0');
-    modal.classList.add('opacity-100');
+    document.body.appendChild(modal);
+
+    requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+        const wrapper = modal.querySelector('#previewImageWrapper');
+        wrapper.classList.remove('scale-95');
+        wrapper.classList.add('scale-100');
+    });
+};
+
+window.closeImagePreview = function (modal) {
+    modal.classList.remove('opacity-100');
+    modal.classList.add('opacity-0');
     const wrapper = modal.querySelector('#previewImageWrapper');
-    wrapper.classList.remove('scale-95');
-    wrapper.classList.add('scale-100');
-  });
+    wrapper.classList.remove('scale-100');
+    wrapper.classList.add('scale-95');
+    setTimeout(() => modal.remove(), 300);
 };
 
-window.closeImagePreview = function(modal) {
-  modal.classList.remove('opacity-100');
-  modal.classList.add('opacity-0');
-  const wrapper = modal.querySelector('#previewImageWrapper');
-  wrapper.classList.remove('scale-100');
-  wrapper.classList.add('scale-95');
-  setTimeout(() => modal.remove(), 300);
-};
-
-window.uploadEventIcon = async function(input, eventId, previewId) {
+window.uploadEventIcon = async function (input, eventId, previewId) {
     if (!input.files.length) return;
     const formData = new FormData();
     formData.append('image', input.files[0]);
-    
+
     try {
         const res = await fetch(`/api/admin/events/${eventId}/icon`, {
             method: 'POST',
@@ -2898,25 +2939,25 @@ window.uploadEventIcon = async function(input, eventId, previewId) {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Upload failed');
-        
+
         const previewImg = document.getElementById(previewId);
         if (previewImg) previewImg.src = data.src;
-        
+
         const hiddenInput = document.getElementById(`event${eventId}Icon`);
         if (hiddenInput) hiddenInput.value = data.src;
-        
+
         showToast(currentLang === 'id' ? 'Ikon acara berhasil diunggah!' : 'Event icon uploaded successfully!', 'success');
     } catch (e) {
         showToast(currentLang === 'id' ? 'Gagal mengupload ikon: ' + e.message : 'Upload failed: ' + e.message, 'error');
     }
 }
 
-window.uploadLsAvatar = async function(input, role, previewId) {
+window.uploadLsAvatar = async function (input, role, previewId) {
     if (!input.files || !input.files[0]) return;
-    
+
     const formData = new FormData();
     formData.append('image', input.files[0]);
-    
+
     try {
         const res = await fetch(`/api/admin/lovestory/avatar/${role}`, {
             method: 'POST',
@@ -2925,10 +2966,10 @@ window.uploadLsAvatar = async function(input, role, previewId) {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Upload failed');
-        
+
         const previewImg = document.getElementById(previewId);
         if (previewImg) previewImg.src = data.src;
-        
+
         showToast(currentLang === 'id' ? 'Avatar berhasil diunggah!' : 'Avatar uploaded!', 'success');
     } catch (e) {
         showToast(e.message, 'error');
@@ -2937,7 +2978,7 @@ window.uploadLsAvatar = async function(input, role, previewId) {
     }
 }
 
-window.saveLoveStory = async function() {
+window.saveLoveStory = async function () {
     const title = document.getElementById('ls_title').value;
     const lovestory_bg = document.getElementById('settingLovestoryBg')?.value || '';
     const lovestory_card_bg = document.getElementById('settingLovestoryCardBg')?.value || '';
@@ -2947,7 +2988,7 @@ window.saveLoveStory = async function() {
         lovestory_card_bg: lovestory_card_bg,
         messages: lsMessages
     };
-    
+
     try {
         await api('/api/admin/lovestory', {
             method: 'PUT',
@@ -2960,14 +3001,14 @@ window.saveLoveStory = async function() {
     }
 }
 
-window.showImportExcelModal = function() {
-  const modal = document.createElement('div');
-  modal.className = 'fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm opacity-0 transition-opacity duration-300';
-  modal.onclick = (e) => {
-    if (e.target === modal) window.closeImportExcelModal(modal);
-  };
+window.showImportExcelModal = function () {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm opacity-0 transition-opacity duration-300';
+    modal.onclick = (e) => {
+        if (e.target === modal) window.closeImportExcelModal(modal);
+    };
 
-  modal.innerHTML = `
+    modal.innerHTML = `
     <div class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-sm overflow-hidden scale-95 transition-transform duration-300 flex flex-col" id="importExcelWrapper">
       <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
         <div class="flex items-center gap-3">
@@ -3010,90 +3051,90 @@ window.showImportExcelModal = function() {
     </div>
   `;
 
-  document.body.appendChild(modal);
-  
-  requestAnimationFrame(() => {
-    modal.classList.remove('opacity-0');
-    modal.classList.add('opacity-100');
+    document.body.appendChild(modal);
+
+    requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+        const wrapper = modal.querySelector('#importExcelWrapper');
+        wrapper.classList.remove('scale-95');
+        wrapper.classList.add('scale-100');
+    });
+};
+
+window.closeImportExcelModal = function (modal) {
+    modal.classList.remove('opacity-100');
+    modal.classList.add('opacity-0');
     const wrapper = modal.querySelector('#importExcelWrapper');
-    wrapper.classList.remove('scale-95');
-    wrapper.classList.add('scale-100');
-  });
+    wrapper.classList.remove('scale-100');
+    wrapper.classList.add('scale-95');
+    setTimeout(() => modal.remove(), 300);
 };
 
-window.closeImportExcelModal = function(modal) {
-  modal.classList.remove('opacity-100');
-  modal.classList.add('opacity-0');
-  const wrapper = modal.querySelector('#importExcelWrapper');
-  wrapper.classList.remove('scale-100');
-  wrapper.classList.add('scale-95');
-  setTimeout(() => modal.remove(), 300);
+window.handleSelectedExcel = function (input) {
+    const fileNameDisplay = document.getElementById('excelFileName');
+    const submitBtn = document.getElementById('importSubmitBtn');
+    if (input.files.length > 0) {
+        fileNameDisplay.innerText = "Terpilih: " + input.files[0].name;
+        fileNameDisplay.classList.remove('hidden');
+        submitBtn.disabled = false;
+    } else {
+        fileNameDisplay.classList.add('hidden');
+        submitBtn.disabled = true;
+    }
 };
 
-window.handleSelectedExcel = function(input) {
-  const fileNameDisplay = document.getElementById('excelFileName');
-  const submitBtn = document.getElementById('importSubmitBtn');
-  if (input.files.length > 0) {
-      fileNameDisplay.innerText = "Terpilih: " + input.files[0].name;
-      fileNameDisplay.classList.remove('hidden');
-      submitBtn.disabled = false;
-  } else {
-      fileNameDisplay.classList.add('hidden');
-      submitBtn.disabled = true;
-  }
+window.uploadExcel = async function () {
+    const input = document.getElementById('excelFileInput');
+    if (!input || !input.files.length) return;
+
+    const btn = document.getElementById('importSubmitBtn');
+    btn.disabled = true;
+    btn.innerText = 'MENGIMPOR...';
+
+    const formData = new FormData();
+    formData.append('file', input.files[0]);
+
+    try {
+        const res = await fetch('/api/admin/guests/import', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        });
+
+        if (!res.ok) {
+            const text = await res.text();
+            let errorMsg = 'Upload failed';
+            try {
+                const json = JSON.parse(text);
+                errorMsg = json.error || errorMsg;
+            } catch (e) {
+                errorMsg = `Server Error (${res.status}): Mohon RESTART server Node.js Anda.`;
+            }
+            throw new Error(errorMsg);
+        }
+
+        const data = await res.json();
+        showToast(currentLang === 'id' ? `Berhasil mengimpor ${data.count} tamu!` : `Successfully imported ${data.count} guests!`, 'success');
+        window.closeImportExcelModal(document.getElementById('importExcelWrapper').closest('.fixed'));
+        await loadDashboard();
+    } catch (e) {
+        showToast(e.message, 'error');
+        btn.disabled = false;
+        btn.innerText = 'MULAI IMPORT';
+    }
 };
-
-window.uploadExcel = async function() {
-  const input = document.getElementById('excelFileInput');
-  if (!input || !input.files.length) return;
-
-  const btn = document.getElementById('importSubmitBtn');
-  btn.disabled = true;
-  btn.innerText = 'MENGIMPOR...';
-
-  const formData = new FormData();
-  formData.append('file', input.files[0]);
-
-  try {
-      const res = await fetch('/api/admin/guests/import', {
-          method: 'POST',
-          body: formData,
-          credentials: 'include'
-      });
-      
-      if (!res.ok) {
-          const text = await res.text();
-          let errorMsg = 'Upload failed';
-          try {
-              const json = JSON.parse(text);
-              errorMsg = json.error || errorMsg;
-          } catch(e) {
-              errorMsg = `Server Error (${res.status}): Mohon RESTART server Node.js Anda.`;
-          }
-          throw new Error(errorMsg);
-      }
-
-      const data = await res.json();
-      showToast(currentLang === 'id' ? `Berhasil mengimpor ${data.count} tamu!` : `Successfully imported ${data.count} guests!`, 'success');
-      window.closeImportExcelModal(document.getElementById('importExcelWrapper').closest('.fixed'));
-      await loadDashboard();
-  } catch (e) {
-      showToast(e.message, 'error');
-      btn.disabled = false;
-      btn.innerText = 'MULAI IMPORT';
-  }
-};
-window.downloadExcelTemplate = function() {
-  const content = "Nama Tamu\nNama Tamu 1\nNama Tamu 2\nNama Tamu 3";
-  const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement("a");
-  const url = URL.createObjectURL(blob);
-  link.setAttribute("href", url);
-  link.setAttribute("download", "template_undangan_tamu.csv");
-  link.style.visibility = 'hidden';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+window.downloadExcelTemplate = function () {
+    const content = "Nama Tamu\nNama Tamu 1\nNama Tamu 2\nNama Tamu 3";
+    const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "template_undangan_tamu.csv");
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 };
 
 async function loadLoveStoryAdmin() {
@@ -3101,20 +3142,20 @@ async function loadLoveStoryAdmin() {
         const response = await api('/api/admin/lovestory');
         lsMessages = response.messages || [];
         const settings = response.settings || {};
-        
+
         const titleEl = document.getElementById('ls_title');
         const mAvatar = document.getElementById('lsGroomAvatar');
         const fAvatar = document.getElementById('lsBrideAvatar');
         const bgInput = document.getElementById('settingLovestoryBg');
         const cardBgInput = document.getElementById('settingLovestoryCardBg');
-        
+
         if (titleEl) titleEl.value = settings.title || settings.chat_title || '';
         if (mAvatar) mAvatar.src = settings.male_avatar || 'https://ui-avatars.com/api/?name=Groom&background=3b82f6&color=fff';
         if (fAvatar) fAvatar.src = settings.female_avatar || 'https://ui-avatars.com/api/?name=Bride&background=ec4899&color=fff';
-        
+
         if (bgInput) bgInput.value = settings.lovestory_bg || '';
         if (cardBgInput) cardBgInput.value = settings.lovestory_card_bg || '';
-        
+
         renderLoveStoryChat();
     } catch (err) {
         console.error('Failed to load Love Story:', err);
@@ -3130,7 +3171,7 @@ async function loadProfileData() {
             document.getElementById('profilePhone').value = data.admin.phone || '';
             document.getElementById('profileNewPassword').value = '';
             document.getElementById('profileCurrentPassword').value = '';
-            
+
             // Load avatar preview
             const avatarPreview = document.getElementById('profileAvatarPreview');
             if (avatarPreview) {
@@ -3142,11 +3183,11 @@ async function loadProfileData() {
     }
 }
 
-window.uploadProfileAvatar = async function(input) {
+window.uploadProfileAvatar = async function (input) {
     if (!input.files || !input.files.length) return;
     const formData = new FormData();
     formData.append('avatar', input.files[0]);
-    
+
     try {
         const res = await fetch('/api/admin/profile/avatar', {
             method: 'POST',
@@ -3155,24 +3196,24 @@ window.uploadProfileAvatar = async function(input) {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Upload failed');
-        
+
         // Update preview
         const preview = document.getElementById('profileAvatarPreview');
         if (preview) preview.src = data.src;
-        
+
         // Update header avatar
         const headerAvatar = document.getElementById('headerUserAvatar');
         const dropdownAvatar = document.getElementById('dropdownUserAvatar');
         if (headerAvatar) headerAvatar.src = data.src;
         if (dropdownAvatar) dropdownAvatar.src = data.src;
-        
+
         showToast(currentLang === 'id' ? 'Foto profil berhasil diupdate!' : 'Profile photo updated!', 'success');
     } catch (e) {
         showToast(currentLang === 'id' ? 'Gagal mengupload foto: ' + e.message : 'Upload failed: ' + e.message, 'error');
     }
 }
 
-window.handleProfileUpdate = async function() {
+window.handleProfileUpdate = async function () {
     const full_name = document.getElementById('profileFullName').value.trim();
     const email = document.getElementById('profileEmail').value.trim();
     const phone = document.getElementById('profilePhone').value.trim();
@@ -3189,17 +3230,17 @@ window.handleProfileUpdate = async function() {
             method: 'PUT',
             body: JSON.stringify({ full_name, email, phone, password, current_password })
         });
-        
+
         showToast('Profil berhasil diperbarui!', 'success');
         document.getElementById('profileCurrentPassword').value = '';
         document.getElementById('profileNewPassword').value = '';
-        
+
         // Update header UI
         const headerName = document.getElementById('headerUserName');
         const dropdownName = document.getElementById('dropdownUserName');
         if (headerName) headerName.innerText = full_name || 'Administrator';
         if (dropdownName) dropdownName.innerText = full_name || 'Administrator';
-        
+
         // Update header avatar fallback name
         const headerAvatar = document.getElementById('headerUserAvatar');
         const dropdownAvatar = document.getElementById('dropdownUserAvatar');
@@ -3209,7 +3250,7 @@ window.handleProfileUpdate = async function() {
         if (dropdownAvatar && dropdownAvatar.src.includes('ui-avatars.com')) {
             dropdownAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(full_name || 'Admin')}&background=4f46e5&color=fff&bold=true`;
         }
-        
+
     } catch (e) {
         showToast(e.message, 'error');
     }
@@ -3218,7 +3259,7 @@ window.handleProfileUpdate = async function() {
 // checkLogin is now called inside DOMContentLoaded listener above
 
 // --- Mobile Search Logic ---
-window.toggleMobileSearch = function() {
+window.toggleMobileSearch = function () {
     const panel = document.getElementById('mobileSearchPanel');
     if (!panel) return;
     if (panel.classList.contains('hidden')) {
@@ -3261,7 +3302,7 @@ function handleGlobalSearch(query) {
     }
 
     const allNamesMap = new Map();
-    
+
     (state.dashboard.guests || []).forEach(g => {
         const name = (g.name || '').trim();
         if (name && (name.toLowerCase().includes(q) || (g.token && g.token.toLowerCase().includes(q)))) {
@@ -3330,7 +3371,7 @@ function handleGlobalSearch(query) {
     }
 }
 
-window.closeGlobalSearch = function() {
+window.closeGlobalSearch = function () {
     const panel = document.getElementById('globalSearchResults');
     if (panel) panel.classList.add('hidden');
     // Clear inputs optionally
@@ -3349,7 +3390,7 @@ document.addEventListener('click', (e) => {
             closeGlobalSearch();
         }
     }
-    
+
     // 2. Mobile Search Bar Panel
     const mPanel = document.getElementById('mobileSearchPanel');
     const mToggle = document.getElementById('mobileSearchToggle');
@@ -3364,7 +3405,7 @@ document.addEventListener('click', (e) => {
 });
 
 // --- Notifications Logic ---
-window.toggleNotifications = function() {
+window.toggleNotifications = function () {
     const menu = document.getElementById('notificationsMenu');
     if (!menu) return;
     const isCurrentlyHidden = menu.classList.contains('opacity-0');
@@ -3372,7 +3413,7 @@ window.toggleNotifications = function() {
         closeAllHeaderMenus(); // Close others before opening
         menu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
         menu.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
-        
+
         // Mark as Read
         localStorage.setItem('lastReadNotifications', Date.now());
         populateNotifications();
@@ -3400,20 +3441,20 @@ document.getElementById('refreshNotificationsBtn')?.addEventListener('click', as
     const btn = e.currentTarget;
     const icon = btn.querySelector('i');
     if (!icon) return;
-    
+
     // Start spinning animation
     icon.className = 'fas fa-sync-alt fa-spin text-sm text-indigo-500';
-    
+
     // Create a minimum duration for the spin (e.g. 800ms)
     const minSpin = new Promise(resolve => setTimeout(resolve, 800));
-    
+
     try {
         // Refresh dashboard data and wait for both min duration and data
         await Promise.all([loadDashboard(), minSpin]);
-        
+
         // Populate the notifications list with fresh data if menu is open
         populateNotifications();
-        
+
         // Show success checkmark
         icon.className = 'fas fa-check text-sm text-emerald-500';
     } catch (err) {
@@ -3421,7 +3462,7 @@ document.getElementById('refreshNotificationsBtn')?.addEventListener('click', as
         icon.className = 'fas fa-times text-sm text-red-500';
         console.error('Failed to refresh notifications:', err);
     }
-    
+
     // Revert to stable refresh icon after 1.5s
     setTimeout(() => {
         icon.className = 'fas fa-sync-alt text-sm';
@@ -3429,9 +3470,9 @@ document.getElementById('refreshNotificationsBtn')?.addEventListener('click', as
 });
 
 let activeNotificationTab = 'all';
-window.setNotificationTab = function(tab) {
+window.setNotificationTab = function (tab) {
     activeNotificationTab = tab;
-    
+
     // Update UI
     ['all', 'today', 'week', 'earlier'].forEach(t => {
         const btn = document.getElementById(`tab-notif-${t}`);
@@ -3443,18 +3484,18 @@ window.setNotificationTab = function(tab) {
             }
         }
     });
-    
+
     populateNotifications();
 };
 
-window.populateNotifications = function() {
+window.populateNotifications = function () {
     const list = document.getElementById('notificationsList');
     if (!list || !state.dashboard) return;
-    
+
     // Check if notifications are globally enabled
     const isNotificationsEnabled = state.dashboard.settings?.notifications_enabled !== 'false';
     const badge = document.getElementById('notificationBadge');
-    
+
     if (!isNotificationsEnabled) {
         if (badge) badge.classList.add('hidden');
         list.innerHTML = `
@@ -3473,11 +3514,11 @@ window.populateNotifications = function() {
         });
         return;
     }
-    
+
     const now = new Date();
     const oneDayAgo = new Date(now.getTime() - (24 * 60 * 60 * 1000));
     const lastRead = parseInt(localStorage.getItem('lastReadNotifications') || '0');
-    
+
     // Retention Logic
     const retentionDays = parseInt(state.dashboard.settings?.notification_retention || '30');
     let thresholdDate = null;
@@ -3485,17 +3526,17 @@ window.populateNotifications = function() {
         thresholdDate = new Date();
         thresholdDate.setDate(thresholdDate.getDate() - retentionDays);
     }
-    
+
     const rsvps = (state.dashboard.rsvps || [])
-        .map(r => ({...r, _type: 'rsvp', _date: new Date(r.created_at || new Date())}))
+        .map(r => ({ ...r, _type: 'rsvp', _date: new Date(r.created_at || new Date()) }))
         .filter(r => !thresholdDate || r._date >= thresholdDate);
-        
+
     const wishes = (state.dashboard.wishes || [])
-        .map(w => ({...w, _type: 'wish', _date: new Date(w.created_at || new Date())}))
+        .map(w => ({ ...w, _type: 'wish', _date: new Date(w.created_at || new Date()) }))
         .filter(w => !thresholdDate || w._date >= thresholdDate);
-    
-    const combined = [...rsvps, ...wishes].sort((a,b) => b._date - a._date);
-    
+
+    const combined = [...rsvps, ...wishes].sort((a, b) => b._date - a._date);
+
     const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const sevenDaysAgo = new Date(now.getTime() - (7 * 24 * 60 * 60 * 1000));
 
@@ -3523,7 +3564,7 @@ window.populateNotifications = function() {
             return item._date < sevenDaysAgo;
         }
     }).slice(0, 15);
-    
+
     if (filtered.length === 0) {
         const emptyMsgs = {
             all: 'Belum ada notifikasi',
@@ -3546,17 +3587,17 @@ window.populateNotifications = function() {
         }
         return;
     }
-    
+
     let unreadCount = 0;
 
     list.innerHTML = filtered.map(item => {
-        const timeStr = item._date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        const timeStr = item._date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         // Only "New" if it's within 24h AND after lastRead
         const isNew = item._date > oneDayAgo && item._date.getTime() > lastRead;
         if (isNew) unreadCount++;
 
         const newMarker = isNew ? `<span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-2 shrink-0"></span>` : '';
-        
+
         if (item._type === 'rsvp') {
             const isHadir = (item.status || '').toLowerCase() === 'hadir';
             return `
@@ -3604,7 +3645,7 @@ window.populateNotifications = function() {
             `;
         }
     }).join('');
-    
+
     // Update badge based on global unread status (across all tabs)
     const globalUnread = combined.some(item => {
         const oneDayAgo = new Date(now.getTime() - (24 * 60 * 60 * 1000));
@@ -3619,16 +3660,16 @@ window.populateNotifications = function() {
     }
 }
 
-window.openMusicModal = function() {
+window.openMusicModal = function () {
     window.showModal('musicUploadModal');
     resetMusicInput();
 };
 
-window.closeMusicModal = function() {
+window.closeMusicModal = function () {
     window.hideModal('musicUploadModal');
 };
 
-window.resetMusicInput = function() {
+window.resetMusicInput = function () {
     const fileInput = document.getElementById('musicFileInput');
     const placeholder = document.getElementById('musicUploadPlaceholder');
     const selected = document.getElementById('musicFileSelected');
@@ -3651,10 +3692,10 @@ window.resetMusicInput = function() {
         startBtn.disabled = true;
         startBtn.classList.add('opacity-50');
     }
-    
+
     // Setup listener if not already done
     if (fileInput && !fileInput.dataset.listenerSet) {
-        fileInput.addEventListener('change', function() {
+        fileInput.addEventListener('change', function () {
             if (this.files && this.files[0]) {
                 const file = this.files[0];
                 document.getElementById('musicSelectedName').innerText = file.name;
@@ -3669,7 +3710,7 @@ window.resetMusicInput = function() {
     }
 };
 
-window.handleMusicUpload = async function() {
+window.handleMusicUpload = async function () {
     const fileInput = document.getElementById('musicFileInput');
     if (!fileInput || !fileInput.files || !fileInput.files[0]) return;
 
@@ -3690,12 +3731,12 @@ window.handleMusicUpload = async function() {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '/api/admin/music/upload', true);
 
-        xhr.upload.onprogress = function(e) {
+        xhr.upload.onprogress = function (e) {
             if (e.lengthComputable) {
                 const percent = Math.round((e.loaded / e.total) * 100);
                 progressBar.style.width = percent + '%';
                 progressPercent.innerText = percent + '%';
-                
+
                 if (percent === 100) {
                     const statusText = document.querySelector('#musicUploadProgress span');
                     if (statusText) statusText.innerHTML = '<i class="fas fa-sync fa-spin text-indigo-600"></i> Memproses & Menyimpan...';
@@ -3703,7 +3744,7 @@ window.handleMusicUpload = async function() {
             }
         };
 
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
                 if (data.success) {
@@ -3725,7 +3766,7 @@ window.handleMusicUpload = async function() {
                 try {
                     const data = JSON.parse(xhr.responseText);
                     errorMsg = data.error || errorMsg;
-                } catch(e) {}
+                } catch (e) { }
                 showToast(errorMsg, 'error');
                 startBtn.disabled = false;
                 startBtn.classList.remove('opacity-50');
@@ -3738,7 +3779,7 @@ window.handleMusicUpload = async function() {
             if (statusText) statusText.innerHTML = '<i class="fas fa-spinner fa-spin text-indigo-600"></i> Sedang Mengunggah...';
         }
 
-        xhr.onerror = function() {
+        xhr.onerror = function () {
             showToast('Terjadi kesalahan jaringan.', 'error');
             startBtn.disabled = false;
             startBtn.classList.remove('opacity-50');
@@ -3754,7 +3795,7 @@ window.handleMusicUpload = async function() {
     }
 };
 
-window.removeBgMusic = async function() {
+window.removeBgMusic = async function () {
     window.deleteWithConfirm(async () => {
         try {
             const payload = { bg_music: '' };
@@ -3777,15 +3818,15 @@ document.addEventListener('click', (e) => {
     const container = document.getElementById('retentionDropdownContainer');
     const list = document.getElementById('retentionOptionsList');
     const chevron = document.getElementById('retentionChevron');
-    
+
     if (container) {
         const btn = e.target.closest('#retentionDropdownBtn');
         const opt = e.target.closest('.retention-option');
-        
+
         if (btn) {
             e.stopPropagation();
             const isOpen = !list.classList.contains('opacity-0');
-            
+
             if (isOpen) {
                 list.classList.add('opacity-0', 'invisible', 'translate-y-2');
                 chevron.classList.remove('rotate-180');
@@ -3799,16 +3840,16 @@ document.addEventListener('click', (e) => {
             const val = opt.getAttribute('data-value');
             const selectEl = document.getElementById('settingNotificationRetention');
             const labelEl = document.getElementById('retentionSelectedLabel');
-            
+
             selectEl.value = val;
             labelEl.innerText = opt.querySelector('span').innerText;
-            
+
             document.querySelectorAll('.retention-option').forEach(el => el.classList.remove('active'));
             opt.classList.add('active');
-            
+
             saveSettings();
         }
-        
+
         // Auto Close
         if (!e.target.closest('#retentionDropdownContainer') && list && !list.classList.contains('opacity-0')) {
             list.classList.add('opacity-0', 'invisible', 'translate-y-2');
@@ -3822,15 +3863,15 @@ document.addEventListener('click', (e) => {
     const wContainer = document.getElementById('wishesLimitDropdownContainer');
     const wList = document.getElementById('wishesLimitOptionsList');
     const wChevron = document.getElementById('wishesLimitChevron');
-    
+
     if (wContainer) {
         const wBtn = e.target.closest('#wishesLimitDropdownBtn');
         const wOpt = e.target.closest('.wisheslimit-option');
-        
+
         if (wBtn) {
             e.stopPropagation();
             const isWOpen = !wList.classList.contains('opacity-0');
-            
+
             if (isWOpen) {
                 wList.classList.add('opacity-0', 'invisible', 'translate-y-2');
                 wChevron.classList.remove('rotate-180');
@@ -3844,16 +3885,16 @@ document.addEventListener('click', (e) => {
             const wVal = wOpt.getAttribute('data-value');
             const wSelectEl = document.getElementById('settingWishesLimit');
             const wLabelEl = document.getElementById('wishesLimitSelectedLabel');
-            
+
             wSelectEl.value = wVal;
             wLabelEl.innerText = wOpt.querySelector('span').innerText;
-            
+
             document.querySelectorAll('.wisheslimit-option').forEach(el => el.classList.remove('active'));
             wOpt.classList.add('active');
-            
+
             saveSettings();
         }
-        
+
         // Auto Close
         if (!e.target.closest('#wishesLimitDropdownContainer') && wList && !wList.classList.contains('opacity-0')) {
             wList.classList.add('opacity-0', 'invisible', 'translate-y-2');
@@ -3866,7 +3907,7 @@ document.addEventListener('click', (e) => {
 
 
 // WhatsApp Template Management
-window.showWaTemplateModal = function() {
+window.showWaTemplateModal = function () {
     const template = state.dashboard.settings?.wa_template || '';
     document.getElementById('waTemplateInput').value = template;
     const editor = document.getElementById('waTemplateEditor');
@@ -3876,7 +3917,7 @@ window.showWaTemplateModal = function() {
     showModal('waTemplateModal');
 };
 
-window.saveWaTemplate = async function() {
+window.saveWaTemplate = async function () {
     const template = document.getElementById('waTemplateInput').value;
     try {
         await api('/api/admin/settings', {
@@ -3892,12 +3933,12 @@ window.saveWaTemplate = async function() {
     }
 };
 
-window.copyGuestMessage = function(name, link) {
+window.copyGuestMessage = function (name, link) {
     const template = state.dashboard.settings?.wa_template || 'Halo @nama, berikut link undangan Anda: @link';
     const message = template
         .replace(/@nama/g, name)
         .replace(/@link/g, link);
-    
+
     navigator.clipboard.writeText(message).then(() => {
         showToast(`Pesan untuk ${name} berhasil disalin!`, 'success');
     }).catch(err => {
@@ -3906,32 +3947,32 @@ window.copyGuestMessage = function(name, link) {
     });
 };
 
-window.syncEditorToHidden = function() {
+window.syncEditorToHidden = function () {
     const editor = document.getElementById('waTemplateEditor');
     const hidden = document.getElementById('waTemplateInput');
     if (!editor || !hidden) return;
     hidden.value = window.convertHtmlToWaMarkdown(editor.innerHTML);
 };
 
-window.convertHtmlToWaMarkdown = function(html) {
+window.convertHtmlToWaMarkdown = function (html) {
     let text = html;
     // Standardize newlines from divs/ps
     text = text.replace(/<div[^>]*>(.*?)<\/div>/gi, '\n$1');
     text = text.replace(/<p[^>]*>(.*?)<\/p>/gi, '\n$1');
     text = text.replace(/<br\s*\/?>/gi, '\n');
-    
+
     // Convert style tags to WA Markdown
     text = text.replace(/<(b|strong)[^>]*>(.*?)<\/(b|strong)>/gi, '*$2*');
     text = text.replace(/<(i|em)[^>]*>(.*?)<\/(i|em)>/gi, '_$2_');
     text = text.replace(/<(s|strike|del)[^>]*>(.*?)<\/(s|strike|del)>/gi, '~$2~');
-    
+
     // Strip remaining tags
     const temp = document.createElement('div');
     temp.innerHTML = text;
     return (temp.textContent || temp.innerText || "").trim();
 };
 
-window.convertWaMarkdownToHtml = function(markdown) {
+window.convertWaMarkdownToHtml = function (markdown) {
     if (!markdown) return '';
     let html = markdown;
     html = html.replace(/\*(.*?)\*/g, '<b>$1</b>');
@@ -3941,14 +3982,14 @@ window.convertWaMarkdownToHtml = function(markdown) {
     return html;
 };
 
-window.execWaCommand = function(cmd, val = null) {
+window.execWaCommand = function (cmd, val = null) {
     document.execCommand(cmd, false, val);
     window.syncEditorToHidden();
     window.updateWaEditorStates();
     document.getElementById('waTemplateEditor').focus();
 };
 
-window.handleFontSize = function(size) {
+window.handleFontSize = function (size) {
     const sel = window.getSelection();
     if (!sel.rangeCount) return;
     const range = sel.getRangeAt(0);
@@ -3959,7 +4000,7 @@ window.handleFontSize = function(size) {
     window.syncEditorToHidden();
 };
 
-window.updateWaEditorStates = function() {
+window.updateWaEditorStates = function () {
     const commands = {
         'bold': 'btnWaBold',
         'italic': 'btnWaItalic',
@@ -3988,10 +4029,10 @@ document.addEventListener('selectionchange', () => {
     }
 });
 
-window.insertWaTagAtCursor = function(tag) {
+window.insertWaTagAtCursor = function (tag) {
     const editor = document.getElementById('waTemplateEditor');
     editor.focus();
-    
+
     let content = tag;
     if (tag.startsWith('@')) {
         content = `<span class="text-white bg-indigo-600 px-2 py-0.5 rounded-lg font-bold text-[11px]" contenteditable="false">${tag}</span>&nbsp;`;
@@ -4022,7 +4063,7 @@ window.insertWaTagAtCursor = function(tag) {
 };
 
 // Dark Mode Feature
-window.toggleDarkMode = function() {
+window.toggleDarkMode = function () {
     const isDark = document.documentElement.classList.contains('dark');
     const icon = document.getElementById('darkModeIcon');
     if (isDark) {
@@ -4042,11 +4083,11 @@ window.toggleDarkMode = function() {
     }
 };
 
-window.togglePasswordVisibility = function(inputId, iconId) {
+window.togglePasswordVisibility = function (inputId, iconId) {
     const input = document.getElementById(inputId);
     const icon = document.getElementById(iconId);
     if (!input || !icon) return;
-    
+
     if (input.type === 'password') {
         input.type = 'text';
         icon.classList.remove('fa-eye');
@@ -4058,7 +4099,7 @@ window.togglePasswordVisibility = function(inputId, iconId) {
     }
 };
 
-window.setGiftBgPreset = function(value) {
+window.setGiftBgPreset = function (value) {
     const input = document.getElementById('settingGiftBgColor');
     if (input) {
         input.value = value;
@@ -4067,7 +4108,7 @@ window.setGiftBgPreset = function(value) {
     }
 };
 
-window.setWishesBgPreset = function(value) {
+window.setWishesBgPreset = function (value) {
     const input = document.getElementById('settingWishesBgColor');
     if (input) {
         input.value = value;
@@ -4076,7 +4117,7 @@ window.setWishesBgPreset = function(value) {
     }
 };
 
-window.setRsvpBgPreset = function(value) {
+window.setRsvpBgPreset = function (value) {
     const input = document.getElementById('settingRsvpBgColor');
     if (input) {
         input.value = value;
@@ -4084,7 +4125,7 @@ window.setRsvpBgPreset = function(value) {
     }
 };
 
-window.setWishesBgMode = function(mode, skipSave = false) {
+window.setWishesBgMode = function (mode, skipSave = false) {
     const isImage = mode === 'image';
     const slider = document.getElementById('wishesBgModeSlider');
     const colorBtn = document.getElementById('wishesModeColorBtn');
@@ -4111,10 +4152,10 @@ window.setWishesBgMode = function(mode, skipSave = false) {
             colorBtn.classList.add('text-white');
         }
     }
-    if (!skipSave) saveSettings(); 
+    if (!skipSave) saveSettings();
 };
 
-window.setGiftBgMode = function(mode, skipSave = false) {
+window.setGiftBgMode = function (mode, skipSave = false) {
     const isImage = mode === 'image';
     const slider = document.getElementById('giftBgModeSlider');
     const colorBtn = document.getElementById('giftModeColorBtn');
@@ -4141,10 +4182,10 @@ window.setGiftBgMode = function(mode, skipSave = false) {
             colorBtn.classList.add('text-white');
         }
     }
-    if (!skipSave) saveSettings(); 
+    if (!skipSave) saveSettings();
 };
 
-window.syncWishesColor = function(val, target) {
+window.syncWishesColor = function (val, target) {
     const input = document.getElementById('settingWishesBgColor');
     const picker = document.getElementById('wishesColorPicker');
     const previewContainer = document.getElementById('wishesBgPreviewContainer');
@@ -4162,7 +4203,7 @@ window.syncWishesColor = function(val, target) {
     }
 };
 
-window.syncGiftColor = function(val, target) {
+window.syncGiftColor = function (val, target) {
     const input = document.getElementById('settingGiftBgColor');
     const picker = document.getElementById('giftColorPicker');
     const previewContainer = document.getElementById('giftBgPreviewContainer');
@@ -4180,7 +4221,7 @@ window.syncGiftColor = function(val, target) {
     }
 };
 
-window.setOpeningBgPreset = function(value) {
+window.setOpeningBgPreset = function (value) {
     const input = document.getElementById('settingOpeningBgColor');
     if (input) {
         input.value = value;
@@ -4188,7 +4229,7 @@ window.setOpeningBgPreset = function(value) {
     }
 };
 
-window.setGreetingBgPreset = function(value) {
+window.setGreetingBgPreset = function (value) {
     const input = document.getElementById('settingGreetingBgColor');
     if (input) {
         input.value = value;
@@ -4196,7 +4237,7 @@ window.setGreetingBgPreset = function(value) {
     }
 };
 
-window.setCoupleBgPreset = function(value) {
+window.setCoupleBgPreset = function (value) {
     const input = document.getElementById('settingCoupleBgColor');
     if (input) {
         input.value = value;
@@ -4204,7 +4245,7 @@ window.setCoupleBgPreset = function(value) {
     }
 };
 
-window.setEventBgPreset = function(value) {
+window.setEventBgPreset = function (value) {
     const input = document.getElementById('settingEventBgColor');
     if (input) {
         input.value = value;
@@ -4212,7 +4253,7 @@ window.setEventBgPreset = function(value) {
     }
 };
 
-window.setLovestoryBgPreset = function(value) {
+window.setLovestoryBgPreset = function (value) {
     const input = document.getElementById('settingLovestoryBgColor');
     if (input) {
         input.value = value;
@@ -4220,7 +4261,7 @@ window.setLovestoryBgPreset = function(value) {
     }
 };
 
-window.setLovestoryCardBgPreset = function(value) {
+window.setLovestoryCardBgPreset = function (value) {
     const input = document.getElementById('settingLovestoryCardBgColor');
     if (input) {
         input.value = value;
@@ -4229,16 +4270,16 @@ window.setLovestoryCardBgPreset = function(value) {
 };
 
 // --- Opening Page Logic ---
-window.setOpeningBgMode = function(mode, skipSave = false) {
+window.setOpeningBgMode = function (mode, skipSave = false) {
     const modeInput = document.getElementById('settingOpeningBgMode');
     const indicator = document.getElementById('openingModeIndicator');
     const textWarna = document.querySelector('#btnModeColor .mode-text');
     const textGambar = document.querySelector('#btnModeImage .mode-text');
-    
+
     if (!modeInput || !indicator || !textWarna || !textGambar) return;
 
     modeInput.value = mode;
-    
+
     if (mode === 'image') {
         indicator.style.transform = 'translateX(100%)';
         textWarna.className = 'mode-text transition-colors duration-300 text-slate-400 dark:text-slate-100';
@@ -4251,23 +4292,23 @@ window.setOpeningBgMode = function(mode, skipSave = false) {
     if (!skipSave) saveSettings();
 };
 
-window.syncOpeningColor = function(val, target) {
+window.syncOpeningColor = function (val, target) {
     const input = document.getElementById('settingOpeningBgColor');
     const picker = document.getElementById('openingColorPicker');
     const box = document.getElementById('openingColorBox');
-    
+
     if (target === 'input') {
         input.value = val.toUpperCase();
     } else {
         picker.value = val;
     }
-    
+
     if (box) {
         box.style.backgroundColor = val;
     }
 };
 
-window.saveOpeningSettings = async function() {
+window.saveOpeningSettings = async function () {
     try {
         await saveSettings(true);
         showToast('Halaman Pembuka berhasil disimpan', 'success');
@@ -4281,14 +4322,24 @@ window.saveOpeningSettings = async function() {
 function initOpeningUI() {
     const modeInput = document.getElementById('settingOpeningBgMode');
     if (modeInput) {
-        // Delay slightly to ensure DOM is ready for transform
         setTimeout(() => {
-            window.setOpeningBgMode(modeInput.value || 'color');
+            window.setOpeningBgMode(modeInput.value || 'color', true);
         }, 100);
     }
 }
 
-window.renderOpeningSlider = function() {
+window.scrollOpeningBg = function (direction) {
+    const container = document.getElementById('openingBgList');
+    if (!container) return;
+    const scrollAmount = 300; // Adjust as needed
+    if (direction === 'left') {
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+};
+
+window.renderOpeningSlider = function () {
     const listContainer = document.getElementById('openingBgList');
     const hiddenInput = document.getElementById('settingOpeningBgImg');
     if (!listContainer || !hiddenInput) return;
@@ -4330,18 +4381,28 @@ window.renderOpeningSlider = function() {
             animation: 250,
             ghostClass: 'opacity-20',
             dragClass: 'shadow-2xl',
-            onEnd: function() {
+            onEnd: function () {
                 const items = listContainer.querySelectorAll('[data-url]');
                 const newUrls = Array.from(items).map(el => el.getAttribute('data-url'));
                 hiddenInput.value = newUrls.join(',');
-                // Re-render to update the delete button indices
-                window.renderOpeningSlider();
+                saveSettings(true);
             }
         });
     }
 };
 
-window.previewOpeningImg = function(url) {
+window.scrollOpeningSlider = function (direction) {
+    const list = document.getElementById('openingBgList');
+    if (!list) return;
+    const scrollAmount = 300;
+    if (direction === 'left') {
+        list.scrollLeft -= scrollAmount;
+    } else {
+        list.scrollLeft += scrollAmount;
+    }
+};
+
+window.previewOpeningImg = function (url) {
     const modal = document.getElementById('imagePreviewModal');
     const img = document.getElementById('previewImgFull');
     if (modal && img) {
@@ -4350,38 +4411,44 @@ window.previewOpeningImg = function(url) {
     }
 };
 
-window.uploadOpeningSliderImg = async function(input) {
-    if (!input.files || !input.files[0]) return;
-    const formData = new FormData();
-    formData.append('image', input.files[0]);
-    formData.append('setting_key', 'opening_slider');
+window.uploadOpeningSliderImg = async function (input) {
+    if (!input.files || input.files.length === 0) return;
 
-    try {
-        const response = await fetch('/api/admin/settings/upload', {
-            method: 'POST',
-            body: formData
-        });
-        const result = await response.json();
-        if (result.success) {
-            const hiddenInput = document.getElementById('settingOpeningBgImg');
-            let currentUrls = hiddenInput.value ? hiddenInput.value.split(',').filter(u => u.trim() !== '') : [];
-            currentUrls.push(result.src);
-            hiddenInput.value = currentUrls.join(',');
-            
-            window.renderOpeningSlider();
-            showToast('Gambar slider ditambahkan', 'success');
-            saveSettings();
-        } else {
-            showToast(result.error || 'Gagal mengunggah gambar', 'error');
+    const files = Array.from(input.files);
+    let uploadedCount = 0;
+
+    for (const file of files) {
+        const fileData = new FormData();
+        fileData.append('image', file);
+        fileData.append('setting_key', 'opening_bg_img');
+
+        try {
+            const response = await fetch('/api/admin/settings/upload', {
+                method: 'POST',
+                body: fileData
+            });
+            const result = await response.json();
+            if (result.success) {
+                const hiddenInput = document.getElementById('settingOpeningBgImg');
+                let currentUrls = hiddenInput.value ? hiddenInput.value.split(',').filter(u => u.trim() !== '') : [];
+                currentUrls.push(result.src);
+                hiddenInput.value = currentUrls.join(',');
+                uploadedCount++;
+            }
+        } catch (err) {
+            console.error('Error uploading opening image:', err);
         }
-    } catch (err) {
-        console.error(err);
-        showToast('Gagal mengunggah gambar', 'error');
+    }
+
+    if (uploadedCount > 0) {
+        window.renderOpeningSlider();
+        showToast(`${uploadedCount} foto berhasil ditambahkan`, 'success');
+        saveSettings();
     }
     input.value = ''; // Reset input
 };
 
-window.removeOpeningSliderImg = function(index) {
+window.removeOpeningSliderImg = function (index) {
     const hiddenInput = document.getElementById('settingOpeningBgImg');
     let currentUrls = hiddenInput.value ? hiddenInput.value.split(',').filter(u => u.trim() !== '') : [];
     currentUrls.splice(index, 1);
@@ -4394,7 +4461,7 @@ window.removeOpeningSliderImg = function(index) {
 // Section Sambutan Background Management
 // =============================================
 
-window.setGreetingBgMode = function(mode, skipSave = false) {
+window.setGreetingBgMode = function (mode, skipSave = false) {
     const indicator = document.getElementById('greetingModeIndicator');
     const modeInput = document.getElementById('settingGreetingBgMode');
     const textWarna = document.querySelector('#btnGreetingModeColor .greeting-mode-text');
@@ -4413,7 +4480,7 @@ window.setGreetingBgMode = function(mode, skipSave = false) {
     if (!skipSave) saveSettings();
 };
 
-window.syncGreetingColor = function(val, target) {
+window.syncGreetingColor = function (val, target) {
     const input = document.getElementById('settingGreetingBgColor');
     const picker = document.getElementById('greetingColorPicker');
     const box = document.getElementById('greetingColorBox');
@@ -4425,7 +4492,7 @@ window.syncGreetingColor = function(val, target) {
     if (box) box.style.backgroundColor = val;
 };
 
-window.setCoupleBgMode = function(mode, skipSave = false) {
+window.setCoupleBgMode = function (mode, skipSave = false) {
     const indicator = document.getElementById('coupleModeIndicator');
     const modeInput = document.getElementById('settingCoupleBgMode');
     const textWarna = document.querySelector('#btnCoupleModeColor .couple-mode-text');
@@ -4444,7 +4511,7 @@ window.setCoupleBgMode = function(mode, skipSave = false) {
     if (!skipSave) saveSettings();
 };
 
-window.syncCoupleColor = function(val, target) {
+window.syncCoupleColor = function (val, target) {
     const input = document.getElementById('settingCoupleBgColor');
     const picker = document.getElementById('coupleColorPicker');
     const box = document.getElementById('coupleColorBox');
@@ -4465,7 +4532,7 @@ window.syncCoupleColor = function(val, target) {
     }
 };
 
-window.removeCoupleBgImg = function() {
+window.removeCoupleBgImg = function () {
     const hiddenInput = document.getElementById('settingCoupleBgImg');
     const preview = document.getElementById('coupleBgPreview');
     if (hiddenInput) hiddenInput.value = '';
@@ -4476,7 +4543,7 @@ window.removeCoupleBgImg = function() {
     showToast('Background gambar dihapus. Silakan simpan pengaturan.', 'success');
 };
 
-window.renderGreetingSlider = function() {
+window.renderGreetingSlider = function () {
     const previewImg = document.getElementById('greetingBgPreview');
     const hiddenInput = document.getElementById('settingGreetingBgImg');
     if (!previewImg || !hiddenInput) return;
@@ -4490,13 +4557,13 @@ window.renderGreetingSlider = function() {
     }
 };
 
-window.previewGreetingImg = function(url) {
+window.previewGreetingImg = function (url) {
     const modal = document.getElementById('imagePreviewModal');
     const img = document.getElementById('previewImgFull');
     if (modal && img) { img.src = url; showModal('imagePreviewModal'); }
 };
 
-window.uploadGreetingBgImg = async function(input) {
+window.uploadGreetingBgImg = async function (input) {
     if (!input.files || !input.files[0]) return;
     const formData = new FormData();
     formData.append('image', input.files[0]);
@@ -4519,7 +4586,7 @@ window.uploadGreetingBgImg = async function(input) {
     input.value = '';
 };
 
-window.removeGreetingBgImg = function() {
+window.removeGreetingBgImg = function () {
     const hiddenInput = document.getElementById('settingGreetingBgImg');
     if (hiddenInput) {
         hiddenInput.value = '';
@@ -4529,7 +4596,7 @@ window.removeGreetingBgImg = function() {
     }
 };
 
-window.setRsvpBgMode = function(mode, skipSave = false) {
+window.setRsvpBgMode = function (mode, skipSave = false) {
     const isImage = mode === 'image';
     const slider = document.getElementById('rsvpBgModeSlider');
     const colorBtn = document.getElementById('rsvpModeColorBtn');
@@ -4556,10 +4623,10 @@ window.setRsvpBgMode = function(mode, skipSave = false) {
             colorBtn.classList.add('text-white');
         }
     }
-    if (!skipSave) saveSettings(); 
+    if (!skipSave) saveSettings();
 };
 
-window.syncRsvpColor = function(val, target) {
+window.syncRsvpColor = function (val, target) {
     const input = document.getElementById('settingRsvpBgColor');
     const picker = document.getElementById('rsvpColorPicker');
     const previewContainer = document.getElementById('rsvpBgPreviewContainer');
@@ -4577,7 +4644,7 @@ window.syncRsvpColor = function(val, target) {
     }
 };
 
-window.setRsvpBgPreset = function(value) {
+window.setRsvpBgPreset = function (value) {
     const input = document.getElementById('settingRsvpBgColor');
     if (input) {
         input.value = value;
@@ -4587,16 +4654,16 @@ window.setRsvpBgPreset = function(value) {
 };
 
 // WA Template formatting functions
-window.formatRichText = function(command, value = null) {
+window.formatRichText = function (command, value = null) {
     document.execCommand(command, false, value);
     const editor = document.getElementById('waTemplateInput');
     if (editor) editor.focus();
 };
 
-window.insertWaTag = function(tag) {
+window.insertWaTag = function (tag) {
     const editor = document.getElementById('waTemplateInput');
     if (!editor) return;
-    
+
     editor.focus();
     const sel = window.getSelection();
     if (sel.getRangeAt && sel.rangeCount) {
@@ -4604,7 +4671,7 @@ window.insertWaTag = function(tag) {
         range.deleteContents();
         const textNode = document.createTextNode(tag);
         range.insertNode(textNode);
-        
+
         // Move cursor after the inserted tag
         range.setStartAfter(textNode);
         range.setEndAfter(textNode);
@@ -4615,7 +4682,7 @@ window.insertWaTag = function(tag) {
     }
 };
 
-window.saveWaTemplate = function() {
+window.saveWaTemplate = function () {
     saveSettings(false, 'Template WA berhasil disimpan');
     hideModal('waTemplateModal');
 };
@@ -4624,6 +4691,7 @@ window.saveWaTemplate = function() {
 (function initGreetingUI() {
     const modeInput = document.getElementById('settingGreetingBgMode');
     if (modeInput) {
-        setTimeout(() => { window.setGreetingBgMode(modeInput.value || 'color'); }, 150);
+        setTimeout(() => { window.setGreetingBgMode(modeInput.value || 'color', true); }, 150);
     }
+    initOpeningUI();
 })();

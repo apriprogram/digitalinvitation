@@ -97,6 +97,8 @@ async function loadPublicData() {
         safeText('eventHeaderQuote', settings.event_header_quote || 'Kami sangat berharap kehadiran Anda dalam momen spesial kami.');
         safeText('wishesTitle', settings.wishes_title || 'Wedding Wishes');
         safeText('wishesQuote', settings.wishes_quote || '');
+        safeText('rsvpTitle', settings.rsvp_header_title || 'Kehadiran');
+        safeText('rsvpQuote', settings.rsvp_header_quote || '');
         const openButtonText = document.getElementById('openInvitationText');
         if (openButtonText) openButtonText.innerText = settings.hero_button || '-';
 

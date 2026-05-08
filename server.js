@@ -678,21 +678,31 @@ app.get('/api/admin/pageviews', requireAdmin, async (req, res) => {
     const total = await queryGet('SELECT COUNT(*) as count FROM page_views');
     const unique = await queryGet('SELECT COUNT(DISTINCT guest_token) as count FROM page_views');
     const today = await queryGet('SELECT COUNT(*) as count FROM page_views WHERE viewed_at LIKE ?', [new Date().toISOString().split('T')[0] + '%']);
-    res.json({ total: total.count, unique: unique.count, today: today.count });
+    
+    // Get count for the last 7 days for the progress bar
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+    const week = await queryGet('SELECT COUNT(*) as count FROM page_views WHERE viewed_at >= ?', [lastWeek.toISOString()]);
+
+    res.json({ 
+      total: total ? total.count : 0, 
+      unique: unique ? unique.count : 0, 
+      today: today ? today.count : 0,
+      week: week ? week.count : 0
+    });
   } catch (error) {
+    console.error('Pageviews error:', error);
     res.status(500).json({ error: 'Failed to fetch page views' });
   }
 });
 
-app.get('/api/admin/pageviews', requireAdmin, async (req, res) => {
+app.delete('/api/admin/pageviews', requireAdmin, async (req, res) => {
   try {
-    const total = await queryGet('SELECT COUNT(*) as count FROM page_views');
-    const unique = await queryGet('SELECT COUNT(DISTINCT guest_token) as count FROM page_views');
-    const today = await queryGet('SELECT COUNT(*) as count FROM page_views WHERE viewed_at LIKE ?', [new Date().toISOString().split('T')[0] + '%']);
-    res.json({ total: total ? total.count : 0, unique: unique ? unique.count : 0, today: today ? today.count : 0 });
+    await runSql('DELETE FROM page_views');
+    res.json({ success: true });
   } catch (error) {
-    console.error('Pageviews error:', error);
-    res.status(500).json({ error: 'Failed to fetch page views' });
+    console.error('Reset pageviews error:', error);
+    res.status(500).json({ error: 'Gagal menghapus data views' });
   }
 });
 
