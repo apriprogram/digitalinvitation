@@ -319,9 +319,12 @@
                         <div class="flex items-center gap-2 md:gap-3">
                             <i class="fas fa-arrow-left text-[#8696a0] text-lg cursor-pointer ml-1"></i>
                             <img src="img/aurora.jpeg" alt="Aurora"
-                                class="w-10 h-10 md:w-11 md:h-11 rounded-full object-cover border border-[#8696a0]/20"
-                                id="lsHeaderAvatar">
-                            <div class="flex-col justify-center">
+                                 class="w-10 h-10 md:w-11 md:h-11 rounded-full object-cover border border-[#8696a0]/20"
+                                 id="lsHeaderAvatar">
+                            <div id="lsHeaderAvatarIcon" class="w-10 h-10 md:w-11 md:h-11 rounded-full border border-[#8696a0]/20 bg-[#2a3942] hidden items-center justify-center shrink-0">
+                                <i class="fas fa-heart text-[#8696a0] text-base"></i>
+                            </div>
+                            <div class="flex flex-col justify-center">
                                 <h4 class="text-white font-sans font-semibold text-[15px] md:text-base leading-tight"
                                     id="lsChatTitle">Our Love Story</h4>
                                 <p class="text-[#8696a0] font-sans text-xs md:text-[13px] leading-tight mt-0.5">online
@@ -336,7 +339,7 @@
                     </div>
 
                     <!-- WA Chat Area -->
-                    <div class="flex-1 overflow-y-auto px-2 py-4 md:px-4 space-y-4 relative w-full flex flex-col styling-scrollbar"
+                    <div id="lovestoryChatArea" class="flex-1 overflow-y-auto px-2 py-4 md:px-4 space-y-4 relative w-full flex flex-col styling-scrollbar"
                         style="background-image: url('img/bg/wa-bg.jpeg'); background-size: cover; background-position: center; background-color: rgba(11,20,26,0.88); background-blend-mode: multiply;">
 
                         <div class="relative z-10 w-full space-y-5 font-sans pb-2" id="lovestoryChatContainer">
@@ -362,10 +365,10 @@
         </section>
 
         <!-- Kado Digital (Gifts) -->
-        <section id="digitalEnvelope" class="py-24 px-6 relative overflow-hidden hidden"
-            style="background: linear-gradient(to bottom, #0a0b0f 0%, #996732 100%);">
+        <section id="digitalEnvelope" class="py-24 px-6 relative overflow-hidden hidden">
             <div class="container mx-auto max-w-4xl relative z-10" data-aos="fade-up">
                 <div class="w-full flex flex-col items-center text-center">
+                    <h3 id="giftTitle" class="font-script text-5xl md:text-6xl text-center mb-16 text-[#F5A623]">Kado Digital</h3>
                     <div id="bankAccountsContainer" class="w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-14">
                         <!-- Banks will be dynamically rendered here -->
                     </div>
@@ -491,7 +494,7 @@
 
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js?v=5"></script>
+    <script src="script.js?v=11"></script>
 </body>
 
 </html>

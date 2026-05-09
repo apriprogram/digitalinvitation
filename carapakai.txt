@@ -13,3 +13,7 @@ http://localhost:3000/admin.html
 
 
 Semua halaman sudah diupdate menggunakan template "Shalom" dengan animasi modern dan transparan.
+
+
+
+npm run migrate:mysql

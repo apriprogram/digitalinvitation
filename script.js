@@ -14,6 +14,29 @@ const getGuestToken = () => {
 const guestToken = getGuestToken();
 let currentGuest = null;
 
+function applyBg(elId, img, color, isFixed = true) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    
+    if (img) {
+        el.style.backgroundImage = `url('${img}')`;
+        el.style.backgroundPosition = 'center';
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundRepeat = 'no-repeat';
+        el.style.backgroundAttachment = isFixed ? 'fixed' : 'scroll';
+        // Reset background color if it was set before
+        if (!color) el.style.backgroundColor = 'transparent';
+    } else if (color) {
+        el.style.backgroundImage = 'none';
+        el.style.background = color; // Keep shorthand for color/gradient
+    } else {
+        el.style.backgroundImage = 'none';
+        el.style.backgroundColor = '#000000';
+    }
+}
+
+window.applyBg = applyBg;
+
 function showModal(title, message, type = 'success') {
     const modal = document.getElementById('customModal');
     const modalIcon = document.getElementById('modalIcon');
@@ -129,18 +152,7 @@ async function loadPublicData() {
         if (greetingInvitationEl) greetingInvitationEl.textContent = settings.greeting_invitation || '-';
 
         // Apply Backgrounds with priority logic
-        const applyBg = (elId, img, color, isFixed = true) => {
-            const el = document.getElementById(elId);
-            if (!el) return;
-            if (img) {
-                el.style.background = `url('${img}') center/cover no-repeat ${isFixed ? 'fixed' : ''}`;
-            } else if (color) {
-                el.style.background = color;
-            } else {
-                // If it's the gallery, we might want to show a default or icon
-                el.style.background = '#000000';
-            }
-        };
+
 
         // Cover Background (Opening)
         const coverEl = document.getElementById('cover');
@@ -245,36 +257,32 @@ async function loadPublicData() {
         const eventSection = document.getElementById('events');
         if (eventSection) {
             const eMode = settings.event_bg_mode || 'color';
-            if (eMode === 'image' && settings.event_bg_img) {
-                eventSection.style.background = `url('${settings.event_bg_img}') center/cover no-repeat fixed`;
+            const eBgImg = settings.event_bg || '';
+            const eBgColor = settings.event_bg_color || '#000000';
+
+            if (eMode === 'image' && eBgImg) {
+                applyBg('events', eBgImg, null);
             } else {
-                const eBgColor = settings.event_bg_color || '#000000';
-                if (eBgColor.includes('gradient')) {
-                    eventSection.style.background = eBgColor;
-                } else {
-                    eventSection.style.background = '';
-                    eventSection.style.backgroundColor = eBgColor;
-                }
+                applyBg('events', null, eBgColor);
             }
         }
         
         applyBg('gallery', settings.gallery_bg_img, settings.gallery_bg_color);
 
         const lsSettings = data.lovestory_settings || {};
-        applyBg('lovestory', lsSettings.lovestory_bg, lsSettings.lovestory_bg);
         
-        // Love Story Chat Area (Card Background)
-        const lsChatArea = document.querySelector('#lovestory .styling-scrollbar');
-        if (lsChatArea) {
-            const cardBg = lsSettings.lovestory_card_bg;
-            if (cardBg) {
-                if (cardBg.includes('gradient')) {
-                    lsChatArea.style.background = cardBg;
-                } else {
-                    lsChatArea.style.background = '';
-                    lsChatArea.style.backgroundColor = cardBg;
-                }
-            }
+        // Section Background (Luar)
+        if (lsSettings.lovestory_bg_mode === 'image' && lsSettings.lovestory_bg_img) {
+            applyBg('lovestory', lsSettings.lovestory_bg_img, null);
+        } else {
+            applyBg('lovestory', null, lsSettings.lovestory_bg || '#000000');
+        }
+        
+        // Card Background (Dalam Chat)
+        if (lsSettings.lovestory_card_bg_mode === 'image' && lsSettings.lovestory_card_bg_img) {
+            applyBg('lovestoryChatArea', lsSettings.lovestory_card_bg_img, null, false); // Not fixed for inner area
+        } else {
+            applyBg('lovestoryChatArea', null, lsSettings.lovestory_card_bg || 'rgba(11,20,26,0.88)', false);
         }
 
         applyBg('digitalEnvelope', settings.gift_bg_img, settings.gift_bg_color);
@@ -377,10 +385,10 @@ async function loadPublicData() {
 
         // Default cover slideshow removed to prioritize Opening Page settings
         // renderCoverSlideshow(gallery.slice(0, 5));
-        renderGalleryCarousel(gallery);
-        renderWishes(wishes);
-        renderLoveStory(data.lovestory || [], data.lovestory_settings || {});
-        renderGifts(data.gifts || [], settings.gift_physical_address);
+        try { renderGalleryCarousel(gallery); } catch(e) { console.error('Gallery failed:', e); }
+        try { renderWishes(wishes); } catch(e) { console.error('Wishes failed:', e); }
+        try { renderLoveStory(data.lovestory || [], data.lovestory_settings || {}); } catch(e) { console.error('LoveStory failed:', e); }
+        try { renderGifts(data.gifts || [], settings.gift_physical_address, settings); } catch(e) { console.error('Gifts failed:', e); }
 
         // Update Background Music only if changed to prevent audio interruption
         if (settings.bg_music) {
@@ -407,25 +415,29 @@ function renderPublicEvents(events) {
     if (!grid) return;
     grid.innerHTML = '';
 
-    // Handle targetDate for countdown (First event only)
-    if (events[0]) {
+    // Handle targetDate for countdown (Find first future event)
+    const now = Date.now();
+    let foundTarget = false;
+
+    for (const event of events) {
+        if (!event) continue;
+        
         let timeStr = '00:00:00';
-        if (events[0].time) {
-            const timeMatch = events[0].time.match(/(\d{1,2})[.:](\d{2})/);
+        if (event.time) {
+            const timeMatch = event.time.match(/(\d{1,2})[.:](\d{2})/);
             if (timeMatch) timeStr = `${timeMatch[1].padStart(2, '0')}:${timeMatch[2]}:00`;
         }
+
         let parsedDate = NaN;
-        if (events[0].date_iso) {
-            const dateParts = events[0].date_iso.split('-'); 
-            if (dateParts.length === 3) {
-                parsedDate = new Date(`${dateParts[1]}/${dateParts[2]}/${dateParts[0]} ${timeStr}`).getTime();
-            }
+        if (event.date_iso) {
+            // Use ISO format for better cross-browser support
+            parsedDate = new Date(`${event.date_iso}T${timeStr}`).getTime();
         }
         
         // Fallback smart parser for Indonesian text date
-        if (isNaN(parsedDate) && events[0].date) {
+        if (isNaN(parsedDate) && event.date) {
             const monthsID = {'januari':'01', 'februari':'02', 'maret':'03', 'april':'04', 'mei':'05', 'juni':'06', 'juli':'07', 'agustus':'08', 'september':'09', 'oktober':'10', 'november':'11', 'desember':'12'};
-            const dParts = events[0].date.replace(/,/g, '').split(' ');
+            const dParts = event.date.replace(/,/g, '').split(' ');
             let day = '', month = '', year = '';
             dParts.forEach(p => {
                 if (!isNaN(p) && p.length <= 2) day = p.padStart(2, '0');
@@ -433,12 +445,15 @@ function renderPublicEvents(events) {
                 if (isNaN(p) && monthsID[p.toLowerCase()]) month = monthsID[p.toLowerCase()];
             });
             if (day && month && year) {
-                parsedDate = new Date(`${month}/${day}/${year} ${timeStr}`).getTime();
+                // Use a standard format YYYY-MM-DD
+                parsedDate = new Date(`${year}-${month}-${day}T${timeStr}`).getTime();
             }
         }
 
-        if (!isNaN(parsedDate)) {
+        if (!isNaN(parsedDate) && parsedDate > now) {
             targetDate = parsedDate;
+            foundTarget = true;
+            break; 
         }
     }
 
@@ -571,7 +586,22 @@ function renderLoveStory(messages, settings) {
     }
 
     if (chatTitle && settings.ls_title) chatTitle.innerText = settings.ls_title;
-    if (headerAvatar && settings.ls_female_avatar) headerAvatar.src = settings.ls_female_avatar;
+    
+    if (headerAvatar) {
+        const hAv = settings.ls_female_avatar || '';
+        if (hAv) {
+            headerAvatar.src = hAv;
+            headerAvatar.style.display = '';
+            headerAvatar.classList.remove('hidden');
+            const iconEl = document.getElementById('lsHeaderAvatarIcon');
+            if (iconEl) iconEl.style.display = 'none';
+        } else {
+            headerAvatar.classList.add('hidden');
+            headerAvatar.style.display = 'none';
+            const iconEl = document.getElementById('lsHeaderAvatarIcon');
+            if (iconEl) iconEl.style.display = 'flex';
+        }
+    }
 
     if (!chatContainer) return;
     chatContainer.innerHTML = '';
@@ -585,15 +615,21 @@ function renderLoveStory(messages, settings) {
             `);
         } else {
             const isFemale = msg.sender === 'female';
-            const avatarSrc = isFemale ? (settings.ls_female_avatar || 'img/aurora.jpeg') : (settings.ls_male_avatar || 'img/rian.jpeg');
+            const avatarSrc = isFemale ? (settings.ls_female_avatar || '') : (settings.ls_male_avatar || '');
             const bgClass = isFemale ? 'bg-[#202c33]' : 'bg-[#005c4b]';
             const roundClass = isFemale ? 'rounded-bl-sm' : 'rounded-br-sm';
             const plPr = isFemale ? 'justify-start pr-12 md:pr-20' : 'justify-end pl-12 md:pl-20';
             const doubleCheck = isFemale ? '' : '<i class="fas fa-check-double text-[#53bdeb] text-[12px]"></i>';
             
+            const avatarHtml = avatarSrc 
+                ? `<img src="${avatarSrc}" class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover shrink-0 ${isFemale ? 'ml-1' : 'mr-1'} border-2 border-[#8696a0]/40">`
+                : `<div class="w-14 h-14 md:w-16 md:h-16 rounded-full shrink-0 ${isFemale ? 'ml-1' : 'mr-1'} border-2 border-[#8696a0]/40 bg-[#202c33] flex items-center justify-center">
+                    <i class="fas ${isFemale ? 'fa-venus' : 'fa-mars'} text-white/50 text-xl md:text-2xl"></i>
+                   </div>`;
+
             const msgHtml = `
                 <div class="flex items-end gap-2 w-full ${plPr} animate-fadeInUp">
-                    ${isFemale ? `<img src="${avatarSrc}" class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover shrink-0 ml-1 border-2 border-[#8696a0]/40">` : ''}
+                    ${isFemale ? avatarHtml : ''}
                     <div class="${bgClass} text-[#e9edef] p-2.5 md:p-3 rounded-[18px] ${roundClass} shadow-sm relative text-[14px] md:text-[15px]">
                         <p class="leading-snug pr-2">${msg.message}</p>
                         <div class="flex justify-end items-center gap-1 mt-1 -mb-1">
@@ -601,7 +637,7 @@ function renderLoveStory(messages, settings) {
                             ${doubleCheck}
                         </div>
                     </div>
-                    ${!isFemale ? `<img src="${avatarSrc}" class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover shrink-0 mr-1 border-2 border-[#8696a0]/40">` : ''}
+                    ${!isFemale ? avatarHtml : ''}
                 </div>
             `;
             chatContainer.insertAdjacentHTML('beforeend', msgHtml);
@@ -609,15 +645,40 @@ function renderLoveStory(messages, settings) {
     });
 }
 
-function renderGifts(gifts, physicalAddress) {
+function renderGifts(gifts, physicalAddress, settings) {
+    console.log('Rendering Gifts:', { giftsCount: gifts?.length, hasAddress: !!physicalAddress, settings: !!settings });
     const section = document.getElementById('digitalEnvelope');
     const bankContainer = document.getElementById('bankAccountsContainer');
     const physContainer = document.getElementById('physicalAddressContainer');
     const physText = document.getElementById('physicalAddressText');
 
-    if (!section || !bankContainer || !physContainer || !physText) return;
+    if (!section || !bankContainer || !physContainer || !physText) {
+        console.warn('Gifts elements not found in DOM');
+        return;
+    }
 
-    if ((!gifts || gifts.length === 0) && !physicalAddress) {
+    // Apply Background
+    if (settings) {
+        const gMode = settings.gift_bg_mode || 'color';
+        const gBgImg = settings.gift_bg_img || '';
+        const gBgColor = settings.gift_bg_color || 'linear-gradient(to bottom, #0a0b0f 0%, #996732 100%)';
+        
+        console.log('Gift Background:', { mode: gMode, img: gBgImg, color: gBgColor });
+        
+        if (gMode === 'image' && gBgImg) {
+            applyBg('digitalEnvelope', gBgImg, null);
+        } else {
+            applyBg('digitalEnvelope', null, gBgColor);
+        }
+    }
+
+    const hasGifts = gifts && gifts.length > 0;
+    const hasAddress = physicalAddress && physicalAddress.trim() !== '';
+    const hasBg = settings && ((settings.gift_bg_mode === 'image' && settings.gift_bg_img) || (settings.gift_bg_color && settings.gift_bg_color !== ''));
+
+    console.log('Visibility Check:', { hasGifts, hasAddress, hasBg });
+
+    if (!hasGifts && !hasAddress && !hasBg) {
         section.classList.add('hidden');
         return;
     }
@@ -646,6 +707,16 @@ function renderGifts(gifts, physicalAddress) {
         window.giftPhysicalAddressVal = physicalAddress; 
     } else {
         physContainer.classList.add('hidden');
+    }
+
+    // Refresh AOS to handle dynamic content showing up
+    if (window.AOS) {
+        setTimeout(() => {
+            AOS.refresh();
+            // Force a small scroll and back to trigger AOS if needed
+            // window.scrollBy(0, 1);
+            // window.scrollBy(0, -1);
+        }, 800);
     }
 }
 

@@ -99,6 +99,49 @@
                 @apply transition-all duration-200;
             }
 
+            /* Preview Container: Light = gray, Dark = near-black */
+            #greetingPreviewContainer, 
+            #couplePreviewContainer, 
+            #eventBgPreviewContainer, 
+            #lovestoryBgPreviewContainer,
+            #lovestoryCardBgPreviewContainer,
+            #giftBgPreviewContainer, 
+            #rsvpBgPreviewContainer, 
+            #wishesBgPreviewContainer {
+                background-color: #e2e8f0;
+            }
+            .dark #greetingPreviewContainer, 
+            .dark #couplePreviewContainer, 
+            .dark #eventBgPreviewContainer, 
+            .dark #lovestoryBgPreviewContainer,
+            .dark #lovestoryCardBgPreviewContainer,
+            .dark #giftBgPreviewContainer, 
+            .dark #rsvpBgPreviewContainer, 
+            .dark #wishesBgPreviewContainer {
+                background-color: #0e0f11 !important;
+                border-color: #1e293b !important;
+            }
+
+            /* Premium Switch Colors in Dark Mode */
+            .dark .greeting-mode-text.active,
+            .dark .couple-mode-text.active,
+            .dark .event-mode-text.active,
+            .dark .gift-mode-text.active,
+            .dark .rsvp-mode-text.active,
+            .dark .lovestory-mode-text.active,
+            .dark .mode-text.active {
+                color: #ffffff !important;
+            }
+            .dark .greeting-mode-text:not(.active),
+            .dark .couple-mode-text:not(.active),
+            .dark .event-mode-text:not(.active),
+            .dark .gift-mode-text:not(.active),
+            .dark .rsvp-mode-text:not(.active),
+            .dark .lovestory-mode-text:not(.active),
+            .dark .mode-text:not(.active) {
+                color: #64748b !important;
+            }
+
             .modern-table tbody tr:hover {
                 background-color: #f2f3f5;
                 @apply cursor-pointer;
@@ -204,6 +247,38 @@
                 .btn-premium { @apply px-3 py-1 text-[10px] !h-8; }
                 .input-premium { @apply py-3 px-3 text-[12px]; }
             }
+        }
+        
+        /* Hide preview placeholders when image is visible (via JS, this is a safety fallback) */
+        [id$="PreviewContainer"] img.preview-img:not(.hidden) ~ div[id$="Placeholder"],
+        [id$="PreviewContainer"] img.preview-img:not(.hidden) ~ i[id$="Placeholder"] {
+            display: none !important;
+        }
+
+        /* Preview placeholder icon: always visible on any background */
+        [id$="PreviewPlaceholder"] {
+            z-index: 20 !important;
+        }
+        [id$="PreviewPlaceholder"] .fa-image {
+            color: #64748b !important; /* slate-500 */
+            opacity: 0.5;
+            font-size: 4rem;
+            transition: all 0.3s ease;
+        }
+        .dark [id$="PreviewPlaceholder"] .fa-image {
+            color: rgba(255,255,255,0.8) !important;
+            opacity: 1;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+        }
+
+        /* Ensure preview containers maintain proper height */
+        [id$="PreviewContainer"] {
+            position: relative !important;
+            min-height: 100px;
+            background-color: #e2e8f0; /* Default light gray */
+        }
+        .dark [id$="PreviewContainer"] {
+            background-color: #0e0f11;
         }
 
         /* Custom Scrollbar */
@@ -611,7 +686,7 @@
             </nav>
 
             <div class="p-6 border-t border-slate-50">
-                <button id="sidebarLogoutBtn"
+                <button id="sidebarLogoutBtn" onclick="window.logout()"
                     class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-red-600 hover:bg-red-50 transition-all w-full text-left font-bold text-[13px]">
                     <i class="fas fa-power-off"></i> Keluar
                 </button>
@@ -623,7 +698,7 @@
             class="flex-1 lg:ml-72 flex flex-col min-w-0 bg-[#f5f6fa] dark:bg-slate-950 transition-colors duration-300">
             <!-- Header Bar -->
             <header
-                class="h-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 sticky top-0 z-40 flex items-center justify-between px-4 sm:px-6 lg:px-10 transition-all duration-300">
+                class="h-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 sticky top-0 z-50 flex items-center justify-between px-4 sm:px-6 lg:px-10 transition-all duration-300">
                 <div class="flex items-center gap-2 sm:gap-4 shrink-0">
                     <!-- Hamburger (Mobile Only) -->
                     <button id="mobileSidebarToggle"
@@ -652,7 +727,7 @@
                     </a>
 
                     <!-- Search Button (Mobile & Tablet) -->
-                    <button id="mobileSearchToggle"
+                    <button id="mobileSearchToggle" onclick="window.toggleSearch()"
                         class="lg:hidden w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center justify-center shrink-0">
                         <i class="fas fa-search text-sm"></i>
                     </button>
@@ -668,7 +743,7 @@
                         class="flex shrink-0 items-center gap-2 sm:gap-3 pl-2 sm:pl-4 border-l border-slate-200 dark:border-slate-800">
                         <!-- Notifications Dropdown Container -->
                         <div class="relative" id="notificationsContainer">
-                            <button id="notificationsBtn"
+                            <button id="notificationsBtn" onclick="window.toggleNotifications()"
                                 class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center justify-center relative group">
                                 <i class="fas fa-bell"></i>
                                 <span id="notificationBadge"
@@ -785,7 +860,7 @@
                                         <i class="fas fa-headset w-4 text-center"></i> <span
                                             data-i18n="menu_help">Bantuan</span>
                                     </button>
-                                    <button id="headerLogoutBtn"
+                                    <button id="headerLogoutBtn" onclick="window.logout()"
                                         class="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-xl transition-all flex items-center gap-3">
                                         <i class="fas fa-power-off w-4 text-center"></i> <span
                                             data-i18n="menu_logout">Keluar</span>
@@ -1253,7 +1328,7 @@
                                         preferensi sistem,
                                         notifikasi, dan media latar belakang undangan.</p>
                                 </div>
-                                <button id="saveSettingsButton"
+                                <button id="saveSettingsButton" onclick="window.saveSettings()"
                                     class="btn-premium btn-primary !h-10 !px-6 !shadow-none !rounded-xl uppercase !font-bold !text-[11px] sm:!text-[12px] !tracking-wider w-full sm:w-auto">
                                     SIMPAN
                                 </button>
@@ -1278,8 +1353,7 @@
                                     </div>
                                     <div class="shrink-0">
                                         <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" id="settingEnableNotifications" class="sr-only peer"
-                                                onchange="saveSettings()" checked>
+                                            <input type="checkbox" id="settingEnableNotifications" class="sr-only peer" checked>
                                             <div
                                                 class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600">
                                             </div>
@@ -1491,13 +1565,36 @@
 
                                     <div id="music_preview_container"
                                         class="hidden pl-17 mt-1 border-t border-slate-50 dark:border-slate-800 pt-3">
-                                        <audio id="music_preview" controls class="h-8 w-full max-w-md"></audio>
+                                        <!-- Custom Premium Audio Player -->
+                                        <div class="custom-audio-player bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/50 rounded-2xl p-3 flex items-center gap-4 max-w-lg transition-all hover:border-indigo-300 dark:hover:border-indigo-500/30">
+                                            <button type="button" id="playPauseBtn" onclick="toggleMusicPreview()"
+                                                class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-indigo-600 text-white flex items-center justify-center hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 dark:shadow-none shrink-0 group">
+                                                <i class="fas fa-play text-xs transition-transform group-active:scale-90" id="playIcon"></i>
+                                            </button>
+                                            <div class="flex-1 min-w-0 pr-2">
+                                                <div class="flex justify-between items-center mb-1.5">
+                                                    <span id="currentTime" class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 tabular-nums">0:00</span>
+                                                    <span id="duration" class="text-[10px] font-bold text-slate-400 dark:text-slate-500 tabular-nums">0:00</span>
+                                                </div>
+                                                <div class="relative h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full cursor-pointer overflow-hidden" id="progressContainer" onclick="seekMusic(event)">
+                                                    <div id="progressBar" class="absolute top-0 left-0 h-full bg-indigo-500 rounded-full transition-all duration-100" style="width: 0%"></div>
+                                                </div>
+                                            </div>
+                                            <!-- Volume Control -->
+                                            <div class="flex items-center gap-2 group/vol">
+                                                <i class="fas fa-volume-up text-slate-400 text-[10px]" id="volumeIcon"></i>
+                                                <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="1"
+                                                    class="w-16 h-1 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500"
+                                                    oninput="updateVolume(this.value)">
+                                            </div>
+                                            <audio id="music_preview" class="hidden"></audio>
+                                        </div>
 
                                         <div class="mt-4 flex flex-col gap-3">
                                             <div class="flex items-center gap-3">
                                                 <div class="relative w-28 sm:w-32">
                                                     <input type="number" id="settingMusicStart" step="0.1" min="0"
-                                                        placeholder="0" oninput="saveSettings()"
+                                                        placeholder="0" id="settingMusicStart"
                                                         class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-1.5 pl-3 pr-8 text-[11px] sm:text-xs font-bold text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-500/10 focus:border-indigo-400 dark:focus:border-indigo-500/50 outline-none transition-all">
                                                     <span
                                                         class="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] font-bold text-slate-400 dark:text-slate-500">detik</span>
@@ -1535,8 +1632,7 @@
                                     </div>
                                     <div class="shrink-0">
                                         <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" id="settingAutoPlay" class="sr-only peer"
-                                                onchange="saveSettings()">
+                                            <input type="checkbox" id="settingAutoPlay" class="sr-only peer">
                                             <div
                                                 class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 dark:after:border-slate-700 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600">
                                             </div>
@@ -1601,11 +1697,8 @@
                                 <h3
                                     class="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
                                     Halaman Pembuka</h3>
-                                <p
-                                    class="text-slate-600 dark:text-slate-400 text-[11px] sm:text-xs font-semibold mt-0.5">
-                                    Atur Halaman Depan</p>
                             </div>
-                            <button onclick="saveOpeningSettings()" class="btn-premium btn-primary !h-9 !px-6">
+                            <button onclick="saveSettings()" class="btn-premium btn-primary !h-9 !px-6">
                                 Simpan
                             </button>
                         </div>
@@ -1717,6 +1810,7 @@
                                         <input type="file" onchange="window.uploadOpeningSliderImg(this)"
                                             class="absolute inset-0 opacity-0 cursor-pointer">
                                     </div>
+                                    <p class="text-[9px] text-slate-400 dark:text-slate-500 mt-1 pl-1 italic">* Maksimal ukuran file: 10MB</p>
                                 </div>
                             </div>
                         </div>
@@ -1760,13 +1854,10 @@
                                 <h3
                                     class="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
                                     Sambutan</h3>
-                                <p
-                                    class="text-slate-600 dark:text-slate-400 text-[11px] sm:text-xs font-semibold mt-0.5">
-                                    Salam Pembuka Undangan</p>
                             </div>
                             <button onclick="saveSettings()" class="btn-premium btn-primary !h-9 !px-6">Simpan</button>
                         </div>
-                        <div class="p-4 sm:p-5 bg-slate-50/20 dark:bg-transparent">
+                        <div class="px-4 pt-4 pb-2 sm:px-5 sm:pt-5 sm:pb-2 dark:bg-transparent">
                             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-x-12">
                                 <!-- Column 1: Content -->
                                 <div class="space-y-4">
@@ -1793,6 +1884,7 @@
                                             </label>
                                             <input type="hidden" id="settingGreetingLogo" value="">
                                         </div>
+                                        <p class="text-[9px] text-slate-400 mt-2 px-1">(Maks. 10MB)</p>
                                     </div>
 
                                     <!-- Judul Sambutan -->
@@ -1861,7 +1953,7 @@
                                             class="flex items-center gap-0 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 h-11 transition-all">
                                             <div class="pl-4 pr-3 text-slate-400"><i class="fas fa-palette text-xs"></i>
                                             </div>
-                                            <input type="text" id="settingGreetingBgColor" value="#000000"
+                                            <input type="text" id="settingGreetingBgColor" value="#0e0f11"
                                                 oninput="syncGreetingColor(this.value,'picker')"
                                                 class="flex-1 border-none bg-transparent focus:ring-0 text-sm px-0 uppercase text-slate-700 dark:text-slate-200 font-semibold placeholder:text-slate-300"
                                                 placeholder="#KODE WARNA">
@@ -1888,9 +1980,10 @@
                                                 <i class="fas fa-camera text-xs"></i>
                                                 <span>Upload Foto</span>
                                             </button>
-                                            <input type="file" onchange="window.uploadGreetingBgImg(this)"
+                                            <input type="file" onchange="window.uploadSettingImg(this, 'greeting_bg_img', 'greetingBgPreview')"
                                                 class="absolute inset-0 opacity-0 cursor-pointer">
                                         </div>
+                                        <p class="text-[9px] text-slate-400 mt-2">(Maks. 10MB)</p>
                                         <p class="text-[9px] text-slate-400 italic px-1 mt-2">Geser horizontal untuk
                                             melihat lebih banyak</p>
                                     </div>
@@ -1899,18 +1992,21 @@
                                 <!-- Column 3: Preview -->
                                 <div class="space-y-2">
                                     <label
-                                        class="text-[11px] sm:text-xs font-semibold text-slate-900 dark:text-white px-1">Foto</label>
-                                    <div id="greetingPreviewContainer"
-                                        class="relative w-full rounded-2xl overflow-hidden aspect-square border border-slate-200 dark:border-slate-700 bg-slate-900 shadow-xl group">
-                                        <i
-                                            class="fas fa-image absolute inset-0 m-auto w-10 h-10 text-white/10 text-4xl flex items-center justify-center"></i>
-                                        <img id="greetingBgPreview"
-                                            class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300"
-                                            style="opacity: 0;" onload="this.style.opacity='1'"
-                                            onerror="this.style.opacity='0'">
-                                        <button onclick="window.removeGreetingBgImg()"
-                                            class="absolute top-4 right-4 w-9 h-9 bg-white/90 backdrop-blur-sm text-rose-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg hover:bg-rose-500 hover:text-white z-20">
-                                            <i class="fas fa-trash-alt text-sm"></i>
+                                        class="text-[11px] sm:text-xs font-semibold text-slate-900 dark:text-white px-1">Preview Background</label>
+                                    <div class="relative group w-full">
+                                        <div id="greetingPreviewContainer"
+                                            class="relative w-full rounded-2xl overflow-hidden aspect-[2/1] border border-slate-200 dark:border-slate-700 bg-transparent">
+                                            <img id="greetingBgPreview"
+                                                class="preview-img absolute inset-0 w-full h-full object-cover z-10 hidden pointer-events-none"
+                                                onload="this.classList.remove('hidden')">
+                                            <div id="greetingBgPreviewPlaceholder"
+                                                class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                <i class="fas fa-image text-5xl text-slate-400/60 dark:text-white/20"></i>
+                                            </div>
+                                        </div>
+                                        <button onclick="window.deleteSettingImg('greeting_bg_img', 'greetingBgPreview')"
+                                            class="absolute -top-3 -right-3 w-10 h-10 bg-rose-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-rose-600 z-20 border-4 border-white dark:border-slate-800">
+                                            <i class="fas fa-trash-alt text-base"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -1930,16 +2026,13 @@
                                 <h3
                                     class="text-base sm:text-lg font-bold text-slate-900 dark:text-white tracking-tight">
                                     Pasangan</h3>
-                                <p
-                                    class="text-slate-600 dark:text-slate-400 text-[11px] sm:text-xs font-semibold mt-0.5">
-                                    Atur Foto & Profile Mempelai</p>
                             </div>
                             <button onclick="window.saveAllCoupleData(this)"
                                 class="btn-premium btn-primary !h-9 !px-6">Simpan</button>
                         </div>
 
 
-                        <div class="p-4 sm:p-5 bg-slate-50/20 dark:bg-transparent">
+                        <div class="px-4 pt-4 pb-2 sm:px-5 sm:pt-5 sm:pb-2 dark:bg-transparent">
                             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-x-12">
                                 <!-- Column 1: Title & Mode -->
                                 <div class="space-y-4">
@@ -1990,7 +2083,7 @@
                                             class="flex items-center gap-0 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 h-11 transition-all">
                                             <div class="pl-4 pr-3 text-slate-400"><i class="fas fa-palette text-xs"></i>
                                             </div>
-                                            <input type="text" id="settingCoupleBgColor" value="#000000"
+                                            <input type="text" id="settingCoupleBgColor" value="#0e0f11"
                                                 oninput="syncCoupleColor(this.value,'picker')"
                                                 class="flex-1 border-none bg-transparent focus:ring-0 text-sm px-0 uppercase text-slate-700 dark:text-slate-200 font-semibold placeholder:text-slate-300"
                                                 placeholder="#KODE WARNA">
@@ -2000,7 +2093,7 @@
                                                     oninput="syncCoupleColor(this.value,'input')"
                                                     class="absolute inset-0 w-full h-full cursor-pointer opacity-0 z-10">
                                                 <div id="coupleColorBox"
-                                                    class="absolute inset-0 bg-slate-900 transition-colors duration-300">
+                                                    class="absolute inset-0 bg-[#0e0f11] transition-colors duration-300">
                                                 </div>
                                             </div>
                                         </div>
@@ -2022,6 +2115,7 @@
                                                 class="absolute inset-0 opacity-0 cursor-pointer">
                                             <input type="hidden" id="settingCoupleBgImg" value="">
                                         </div>
+                                        <p class="text-[9px] text-slate-400 mt-2">(Maks. 10MB)</p>
                                     </div>
                                 </div>
 
@@ -2030,17 +2124,20 @@
                                     <label
                                         class="text-[11px] sm:text-xs font-semibold text-slate-900 dark:text-white px-1">Preview
                                         Background</label>
-                                    <div id="couplePreviewContainer"
-                                        class="relative w-full rounded-xl overflow-hidden aspect-[2/1] border border-slate-200 dark:border-slate-700 bg-slate-900 shadow-inner group">
-                                        <i
-                                            class="fas fa-image absolute inset-0 m-auto w-8 h-8 text-white/10 text-2xl flex items-center justify-center"></i>
-                                        <img id="coupleBgPreview"
-                                            class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300"
-                                            style="opacity: 0;" onload="this.style.opacity='1'"
-                                            onerror="this.style.opacity='0'">
-                                        <button onclick="window.removeCoupleBgImg()"
-                                            class="absolute top-2 right-2 w-7 h-7 bg-white/90 backdrop-blur-sm text-rose-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-lg hover:bg-rose-500 hover:text-white z-20">
-                                            <i class="fas fa-trash-alt text-[10px]"></i>
+                                    <div class="relative group w-full">
+                                        <div id="couplePreviewContainer"
+                                            class="relative w-full rounded-2xl overflow-hidden aspect-[2/1] border border-slate-200 dark:border-slate-700 bg-transparent">
+                                            <img id="coupleBgPreview"
+                                                class="preview-img absolute inset-0 w-full h-full object-cover z-10 hidden pointer-events-none"
+                                                onload="this.classList.remove('hidden')">
+                                            <div id="coupleBgPreviewPlaceholder"
+                                                class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                                <i class="fas fa-image text-5xl text-slate-400/60 dark:text-white/20"></i>
+                                            </div>
+                                        </div>
+                                        <button onclick="window.deleteSettingImg('couple_bg_img', 'coupleBgPreview')"
+                                            class="absolute -top-3 -right-3 w-10 h-10 bg-rose-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-rose-600 z-20 border-4 border-white dark:border-slate-800">
+                                            <i class="fas fa-trash-alt text-base"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -2049,14 +2146,7 @@
 
                         <!-- Profil Mempelai Area (Merged inside Couple Section) -->
                         <div
-                            class="px-4 pb-4 sm:px-5 sm:pb-5 border-t border-slate-200 dark:border-slate-700 pt-5 mt-2 bg-slate-50/30 dark:bg-slate-900/20">
-                            <div class="mb-4">
-                                <h4 class="text-sm font-bold text-slate-900 dark:text-white px-1">Profil Mempelai
-                                </h4>
-                                <p class="text-[10px] sm:text-[11px] text-slate-500 font-semibold px-1 mt-0.5">
-                                    Lengkapi data masing-masing mempelai di bawah ini. Kartu Pria dan Wanita
-                                    dikelola secara terpisah.</p>
-                            </div>
+                            class="px-4 pb-2 sm:px-5 sm:pb-2 dark:bg-transparent">
                             <div id="coupleContainer"
                                 class="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">
                                 <!-- Couple components rendered by JS -->
@@ -2073,8 +2163,6 @@
                             <div>
                                 <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight"
                                     data-i18n="gal_title">Galeri Foto</h3>
-                                <p class="text-slate-600 text-[11px] sm:text-xs font-semibold mt-0.5">Sweet Moments
-                                </p>
                             </div>
                             <div class="flex items-center gap-2 w-full sm:w-auto">
                                 <button onclick="saveSettings()"
@@ -2096,7 +2184,7 @@
                                             Section Galeri</label>
                                         <div class="relative">
                                             <i
-                                                class="fas fa-heading absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"></i>
+                                                class="fas fa-images absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"></i>
                                             <input id="settingGalleryTitle" type="text" class="input-premium pl-11"
                                                 placeholder="Cth: Sweet Moments">
                                         </div>
@@ -2112,7 +2200,7 @@
                                     class="overflow-x-auto max-h-[600px] overflow-y-auto custom-scrollbar border border-slate-100 rounded-xl bg-white shadow-sm">
                                     <table class="modern-table sticky-header">
                                         <thead>
-                                            <tr class="sticky top-0 bg-white z-10 text-[10px] uppercase">
+                                            <tr class="sticky top-0 bg-white dark:bg-slate-900 z-10 text-[10px] uppercase">
                                                 <th class="w-10 text-center"><i class="fas fa-sort text-slate-300"></i>
                                                 </th>
                                                 <th class="w-16">#</th>
@@ -2132,7 +2220,7 @@
                     <article id="section_jadwal"
                         class="atur-section hidden bg-white dark:bg-slate-800 card-premium mb-6 border border-slate-100 dark:border-slate-700">
                         <div
-                            class="bg-slate-100 dark:bg-slate-900/50 flex items-center justify-between mb-2 border-b border-slate-200 dark:border-slate-700 p-4 sm:p-5 rounded-t-2xl">
+                            class="bg-slate-100 dark:bg-slate-900/50 flex items-center justify-between border-b border-slate-200 dark:border-slate-700 p-4 sm:p-5 rounded-t-2xl">
                             <div class="flex items-center gap-4">
                                 <div
                                     class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 dark:bg-indigo-500/10 dark:border-indigo-500/20 flex items-center justify-center text-xl ">
@@ -2141,15 +2229,11 @@
                                 <div>
                                     <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                                         Jadwal Pernikahan</h3>
-                                    <p
-                                        class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 font-semibold mt-1">
-                                        Header &
-                                        Detail Acara (Akad & Resepsi)</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
                                 <button onclick="window.addEvent()"
-                                    class="btn-premium !bg-indigo-600 !text-white !h-10 !px-4 !text-[10px] font-bold hover:!bg-indigo-700 transition-all shadow-lg rounded-xl flex items-center">
+                                    class="btn-premium !bg-indigo-600 !text-white !h-10 !px-4 !text-[10px] font-bold hover:!bg-indigo-700 transition-all rounded-xl flex items-center">
                                     <i class="fas fa-plus mr-2"></i> TAMBAH ACARA
                                 </button>
                                 <button
@@ -2159,10 +2243,10 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="p-6 bg-slate-50/50 mb-6">
-                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+                        <div class="p-4 sm:p-5 mb-0">
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                                 <!-- Kolom 1: Input Teks -->
-                                <div class="space-y-6">
+                                <div class="space-y-4">
                                     <div class="space-y-2">
                                         <label class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1">Judul
                                             Utama Acara</label>
@@ -2178,9 +2262,9 @@
                                 </div>
 
                                 <!-- Kolom 2: Background Controls -->
-                                <div class="lg:border-l border-slate-200 dark:border-slate-700/50 lg:pl-10 space-y-6">
+                                <div class="space-y-4">
                                     <label
-                                        class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1 block mb-2">Background
+                                        class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1 block mb-1">Background
                                         Section Acara</label>
 
                                     <div class="space-y-2">
@@ -2190,16 +2274,16 @@
                                         <div
                                             class="bg-slate-100 dark:bg-slate-900/50 p-1 rounded-full flex items-center relative overflow-hidden border border-slate-200 dark:border-slate-800 h-11">
                                             <input type="checkbox" id="settingEventBgMode" class="hidden"
-                                                onchange="window.setEventBgMode(this.checked ? 'image' : 'color'); saveSettings();">
+                                                onchange="window.setEventBgMode(this.checked ? 'image' : 'color');">
                                             <div id="eventBgModeSlider"
-                                                class="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-[#1e293b] rounded-full transition-all duration-300 shadow-lg z-0 left-1">
+                                                class="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-[#1e293b] rounded-full transition-all duration-300 z-0 left-1">
                                             </div>
                                             <button type="button"
-                                                onclick="document.getElementById('settingEventBgMode').checked = false; window.setEventBgMode('color'); saveSettings();"
+                                                onclick="document.getElementById('settingEventBgMode').checked = false; window.setEventBgMode('color');"
                                                 class="flex-1 text-center py-1.5 text-[9px] font-bold uppercase tracking-wider z-10 transition-colors duration-300 event-mode-btn text-white"
                                                 id="eventModeColorBtn">Warna</button>
                                             <button type="button"
-                                                onclick="document.getElementById('settingEventBgMode').checked = true; window.setEventBgMode('image'); saveSettings();"
+                                                onclick="document.getElementById('settingEventBgMode').checked = true; window.setEventBgMode('image');"
                                                 class="flex-1 text-center py-1.5 text-[9px] font-bold uppercase tracking-wider z-10 transition-colors duration-300 event-mode-btn text-slate-400"
                                                 id="eventModeImageBtn">Gambar</button>
                                         </div>
@@ -2211,11 +2295,11 @@
                                                 class="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Warna
                                                 / Gradient</label>
                                             <input type="color" id="eventColorPicker"
-                                                onchange="document.getElementById('settingEventBgColor').value = this.value; saveSettings();"
+                                                onchange="document.getElementById('settingEventBgColor').value = this.value;"
                                                 class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
                                         </div>
                                         <input type="text" id="settingEventBgColor" value="#000000"
-                                            onchange="saveSettings()" class="input-premium font-mono text-[10px]"
+                                            class="input-premium font-mono text-[10px]"
                                             placeholder="Cth: #000000 atau linear-gradient(...)">
                                     </div>
 
@@ -2224,43 +2308,41 @@
                                             class="text-[10px] font-bold text-slate-400 uppercase tracking-tight px-1">Background
                                             Gambar</label>
                                         <button type="button" onclick="this.nextElementSibling.click()"
-                                            class="w-full !bg-[#1e293b] !text-white !h-11 !px-6 !text-xs font-bold hover:!bg-slate-700 transition-all shadow-xl rounded-xl flex items-center justify-center">
+                                            class="w-full !bg-[#1e293b] !text-white !h-11 !px-6 !text-xs font-bold hover:!bg-slate-700 transition-all rounded-xl flex items-center justify-center">
                                             <i class="fas fa-camera mr-2 text-[14px]"></i> Upload Foto
                                         </button>
                                         <input type="file"
-                                            onchange="uploadSettingImg(this, 'event_bg_img', 'eventBgPreview')"
+                                            onchange="uploadSettingImg(this, 'event_bg', 'eventBgPreview')"
                                             class="hidden">
+                                        <p class="text-[9px] text-slate-400 mt-2">(Maks. 10MB)</p>
                                     </div>
                                 </div>
 
                                 <!-- Kolom 3: Preview -->
-                                <div class="lg:border-l border-slate-200 dark:border-slate-700/50 lg:pl-10 space-y-4">
+                                <div class="space-y-4">
                                     <label
                                         class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1 block mb-2">Preview
                                         Background</label>
                                     <div id="eventBgPreviewContainer"
-                                        class="relative group aspect-video lg:h-[220px] w-full rounded-2xl overflow-hidden border-2 border-slate-900 shadow-2xl bg-white dark:bg-slate-900/50 flex items-center justify-center">
-                                        <img id="eventBgPreview" class="w-full h-full object-cover hidden">
-                                        <div id="eventBgPreviewPlaceholder"
-                                            class="flex flex-col items-center justify-center text-slate-900 p-8 text-center">
-                                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-2">
-                                                Preview Gambar</p>
-                                            <p class="text-[9px] text-slate-500 font-medium">Tampilkan
-                                                foto<br>background disini</p>
+                                        class="relative group aspect-[2/1] lg:h-auto w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-transparent">
+                                        <img id="eventBgPreview" class="preview-img absolute inset-0 w-full h-full object-cover z-10 hidden pointer-events-none">
+                                        <div id="eventBgPreviewPlaceholder" class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
+                                            <i class="fas fa-image text-5xl text-slate-400/60 dark:text-white/20"></i>
                                         </div>
                                         <button type="button"
-                                            onclick="window.deleteSettingImg('event_bg_img', 'eventBgPreview'); document.getElementById('eventBgPreview').classList.add('hidden'); document.getElementById('eventBgPreviewPlaceholder').classList.remove('hidden');"
-                                            class="absolute top-2 right-2 w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-red-600 active:scale-90 z-20">
+                                            onclick="window.deleteSettingImg('event_bg', 'eventBgPreview');"
+                                            class="absolute top-2 right-2 w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-red-600 active:scale-90 z-30">
                                             <i class="fas fa-trash-alt text-xs"></i>
                                         </button>
                                     </div>
+                                    <input type="hidden" id="settingEventBg" value="">
                                 </div>
                             </div>
                         </div>
 
 
                         <!-- Akad & Resepsi Cards (Moved inside) -->
-                        <div class="px-6 pb-8">
+                        <div class="px-6 pt-2 pb-6">
                             <div class="grid grid-cols-1 xl:grid-cols-2 gap-6" id="eventsContainer">
                                 <!-- Event Form components will be here after JS render -->
                             </div>
@@ -2287,9 +2369,6 @@
                                             class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                                             Kisah Cinta <span id="ls_count"
                                                 class="text-rose-500 text-sm ml-1 font-semibold">(0)</span></h3>
-                                        <p
-                                            class="text-slate-600 dark:text-slate-400 text-[11px] sm:text-xs font-semibold mt-0.5">
-                                            Pengaturan Alur Cerita (Chat Style)</p>
                                     </div>
                                 </div>
                                 <button onclick="saveLoveStory()" class="btn-premium btn-primary !h-9 !px-6">
@@ -2317,40 +2396,43 @@
                                                 <!-- Groom Avatar -->
                                                 <div class="space-y-2">
                                                     <span
-                                                        class="text-[10px] font-bold text-slate-400 block px-1">Pria</span>
+                                                        class="text-[10px] font-bold text-slate-400 block px-1 text-center">Pria</span>
                                                     <div
-                                                        class="relative group w-16 h-16 mx-auto rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition-all cursor-pointer">
+                                                        class="relative group w-16 h-16 mx-auto rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 hover:border-blue-500 transition-all cursor-pointer bg-blue-600 flex items-center justify-center shadow-md">
                                                         <img id="lsGroomAvatar"
-                                                            src="https://ui-avatars.com/api/?name=Groom&background=3b82f6&color=fff"
-                                                            class="w-full h-full object-cover">
+                                                            src=""
+                                                            class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300" onerror="this.classList.add('opacity-0')">
+                                                        <i id="lsGroomAvatarIcon" class="fas fa-user-tie text-white text-2xl"></i>
                                                         <div
-                                                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
+                                                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all z-20">
                                                             <i class="fas fa-camera text-white text-xs"></i>
                                                         </div>
                                                         <input type="file"
                                                             onchange="window.uploadLsAvatar(this, 'male', 'lsGroomAvatar')"
-                                                            class="absolute inset-0 opacity-0 cursor-pointer">
+                                                            class="absolute inset-0 opacity-0 cursor-pointer z-30">
                                                     </div>
                                                 </div>
                                                 <!-- Bride Avatar -->
                                                 <div class="space-y-2">
                                                     <span
-                                                        class="text-[10px] font-bold text-slate-400 block px-1">Wanita</span>
+                                                        class="text-[10px] font-bold text-slate-400 block px-1 text-center">Wanita</span>
                                                     <div
-                                                        class="relative group w-16 h-16 mx-auto rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition-all cursor-pointer">
+                                                        class="relative group w-16 h-16 mx-auto rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 hover:border-pink-500 transition-all cursor-pointer bg-pink-500 flex items-center justify-center shadow-md">
                                                         <img id="lsBrideAvatar"
-                                                            src="https://ui-avatars.com/api/?name=Bride&background=ec4899&color=fff"
-                                                            class="w-full h-full object-cover">
+                                                            src=""
+                                                            class="absolute inset-0 w-full h-full object-cover z-10 transition-opacity duration-300" onerror="this.classList.add('opacity-0')">
+                                                        <i id="lsBrideAvatarIcon" class="fas fa-user text-white text-2xl"></i>
                                                         <div
-                                                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
+                                                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all z-20">
                                                             <i class="fas fa-camera text-white text-xs"></i>
                                                         </div>
                                                         <input type="file"
                                                             onchange="window.uploadLsAvatar(this, 'female', 'lsBrideAvatar')"
-                                                            class="absolute inset-0 opacity-0 cursor-pointer">
+                                                            class="absolute inset-0 opacity-0 cursor-pointer z-30">
                                                     </div>
                                                 </div>
                                             </div>
+                                            <p class="text-[9px] text-slate-400 mt-2 px-1 text-center w-full">Format: JPG, PNG, WEBP (Maks. 10MB)</p>
                                         </div>
 
                                         <div class="relative group/menu w-full mt-4">
@@ -2380,98 +2462,103 @@
                                             atas untuk memilih jenis pesan.</p>
                                     </div>
 
-                                    <!-- Column 2: Background Controls -->
-                                    <div
-                                        class="lg:border-l border-slate-200 dark:border-slate-700/50 lg:pl-10 space-y-6">
-                                        <div class="space-y-2">
-                                            <label
-                                                class="text-[10px] font-bold text-slate-400 uppercase tracking-tight px-1">Aktifkan
-                                                Background</label>
-                                            <div
-                                                class="bg-slate-100 dark:bg-slate-900/50 p-1 rounded-full flex items-center relative overflow-hidden border border-slate-200 dark:border-slate-800 h-11">
-                                                <input type="checkbox" id="settingLovestoryBgMode" class="hidden"
-                                                    onchange="window.setLovestoryBgMode(this.checked ? 'image' : 'color');">
-                                                <div id="lovestoryBgModeSlider"
-                                                    class="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-[#1e293b] rounded-full transition-all duration-300 shadow-lg z-0 left-1">
+                                    <!-- Column 2: Background Controls (Section & Card) -->
+                                    <div class="space-y-8 lg:col-span-2">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                            <!-- Section Background -->
+                                            <div class="space-y-5 p-4 rounded-2xl bg-slate-100/50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/50">
+                                                <div class="flex items-center gap-2 mb-1">
+                                                    <i class="fas fa-layer-group text-slate-400 text-xs"></i>
+                                                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Background Section (Luar)</span>
                                                 </div>
-                                                <button type="button"
-                                                    onclick="document.getElementById('settingLovestoryBgMode').checked = false; window.setLovestoryBgMode('color');"
-                                                    class="flex-1 text-center py-1.5 text-[9px] font-bold uppercase tracking-wider z-10 transition-colors duration-300 lovestory-mode-btn text-white"
-                                                    id="lovestoryModeColorBtn">Warna</button>
-                                                <button type="button"
-                                                    onclick="document.getElementById('settingLovestoryBgMode').checked = true; window.setLovestoryBgMode('image');"
-                                                    class="flex-1 text-center py-1.5 text-[9px] font-bold uppercase tracking-wider z-10 transition-colors duration-300 lovestory-mode-btn text-slate-400"
-                                                    id="lovestoryModeImageBtn">Gambar</button>
+
+                                                <div class="space-y-2">
+                                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-tight px-1">Mode Background</label>
+                                                    <div class="bg-slate-200/50 dark:bg-slate-900/50 p-1 rounded-full flex items-center relative overflow-hidden border border-slate-200 dark:border-slate-800 h-10">
+                                                        <input type="checkbox" id="settingLovestoryBgMode" class="hidden" onchange="window.setLovestoryBgMode(this.checked ? 'image' : 'color');">
+                                                        <div id="lovestoryBgModeSlider" class="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-[#1e293b] rounded-full transition-all duration-300 shadow-lg z-0 left-1"></div>
+                                                        <button type="button" onclick="document.getElementById('settingLovestoryBgMode').checked = false; window.setLovestoryBgMode('color');" class="flex-1 text-center py-1.5 text-[9px] font-bold uppercase tracking-wider z-10 transition-colors duration-300 lovestory-mode-btn text-white" id="lovestoryModeColorBtn">Warna</button>
+                                                        <button type="button" onclick="document.getElementById('settingLovestoryBgMode').checked = true; window.setLovestoryBgMode('image');" class="flex-1 text-center py-1.5 text-[9px] font-bold uppercase tracking-wider z-10 transition-colors duration-300 lovestory-mode-btn text-slate-400" id="lovestoryModeImageBtn">Gambar</button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="space-y-2">
+                                                    <div class="flex items-center justify-between px-1">
+                                                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Warna / Gradasi</label>
+                                                        <input type="color" id="lovestoryColorPicker" oninput="window.syncLovestoryColor(this.value, 'section')" class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
+                                                    </div>
+                                                    <input type="text" id="settingLovestoryBg" onchange="window.saveLoveStory()" class="input-premium font-mono text-[10px]" placeholder="Cth: #000000 atau linear-gradient(...)">
+                                                </div>
+
+                                                <div class="space-y-2">
+                                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-tight px-1">Background Gambar</label>
+                                                    <button type="button" onclick="this.nextElementSibling.click()" class="w-full !bg-[#1e293b] !text-white !h-10 !px-6 !text-[10px] font-bold hover:!bg-slate-700 transition-all rounded-xl flex items-center justify-center">
+                                                        <i class="fas fa-camera mr-2"></i> Upload Foto
+                                                    </button>
+                                                    <input type="file" onchange="window.uploadLovestoryBgImg(this, 'section')" class="hidden">
+                                                    <p class="text-[9px] text-slate-400 mt-2">(Maks. 10MB)</p>
+                                                    <input type="hidden" id="settingLovestoryBgImg" value="">
+                                                </div>
+
+                                                <!-- Mini Preview Section -->
+                                                <div id="lovestoryBgPreviewContainer" class="relative group aspect-[3/1] w-full rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-transparent mt-2">
+                                                    <img id="lovestoryBgPreview" class="preview-img absolute inset-0 w-full h-full object-cover z-10 hidden pointer-events-none">
+                                                    <div id="lovestoryBgPreviewPlaceholder" class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
+                                                        <i class="fas fa-image text-5xl text-slate-400/60 dark:text-white/20"></i>
+                                                    </div>
+                                                    <button type="button" onclick="window.deleteSettingImg('lovestory_bg_img', 'lovestoryBgPreview');" class="absolute top-1 right-1 w-7 h-7 bg-red-500 text-white rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-red-600 active:scale-90 z-30">
+                                                        <i class="fas fa-trash-alt text-[10px]"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Card Background -->
+                                            <div class="space-y-5 p-4 rounded-2xl bg-slate-100/50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/50">
+                                                <div class="flex items-center gap-2 mb-1">
+                                                    <i class="fas fa-mobile-screen text-slate-400 text-xs"></i>
+                                                    <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Background Card (Dalam Chat)</span>
+                                                </div>
+
+                                                <div class="space-y-2">
+                                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-tight px-1">Mode Background</label>
+                                                    <div class="bg-slate-200/50 dark:bg-slate-900/50 p-1 rounded-full flex items-center relative overflow-hidden border border-slate-200 dark:border-slate-800 h-10">
+                                                        <input type="checkbox" id="settingLovestoryCardBgMode" class="hidden" onchange="window.setLovestoryCardBgMode(this.checked ? 'image' : 'color');">
+                                                        <div id="lovestoryCardBgModeSlider" class="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-[#1e293b] rounded-full transition-all duration-300 shadow-lg z-0 left-1"></div>
+                                                        <button type="button" onclick="document.getElementById('settingLovestoryCardBgMode').checked = false; window.setLovestoryCardBgMode('color');" class="flex-1 text-center py-1.5 text-[9px] font-bold uppercase tracking-wider z-10 transition-colors duration-300 lovestory-card-mode-btn text-white" id="lovestoryCardModeColorBtn">Warna</button>
+                                                        <button type="button" onclick="document.getElementById('settingLovestoryCardBgMode').checked = true; window.setLovestoryCardBgMode('image');" class="flex-1 text-center py-1.5 text-[9px] font-bold uppercase tracking-wider z-10 transition-colors duration-300 lovestory-card-mode-btn text-slate-400" id="lovestoryCardModeImageBtn">Gambar</button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="space-y-2">
+                                                    <div class="flex items-center justify-between px-1">
+                                                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Warna / Gradasi</label>
+                                                        <input type="color" id="lovestoryCardColorPicker" oninput="window.syncLovestoryColor(this.value, 'card')" class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
+                                                    </div>
+                                                    <input type="text" id="settingLovestoryCardBg" onchange="window.saveLoveStory()" class="input-premium font-mono text-[10px]" placeholder="Cth: #000000 atau linear-gradient(...)">
+                                                </div>
+
+                                                <div class="space-y-2">
+                                                    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-tight px-1">Background Gambar</label>
+                                                    <button type="button" onclick="this.nextElementSibling.click()" class="w-full !bg-[#1e293b] !text-white !h-10 !px-6 !text-[10px] font-bold hover:!bg-slate-700 transition-all rounded-xl flex items-center justify-center">
+                                                        <i class="fas fa-camera mr-2"></i> Upload Foto
+                                                    </button>
+                                                    <input type="file" onchange="window.uploadLovestoryBgImg(this, 'card')" class="hidden">
+                                                    <p class="text-[9px] text-slate-400 mt-2">(Maks. 10MB)</p>
+                                                    <input type="hidden" id="settingLovestoryCardBgImg" value="">
+                                                </div>
+
+                                                <!-- Mini Preview Card -->
+                                                <div id="lovestoryCardBgPreviewContainer" class="relative group aspect-[3/1] w-full rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-transparent mt-2">
+                                                    <img id="lovestoryCardBgPreview" class="preview-img absolute inset-0 w-full h-full object-cover z-10 hidden pointer-events-none">
+                                                    <div id="lovestoryCardBgPreviewPlaceholder" class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
+                                                        <i class="fas fa-image text-5xl text-slate-400/60 dark:text-white/20"></i>
+                                                    </div>
+                                                    <button type="button" onclick="window.deleteSettingImg('lovestory_card_bg_img', 'lovestoryCardBgPreview');" class="absolute top-1 right-1 w-7 h-7 bg-red-500 text-white rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-red-600 active:scale-90 z-30">
+                                                        <i class="fas fa-trash-alt text-[10px]"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-
-                                        <div class="space-y-2">
-                                            <div class="flex items-center justify-between px-1">
-                                                <label
-                                                    class="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Warna
-                                                    Utama</label>
-                                                <input type="color" id="lovestoryColorPicker"
-                                                    oninput="window.syncLovestoryColor(this.value, 'picker')"
-                                                    class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
-                                            </div>
-                                            <input type="text" id="settingLovestoryBg" onchange="window.saveLoveStory()"
-                                                class="input-premium font-mono text-[10px]"
-                                                placeholder="Cth: #000000 atau linear-gradient(...)">
-                                        </div>
-
-                                        <div class="space-y-2">
-                                            <div class="flex items-center justify-between px-1">
-                                                <label
-                                                    class="text-[10px] font-bold text-slate-400 uppercase tracking-tight">Warna
-                                                    Bubble</label>
-                                                <input type="color" id="lovestoryCardColorPicker"
-                                                    oninput="document.getElementById('settingLovestoryCardBg').value = this.value; window.saveLoveStory();"
-                                                    class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
-                                            </div>
-                                            <input type="text" id="settingLovestoryCardBg"
-                                                onchange="window.saveLoveStory()"
-                                                class="input-premium font-mono text-[10px]"
-                                                placeholder="Warna hex bubble">
-                                        </div>
-
-                                        <div class="space-y-2">
-                                            <label
-                                                class="text-[10px] font-bold text-slate-400 uppercase tracking-tight px-1">Background
-                                                Gambar</label>
-                                            <button type="button" onclick="this.nextElementSibling.click()"
-                                                class="w-full !bg-[#1e293b] !text-white !h-11 !px-6 !text-xs font-bold hover:!bg-slate-700 transition-all shadow-xl rounded-xl flex items-center justify-center">
-                                                <i class="fas fa-camera mr-2 text-[14px]"></i> Upload Foto
-                                            </button>
-                                            <input type="file"
-                                                onchange="window.uploadLovestoryBgImg(this)"
-                                                class="hidden">
-                                        </div>
-                                    </div>
-
-                                    <!-- Column 3: Preview -->
-                                    <div
-                                        class="lg:border-l border-slate-200 dark:border-slate-700/50 lg:pl-10 space-y-4">
-                                        <label
-                                            class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1 block mb-2">Preview
-                                            Background</label>
-                                        <div id="lovestoryBgPreviewContainer"
-                                            class="relative group aspect-video lg:h-[220px] w-full rounded-2xl overflow-hidden border-2 border-slate-900 shadow-2xl bg-white dark:bg-slate-900/50 flex items-center justify-center">
-                                            <img id="lovestoryBgPreview" class="w-full h-full object-cover hidden">
-                                            <div id="lovestoryBgPreviewPlaceholder"
-                                                class="flex flex-col items-center justify-center text-slate-900 p-8 text-center">
-                                                <p
-                                                    class="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-2">
-                                                    Preview Gambar</p>
-                                                <p class="text-[9px] text-slate-500 font-medium">Tampilkan
-                                                    foto<br>background disini</p>
-                                            </div>
-                                            <button type="button"
-                                                onclick="window.deleteSettingImg('lovestory_bg_img', 'lovestoryBgPreview'); document.getElementById('lovestoryBgPreview').classList.add('hidden'); document.getElementById('lovestoryBgPreviewPlaceholder').classList.remove('hidden');"
-                                                class="absolute top-2 right-2 w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-red-600 active:scale-90 z-20">
-                                                <i class="fas fa-trash-alt text-xs"></i>
-                                            </button>
-                                        </div>
-                                        <input type="hidden" id="settingLovestoryBgImg" value="">
                                     </div>
                                 </div>
 
@@ -2500,9 +2587,6 @@
                                 <h3
                                     class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                                     Kado Digital & Amplop</h3>
-                                <p
-                                    class="text-slate-600 dark:text-slate-400 text-[11px] sm:text-xs font-semibold mt-0.5">
-                                    Kelola Transfer & Alamat Kado Fisik</p>
                             </div>
                             <button onclick="saveSettings()" class="btn-premium btn-primary !h-9 !px-6">
                                 SIMPAN
@@ -2533,7 +2617,7 @@
                                 </div>
 
                                 <!-- Column 2: Background Controls -->
-                                <div class="lg:border-l border-slate-200 dark:border-slate-700/50 lg:pl-10 space-y-6">
+                                <div class="space-y-6">
                                     <div class="space-y-2">
                                         <label
                                             class="text-[10px] font-bold text-slate-400 uppercase tracking-tight px-1">Aktifkan
@@ -2565,7 +2649,7 @@
                                                 oninput="window.syncGiftColor(this.value, 'picker')"
                                                 class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
                                         </div>
-                                        <input type="text" id="settingGiftBgColor" onchange="saveSettings()"
+                                        <input type="text" id="settingGiftBgColor"
                                             class="input-premium font-mono text-[10px]"
                                             placeholder="Cth: #000000 atau linear-gradient(...)">
                                     </div>
@@ -2581,27 +2665,24 @@
                                         <input type="file"
                                             onchange="uploadSettingImg(this, 'gift_bg_img', 'giftBgPreview')"
                                             class="hidden">
+                                        <p class="text-[9px] text-slate-400 mt-2">(Maks. 10MB)</p>
                                     </div>
                                 </div>
 
                                 <!-- Column 3: Preview -->
-                                <div class="lg:border-l border-slate-200 dark:border-slate-700/50 lg:pl-10 space-y-4">
+                                <div class="space-y-4">
                                     <label
                                         class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1 block mb-2">Preview
                                         Background</label>
                                     <div id="giftBgPreviewContainer"
-                                        class="relative group aspect-video lg:h-[200px] w-full rounded-2xl overflow-hidden border-2 border-slate-900 shadow-2xl bg-white dark:bg-slate-900/50 flex items-center justify-center">
-                                        <img id="giftBgPreview" class="w-full h-full object-cover hidden">
-                                        <div id="giftBgPreviewPlaceholder"
-                                            class="flex flex-col items-center justify-center text-slate-900 p-8 text-center">
-                                            <p class="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-2">
-                                                Preview Gambar</p>
-                                            <p class="text-[9px] text-slate-500 font-medium">Tampilkan
-                                                foto<br>background disini</p>
+                                        class="relative group aspect-[2/1] lg:h-auto w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-transparent">
+                                        <img id="giftBgPreview" class="preview-img absolute inset-0 w-full h-full object-cover z-10 hidden pointer-events-none">
+                                        <div id="giftBgPreviewPlaceholder" class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
+                                            <i class="fas fa-image text-5xl text-slate-400/60 dark:text-white/20"></i>
                                         </div>
                                         <button type="button"
-                                            onclick="window.deleteSettingImg('gift_bg_img', 'giftBgPreview'); document.getElementById('giftBgPreview').classList.add('hidden'); document.getElementById('giftBgPreviewPlaceholder').classList.remove('hidden');"
-                                            class="absolute top-2 right-2 w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-red-600 active:scale-90 z-20">
+                                            onclick="window.deleteSettingImg('gift_bg_img', 'giftBgPreview');"
+                                            class="absolute top-2 right-2 w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-red-600 active:scale-90 z-30">
                                             <i class="fas fa-trash-alt text-xs"></i>
                                         </button>
                                     </div>
@@ -2610,7 +2691,7 @@
                             </div>
 
                             <!-- Bank Management (Inside p-6 for better spacing) -->
-                            <div class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-700/50">
+                            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700/50">
                                 <div class="flex items-center justify-between mb-8">
                                     <h4 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Daftar Rekening / E-Wallet</h4>
                                     <button onclick="window.addGiftItem()"
@@ -2639,9 +2720,6 @@
                                     <h3
                                         class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                                         Kehadiran</h3>
-                                    <p
-                                        class="text-slate-600 dark:text-slate-400 text-[11px] sm:text-xs font-semibold mt-0.5">
-                                        Header, Teks Instruksi & Background Section</p>
                                 </div>
                                 <button onclick="saveSettings()" class="btn-premium btn-primary !h-9 !px-6">
                                     SIMPAN
@@ -2678,8 +2756,7 @@
                                     </div>
 
                                     <!-- Kolom 2: Background Controls -->
-                                    <div
-                                        class="lg:border-l border-slate-200 dark:border-slate-700/50 lg:pl-10 space-y-6">
+                                        <div class="space-y-6">
                                         <div class="space-y-2">
                                             <label
                                                 class="text-[10px] font-bold text-slate-400 uppercase tracking-tight px-1">Aktifkan
@@ -2711,7 +2788,7 @@
                                                     oninput="window.syncRsvpColor(this.value, 'picker')"
                                                     class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
                                             </div>
-                                            <input type="text" id="settingRsvpBgColor" onchange="saveSettings()"
+                                            <input type="text" id="settingRsvpBgColor"
                                                 class="input-premium font-mono text-[10px]"
                                                 placeholder="Cth: #000000 atau linear-gradient(...)">
                                         </div>
@@ -2727,29 +2804,24 @@
                                             <input type="file"
                                                 onchange="uploadSettingImg(this, 'rsvp_bg_img', 'rsvpBgPreview')"
                                                 class="hidden">
+                                            <p class="text-[9px] text-slate-400 mt-2">(Maks. 10MB)</p>
                                         </div>
                                     </div>
 
                                     <!-- Kolom 3: Preview -->
-                                    <div
-                                        class="lg:border-l border-slate-200 dark:border-slate-700/50 lg:pl-10 space-y-4">
+                                    <div class="space-y-4">
                                         <label
                                             class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1 block mb-2">Preview
                                             Background</label>
                                         <div id="rsvpBgPreviewContainer"
-                                            class="relative group aspect-video lg:h-[200px] w-full rounded-2xl overflow-hidden border-2 border-slate-900 shadow-2xl bg-white dark:bg-slate-900/50 flex items-center justify-center">
-                                            <img id="rsvpBgPreview" class="w-full h-full object-cover hidden">
-                                            <div id="rsvpBgPreviewPlaceholder"
-                                                class="flex flex-col items-center justify-center text-slate-900 p-8 text-center">
-                                                <p
-                                                    class="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-2">
-                                                    Preview Gambar</p>
-                                                <p class="text-[9px] text-slate-500 font-medium">Tampilkan
-                                                    foto<br>background disini</p>
+                                            class="relative group aspect-[2/1] lg:h-auto w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-transparent">
+                                            <img id="rsvpBgPreview" class="preview-img absolute inset-0 w-full h-full object-cover z-10 hidden pointer-events-none">
+                                            <div id="rsvpBgPreviewPlaceholder" class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
+                                                <i class="fas fa-image text-5xl text-slate-400/60 dark:text-white/20"></i>
                                             </div>
                                             <button type="button"
-                                                onclick="window.deleteSettingImg('rsvp_bg_img', 'rsvpBgPreview'); document.getElementById('rsvpBgPreview').classList.add('hidden'); document.getElementById('rsvpBgPreviewPlaceholder').classList.remove('hidden');"
-                                                class="absolute top-2 right-2 w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-red-600 active:scale-90 z-20">
+                                                onclick="window.deleteSettingImg('rsvp_bg_img', 'rsvpBgPreview');"
+                                                class="absolute top-2 right-2 w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-red-600 active:scale-90 z-30">
                                                 <i class="fas fa-trash-alt text-xs"></i>
                                             </button>
                                         </div>
@@ -2798,8 +2870,7 @@
                                     </div>
 
                                     <!-- Kolom 2: Background Controls -->
-                                    <div
-                                        class="lg:border-l border-slate-200 dark:border-slate-700/50 lg:pl-10 space-y-6">
+                                        <div class="space-y-6">
                                         <div class="space-y-2">
                                             <label
                                                 class="text-[10px] font-bold text-slate-400 uppercase tracking-tight px-1">Aktifkan
@@ -2831,7 +2902,7 @@
                                                     oninput="window.syncWishesColor(this.value, 'picker')"
                                                     class="w-8 h-8 rounded-lg border-none cursor-pointer bg-transparent">
                                             </div>
-                                            <input type="text" id="settingWishesBgColor" onchange="saveSettings()"
+                                            <input type="text" id="settingWishesBgColor"
                                                 class="input-premium font-mono text-[10px]"
                                                 placeholder="Cth: #000000 atau linear-gradient(...)">
                                         </div>
@@ -2847,29 +2918,24 @@
                                             <input type="file"
                                                 onchange="uploadSettingImg(this, 'wishes_bg_img', 'wishesBgPreview')"
                                                 class="hidden">
+                                            <p class="text-[9px] text-slate-400 mt-2">(Maks. 10MB)</p>
                                         </div>
                                     </div>
 
                                     <!-- Kolom 3: Preview -->
-                                    <div
-                                        class="lg:border-l border-slate-200 dark:border-slate-700/50 lg:pl-10 space-y-4">
+                                    <div class="space-y-4">
                                         <label
                                             class="text-[11px] sm:text-xs font-semibold text-slate-600 px-1 block mb-2">Preview
                                             Background</label>
                                         <div id="wishesBgPreviewContainer"
-                                            class="relative group aspect-video lg:h-[200px] w-full rounded-2xl overflow-hidden border-2 border-slate-900 shadow-2xl bg-white dark:bg-slate-900/50 flex items-center justify-center">
-                                            <img id="wishesBgPreview" class="w-full h-full object-cover hidden">
-                                            <div id="wishesBgPreviewPlaceholder"
-                                                class="flex flex-col items-center justify-center text-slate-900 p-8 text-center">
-                                                <p
-                                                    class="text-[10px] font-bold uppercase tracking-widest opacity-40 mb-2">
-                                                    Preview Gambar</p>
-                                                <p class="text-[9px] text-slate-500 font-medium">Tampilkan
-                                                    foto<br>background disini</p>
+                                            class="relative group aspect-[2/1] lg:h-auto w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-transparent">
+                                            <img id="wishesBgPreview" class="preview-img absolute inset-0 w-full h-full object-cover z-10 hidden pointer-events-none">
+                                            <div id="wishesBgPreviewPlaceholder" class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
+                                                <i class="fas fa-image text-5xl text-slate-400/60 dark:text-white/20"></i>
                                             </div>
                                             <button type="button"
-                                                onclick="window.deleteSettingImg('wishes_bg_img', 'wishesBgPreview'); document.getElementById('wishesBgPreview').classList.add('hidden'); document.getElementById('wishesBgPreviewPlaceholder').classList.remove('hidden');"
-                                                class="absolute top-2 right-2 w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-red-600 active:scale-90 z-20">
+                                                onclick="window.deleteSettingImg('wishes_bg_img', 'wishesBgPreview');"
+                                                class="absolute top-2 right-2 w-9 h-9 bg-red-500 text-white rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-red-600 active:scale-90 z-30">
                                                 <i class="fas fa-trash-alt text-xs"></i>
                                             </button>
                                         </div>
@@ -2945,7 +3011,7 @@
                                     <input id="guestNameInput" type="text" placeholder="Nama tamu..."
                                         class="input-premium h-9 sm:h-10 w-full !pl-10 text-[11px] sm:text-sm bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 outline-none focus:border-indigo-500 transition-all opacity-90 focus:opacity-100">
                                 </div>
-                                <button id="addGuestButton"
+                                <button id="addGuestButton" onclick="window.addGuest()"
                                     class="btn-premium btn-primary flex-1 sm:flex-none uppercase tracking-wider text-[9px] sm:text-[11px] h-9 sm:h-10 px-3 sm:px-5">
                                     <i class="fas fa-plus text-[10px] sm:text-xs"></i> <span
                                         data-i18n="gst_add_btn">Tambah</span>
@@ -3334,7 +3400,7 @@
                                         class="text-[9px] sm:text-[10px] font-bold text-slate-300 uppercase tracking-widest">
                                         Foto Profil Admin</p>
                                     <p class="text-[9px] sm:text-[10px] text-slate-400 mt-1">Klik foto untuk
-                                        mengganti</p>
+                                        mengganti (Maks. 10MB)</p>
                                 </div>
                             </div>
 
@@ -3521,6 +3587,7 @@
                                 <i class="fas fa-cloud-upload-alt text-3xl text-indigo-400"></i>
                                 <p class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest"
                                     data-i18n="mod_drag">Tarik & Lepaskan File</p>
+                                <p class="text-[10px] text-slate-300">Format: JPG, PNG, WEBP (Maks. 10MB)</p>
                             </div>
                             <div id="galleryUploadPreview"
                                 class="hidden absolute inset-0 w-full h-full rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-800 border-2 border-indigo-500 z-10">
@@ -3754,7 +3821,7 @@
                     <div>
                         <h3 class="text-base font-bold text-slate-900 tracking-tight">Musik Latar</h3>
                         <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Unggah lagu berekstensi
-                            MP3/WAV</p>
+                            MP3/WAV (Maks. 10MB)</p>
                     </div>
                 </div>
                 <button onclick="closeMusicModal()"
@@ -3817,8 +3884,22 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-    <script src="admin.js?v=4"></script>
+    <!-- Modular Admin Scripts -->
+    <script src="js/admin/ui.js"></script>
+    <script src="js/admin/profile.js"></script>
+    <script src="js/admin/settings.js"></script>
+    <script src="js/admin/couple.js"></script>
+    <script src="js/admin/lovestory.js"></script>
+    <script src="js/admin/events.js"></script>
+    <script src="js/admin/gifts.js"></script>
+    <script src="js/admin/gallery.js"></script>
+    <script src="js/admin/guests.js"></script>
+    <script src="js/admin/wishes.js"></script>
+    <script src="js/admin/rsvp.js"></script>
+    <!-- Main Admin Script -->
+    <script src="admin.js?v=5"></script>
     <!-- Image Preview Modal -->
     <div id="imagePreviewModal" class="modal-premium-container hidden">
         <div class="modal-premium-backdrop" onclick="hideModal('imagePreviewModal')"></div>
@@ -3837,3 +3918,5 @@
 </body>
 
 </html>
+
+

@@ -22,9 +22,13 @@ if (!fs.existsSync(audioDir)) {
 const storage = multer.diskStorage({
   destination: uploadsDir,
   filename: (req, file, cb) => {
-    const extension = path.extname(file.originalname).toLowerCase();
-    const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}${extension}`;
-    cb(null, filename);
+    try {
+      const extension = path.extname(file.originalname || '').toLowerCase();
+      const filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}${extension}`;
+      cb(null, filename);
+    } catch (e) {
+      cb(e);
+    }
   }
 });
 
@@ -49,12 +53,18 @@ const upload = multer({
       cb(new Error('Hanya file gambar yang diizinkan.'));
     }
   },
-  limits: { fileSize: 5 * 1024 * 1024 }
+  limits: { 
+    fileSize: 100 * 1024 * 1024,
+    fieldSize: 100 * 1024 * 1024
+  }
 });
 
 const excelUpload = multer({
   storage,
-  limits: { fileSize: 10 * 1024 * 1024 }
+  limits: { 
+    fileSize: 100 * 1024 * 1024,
+    fieldSize: 100 * 1024 * 1024
+  }
 });
 
 const audioUpload = multer({
@@ -69,7 +79,10 @@ const audioUpload = multer({
       cb(new Error(`Tipe file tidak didukung.`));
     }
   },
-  limits: { fileSize: 10 * 1024 * 1024 }
+  limits: { 
+    fileSize: 100 * 1024 * 1024,
+    fieldSize: 100 * 1024 * 1024
+  }
 });
 
 app.use(express.json({ limit: '50mb' }));
@@ -80,6 +93,31 @@ app.use((req, res, next) => {
   res.setHeader('Expires', '0');
   next();
 });
+
+// Helper for robust Multer error handling
+const handleUpload = (multerMiddleware) => {
+  return (req, res, next) => {
+    try {
+      console.log(`[Upload] Start for ${req.path}. Content-Length: ${req.headers['content-length']}`);
+      multerMiddleware(req, res, (err) => {
+        if (err) {
+          console.error('[Upload] Multer Error:', err);
+          let errorMsg = err.message || 'Gagal mengunggah file';
+          if (err instanceof multer.MulterError) {
+            errorMsg = `Multer Error (${err.code}): ${err.message}`;
+          }
+          return res.status(400).json({ error: errorMsg });
+        }
+        console.log('[Upload] Multer Success');
+        next();
+      });
+    } catch (criticalErr) {
+      console.error('[Upload] Critical Error:', criticalErr);
+      res.status(500).json({ error: `Server Error: ${criticalErr.message}` });
+    }
+  };
+};
+
 app.use(session({
   secret: 'wedding-admin-secret',
   resave: false,
@@ -358,7 +396,7 @@ app.post('/api/admin/logout', (req, res) => {
   req.session.destroy(() => res.json({ success: true }));
 });
 
-app.post('/api/admin/profile/avatar', requireAdmin, upload.single('avatar'), async (req, res) => {
+app.post('/api/admin/profile/avatar', requireAdmin, handleUpload(upload.single('avatar')), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
   const src = `/uploads/${req.file.filename}`;
   try {
@@ -499,19 +537,22 @@ app.put('/api/admin/settings', requireAdmin, async (req, res) => {
   }
 });
 
-app.post('/api/admin/settings/upload', requireAdmin, upload.single('image'), async (req, res) => {
+app.post('/api/admin/settings/upload', requireAdmin, handleUpload(upload.single('image')), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
   const src = `/uploads/${req.file.filename}`;
   const { setting_key } = req.body;
   try {
-    if (setting_key) await runSql('INSERT INTO settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = ?', [setting_key, src, src]);
+    if (setting_key) {
+      const tableName = setting_key.startsWith('lovestory_') ? 'lovestory_settings' : 'settings';
+      await runSql(`INSERT INTO ${tableName} (\`key\`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = ?`, [setting_key, src, src]);
+    }
     res.json({ success: true, src });
   } catch (error) {
     res.status(500).json({ error: 'Upload failed' });
   }
 });
 
-app.post('/api/admin/music/upload', requireAdmin, audioUpload.single('audio'), async (req, res) => {
+app.post('/api/admin/music/upload', requireAdmin, handleUpload(audioUpload.single('music')), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No audio uploaded' });
   const src = `/audio/${req.file.filename}`;
   try {
@@ -532,6 +573,80 @@ app.post('/api/admin/guests', requireAdmin, async (req, res) => {
     res.json({ success: true, guest: { id: result.lastID, name, token } });
   } catch (error) {
     res.status(500).json({ error: 'Failed to create guest' });
+  }
+});
+
+app.put('/api/admin/guests/:id', requireAdmin, async (req, res) => {
+  const { name } = req.body;
+  try {
+    const firstName = extractFirstName(name);
+    await runSql('UPDATE guests SET name = ?, first_name = ? WHERE id = ?', [name, firstName, req.params.id]);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update guest' });
+  }
+});
+
+app.post('/api/admin/guests/import', requireAdmin, handleUpload(excelUpload.single('file')), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+  try {
+    const workbook = xlsx.readFile(req.file.path);
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const data = xlsx.utils.sheet_to_json(sheet, { header: 1 });
+    
+    if (data.length < 2) return res.status(400).json({ error: 'File Excel kosong atau tidak valid' });
+
+    // Find the 'NAMA TAMU' column index
+    const headers = data[0].map(h => (h || '').toString().toUpperCase().trim());
+    let nameIdx = headers.indexOf('NAMA TAMU');
+    if (nameIdx === -1) {
+      // Fallback: look for common names or just use first column
+      nameIdx = headers.findIndex(h => h.includes('NAMA') || h.includes('GUEST'));
+      if (nameIdx === -1) nameIdx = 0;
+    }
+
+    let count = 0;
+    const conn = await db.getConnection();
+    await conn.beginTransaction();
+    
+    try {
+      for (let i = 1; i < data.length; i++) {
+        const row = data[i];
+        if (row && row[nameIdx]) {
+          const name = row[nameIdx].toString().trim();
+          if (name) {
+            const firstName = extractFirstName(name);
+            let token = firstName.toLowerCase().replace(/[^a-z0-9]/g, '');
+            let tokenSuffix = 1;
+            let finalToken = token;
+            
+            // Check for duplicate token
+            while (true) {
+              const [existing] = await conn.query('SELECT id FROM guests WHERE token = ?', [finalToken]);
+              if (existing.length === 0) break;
+              finalToken = `${token}${tokenSuffix}`;
+              tokenSuffix++;
+            }
+            
+            await conn.query('INSERT INTO guests (name, first_name, token, created_at) VALUES (?, ?, ?, ?)', [name, firstName, finalToken, new Date().toISOString()]);
+            count++;
+          }
+        }
+      }
+      await conn.commit();
+      res.json({ success: true, count });
+    } catch (err) {
+      await conn.rollback();
+      throw err;
+    } finally {
+      conn.release();
+    }
+    
+    fs.unlinkSync(req.file.path);
+  } catch (error) {
+    console.error('Import error:', error);
+    res.status(500).json({ error: 'Failed to import guests' });
   }
 });
 
@@ -576,7 +691,7 @@ app.delete('/api/admin/gifts/:id', requireAdmin, async (req, res) => {
   }
 });
 
-app.post('/api/admin/gifts/:id/logo', requireAdmin, upload.single('image'), async (req, res) => {
+app.post('/api/admin/gifts/:id/logo', requireAdmin, handleUpload(upload.single('image')), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
   const src = `/uploads/${req.file.filename}`;
   try {
@@ -614,13 +729,15 @@ app.get('/api/admin/lovestory', requireAdmin, async (req, res) => {
     settingsRows.forEach(r => { settings[r.key] = r.value; });
     
     const formattedSettings = {
-        title: settings.ls_title || '',
-        male_avatar: settings.ls_male_avatar || '',
-        female_avatar: settings.ls_female_avatar || '',
+        ls_title: settings.ls_title || '',
+        ls_male_avatar: settings.ls_male_avatar || '',
+        ls_female_avatar: settings.ls_female_avatar || '',
         lovestory_bg: settings.lovestory_bg || '',
         lovestory_card_bg: settings.lovestory_card_bg || '',
         lovestory_bg_mode: settings.lovestory_bg_mode || 'color',
-        lovestory_bg_img: settings.lovestory_bg_img || ''
+        lovestory_bg_img: settings.lovestory_bg_img || '',
+        lovestory_card_bg_mode: settings.lovestory_card_bg_mode || 'color',
+        lovestory_card_bg_img: settings.lovestory_card_bg_img || ''
     };
 
     res.json({ messages, settings: formattedSettings });
@@ -631,7 +748,7 @@ app.get('/api/admin/lovestory', requireAdmin, async (req, res) => {
 });
 
 app.put('/api/admin/lovestory', requireAdmin, async (req, res) => {
-  const { title, lovestory_bg, lovestory_card_bg, lovestory_bg_mode, lovestory_bg_img, messages } = req.body;
+  const { title, lovestory_bg, lovestory_card_bg, lovestory_bg_mode, lovestory_bg_img, lovestory_card_bg_mode, lovestory_card_bg_img, messages } = req.body;
   const conn = await db.getConnection();
   try {
     await conn.beginTransaction();
@@ -642,6 +759,8 @@ app.put('/api/admin/lovestory', requireAdmin, async (req, res) => {
     if (lovestory_card_bg !== undefined) await conn.query('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = ?', ['lovestory_card_bg', lovestory_card_bg, lovestory_card_bg]);
     if (lovestory_bg_mode !== undefined) await conn.query('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = ?', ['lovestory_bg_mode', lovestory_bg_mode, lovestory_bg_mode]);
     if (lovestory_bg_img !== undefined) await conn.query('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = ?', ['lovestory_bg_img', lovestory_bg_img, lovestory_bg_img]);
+    if (lovestory_card_bg_mode !== undefined) await conn.query('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = ?', ['lovestory_card_bg_mode', lovestory_card_bg_mode, lovestory_card_bg_mode]);
+    if (lovestory_card_bg_img !== undefined) await conn.query('INSERT INTO lovestory_settings (`key`, value) VALUES (?, ?) ON DUPLICATE KEY UPDATE value = ?', ['lovestory_card_bg_img', lovestory_card_bg_img, lovestory_card_bg_img]);
 
     // Update messages
     if (Array.isArray(messages)) {
@@ -664,7 +783,7 @@ app.put('/api/admin/lovestory', requireAdmin, async (req, res) => {
   }
 });
 
-app.post('/api/admin/lovestory/avatar/:role', requireAdmin, upload.single('image'), async (req, res) => {
+app.post('/api/admin/lovestory/avatar/:role', requireAdmin, handleUpload(upload.single('image')), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
   const src = `/uploads/${req.file.filename}`;
   const role = req.params.role;
@@ -744,7 +863,7 @@ app.delete('/api/admin/events/:id', requireAdmin, async (req, res) => {
   }
 });
 
-app.post('/api/admin/events/:id/icon', requireAdmin, upload.single('image'), async (req, res) => {
+app.post('/api/admin/events/:id/icon', requireAdmin, handleUpload(upload.single('image')), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
   const src = `/uploads/${req.file.filename}`;
   try {
@@ -798,7 +917,7 @@ app.put('/api/admin/couple/:id', requireAdmin, async (req, res) => {
 
 
 
-app.post('/api/admin/couple/:id/photo', requireAdmin, upload.single('image'), async (req, res) => {
+app.post('/api/admin/couple/:id/photo', requireAdmin, handleUpload(upload.single('image')), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
   const src = `/uploads/${req.file.filename}`;
   try {
@@ -810,7 +929,7 @@ app.post('/api/admin/couple/:id/photo', requireAdmin, upload.single('image'), as
 });
 
 // GALLERY MANAGEMENT
-app.post('/api/admin/gallery', requireAdmin, upload.single('image'), async (req, res) => {
+app.post('/api/admin/gallery', requireAdmin, handleUpload(upload.single('image')), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No image uploaded' });
   const src = `/uploads/${req.file.filename}`;
   const { alt } = req.body;
@@ -824,7 +943,7 @@ app.post('/api/admin/gallery', requireAdmin, upload.single('image'), async (req,
   }
 });
 
-app.put('/api/admin/gallery/:id/meta', requireAdmin, upload.single('image'), async (req, res) => {
+app.put('/api/admin/gallery/:id/meta', requireAdmin, handleUpload(upload.single('image')), async (req, res) => {
   try {
     const { alt } = req.body;
     if (req.file) {
@@ -905,4 +1024,28 @@ app.get('/api/debug/settings', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Global Error Handler for Multer and other errors
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  if (err instanceof multer.MulterError) {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(400).json({ error: 'File terlalu besar. Maksimal 10MB.' });
+    }
+    return res.status(400).json({ error: `Upload error: ${err.message}` });
+  }
+  if (err) {
+    return res.status(res.statusCode === 200 ? 500 : res.statusCode).json({ 
+      error: err.message || 'Internal Server Error' 
+    });
+  }
+  next();
+});
+
+app.get('/api/version', (req, res) => res.json({ version: '1.1.0-robust-upload' }));
+
+app.listen(PORT, () => {
+  console.log('====================================');
+  console.log(`Server running on port ${PORT}`);
+  console.log('Version: 1.1.0-robust-upload');
+  console.log('====================================');
+});
