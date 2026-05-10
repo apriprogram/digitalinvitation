@@ -608,7 +608,7 @@ document.addEventListener('click', (e) => {
 });
 
 // Profile & Menus
-function closeAllHeaderMenus() {
+function closeAllHeaderMenus(keepSearchPanel = false) {
     const profileMenu = document.getElementById('profileDropdownMenu');
     if (profileMenu) {
         profileMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none', '-translate-y-4');
@@ -621,15 +621,17 @@ function closeAllHeaderMenus() {
         notifMenu.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
     }
     
-    const searchPanel = document.getElementById('mobileSearchPanel');
-    if (searchPanel) {
-        searchPanel.classList.add('opacity-0', '-translate-y-4');
-        searchPanel.classList.remove('opacity-100', 'translate-y-0');
-        setTimeout(() => searchPanel.classList.add('hidden'), 300);
-    }
+    if (!keepSearchPanel) {
+        const searchPanel = document.getElementById('mobileSearchPanel');
+        if (searchPanel) {
+            searchPanel.classList.add('opacity-0', '-translate-y-4');
+            searchPanel.classList.remove('opacity-100', 'translate-y-0');
+            setTimeout(() => searchPanel.classList.add('hidden'), 300);
+        }
 
-    const globalResults = document.getElementById('globalSearchResults');
-    if (globalResults) globalResults.classList.add('hidden');
+        const globalResults = document.getElementById('globalSearchResults');
+        if (globalResults) globalResults.classList.add('hidden');
+    }
 }
 
 const profileBtn = document.getElementById('profileDropdownBtn');

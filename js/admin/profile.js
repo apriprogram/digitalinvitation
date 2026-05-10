@@ -215,7 +215,7 @@ window.populateNotifications = async function() {
         const displayItems = filteredItems.slice(0, 15);
         
         if (displayItems.length === 0) {
-            list.innerHTML = `<div class="p-8 text-center text-slate-400"><i class="fas fa-bell-slash text-2xl mb-2 opacity-20"></i><p class="text-[10px] uppercase font-bold tracking-widest opacity-40">No Notifications</p></div>`;
+            list.innerHTML = `<div class="p-4 sm:p-8 text-center text-slate-400"><i class="fas fa-bell-slash text-xl sm:text-2xl mb-2 opacity-20"></i><p class="text-[8px] sm:text-[10px] uppercase font-bold tracking-widest opacity-40">No Notifications</p></div>`;
             if (currentTab === 'all' && badge) badge.classList.add('hidden');
             return;
         }
@@ -226,19 +226,19 @@ window.populateNotifications = async function() {
         list.innerHTML = displayItems.map(n => {
             const timeStr = new Date(n.time).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
             return `
-            <div class="px-6 py-4 border-b border-slate-50 dark:border-slate-800/50 hover:bg-slate-50/80 dark:hover:bg-slate-800/80 transition-all group cursor-default">
-                <div class="flex items-center gap-4">
+            <div class="px-3 sm:px-6 py-2.5 sm:py-4 border-b border-slate-50 dark:border-slate-800/50 hover:bg-slate-50/80 dark:hover:bg-slate-800/80 transition-all group cursor-default">
+                <div class="flex items-center gap-2 sm:gap-4">
                     <div class="shrink-0">
-                        <i class="fas ${n.icon} ${n.color} text-sm"></i>
+                        <i class="fas ${n.icon} ${n.color} text-[10px] sm:text-sm"></i>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <div class="flex justify-between items-start gap-4">
+                        <div class="flex justify-between items-start gap-2 sm:gap-4">
                             <div>
-                                <h5 class="text-[13px] font-bold text-slate-900 dark:text-slate-100 mb-0.5 leading-none">${n.title}</h5>
-                                <p class="text-[10px] text-slate-400 font-medium uppercase tracking-tighter">${timeStr}</p>
+                                <h5 class="text-[11px] sm:text-[13px] font-bold text-slate-900 dark:text-slate-100 mb-0.5 leading-none">${n.title}</h5>
+                                <p class="text-[8px] sm:text-[10px] text-slate-400 font-medium uppercase tracking-tighter">${timeStr}</p>
                             </div>
                             <div class="text-right shrink-0">
-                                <p class="text-[11px] font-bold text-slate-600 dark:text-slate-300 leading-tight">
+                                <p class="text-[9px] sm:text-[11px] font-bold text-slate-600 dark:text-slate-300 leading-tight">
                                     ${n.type === 'wish' ? `"${n.desc}"` : n.desc}
                                 </p>
                             </div>

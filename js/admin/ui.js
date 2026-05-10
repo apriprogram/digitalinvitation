@@ -81,37 +81,36 @@ window.showToast = function(message, type = 'success') {
     if (!toastContainer) return;
 
     const toast = document.createElement('div');
-    
-    let baseClass = "toast-premium relative flex items-center gap-4 px-6 py-4 rounded-[20px] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border transition-all duration-500 translate-y-12 opacity-0 mb-4 overflow-hidden min-w-[320px] max-w-md backdrop-blur-xl z-[9999]";
+    let baseClass = "toast-premium relative flex items-center gap-2 sm:gap-4 px-3 sm:px-6 py-2.5 sm:py-4 rounded-xl sm:rounded-[20px] shadow-[0_20px_50px_rgba(0,0,0,0.1)] border transition-all duration-500 translate-y-12 opacity-0 mb-3 sm:mb-4 overflow-hidden min-w-[220px] sm:min-w-[320px] w-auto max-w-[calc(100vw-32px)] sm:max-w-md backdrop-blur-xl z-[9999]";
     let typeClass = "";
     let icon = "";
     let accentColor = "";
 
     if (type === 'success') {
-        typeClass = "bg-white/90 dark:bg-slate-900/90 border-emerald-100 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400";
+        typeClass = "bg-white/70 dark:bg-slate-900/70 border-emerald-100/50 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400";
         icon = "fa-check-circle";
         accentColor = "bg-emerald-500";
     } else if (type === 'error') {
-        typeClass = "bg-white/90 dark:bg-slate-900/90 border-rose-100 dark:border-rose-500/20 text-rose-600 dark:text-rose-400";
+        typeClass = "bg-white/70 dark:bg-slate-900/70 border-rose-100/50 dark:border-rose-500/20 text-rose-600 dark:text-rose-400";
         icon = "fa-exclamation-circle";
         accentColor = "bg-rose-500";
     } else if (type === 'delete') {
-        typeClass = "bg-white/90 dark:bg-slate-900/90 border-rose-100 dark:border-rose-500/20 text-rose-600 dark:text-rose-400";
+        typeClass = "bg-white/70 dark:bg-slate-900/70 border-rose-100/50 dark:border-rose-500/20 text-rose-600 dark:text-rose-400";
         icon = "fa-trash-alt";
         accentColor = "bg-rose-500";
     } else if (type === 'info') {
-        typeClass = "bg-white/90 dark:bg-slate-900/90 border-blue-100 dark:border-blue-500/20 text-blue-600 dark:text-blue-400";
+        typeClass = "bg-white/70 dark:bg-slate-900/70 border-blue-100/50 dark:border-blue-500/20 text-blue-600 dark:text-blue-400";
         icon = "fa-info-circle";
         accentColor = "bg-blue-500";
     }
 
     toast.className = `${baseClass} ${typeClass}`;
     toast.innerHTML = `
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
-            <i class="fas ${icon} text-lg"></i>
+        <div class="w-7 h-7 sm:w-10 sm:h-10 rounded-[10px] sm:rounded-xl flex items-center justify-center shrink-0 bg-white/50 dark:bg-slate-800/50 border border-slate-100/50 dark:border-slate-700/50 shadow-sm">
+            <i class="fas ${icon} text-[11px] sm:text-lg"></i>
         </div>
         <div class="flex-1">
-            <p class="text-[13px] font-bold tracking-tight leading-snug">${message}</p>
+            <p class="text-[10px] sm:text-[13px] font-bold tracking-tight leading-snug">${message}</p>
         </div>
         <div class="absolute bottom-0 left-0 h-[3px] ${accentColor} w-full transition-all duration-[4000ms] ease-linear" id="toast-progress"></div>
     `;
@@ -411,7 +410,7 @@ window.handleGlobalSearch = function(query) {
     }
 
     const q = query.toLowerCase().trim();
-    if (window.closeAllHeaderMenus) window.closeAllHeaderMenus();
+    if (window.closeAllHeaderMenus) window.closeAllHeaderMenus(true);
     resultsPanel.classList.remove('hidden');
     
     const dashboard = window.state.dashboard;
@@ -467,12 +466,12 @@ window.handleGlobalSearch = function(query) {
 
     if (all.length === 0) {
         resultsList.innerHTML = `
-            <div class="py-12 text-center">
-                <div class="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-search text-slate-300 dark:text-slate-600 text-2xl"></i>
+            <div class="py-8 sm:py-12 text-center">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 bg-slate-50 dark:bg-slate-800 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                    <i class="fas fa-search text-slate-300 dark:text-slate-600 text-xl sm:text-2xl"></i>
                 </div>
-                <p class="text-sm font-bold text-slate-600 dark:text-slate-300">Tidak ada hasil</p>
-                <p class="text-xs text-slate-400 mt-1">Coba kata kunci lain</p>
+                <p class="text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300">Tidak ada hasil</p>
+                <p class="text-[10px] sm:text-xs text-slate-400 mt-1">Coba kata kunci lain</p>
             </div>
         `;
         return;
@@ -486,18 +485,18 @@ window.handleGlobalSearch = function(query) {
             const statusStr = (item.rsvp.status || '').toLowerCase();
             const isHadir = statusStr === 'hadir';
             statusBadge = `
-                <div class="${isHadir ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-rose-50 text-rose-600 border-rose-100'} border px-2.5 py-1 rounded-lg flex items-center gap-1.5 shrink-0">
-                    <i class="fas ${isHadir ? 'fa-check-circle' : 'fa-times-circle'} text-[10px]"></i>
-                    <span class="text-[10px] font-bold uppercase tracking-tight">${isHadir ? 'HADIR' : 'TIDAK HADIR'} (${item.rsvp.guest_count} ORANG)</span>
+                <div class="${isHadir ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-rose-50 text-rose-600 border-rose-100'} border px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md sm:rounded-lg flex items-center gap-1 sm:gap-1.5 shrink-0">
+                    <i class="fas ${isHadir ? 'fa-check-circle' : 'fa-times-circle'} text-[8px] sm:text-[10px]"></i>
+                    <span class="text-[8px] sm:text-[10px] font-bold uppercase tracking-tight">${isHadir ? 'HADIR' : 'TIDAK'} (${item.rsvp.guest_count} ORG)</span>
                 </div>
             `;
         }
         
         if (item.wish) {
             messageBox = `
-                <div class="mt-3 bg-indigo-50/40 dark:bg-indigo-500/5 border border-indigo-100/30 dark:border-indigo-500/10 p-3 rounded-xl relative">
-                    <i class="fas fa-quote-left text-indigo-200/50 dark:text-indigo-800/30 absolute left-2 top-2 text-[10px]"></i>
-                    <p class="text-[12px] text-slate-500 dark:text-slate-400 pl-5 font-normal italic leading-relaxed tracking-tight">${item.wish.message}</p>
+                <div class="mt-2 sm:mt-3 bg-indigo-50/40 dark:bg-indigo-500/5 border border-indigo-100/30 dark:border-indigo-500/10 p-2 sm:p-3 rounded-lg sm:rounded-xl relative">
+                    <i class="fas fa-quote-left text-indigo-200/50 dark:text-indigo-800/30 absolute left-2 top-2 text-[8px] sm:text-[10px]"></i>
+                    <p class="text-[10px] sm:text-[12px] text-slate-500 dark:text-slate-400 pl-4 sm:pl-5 font-normal italic leading-relaxed tracking-tight">${item.wish.message}</p>
                 </div>
             `;
         }
@@ -508,15 +507,15 @@ window.handleGlobalSearch = function(query) {
         const fullTime = dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
 
         return `
-        <div onclick="window.goToSearchResult('${type}', '${item.id}')" class="p-5 hover:bg-slate-50/80 dark:hover:bg-slate-800/40 rounded-2xl cursor-pointer transition-all border border-slate-100/80 dark:border-slate-800/80 hover:border-indigo-200 dark:hover:border-indigo-900 group mb-4 shadow-sm hover:shadow-md">
-            <div class="flex items-center justify-between gap-4 mb-1">
-                <div class="flex items-center gap-3.5">
-                    <div class="w-9 h-9 rounded-full bg-slate-100/80 dark:bg-slate-800 text-slate-400 flex items-center justify-center shrink-0 border border-slate-200/50 dark:border-slate-700">
-                        <i class="fas fa-user text-[11px]"></i>
+        <div onclick="window.goToSearchResult('${type}', '${item.id}')" class="p-3 sm:p-5 hover:bg-slate-50/80 dark:hover:bg-slate-800/40 rounded-xl sm:rounded-2xl cursor-pointer transition-all border border-slate-100/80 dark:border-slate-800/80 hover:border-indigo-200 dark:hover:border-indigo-900 group mb-2 sm:mb-4 shadow-sm hover:shadow-md">
+            <div class="flex items-center justify-between gap-2 sm:gap-4 mb-1">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-slate-100/80 dark:bg-slate-800 text-slate-400 flex items-center justify-center shrink-0 border border-slate-200/50 dark:border-slate-700">
+                        <i class="fas fa-user text-[9px] sm:text-[11px]"></i>
                     </div>
                     <div>
-                        <h5 class="text-[14px] font-medium text-slate-900 dark:text-slate-100 truncate tracking-tight mb-0.5">${item.display}</h5>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">${fullDate}, ${fullTime}</p>
+                        <h5 class="text-[11px] sm:text-[14px] font-bold text-slate-900 dark:text-slate-100 truncate tracking-tight mb-0.5">${item.display}</h5>
+                        <p class="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-widest">${fullDate}, ${fullTime}</p>
                     </div>
                 </div>
                 ${statusBadge}
