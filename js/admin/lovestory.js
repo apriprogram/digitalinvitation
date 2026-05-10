@@ -55,9 +55,9 @@ window.renderLoveStoryChat = function() {
                             </div>
                             <span class="text-[10px] font-bold text-${roleColor}-700 dark:text-${roleColor}-400 tracking-tight">${roleName}</span>
                         </div>
-                        <div class="flex items-center gap-1.5">
-                            <i class="far fa-clock text-${roleColor}-300 dark:text-${roleColor}-600 text-[10px]"></i>
-                            <input type="text" class="bg-white dark:bg-[#141416] border-none py-0 h-5 w-12 text-center text-[10px] font-bold text-${roleColor}-600 dark:text-${roleColor}-400 rounded focus:ring-0" placeholder="10:00" value="${msg.time || ''}" onchange="lsMessages[${idx}].time = this.value">
+                        <div class="flex items-center gap-2 bg-slate-100 dark:bg-[#0b141a] px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-800 transition-all hover:border-indigo-500">
+                            <i class="fas fa-clock text-slate-400 dark:text-slate-600 text-[10px]"></i>
+                            <input type="text" class="bg-transparent border-none p-0 h-5 w-14 text-center text-[10px] font-bold text-slate-700 dark:text-slate-300 rounded focus:ring-0 outline-none" placeholder="10:00" value="${msg.time || ''}" oninput="lsMessages[${idx}].time = this.value">
                         </div>
                     </div>
                     <div class="relative">
@@ -88,7 +88,11 @@ window.addLsMessage = function(type) {
     if (type === 'date') {
         lsMessages.push({ type: 'date', date_label: '' });
     } else {
-        lsMessages.push({ type: 'chat', sender: type, message: '', time: '' });
+        const now = new Date();
+        const hour = now.getHours().toString().padStart(2, '0');
+        const min = now.getMinutes().toString().padStart(2, '0');
+        const timeStr = `${hour}:${min}`;
+        lsMessages.push({ type: 'chat', sender: type, message: '', time: timeStr });
     }
     window.renderLoveStoryChat();
 };

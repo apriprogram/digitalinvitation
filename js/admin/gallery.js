@@ -19,17 +19,17 @@ window.renderGallery = function() {
         <i class="fas fa-grip-vertical text-sm"></i>
       </td>
       <td class="font-black text-slate-300 dark:text-slate-600 text-[10px] px-6 align-middle">${index + 1}</td>
-      <td class="px-6 py-3">
+      <td class="px-6 py-3 whitespace-nowrap">
         <div class="flex items-center gap-4">
              <div class="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-300 overflow-hidden group cursor-pointer" onclick="window.openImagePreview('${item.src}')">
                 <img src="${item.src}" alt="${item.alt}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://ui-avatars.com/api/?name=${index + 1}&background=f1f5f9&color=94a3b8'">
              </div>
              <div class="flex flex-col gap-1">
-                <span class="text-[10px] font-mono text-slate-500 dark:text-indigo-300 bg-slate-50 dark:bg-slate-900/80 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-indigo-500/30 break-all lg:break-normal">${item.src}</span>
+                <span class="text-[10px] font-mono text-slate-500 dark:text-indigo-300 bg-slate-50 dark:bg-slate-900/80 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-indigo-500/30">${item.src}</span>
              </div>
         </div>
       </td>
-      <td class="font-bold text-slate-700 dark:text-slate-200 text-xs tracking-tight px-6 align-middle">${item.alt}</td>
+      <td class="font-bold text-slate-700 dark:text-slate-200 text-xs tracking-tight px-6 align-middle whitespace-nowrap">${item.alt}</td>
 
       <td class="text-right px-6 align-middle">
         <div class="flex items-center justify-end gap-2">
@@ -50,22 +50,18 @@ window.renderGallery = function() {
         new Sortable(body, {
             animation: 250,
             handle: '.drag-handle',
-            ghostClass: 'bg-indigo-50/50',
-            onEnd: async function () {
-                const newSequence = Array.from(body.querySelectorAll('tr')).map(tr => tr.dataset.id);
-                try {
-                    await api('/api/admin/gallery/reorder', {
-                        method: 'POST',
-                        body: JSON.stringify({ sequence: newSequence })
-                    });
-                    showToast(currentLang === 'id' ? 'Urutan galeri berhasil disimpan!' : 'Gallery order saved!', 'success');
-                    const rows = body.querySelectorAll('tr');
-                    rows.forEach((row, idx) => {
-                        row.querySelector('td:nth-child(2)').innerText = idx + 1;
-                    });
-                } catch (err) {
-                    showToast(err.message, 'error');
-                }
+            ghostClass: 'sortable-ghost',
+            chosenClass: 'sortable-chosen',
+            dragClass: 'sortable-drag',
+            fallbackClass: 'sortable-drag',
+            forceFallback: true,
+            fallbackOnBody: true,
+            onEnd: function () {
+                const rows = body.querySelectorAll('tr');
+                rows.forEach((row, idx) => {
+                    const noTd = row.querySelector('td:nth-child(2)');
+                    if (noTd) noTd.innerText = idx + 1;
+                });
             }
         });
     }

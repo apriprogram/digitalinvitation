@@ -13,8 +13,35 @@ window.loadProfileData = async function() {
         // Sync avatars
         ['headerUserAvatar', 'profileAvatarPreview', 'dropdownUserAvatar'].forEach(id => {
             const el = document.getElementById(id);
-            if (el && admin.avatar) el.src = admin.avatar;
+            if (el) {
+                const fallback = el.nextElementSibling;
+                if (admin.avatar) {
+                    el.src = admin.avatar;
+                    el.style.display = 'block';
+                    if (fallback && fallback.tagName === 'DIV') {
+                        fallback.style.display = 'none';
+                    }
+                } else {
+                    // If no avatar, we can either show initials or a placeholder
+                    // For now, let the HTML fallback handle it if the img fails, 
+                    // but if we want to be explicit:
+                    if (fallback && fallback.tagName === 'DIV') {
+                        el.style.display = 'none';
+                        fallback.style.display = 'flex';
+                    }
+                }
+            }
         });
+
+        // Manage delete button visibility
+        const delBtn = document.getElementById('deleteProfileAvatarBtn');
+        if (delBtn) {
+            if (admin.avatar) {
+                delBtn.classList.remove('hidden');
+            } else {
+                delBtn.classList.add('hidden');
+            }
+        }
         
         // Sync names
         ['headerUserName', 'dropdownUserName'].forEach(id => {
@@ -89,6 +116,23 @@ window.uploadProfileAvatar = async function(input) {
     } catch (e) {
         window.showToast(e.message, 'error');
     }
+};
+
+window.deleteProfileAvatar = function(event) {
+    if (event) event.stopPropagation();
+    window.deleteWithConfirm(async () => {
+        try {
+            await api('/api/admin/profile/avatar', { method: 'DELETE' });
+            window.showToast('Foto profil dihapus', 'delete');
+            await window.loadProfileData();
+        } catch (err) {
+            window.showToast(err.message, 'error');
+        }
+    }, {
+        message: 'Hapus foto profil Anda?',
+        confirmText: 'Ya, Hapus',
+        icon: 'fa-trash-can'
+    });
 };
 
 window.populateNotifications = async function() {

@@ -6,6 +6,18 @@ window.renderGuests = function() {
 
     let guestList = window.state.dashboard.guests || [];
 
+    // Sort filter
+    const { key, dir } = window.tablePagination.guests.sort;
+    if (key) {
+        guestList.sort((a, b) => {
+            const valA = (a[key] || '').toString().toLowerCase();
+            const valB = (b[key] || '').toString().toLowerCase();
+            if (valA < valB) return dir === 'asc' ? -1 : 1;
+            if (valA > valB) return dir === 'asc' ? 1 : -1;
+            return 0;
+        });
+    }
+
     // Search filter
     const query = window.tablePagination.guests.search.toLowerCase();
     if (query) {
@@ -32,29 +44,35 @@ window.renderGuests = function() {
         const tr = document.createElement('tr');
         tr.className = "group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors border-b border-slate-100 dark:border-slate-800/50 last:border-0";
         tr.innerHTML = `
-      <td class="font-black text-slate-300 text-[10px] px-8 py-4">${String(absoluteIndex).padStart(2, '0')}</td>
-      <td class="px-8 py-4">
-         <span class="font-bold text-slate-900 dark:text-white text-xs sm:text-sm tracking-tight">${guest.name}</span>
+      <td class="font-semibold text-slate-500 dark:text-slate-400 text-xs px-8 py-0">${absoluteIndex}</td>
+      <td class="px-8 py-0 whitespace-nowrap">
+         <span class="font-semibold text-slate-900 dark:text-white text-xs sm:text-sm tracking-tight">${guest.name}</span>
       </td>
-      <td class="px-8 py-4">
+      <td class="px-8 py-0">
          <div class="flex items-center gap-2">
-              <div class="bg-indigo-50 dark:bg-slate-800 text-indigo-700 dark:text-indigo-300 px-3 py-2 rounded-xl border border-indigo-100 dark:border-slate-700 font-mono text-[10px] sm:text-[11px] font-semibold overflow-hidden truncate max-w-[200px] sm:max-w-[400px] cursor-pointer hover:bg-indigo-100 dark:hover:bg-slate-700 hover:border-indigo-300 dark:hover:border-slate-600 transition-all group/link" onclick="window.copyGuestLink('${link}')" title="Click to Copy Link">
+              <div class="bg-indigo-50 dark:bg-slate-800/60 text-indigo-700 dark:text-indigo-300 px-3 py-2 rounded-xl border border-indigo-100 dark:border-slate-700 font-sans text-[10px] sm:text-[11px] font-normal overflow-hidden truncate max-w-[200px] sm:max-w-[400px] cursor-pointer hover:bg-indigo-100 dark:hover:bg-slate-700 hover:border-indigo-300 dark:hover:border-slate-600 transition-all group/link" onclick="window.copyGuestLink('${link}')" title="Click to Copy Link">
                  <i class="fas fa-link mr-2 text-indigo-400 dark:text-indigo-500 group-hover/link:text-indigo-600 dark:group-hover/link:text-indigo-300 transition-colors"></i>${link}
               </div>
          </div>
       </td>
-      <td class="text-center px-8 py-4">
-         <button class="btn-premium !h-9 !px-4 bg-emerald-100 text-emerald-700 border border-emerald-200 hover:bg-emerald-200 hover:border-emerald-600 mx-auto flex items-center gap-2 transition-all duration-300 rounded-lg !shadow-none whitespace-nowrap" onclick="window.copyGuestMessage('${guest.name}', '${link}')" title="Salin Pesan WA">
+      <td class="text-center px-8 py-0">
+         <button class="btn-premium !h-9 !px-4 bg-emerald-100 text-emerald-700 border border-emerald-200 hover:bg-emerald-200 hover:border-emerald-600 
+                        dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20 dark:hover:bg-emerald-500/20 dark:hover:border-emerald-500/40
+                        mx-auto flex items-center gap-2 transition-all duration-300 rounded-lg !shadow-none whitespace-nowrap" onclick="window.copyGuestMessage('${guest.name}', '${link}')" title="Salin Pesan WA">
                 <i class="fab fa-whatsapp text-xs"></i>
                 <span class="text-[10px] font-bold uppercase tracking-tight whitespace-nowrap">Salin Pesan</span>
          </button>
       </td>
-      <td class="text-right px-8 py-4">
+      <td class="text-right px-8 py-0">
         <div class="flex items-center justify-end gap-2">
-            <button class="btn-premium !p-0 w-9 h-9 bg-amber-100 text-amber-700 border border-amber-200 hover:bg-amber-200 hover:border-amber-600 transition-all duration-300 rounded-lg !shadow-none" onclick="window.editGuest('${guest.id}', \`${(guest.name || '').replace(/`/g, '\\`').replace(/"/g, '&quot;')}\`)" title="Edit Nama">
+            <button class="btn-premium !p-0 w-9 h-9 bg-amber-100 text-amber-700 border border-amber-200 hover:bg-amber-200 hover:border-amber-600 
+                           dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20 dark:hover:bg-amber-500/20 dark:hover:border-amber-500/40
+                           transition-all duration-300 rounded-lg !shadow-none" onclick="window.editGuest('${guest.id}', \`${(guest.name || '').replace(/`/g, '\\`').replace(/"/g, '&quot;')}\`)" title="Edit Nama">
                 <i class="fas fa-edit text-xs pointer-events-none"></i>
             </button>
-            <button class="btn-premium !p-0 w-9 h-9 bg-red-100 text-red-700 border border-red-200 hover:bg-red-200 hover:border-red-600 transition-all duration-300 rounded-lg !shadow-none" onclick="window.deleteGuest('${guest.id}')" title="Hapus Akses">
+            <button class="btn-premium !p-0 w-9 h-9 bg-red-100 text-red-700 border border-red-200 hover:bg-red-200 hover:border-red-600 
+                           dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20 dark:hover:bg-red-500/20 dark:hover:border-red-500/40
+                           transition-all duration-300 rounded-lg !shadow-none" onclick="window.deleteGuest('${guest.id}')" title="Hapus Akses">
                 <i class="fas fa-trash text-xs pointer-events-none"></i>
             </button>
         </div>
@@ -63,7 +81,38 @@ window.renderGuests = function() {
         body.appendChild(tr);
     });
 
+    // Update sort icons UI
+    const upIcon = document.getElementById(`sortIcon_${key}_up`);
+    const downIcon = document.getElementById(`sortIcon_${key}_down`);
+    
+    // Reset all icons first (optional, if you have more columns)
+    document.querySelectorAll('[id^="sortIcon_"]').forEach(el => {
+        el.classList.remove('text-indigo-600', 'dark:text-indigo-400', 'opacity-100');
+        el.classList.add('opacity-20');
+    });
+
+    if (upIcon && downIcon) {
+        if (dir === 'asc') {
+            upIcon.classList.add('text-indigo-600', 'dark:text-indigo-400', 'opacity-100');
+            upIcon.classList.remove('opacity-20');
+        } else {
+            downIcon.classList.add('text-indigo-600', 'dark:text-indigo-400', 'opacity-100');
+            downIcon.classList.remove('opacity-20');
+        }
+    }
+
     window.renderPaginationControls('guests', guestList.length, limit, window.tablePagination.guests.page);
+};
+
+window.sortGuests = function(key) {
+    const sort = window.tablePagination.guests.sort;
+    if (sort.key === key) {
+        sort.dir = sort.dir === 'asc' ? 'desc' : 'asc';
+    } else {
+        sort.key = key;
+        sort.dir = 'asc';
+    }
+    window.renderGuests();
 };
 
 window.copyGuestMessage = async function(name, link) {
@@ -168,7 +217,8 @@ window.copyGuestLink = function(link) {
 
 window.showImportExcelModal = function() {
     const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm opacity-0 transition-opacity duration-300';
+    // Force transparent backdrop without blur
+    modal.className = 'fixed inset-0 z-[200] flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300';
     modal.onclick = (e) => {
         if (e.target === modal) window.closeImportExcelModal(modal);
     };

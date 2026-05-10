@@ -77,11 +77,42 @@ function closeModal() {
 window.showModal = showModal;
 window.closeModal = closeModal;
 
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast-premium toast-${type}`;
+    
+    let icon = 'fa-info-circle';
+    if (type === 'success') icon = 'fa-check-circle';
+    if (type === 'error') icon = 'fa-exclamation-circle';
+    if (type === 'warning') icon = 'fa-exclamation-triangle';
+
+    toast.innerHTML = `
+        <i class="fas ${icon}"></i>
+        <span class="flex-1">${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    // Animate in
+    setTimeout(() => toast.classList.add('show'), 10);
+
+    // Auto remove
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 400);
+    }, 4000);
+}
+
+window.showToast = showToast;
+
 function safeText(id, value) {
     const el = document.getElementById(id);
     if (el) {
         // If it's a specific field like name or parents, and it's empty, use '-'
-        el.innerText = (value && value.trim() !== '') ? value : '-';
+        el.innerText = (value && value.trim() !== '') ? value : '';
     }
 }
 
@@ -123,7 +154,7 @@ async function loadPublicData() {
         safeText('rsvpTitle', settings.rsvp_header_title || 'Kehadiran');
         safeText('rsvpQuote', settings.rsvp_header_quote || '');
         const openButtonText = document.getElementById('openInvitationText');
-        if (openButtonText) openButtonText.innerText = settings.hero_button || '-';
+        if (openButtonText) openButtonText.innerText = settings.hero_button || 'Buka Undangan';
 
         // Apply Greeting Logo
         const logoImg = document.getElementById('greetingLogo');
@@ -145,11 +176,11 @@ async function loadPublicData() {
 
         // Greeting text fields (use '-' if empty)
         const greetingHeadingEl = document.getElementById('greetingHeading');
-        if (greetingHeadingEl) greetingHeadingEl.textContent = settings.greeting_heading || '-';
+        if (greetingHeadingEl) greetingHeadingEl.textContent = settings.greeting_heading || '';
         const greetingQuoteEl = document.getElementById('greetingQuote');
-        if (greetingQuoteEl) greetingQuoteEl.textContent = settings.greeting_quote || '-';
+        if (greetingQuoteEl) greetingQuoteEl.textContent = settings.greeting_quote || '';
         const greetingInvitationEl = document.getElementById('greetingInvitation');
-        if (greetingInvitationEl) greetingInvitationEl.textContent = settings.greeting_invitation || '-';
+        if (greetingInvitationEl) greetingInvitationEl.textContent = settings.greeting_invitation || '';
 
         // Apply Backgrounds with priority logic
 
@@ -232,15 +263,24 @@ async function loadPublicData() {
             const coupleMode = settings.couple_bg_mode || 'color';
             const coupleBgImg = settings.couple_bg_img || '';
             const coupleBgColor = settings.couple_bg_color || '#000000';
+            const groomBg = document.getElementById('groomBg');
+            const brideBg = document.getElementById('brideBg');
 
             if (coupleMode === 'image' && coupleBgImg) {
                 const imgUrl = coupleBgImg.split(',')[0];
                 coupleSection.style.setProperty('--couple-bg', `url('${imgUrl}')`);
-                coupleSection.classList.add('show-before'); // We'll add this class to show the pseudo-element
+                coupleSection.classList.add('show-before');
                 coupleSection.style.backgroundColor = 'transparent';
+                
+                // Also apply to backgrounds for mobile
+                if (groomBg) groomBg.style.setProperty('--half-bg', `url('${imgUrl}')`);
+                if (brideBg) brideBg.style.setProperty('--half-bg', `url('${imgUrl}')`);
             } else {
                 coupleSection.classList.remove('show-before');
                 coupleSection.style.setProperty('--couple-bg', 'none');
+                if (groomBg) groomBg.style.setProperty('--half-bg', 'none');
+                if (brideBg) brideBg.style.setProperty('--half-bg', 'none');
+
                 if (coupleBgColor.includes('gradient')) {
                     coupleSection.style.background = coupleBgColor;
                 } else {
@@ -476,17 +516,17 @@ function renderPublicEvents(events) {
                         <h4 class="font-sans font-semibold uppercase tracking-[0.25em] text-lg md:text-xl mb-6 pb-3 border-b border-white/20 text-[#F5A623]">${event.heading || event.name || '-'}</h4>
                         <p class="font-sans font-medium text-white/90 text-xl md:text-2xl mb-2">${event.time || '-'}</p>
                         <p class="font-sans font-light text-white/60 mb-8 tracking-wider text-base md:text-lg">${event.date || '-'}</p>
-                        <div class="font-sans font-medium text-[#F5A623] uppercase tracking-[0.15em] bg-white/10 py-3 px-8 rounded-full border border-white/20 text-sm flex items-center justify-center">
+                        <div class="font-sans font-medium text-[#F5A623] uppercase tracking-[0.1em] bg-white/5 py-1.5 px-5 rounded-full border border-white/10 text-[10px] md:text-xs flex items-center justify-center">
                            ${event.location_name || '-'}
                         </div>
-                        <p class="font-sans font-light text-white/60 mt-4 tracking-wider text-xs md:text-sm">${event.address || '-'}</p>
+                        <p class="font-sans font-light text-white/60 mt-4 tracking-wider text-[11px] md:text-sm">${event.address || '-'}</p>
                         ${event.map_src ? `
                         <div class="mt-8 w-full h-48 md:h-64 rounded-xl overflow-hidden border border-white/20">
                             <iframe src="${event.map_src}" width="100%" height="100%" style="border:0; filter: invert(100%) hue-rotate(180deg) contrast(90%);" allowfullscreen="" loading="lazy"></iframe>
                         </div>
                         ` : ''}
                         ${event.map_link ? `
-                        <a href="${event.map_link}" target="_blank" class="mt-6 inline-flex items-center justify-center gap-3 bg-white/10 text-white border border-white/40 px-8 py-3 rounded-full hover:bg-white hover:text-black transition-all duration-500 uppercase tracking-widest text-xs font-sans font-semibold group">
+                        <a href="${event.map_link}" target="_blank" class="mt-6 inline-flex items-center justify-center gap-2 bg-white/10 text-white border border-white/30 px-6 py-2.5 rounded-full hover:bg-white hover:text-black transition-all duration-500 uppercase tracking-widest text-[9px] md:text-[11px] font-sans font-semibold group">
                             <i class="fa-solid fa-map-location-dot group-hover:scale-110 transition-transform duration-300"></i>
                             <span>Lihat Lokasi</span>
                         </a>
@@ -529,44 +569,84 @@ function renderWishes(wishes) {
     const heroNameElement = document.getElementById('heroName');
     const heroName = heroNameElement ? heroNameElement.innerText : 'Riandino & Aurora';
 
-    wishes.forEach((item) => {
+    let lastGuestName = null;
+    let lastDateLabel = null;
+
+    wishes.forEach((item, index) => {
         const guestName = item.guest_name || 'Tamu Undangan';
         const initial = guestName.charAt(0).toUpperCase();
         const date = new Date(item.created_at);
-        const timeString = `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
         
+        // Date Separator Logic (e.g., May 20)
+        const dateLabel = date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+        if (dateLabel !== lastDateLabel) {
+            container.insertAdjacentHTML('beforeend', `
+                <div class="flex justify-center mt-10 mb-6 animate-fadeInUp">
+                    <div class="flex items-center gap-4 w-full">
+                        <div class="h-[1px] flex-1 bg-white/10"></div>
+                        <span class="text-white/40 text-[10px] md:text-xs font-sans tracking-[0.2em] uppercase font-bold">
+                            ${dateLabel}
+                        </span>
+                        <div class="h-[1px] flex-1 bg-white/10"></div>
+                    </div>
+                </div>
+            `);
+            lastDateLabel = dateLabel;
+            lastGuestName = null; // Reset stacking on new day
+        }
+
+        const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        // Look ahead and behind to determine position in stack
+        const prevItem = wishes[index - 1];
+        const nextItem = wishes[index + 1];
+        const isFirstInStack = !prevItem || (prevItem.guest_name || 'Tamu Undangan') !== guestName || !!prevItem.reply || (new Date(prevItem.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) !== dateLabel);
+        const isLastInStack = !nextItem || (nextItem.guest_name || 'Tamu Undangan') !== guestName || !!item.reply || (new Date(nextItem.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) !== dateLabel);
+
         let replyHTML = '';
         if (item.reply) {
             const repliedAt = item.replied_at ? new Date(item.replied_at) : null;
-            const replyTimeString = repliedAt ? `${repliedAt.toLocaleDateString()} ${repliedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` : '';
+            const replyTimeString = repliedAt ? repliedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
             replyHTML = `
-                <div class="flex flex-col items-end gap-1 w-full mt-3 pr-2 animate-fadeInUp">
-                    <span class="text-white/60 text-[10px] font-sans mr-1 tracking-wide">${heroName} (Admin)</span>
-                    <div class="flex gap-2 items-start justify-end w-full">
-                        <div class="relative bg-indigo-600/90 backdrop-blur-sm text-white px-5 py-3 rounded-2xl rounded-tr-sm max-w-[85%] shadow-xl border border-white/10">
-                            <p class="font-sans text-sm md:text-[15px] leading-relaxed italic">"${item.reply}"</p>
-                        </div>
-                        <div class="w-8 h-8 shrink-0 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-900 font-bold font-sans text-xs shadow-xl border border-white/20 capitalize">${heroName.charAt(0)}</div>
+                <div class="flex flex-col items-end gap-1 w-full mt-2 pr-1 md:pr-2 animate-fadeInUp">
+                    <div class="flex items-center gap-2 mr-1">
+                        <span class="text-white/40 text-[8px] md:text-[9px] font-sans">${replyTimeString}</span>
+                        <span class="text-white/60 text-[9px] md:text-[10px] font-sans tracking-wide font-medium">${heroName}</span>
                     </div>
-                    <span class="text-white/40 text-[9px] font-sans mr-12 mt-1">${replyTimeString}</span>
+                    <div class="flex gap-1.5 md:gap-2 items-start justify-end w-full">
+                        <div class="relative bg-blue-600/90 backdrop-blur-sm text-white px-3.5 py-2 md:px-5 md:py-3 rounded-2xl rounded-tr-sm max-w-[85%] shadow-xl border border-white/10">
+                            <p class="font-sans text-[13px] md:text-[15px] leading-relaxed italic">"${item.reply}"</p>
+                        </div>
+                        <div class="w-7 h-7 md:w-8 md:h-8 shrink-0 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-xl border border-white/20 animate-pulse-slow">
+                            <i class="fas fa-heart text-[10px] md:text-xs"></i>
+                        </div>
+                    </div>
                 </div>
             `;
         }
 
         const wishHTML = `
-            <div class="flex flex-col items-start gap-1 w-full mt-6 animate-fadeInUp">
-                <span class="text-white/60 text-[10px] font-sans ml-12 tracking-wide">${guestName}</span>
-                <div class="flex gap-2 items-end justify-start w-full">
-                    <div class="w-8 h-8 shrink-0 bg-white rounded-full flex items-center justify-center text-black font-bold font-sans text-sm shadow-xl border border-white/20">${initial}</div>
-                    <div class="relative bg-white/90 backdrop-blur-sm text-black px-5 py-3 rounded-2xl rounded-bl-sm max-w-[80%] shadow-xl border border-white/20">
-                        <p class="font-sans text-sm md:text-[15px] leading-relaxed">${item.message.replace(/\n/g, '<br>')}</p>
+            <div class="flex flex-col items-start gap-0 w-full ${!isFirstInStack ? 'mt-[2px]' : 'mt-4 md:mt-6'} animate-fadeInUp">
+                ${isFirstInStack ? `
+                <div class="flex items-center gap-2 ml-10 md:ml-12 mb-1">
+                    <span class="text-white/60 text-[9px] md:text-[10px] font-sans tracking-wide font-medium">${guestName}</span>
+                    <span class="text-white/40 text-[8px] md:text-[9px] font-sans">${timeString}</span>
+                </div>` : ''}
+                <div class="flex gap-1.5 md:gap-2 items-end justify-start w-full">
+                    <div class="w-7 h-7 md:w-8 md:h-8 shrink-0 ${!isFirstInStack ? 'invisible' : 'bg-white'} rounded-full flex items-center justify-center text-black font-bold font-sans text-xs md:text-sm shadow-xl">${initial}</div>
+                    <div class="relative bg-white/90 backdrop-blur-sm text-black px-3.5 py-2 md:px-5 md:py-3 
+                        ${(isFirstInStack && isLastInStack) ? 'rounded-2xl rounded-bl-sm' : 
+                          isFirstInStack ? 'rounded-2xl rounded-bl-sm' : 
+                          isLastInStack ? 'rounded-2xl rounded-tl-sm' : 
+                          'rounded-2xl rounded-bl-sm rounded-tl-sm'} max-w-[80%] shadow-xl border border-white/20">
+                        <p class="font-sans text-[13px] md:text-[15px] leading-relaxed">${item.message.replace(/\n/g, '<br>')}</p>
                     </div>
                 </div>
-                <span class="text-white/40 text-[9px] font-sans ml-12 mt-1">${timeString}</span>
                 ${replyHTML}
             </div>
         `;
         container.insertAdjacentHTML('beforeend', wishHTML);
+        lastGuestName = guestName;
     });
 }
 
@@ -606,38 +686,48 @@ function renderLoveStory(messages, settings) {
     if (!chatContainer) return;
     chatContainer.innerHTML = '';
 
+    let lastSender = null;
+
     messages.forEach(msg => {
         if (msg.type === 'date') {
             chatContainer.insertAdjacentHTML('beforeend', `
-                <div class="flex justify-center mt-6 mb-4 animate-fadeInUp">
-                    <span class="bg-[#182229] text-[#8696a0] text-[11px] md:text-xs px-3 py-1.5 rounded-lg shadow-sm font-medium">${msg.date_label}</span>
+                <div class="flex justify-center mt-6 mb-3 md:mt-8 md:mb-5 animate-fadeInUp">
+                    <span class="bg-[#182229] text-[#8696a0] text-[11px] md:text-xs px-3 py-1 rounded-lg font-sans shadow-sm">
+                        ${msg.date_label}
+                    </span>
                 </div>
             `);
+            lastSender = null;
         } else {
+            const isStacked = lastSender === msg.sender;
+            lastSender = msg.sender;
+
             const isFemale = msg.sender === 'female';
             const avatarSrc = isFemale ? (settings.ls_female_avatar || '') : (settings.ls_male_avatar || '');
             const bgClass = isFemale ? 'bg-[#202c33]' : 'bg-[#005c4b]';
-            const roundClass = isFemale ? 'rounded-bl-sm' : 'rounded-br-sm';
-            const plPr = isFemale ? 'justify-start pr-12 md:pr-20' : 'justify-end pl-12 md:pl-20';
-            const doubleCheck = isFemale ? '' : '<i class="fas fa-check-double text-[#53bdeb] text-[12px]"></i>';
-            
+            const roundClass = isFemale ? 'rounded-tl-none' : 'rounded-tr-none';
+            const plPr = isFemale ? 'justify-start pl-2' : 'justify-end pr-2';
+            const doubleCheck = isFemale ? '' : '<i class="fas fa-check-double text-[#53bdeb] text-[10px] md:text-[11px]"></i>';
+
             const avatarHtml = avatarSrc 
-                ? `<img src="${avatarSrc}" class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover shrink-0 ${isFemale ? 'ml-1' : 'mr-1'} border-2 border-[#8696a0]/40">`
-                : `<div class="w-14 h-14 md:w-16 md:h-16 rounded-full shrink-0 ${isFemale ? 'ml-1' : 'mr-1'} border-2 border-[#8696a0]/40 bg-[#202c33] flex items-center justify-center">
-                    <i class="fas ${isFemale ? 'fa-venus' : 'fa-mars'} text-white/50 text-xl md:text-2xl"></i>
+                ? `<img src="${avatarSrc}" class="w-8 h-8 md:w-11 md:h-11 rounded-full object-cover shrink-0 ${isFemale ? 'mr-2' : 'ml-2'}">`
+                : `<div class="w-8 h-8 md:w-11 md:h-11 rounded-full shrink-0 ${isFemale ? 'mr-2' : 'ml-2'} bg-[#202c33] flex items-center justify-center">
+                    <i class="fas ${isFemale ? 'fa-venus' : 'fa-mars'} text-white/50 text-base md:text-xl"></i>
                    </div>`;
 
             const msgHtml = `
-                <div class="flex items-end gap-2 w-full ${plPr} animate-fadeInUp">
-                    ${isFemale ? avatarHtml : ''}
-                    <div class="${bgClass} text-[#e9edef] p-2.5 md:p-3 rounded-[18px] ${roundClass} shadow-sm relative text-[14px] md:text-[15px]">
-                        <p class="leading-snug pr-2">${msg.message}</p>
-                        <div class="flex justify-end items-center gap-1 mt-1 -mb-1">
-                            <span class="text-[#8696a0] text-[10px] md:text-[11px]">${msg.time}</span>
-                            ${doubleCheck}
+                <div class="flex w-full ${isFemale ? 'justify-start' : 'justify-end'} ${isStacked ? 'mt-1' : 'mt-4 md:mt-6'} animate-fadeInUp px-2 items-end">
+                    ${isFemale ? (isStacked ? '<div class="w-8 h-8 md:w-11 shrink-0 mr-2"></div>' : avatarHtml) : ''}
+                    <div class="${bgClass} text-[#e9edef] px-2.5 py-1.5 md:px-3 md:py-2 rounded-lg ${isStacked ? '' : roundClass} shadow-sm relative max-w-[80%] md:max-w-[70%]">
+                        <div class="flex flex-wrap items-end justify-end gap-x-2">
+                            <p class="text-[13px] md:text-[15px] leading-relaxed break-words flex-1 min-w-0">${msg.message}</p>
+                            <div class="flex items-center gap-1 pb-0.5 shrink-0 opacity-80">
+                                <span class="text-[#8696a0] text-[9px] md:text-[10px] font-sans font-medium uppercase">${msg.time}</span>
+                                ${doubleCheck}
+                            </div>
                         </div>
                     </div>
-                    ${!isFemale ? avatarHtml : ''}
+                    ${!isFemale ? (isStacked ? '<div class="w-8 h-8 md:w-11 shrink-0 ml-2"></div>' : avatarHtml) : ''}
                 </div>
             `;
             chatContainer.insertAdjacentHTML('beforeend', msgHtml);
@@ -737,23 +827,46 @@ let coverInterval;
 function renderCoverSlideshow(slides) {
     const container = document.getElementById('coverSlideshow');
     if (!container || !slides.length) return;
+    
+    // Clear previous state
     container.innerHTML = '';
+    if (coverInterval) clearInterval(coverInterval);
+
+    // Create fragments for better performance
+    const fragment = document.createDocumentFragment();
+    const slideElements = [];
+
     slides.forEach((slide, index) => {
         const img = document.createElement('img');
         img.src = slide.src;
-        img.className = `slide ${index === 0 ? 'active' : ''}`;
-        container.appendChild(img);
+        img.className = `slide ${index === 0 ? 'active opacity-0' : ''}`; // Start first image with opacity-0
+        img.loading = index === 0 ? 'eager' : 'lazy';
+        
+        if (index === 0) {
+            const showImg = () => {
+                img.classList.remove('opacity-0');
+            };
+            if (img.complete) {
+                showImg();
+            } else {
+                img.onload = showImg;
+            }
+        }
+        
+        fragment.appendChild(img);
+        slideElements.push(img);
     });
-    if (coverInterval) clearInterval(coverInterval);
 
-    const slideElements = container.querySelectorAll('.slide');
+    container.appendChild(fragment);
+
+    // Smooth transition logic
     let currentActive = 0;
     if (slideElements.length > 1) {
         coverInterval = setInterval(() => {
             slideElements[currentActive].classList.remove('active');
             currentActive = (currentActive + 1) % slideElements.length;
             slideElements[currentActive].classList.add('active');
-        }, 3000);
+        }, 4000); // Increased duration for smoother feel
     }
 }
 
@@ -900,7 +1013,11 @@ function submitWish() {
     })
     .catch((err) => {
         console.error(err);
-        showModal('Oops!', err.message || 'Tidak dapat mengirim pesan sekarang. Silakan coba lagi.', 'error');
+        if (err.message.includes('batas') || err.message.includes('maksimal')) {
+            showToast(err.message, 'warning');
+        } else {
+            showModal('Oops!', err.message || 'Tidak dapat mengirim pesan sekarang. Silakan coba lagi.', 'error');
+        }
     });
 }
 
@@ -1046,13 +1163,20 @@ function setupPage() {
 
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
     if (scrollToTopBtn) {
+        let isScrolling = false;
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
-                scrollToTopBtn.classList.add('opacity-100');
-            } else {
-                scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
-                scrollToTopBtn.classList.remove('opacity-100');
+            if (!isScrolling) {
+                window.requestAnimationFrame(() => {
+                    if (window.scrollY > 300) {
+                        scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+                        scrollToTopBtn.classList.add('opacity-100');
+                    } else {
+                        scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+                        scrollToTopBtn.classList.remove('opacity-100');
+                    }
+                    isScrolling = false;
+                });
+                isScrolling = true;
             }
         });
 
@@ -1080,6 +1204,17 @@ function setupPage() {
             galleryState.currentIndex = (galleryState.currentIndex + 1) % galleryState.slides.length;
             updateGalleryCarousel(true);
             resetGalleryTimer();
+        });
+    }
+
+    // Wedding Wishes Keyboard Shortcut
+    const wishMessage = document.getElementById('wishMessage');
+    if (wishMessage) {
+        wishMessage.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                submitWish();
+            }
         });
     }
 }

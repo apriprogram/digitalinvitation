@@ -70,26 +70,37 @@
     background-size: cover;
     background-position: center;
     z-index: 0;
-    transition: all 0.5s ease;
+    transition: opacity 0.5s ease, background 0.5s ease;
     display: none; /* Hidden by default */
 }
 
 #couple.show-before::before {
-    display: block; /* Shown only when 'show-before' class is present */
+    display: block;
+}
+
+@media (max-width: 767px) {
+    #couple.show-before::before {
+        display: none; /* Hide main background on mobile */
+    }
+}
+
+.bg-couple-half {
+    background-image: var(--half-bg, none);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
 }
 
 
 /* Mode Mobile: background responsif tanpa ukuran ekstrim */
 @media (max-width: 767px) {
     #couple::before {
-        transform: rotate(0deg);
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        margin: 0;
+        width: 500vh;
+        height: 100vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(90deg);
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
@@ -98,6 +109,9 @@
 
 /* Mode Desktop: Normal Horizontal */
 @media (min-width: 768px) {
+    #couple.show-before::before {
+        display: block;
+    }
     #couple::before {
         inset: 0;
         width: 100%;
@@ -145,41 +159,49 @@ body {
     border: 1px solid rgba(197, 160, 89, 0.2);
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar Global */
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
+    height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--soft);
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--gold);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
+    border: 1px solid transparent;
+    background-clip: content-box;
 }
 
-/* WhatsApp Chat Dark Scrollbar */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Enhanced Scrollbar for Chat/Wishes */
 .styling-scrollbar::-webkit-scrollbar {
     width: 4px;
 }
 
 .styling-scrollbar::-webkit-scrollbar-track {
-    background: #0b141a;
+    background: rgba(0, 0, 0, 0.05);
 }
 
 .styling-scrollbar::-webkit-scrollbar-thumb {
-    background: #374045;
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
 .styling-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #54696f;
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .styling-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: #374045 #0b141a;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
 
 /* Entrance Animation for Hero */
@@ -223,6 +245,53 @@ body {
     transition: transform 0.3s ease;
 }
 
+/* --- RESPONSIVE FIXES --- */
+
+/* Fix for background zoom on mobile */
+@media (max-width: 768px) {
+    #greetingSection, 
+    #events, 
+    #lovestory, 
+    #sectionRsvp, 
+    #sectionWishes, 
+    #digitalEnvelope,
+    section[style*="background"] {
+        background-attachment: scroll !important;
+        background-size: cover !important;
+        background-position: center center !important;
+    }
+
+    /* Adjust font sizes for mobile */
+    #greetingHeading {
+        font-size: 3.5rem !important;
+    }
+
+    #greetingQuote {
+        font-size: 0.95rem !important;
+        line-height: 1.6;
+    }
+
+    #greetingInvitation {
+        font-size: 9px !important;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    #countdown .font-serif {
+        font-size: 2rem !important;
+    }
+    
+    #countdown .font-sans {
+        font-size: 8px !important;
+    }
+}
+
+/* Tablet Adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    #greetingHeading {
+        font-size: 4.5rem !important;
+    }
+}
 
 /* Button glow effect and smooth transitions */
 button,
@@ -447,3 +516,42 @@ button,
     opacity: 0.8;
     filter: grayscale(0.2);
 }
+
+/* Modern Toast Notification */
+.toast-premium {
+    background: rgba(28, 28, 30, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: flex;
+    items-center: center;
+    gap: 12px;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: auto;
+    z-index: 10001;
+    min-width: 280px;
+    max-width: 90vw;
+}
+
+.toast-premium.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-premium i {
+    font-size: 16px;
+}
+
+.toast-success i { color: #4ade80; }
+.toast-error i { color: #f87171; }
+.toast-warning i { color: #fbbf24; }
+.toast-info i { color: #60a5fa; }

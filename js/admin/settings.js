@@ -448,6 +448,19 @@ window.saveSettings = async function(quiet = false, customMsg = null, skipReload
     if (Object.keys(payload).length === 0) return;
 
     try {
+        // Handle Gallery Reorder if in gallery section
+        const galleryBody = document.getElementById('galleryTableBody');
+        const gallerySection = document.getElementById('section_galeri');
+        if (gallerySection && !gallerySection.classList.contains('hidden') && galleryBody) {
+            const newSequence = Array.from(galleryBody.querySelectorAll('tr')).map(tr => tr.dataset.id);
+            if (newSequence.length > 0) {
+                await api('/api/admin/gallery/reorder', {
+                    method: 'POST',
+                    body: JSON.stringify({ sequence: newSequence })
+                });
+            }
+        }
+
         await api('/api/admin/settings', {
             method: 'PUT',
             body: JSON.stringify(payload)

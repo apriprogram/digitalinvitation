@@ -1,4 +1,59 @@
-async function loadPageViews() { return []; }
+async function loadPageViews() {
+    try {
+        const data = await api('/api/admin/pageviews');
+        const total = data.total || 0;
+        const unique = data.unique || 0;
+        const today = data.today || 0;
+        const week = data.week || 0;
+
+        if (document.getElementById('totalPageViews'))
+            document.getElementById('totalPageViews').innerText = total;
+        if (document.getElementById('pageViewsTodayBadge'))
+            document.getElementById('pageViewsTodayBadge').innerText = `+${today} hari ini`;
+        if (document.getElementById('uniquePageViews'))
+            document.getElementById('uniquePageViews').innerText = unique;
+
+        // Progress bar: ratio of this week vs total
+        const bar = document.getElementById('pageViewsBar');
+        if (bar) {
+            const pct = total > 0 ? Math.min(100, Math.round((week / total) * 100)) : 0;
+            bar.style.width = pct + '%';
+        }
+    } catch (e) {
+        console.error('Failed to load page views:', e);
+    }
+}
+
+window.resetPageViews = function() {
+    window.deleteWithConfirm(async () => {
+        const btn = document.getElementById('resetPageViewsBtn');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin text-[9px]"></i><span class="text-[9px] font-semibold uppercase">Mereset...</span>';
+        }
+        try {
+            await api('/api/admin/pageviews', { method: 'DELETE' });
+
+            // Reset all UI counters to zero immediately
+            if (document.getElementById('totalPageViews')) document.getElementById('totalPageViews').innerText = '0';
+            if (document.getElementById('pageViewsTodayBadge')) document.getElementById('pageViewsTodayBadge').innerText = '+0 hari ini';
+            if (document.getElementById('uniquePageViews')) document.getElementById('uniquePageViews').innerText = '0';
+            const bar = document.getElementById('pageViewsBar');
+            if (bar) bar.style.width = '0%';
+
+            window.showToast('Data page views berhasil direset!', 'success');
+        } catch (err) {
+            window.showToast('Gagal mereset data views: ' + err.message, 'error');
+        } finally {
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-trash-alt text-[9px]"></i><span class="text-[9px] font-semibold uppercase">Reset</span>';
+            }
+        }
+    }, {
+        message: `Semua data Page Views (${document.getElementById('totalPageViews')?.innerText || '0'} kunjungan) akan dihapus permanen. Hitungan akan dimulai dari nol.`
+    });
+};
 const translations = {
     id: {
         // HTML Translations
@@ -66,9 +121,10 @@ const translations = {
         "col_command": "Aksi",
         "gal_title": "Galeri Foto",
         "gal_upload_btn": "UNGGAH BARU",
-        "col_asset": "Aset Endpoint",
-        "col_desc": "Deskripsi Meta",
-        "col_manage": "Kelola",
+        "col_no": "No Urut",
+        "col_asset": "Galeri Foto",
+        "col_desc": "Judul foto",
+        "col_manage": "Aksi",
         "data_total_rsvp": "Total Kehadiran",
         "data_confirmed": "Tamu Terkonfirmasi",
         "data_wishes": "Ucapan",
@@ -318,16 +374,16 @@ function renderRsvpItems(isMore = false) {
                 const dateStr = item.created_at ? new Date(item.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }) : '-';
                 return `
                     <tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors border-b border-slate-100 dark:border-slate-800/50 last:border-0">
-                        <td class="font-bold text-slate-900 dark:text-slate-100 text-xs tracking-tight px-8 py-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-xs shrink-0">${(guestName === '-' ? '?' : guestName.charAt(0)).toUpperCase()}</div>
+                        <td class="font-semibold text-slate-900 dark:text-slate-100 text-[11px] sm:text-sm tracking-tight px-8 py-0 whitespace-nowrap">
+                            <div class="flex items-center gap-2 sm:gap-3">
+                                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-[10px] sm:text-xs shrink-0">${((guestName && guestName !== '-') ? guestName.charAt(0) : '?').toUpperCase()}</div>
                                 ${guestName}
                             </div>
                         </td>
-                        <td class="px-8 py-4"><span class="badge-modern ${badgeClass} text-[9px]">${status.toUpperCase()}</span></td>
-                        <td class="text-center font-black text-slate-900 dark:text-slate-100 text-xs px-8 py-4">${item.guest_count || '-'} <span class="text-[10px] font-normal text-slate-400 dark:text-slate-500">${item.guest_count ? 'orang' : ''}</span></td>
-                        <td class="text-right text-slate-400 dark:text-slate-500 text-[9px] font-bold tracking-widest px-8 py-4">${dateStr}</td>
-                        <td class="text-right px-8 py-4">
+                        <td class="px-8 py-0"><span class="badge-modern !text-[9px] sm:!text-[11px] ${badgeClass}">${status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}</span></td>
+                        <td class="text-center font-semibold text-slate-900 dark:text-white text-[10px] sm:text-sm px-8 py-0">${item.guest_count || '-'} ${item.guest_count ? 'org' : ''}</td>
+                        <td class="text-right text-slate-400 dark:text-slate-100 text-[10px] sm:text-sm font-semibold tracking-tight px-8 py-0">${dateStr}</td>
+                        <td class="text-right px-8 py-0">
                             <button onclick="window.deleteRsvp('${item.id}')" class="btn-premium btn-secondary !p-0 w-8 h-8 ml-auto text-slate-400 dark:text-slate-500 hover:!bg-red-500 hover:!text-white hover:!border-red-500">
                                 <i class="fas fa-trash-can text-xs pointer-events-none"></i>
                             </button>
@@ -425,8 +481,15 @@ window.loadDashboard = async function() {
         try { window.renderGuests(); } catch (e) { console.error('Guests error:', e); }
         try { window.renderGallery(); } catch (e) { console.error('Gallery error:', e); }
         try { await window.loadLoveStoryAdmin(); } catch (e) { console.error('Love story error:', e); }
+        try { await window.loadProfileData(); } catch (e) { console.error('Profile data error:', e); }
         try { populateNotifications(); } catch (e) { console.error('Notifications error:', e); }
         try { await loadPageViews(); } catch (e) { console.error('Page views error:', e); }
+        
+        // Clear search inputs to prevent autofill
+        const dsInput = document.getElementById('desktopSearchInput');
+        const mbInput = document.getElementById('mobileSearchInput');
+        if (dsInput) dsInput.value = '';
+        if (mbInput) mbInput.value = '';
         
         if (!sessionStorage.getItem('welcome_toast_shown')) {
             window.showToast('Selamat Datang di Panel Admin!', 'success');
@@ -489,8 +552,10 @@ window.logout = function () {
 };
 
 // Event Listeners
-if (document.getElementById('loginButton')) {
-    document.getElementById('loginButton').addEventListener('click', async () => {
+const loginForm = document.getElementById('loginForm');
+if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
         const email = document.getElementById('loginUsername').value;
         const password = document.getElementById('loginPassword').value;
         try {
@@ -526,9 +591,11 @@ document.addEventListener('click', (e) => {
     if (navBtn) window.showSection(navBtn.dataset.section);
 
     if (e.target.closest('#mobileSidebarToggle')) {
-        sidebar.classList.toggle('-translate-x-full');
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) sidebar.classList.toggle('-translate-x-full');
     } else if (!e.target.closest('#sidebar') && window.innerWidth < 1024) {
-        sidebar.classList.add('-translate-x-full');
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) sidebar.classList.add('-translate-x-full');
     }
 
     // Close all header menus if clicked outside
@@ -853,9 +920,6 @@ document.getElementById('refreshNotificationsBtn')?.addEventListener('click', ()
 });
 
 // Explicit Logout Listeners
-async function loadPageViews() {
-    return [];
-}
 
 document.getElementById('sidebarLogoutBtn')?.addEventListener('click', (e) => {
     e.preventDefault();

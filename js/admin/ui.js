@@ -1,7 +1,7 @@
 // Admin UI Helpers Module
 
 window.tablePagination = {
-    guests: { page: 1, limit: 10, search: '' },
+    guests: { page: 1, limit: 10, search: '', sort: { key: 'name', dir: 'asc' } },
     rsvp: { page: 1, limit: 10, search: '' },
     wishes: { search: '' }
 };
@@ -256,7 +256,7 @@ window.deleteWithConfirm = function(onConfirm, options = {}) {
 
 window.openImagePreview = function(src) {
     const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/90 opacity-0 transition-opacity duration-300';
+    modal.className = 'fixed inset-0 z-[200] flex items-center justify-center bg-black/50 opacity-0 transition-opacity duration-300';
     modal.onclick = (e) => {
         if (e.target === modal) window.closeImagePreview(modal);
     };
@@ -306,6 +306,26 @@ window.toggleDarkMode = function() {
     }
     
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+};
+
+window.toggleSidebar = function() {
+    const sidebar = document.getElementById('sidebar');
+    const main = document.querySelector('main');
+    const toggleIcon = document.querySelector('#desktopSidebarToggle i');
+    
+    if (!sidebar || !main) return;
+
+    const isHidden = sidebar.classList.toggle('sidebar-hidden');
+    main.classList.toggle('sidebar-hidden');
+    
+    // Update the icon based on state
+    if (toggleIcon) {
+        if (isHidden) {
+            toggleIcon.className = 'fas fa-indent';
+        } else {
+            toggleIcon.className = 'fas fa-bars';
+        }
+    }
 };
 
 // Initialize Theme

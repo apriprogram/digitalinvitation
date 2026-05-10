@@ -8,7 +8,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>The Wedding of Riandino & Aurora</title>
-    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="icon" type="image/png" href="img/favicon.png?v=2">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,6 +21,36 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Performance Tweaks */
+        #cover, #mainContent, [data-aos] {
+            will-change: transform, opacity;
+        }
+        .organic-shape, .organic-shape2 {
+            will-change: border-radius;
+        }
+        
+        /* Smooth Slideshow */
+        .slide-container {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            will-change: opacity;
+        }
+        .slide.active {
+            opacity: 1;
+        }
+    </style>
     <script>
         tailwind.config = {
             theme: {
@@ -56,17 +86,17 @@
 
             <!-- Bagian Atas: Informasi Pernikahan (Menggunakan Animasi CSS Murni) -->
             <div class="animate-fadeInDown">
-                <h4 id="coverTitle" class="font-script text-3xl mb-2 italic">-</h4>
-                <h4 id="coverSubtitle" class="font-sans text-[15px] md:text-xs mb-2 italic text-white/70">-</h4>
-                <h1 id="heroName" class="font-script text-6xl md:text-8xl mb-6 tracking-wide drop-shadow-2xl">-</h1>
+                <h4 id="coverTitle" class="font-script text-3xl mb-2 italic"></h4>
+                <h4 id="coverSubtitle" class="font-sans text-[15px] md:text-xs mb-2 italic text-white/70"></h4>
+                <h1 id="heroName" class="font-script text-6xl md:text-8xl mb-6 tracking-wide drop-shadow-2xl"></h1>
             </div>
 
             <!-- Bagian Bawah: Nama Tamu & Tombol (Menggunakan Animasi CSS Murni) -->
             <div class="animate-fadeInUp" style="animation-delay: 0.5s;">
                 <div class="mb-10">
                     <p id="guestPrefix"
-                        class="font-sans text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/70 mb-4">-</p>
-                    <h2 id="guestName" class="font-script text-5xl md:text-7xl text-white drop-shadow-2xl mb-8">-</h2>
+                        class="font-sans text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/70 mb-4"></p>
+                    <h2 id="guestName" class="font-script text-5xl md:text-7xl text-white drop-shadow-2xl mb-8"></h2>
                 </div>
 
                 <button id="openInvitation"
@@ -83,8 +113,7 @@
     <main id="mainContent" class="opacity-0 transition-opacity duration-1000">
         <!-- Monogram & Intro -->
         <section id="greetingSection"
-            class="min-h-screen flex items-center justify-center py-20 px-6 text-center relative overflow-hidden"
-            style="background: url('img/shalom.jpeg') center/cover no-repeat;">
+            class="min-h-screen flex items-center justify-center py-20 px-6 text-center relative overflow-hidden">
             <!-- Dark Overlay for White Text Contrast -->
             <div class="absolute inset-0 bg-black/50"></div>
 
@@ -92,7 +121,7 @@
                 <!-- Wedding Logo with entrance animation -->
                 <div class="flex justify-center mb-8" data-aos="zoom-in" data-aos-duration="1500">
                     <img id="greetingLogo" src="img/logo/logowedding.png" alt="Logo Wedding"
-                        class="w-24 h-24 object-contain border border-white/30 rounded-full">
+                        class="w-24 h-24 object-contain border border-white/30 rounded-full" loading="lazy">
                     <div id="greetingLogoFallback"
                         class="w-24 h-24 border border-white/30 rounded-full hidden items-center justify-center bg-white/10 backdrop-blur-sm shadow-xl">
                         <i class="fas fa-ring text-white text-3xl opacity-80"></i>
@@ -152,11 +181,15 @@
         <!-- Groom & Bride -->
         <section id="couple" class="py-24 px-6 relative overflow-hidden text-white">
             <!-- Dark Overlay for better contrast -->
-            <div class="absolute inset-0 bg-black/75 z-0"></div>
+            <div class="absolute inset-0 bg-black/75 z-[1]"></div>
+
+            <!-- Full-width backgrounds for mobile split view -->
+            <div id="groomBg" class="absolute top-0 left-0 w-full h-1/2 bg-couple-half z-0 md:hidden"></div>
+            <div id="brideBg" class="absolute bottom-0 left-0 w-full h-1/2 bg-couple-half z-0 md:hidden"></div>
 
             <div class="container mx-auto relative z-10">
                 <!-- Section Title -->
-                <div class="text-center mb-24" data-aos="fade-up">
+                <div class="text-center mb-10 md:mb-24" data-aos="fade-up">
                     <div class="inline-block relative font-script" style="font-family: 'Luxurious Script', cursive;">
                         <h3 id="coupleSectionTitle"
                             class="text-[#F5A623] leading-none tracking-normal drop-shadow-xl relative flex flex-col items-start">
@@ -170,12 +203,12 @@
                     </div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-20 items-start">
+                <div class="grid md:grid-cols-2 gap-10 md:gap-20 items-start">
                     <!-- Groom -->
-                    <div class="text-center md:text-right" data-aos="fade-right">
+                    <div id="groomHalf" class="text-center md:text-right relative py-6 md:py-12 px-0" data-aos="fade-right">
                         <div
                             class="organic-shape w-64 h-80 mx-auto md:mr-0 mb-10 overflow-hidden shadow-2xl transition-all duration-700 bg-slate-900/50 flex items-center justify-center relative">
-                            <img id="groomImage" src="img/rian.jpeg" alt="Riandino"
+                            <img id="groomImage" src="" alt="Riandino"
                                 class="w-full h-full object-cover z-10 transition-opacity duration-500">
                             <div id="groomPlaceholder"
                                 class="absolute inset-0 flex items-center justify-center text-white/40">
@@ -202,10 +235,10 @@
                         </div>
                     </div>
                     <!-- Bride -->
-                    <div class="text-center md:text-left" data-aos="fade-left">
+                    <div id="brideHalf" class="text-center md:text-left relative py-6 md:py-12 px-0" data-aos="fade-left">
                         <div
                             class="organic-shape2 w-64 h-80 mx-auto md:ml-0 mb-10 overflow-hidden shadow-2xl transition-all duration-700 bg-rose-900/50 flex items-center justify-center relative">
-                            <img id="brideImage" src="img/aurora.jpeg" alt="Aurora"
+                            <img id="brideImage" src="" alt="Aurora"
                                 class="w-full h-full object-cover z-10 transition-opacity duration-500">
                             <div id="bridePlaceholder"
                                 class="absolute inset-0 flex items-center justify-center text-white/60">
@@ -275,7 +308,7 @@
         <!-- Events Section -->
         <section
             class="min-h-screen relative flex flex-col justify-center items-center py-20 px-6 text-white w-full overflow-hidden"
-            id="events" style="background: url('img/mafia10.jpeg') center/cover no-repeat fixed;">
+            id="events">
             <!-- Dark Overlay -->
             <div class="absolute inset-0 bg-black/85"></div>
             <!-- Content Container -->
@@ -305,7 +338,7 @@
         <!-- Love Story / Kisah Pertemuan -->
         <section
             class="relative min-h-screen py-20 px-4 md:px-6 flex flex-col justify-center items-center overflow-hidden"
-            id="lovestory" style="background: url('img/mafia10.jpeg') center/cover no-repeat fixed;">
+            id="lovestory">
             <div class="absolute inset-0 bg-black/85"></div>
 
             <div class="container mx-auto max-w-2xl relative z-10 w-full" data-aos="fade-up">
@@ -318,7 +351,7 @@
                         class="bg-[#202c33] px-3 py-3 flex items-center justify-between z-10 shadow-sm border-b border-transparent">
                         <div class="flex items-center gap-2 md:gap-3">
                             <i class="fas fa-arrow-left text-[#8696a0] text-lg cursor-pointer ml-1"></i>
-                            <img src="img/aurora.jpeg" alt="Aurora"
+                            <img src="" alt="Aurora"
                                  class="w-10 h-10 md:w-11 md:h-11 rounded-full object-cover border border-[#8696a0]/20"
                                  id="lsHeaderAvatar">
                             <div id="lsHeaderAvatarIcon" class="w-10 h-10 md:w-11 md:h-11 rounded-full border border-[#8696a0]/20 bg-[#2a3942] hidden items-center justify-center shrink-0">
@@ -376,7 +409,7 @@
                     </div>
 
                     <div id="physicalAddressContainer" class="w-full hidden mt-16 md:mt-24">
-                        <div class="w-full h-px bg-white/20 mb-10 max-w-[85%] mx-auto shadow-sm"></div>
+
                         <h4
                             class="font-sans text-[11px] md:text-xs tracking-[0.2em] uppercase font-semibold text-white/80 mb-5">
                             Alamat Pengiriman Hadiah Fisik</h4>
@@ -393,7 +426,7 @@
         </section>
 
         <!-- RSVP -->
-        <section id="sectionRsvp" class="relative py-20 bg-navy text-white px-6 border-t border-white/10">
+        <section id="sectionRsvp" class="relative py-20 bg-navy text-white px-6">
             <!-- Dark Overlay -->
             <div class="absolute inset-0 bg-black/60 z-0"></div>
 
@@ -416,8 +449,7 @@
 
         <!-- Wedding Wishes -->
         <section id="sectionWishes"
-            class="relative py-24 px-6 flex flex-col justify-center items-center overflow-hidden"
-            style="background: url('img/weding1.jpeg') center/cover no-repeat fixed;">
+            class="relative py-24 px-6 flex flex-col justify-center items-center overflow-hidden">
             <!-- Dark Overlay -->
             <div class="absolute inset-0 bg-black/80"></div>
 
@@ -460,10 +492,15 @@
             <div class="mb-4">
                 <h4 class="font-script text-4xl text-white">Riandino & Aurora</h4>
             </div>
-            <p class="font-sans text-xs text-white/40 uppercase tracking-[0.3em]">Built with Love by Apriprogram &copy;
+            <p class="font-sans text-[8px] md:text-xs text-white/40 uppercase tracking-[0.3em]">Built with Love by Apriprogram &copy;
                 2026</p>
         </footer>
     </main>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer"
+        class="fixed top-8 left-1/2 -translate-x-1/2 z-[10002] flex flex-col items-center gap-3 pointer-events-none">
+    </div>
 
     <!-- Music Toggle -->
     <button id="musicToggle"
@@ -478,7 +515,7 @@
     </button>
 
     <audio id="bgMusic" loop>
-        <source src="audio/Marry_Your_Daughter.mp3" type="audio/mpeg">
+        <source src="" type="audio/mpeg">
     </audio>
 
     <!-- Premium Notification Modal -->
@@ -497,6 +534,19 @@
 
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Global AOS Configuration for smoothness
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 50,
+                delay: 0,
+                easing: 'ease-out-cubic',
+                disable: 'mobile' ? false : false // Keep enabled but smooth
+            });
+        });
+    </script>
     <script src="script.js?v=11"></script>
 </body>
 

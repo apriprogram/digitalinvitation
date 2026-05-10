@@ -57,7 +57,7 @@ window.renderWishesData = function() {
           <div class="w-7 h-7 rounded-full bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 flex items-center justify-center font-black text-[11px] shrink-0 border border-blue-100 dark:border-slate-700 mt-1 shadow-sm">${initial}</div>
           <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2">
-                  <span class="font-bold text-slate-900 dark:text-slate-100 text-[12px]">${guestName}</span>
+                  <span class="font-semibold text-slate-900 dark:text-slate-100 text-[12px]">${guestName}</span>
                   <span class="text-[9px] text-slate-400 dark:text-slate-500 font-bold">${dateStr}</span>
               </div>
               <p class="text-[12px] text-slate-700 dark:text-slate-300 mt-0.5 leading-snug font-medium">${message}</p>
@@ -72,8 +72,8 @@ window.renderWishesData = function() {
                   </button>
               </div>
 
-              <div id="replyBox_${item.id}" class="hidden mt-2 flex items-center gap-2">
-                  <input type="text" id="replyInput_${item.id}" value="${(item.reply || '').replace(/"/g, '&quot;')}" placeholder="Tulis balasan..." class="flex-1 h-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full px-3 text-[10px] text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all">
+              <div id="adminReplyBox_${item.id}" class="hidden mt-2 flex items-center gap-2">
+                  <input type="text" id="adminReplyInput_${item.id}" value="${(item.reply || '').replace(/"/g, '&quot;')}" placeholder="Tulis balasan..." class="flex-1 h-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full px-3 text-[10px] text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 transition-all">
                   <button onclick="window.submitReply(this, '${item.id}')" class="btn-premium btn-primary !h-8 !px-4 !rounded-full !text-[10px] shrink-0 font-bold">
                       Kirim
                   </button>
@@ -97,11 +97,11 @@ window.renderWishesData = function() {
 
 window.toggleReplyInput = function(btn, id) {
     const parent = btn.closest('.flex-1');
-    const box = parent.querySelector(`[id^="replyBox_"]`);
+    const box = parent.querySelector(`[id^="adminReplyBox_"]`);
     if (!box) return;
 
     const isHidden = box.classList.contains('hidden');
-    document.querySelectorAll('[id^="replyBox_"]').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('[id^="adminReplyBox_"]').forEach(el => el.classList.add('hidden'));
 
     if (isHidden) {
         box.classList.remove('hidden');

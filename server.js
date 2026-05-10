@@ -325,6 +325,12 @@ async function initDb() {
       if (err.code !== 'ER_NO_SUCH_TABLE') console.error('Migration error:', err);
     }
 
+    // Set default wishes_limit if not exists
+    const wishesLimitExists = await queryGet("SELECT `key` FROM settings WHERE `key` = 'wishes_limit'");
+    if (!wishesLimitExists) {
+      await runSql("INSERT INTO settings (`key`, value) VALUES ('wishes_limit', '3')");
+    }
+
     console.log('Database initialized successfully.');
   } catch (err) {
     console.error('Failed to initialize database:', err);
@@ -408,6 +414,16 @@ app.post('/api/admin/profile/avatar', requireAdmin, handleUpload(upload.single('
   }
 });
 
+app.delete('/api/admin/profile/avatar', requireAdmin, async (req, res) => {
+  try {
+    await runSql('UPDATE admin_users SET avatar = NULL WHERE id = ?', [req.session.adminUser.id]);
+    req.session.adminUser.avatar = null;
+    res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete avatar' });
+  }
+});
+
 app.get('/api/admin/status', (req, res) => {
   if (req.session && req.session.adminUser) return res.json({ authenticated: true, user: req.session.adminUser });
   res.json({ authenticated: false });
@@ -472,6 +488,19 @@ app.post('/api/wishes', async (req, res) => {
   try {
     const guest = await queryGet('SELECT id, name FROM guests WHERE token = ?', [guest_token]);
     if (!guest) return res.status(400).json({ error: 'Invalid guest link.' });
+
+    // Enforce wishes limit
+    const limitRow = await queryGet("SELECT value FROM settings WHERE `key` = 'wishes_limit'");
+    // Default to 3 if setting not found, but if it exists and is '0', it means unlimited
+    let limit = limitRow ? parseInt(limitRow.value, 10) : 3;
+    
+    if (limit > 0) {
+      const currentCount = await queryGet('SELECT COUNT(*) as count FROM wishes WHERE guest_id = ?', [guest.id]);
+      if (currentCount.count >= limit) {
+        return res.status(400).json({ error: `Maaf, batas pengiriman ucapan untuk Anda adalah ${limit} kali.` });
+      }
+    }
+
     const createdAt = new Date().toISOString();
     const result = await runSql('INSERT INTO wishes (guest_id, message, created_at) VALUES (?, ?, ?)', [guest.id, message, createdAt]);
     res.json({ wish: { id: result.lastID, guest_id: guest.id, guest_name: guest.name, message, created_at: createdAt } });

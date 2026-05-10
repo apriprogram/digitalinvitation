@@ -42,18 +42,18 @@ window.renderRsvpData = function() {
             const tr = document.createElement('tr');
             tr.className = 'group';
             tr.innerHTML = `
-        <td class="font-bold text-slate-900 dark:text-slate-100 text-xs sm:text-sm tracking-tight px-4 sm:px-6 py-4">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-xs shrink-0">${(guestName ? guestName.charAt(0) : '?').toUpperCase()}</div>
+        <td class="font-semibold text-slate-900 dark:text-white text-[11px] sm:text-sm tracking-tight px-4 sm:px-6 py-0 whitespace-nowrap">
+          <div class="flex items-center gap-2 sm:gap-3">
+            <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-black text-[10px] sm:text-xs shrink-0">${((guestName && guestName !== '-') ? guestName.charAt(0) : '?').toUpperCase()}</div>
             ${guestName}
           </div>
         </td>
-        <td class="px-4 sm:px-6"><span class="badge-modern ${badgeClass} text-[9px] sm:text-[11px]">${status.toUpperCase()}</span></td>
-        <td class="text-center font-black text-slate-900 dark:text-slate-100 text-xs sm:text-base px-4 sm:px-6">${item.guest_count} <span class="text-[10px] font-normal text-slate-400 dark:text-slate-500">${item.guest_count ? 'orang' : ''}</span></td>
-        <td class="text-right text-slate-400 dark:text-slate-500 text-[9px] sm:text-[11px] font-semibold px-4 sm:px-6">${dateStr}</td>
-        <td class="text-right px-4 sm:px-6 py-3">
-          <button onclick="window.deleteRsvp('${item.id}')" class="btn-premium btn-secondary !p-0 w-8 h-8 sm:w-9 sm:h-9 ml-auto text-slate-400 hover:!bg-red-500 hover:!text-white hover:!border-red-500">
-            <i class="fas fa-trash-can text-xs pointer-events-none"></i>
+        <td class="px-4 sm:px-6 py-0 whitespace-nowrap"><span class="badge-modern !text-[9px] sm:!text-[11px] ${badgeClass}">${status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}</span></td>
+        <td class="text-center font-semibold text-slate-900 dark:text-white text-[10px] sm:text-sm px-4 sm:px-6 py-0 whitespace-nowrap">${item.guest_count} ${item.guest_count ? 'org' : ''}</td>
+        <td class="text-right text-slate-400 dark:text-slate-100 text-[10px] sm:text-sm font-semibold tracking-tight px-4 sm:px-6 py-0 whitespace-nowrap">${dateStr}</td>
+        <td class="text-right px-4 sm:px-6 py-0">
+          <button onclick="window.deleteRsvp('${item.id}')" class="btn-premium btn-secondary !p-0 w-7 h-7 sm:w-9 sm:h-9 ml-auto text-slate-400 hover:!bg-red-500 hover:!text-white hover:!border-red-500">
+            <i class="fas fa-trash-can text-[10px] pointer-events-none"></i>
           </button>
         </td>
       `;
